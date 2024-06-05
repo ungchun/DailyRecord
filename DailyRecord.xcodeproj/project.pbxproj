@@ -47,6 +47,7 @@
 		65CF61812C0C5F44003E6D75 /* CalenderDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61802C0C5F44003E6D75 /* CalenderDIContainer.swift */; };
 		65CF61842C0C6053003E6D75 /* CalenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61832C0C6053003E6D75 /* CalenderViewController.swift */; };
 		65CF61892C0C6092003E6D75 /* CalenderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61882C0C6092003E6D75 /* CalenderViewModel.swift */; };
+		65CF618C2C108CBD003E6D75 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 65CF618B2C108CBD003E6D75 /* FSCalendar */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 			files = (
 				65CF614D2C0AEDB0003E6D75 /* FirebaseDatabase in Frameworks */,
 				65CF615B2C0AEDB0003E6D75 /* FirebaseFunctionsCombine-Community in Frameworks */,
+				65CF618C2C108CBD003E6D75 /* FSCalendar in Frameworks */,
 				65CF61532C0AEDB0003E6D75 /* FirebaseFirestore in Frameworks */,
 				65CF613F2C0AEDB0003E6D75 /* FirebaseAnalyticsSwift in Frameworks */,
 				65CF613B2C0AEDB0003E6D75 /* FirebaseAnalytics in Frameworks */,
@@ -291,6 +293,7 @@
 				65CF616C2C0AEDB0003E6D75 /* FirebaseStorage */,
 				65CF616E2C0AEDB0003E6D75 /* FirebaseStorageCombine-Community */,
 				65CF61702C0AEDB0003E6D75 /* FirebaseVertexAI-Preview */,
+				65CF618B2C108CBD003E6D75 /* FSCalendar */,
 			);
 			productName = DailyRecord;
 			productReference = 65CF611A2C036432003E6D75 /* DailyRecord.app */;
@@ -322,6 +325,7 @@
 			mainGroup = 65CF61112C036432003E6D75;
 			packageReferences = (
 				65CF61392C0AEDB0003E6D75 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				65CF618A2C108CBD003E6D75 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = 65CF611B2C036432003E6D75 /* Products */;
 			projectDirPath = "";
@@ -617,6 +621,14 @@
 				minimumVersion = 10.27.0;
 			};
 		};
+		65CF618A2C108CBD003E6D75 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -759,6 +771,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 65CF61392C0AEDB0003E6D75 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseVertexAI-Preview";
+		};
+		65CF618B2C108CBD003E6D75 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 65CF618A2C108CBD003E6D75 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
