@@ -43,10 +43,10 @@
 		65CF61772C0B03EA003E6D75 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61762C0B03EA003E6D75 /* Log.swift */; };
 		65CF617B2C0C5ED7003E6D75 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF617A2C0C5ED7003E6D75 /* Coordinator.swift */; };
 		65CF617D2C0C5EEC003E6D75 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF617C2C0C5EEC003E6D75 /* DIContainer.swift */; };
-		65CF617F2C0C5F20003E6D75 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF617E2C0C5F20003E6D75 /* HomeCoordinator.swift */; };
-		65CF61812C0C5F44003E6D75 /* HomeDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61802C0C5F44003E6D75 /* HomeDIContainer.swift */; };
-		65CF61842C0C6053003E6D75 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61832C0C6053003E6D75 /* HomeViewController.swift */; };
-		65CF61892C0C6092003E6D75 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61882C0C6092003E6D75 /* HomeViewModel.swift */; };
+		65CF617F2C0C5F20003E6D75 /* CalenderCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF617E2C0C5F20003E6D75 /* CalenderCoordinator.swift */; };
+		65CF61812C0C5F44003E6D75 /* CalenderDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61802C0C5F44003E6D75 /* CalenderDIContainer.swift */; };
+		65CF61842C0C6053003E6D75 /* CalenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61832C0C6053003E6D75 /* CalenderViewController.swift */; };
+		65CF61892C0C6092003E6D75 /* CalenderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61882C0C6092003E6D75 /* CalenderViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,10 +60,10 @@
 		65CF61762C0B03EA003E6D75 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		65CF617A2C0C5ED7003E6D75 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		65CF617C2C0C5EEC003E6D75 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
-		65CF617E2C0C5F20003E6D75 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
-		65CF61802C0C5F44003E6D75 /* HomeDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDIContainer.swift; sourceTree = "<group>"; };
-		65CF61832C0C6053003E6D75 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		65CF61882C0C6092003E6D75 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		65CF617E2C0C5F20003E6D75 /* CalenderCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderCoordinator.swift; sourceTree = "<group>"; };
+		65CF61802C0C5F44003E6D75 /* CalenderDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderDIContainer.swift; sourceTree = "<group>"; };
+		65CF61832C0C6053003E6D75 /* CalenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderViewController.swift; sourceTree = "<group>"; };
+		65CF61882C0C6092003E6D75 /* CalenderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,7 +162,7 @@
 		65CF61342C073D44003E6D75 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				65CF61822C0C6030003E6D75 /* HomeScene */,
+				65CF61822C0C6030003E6D75 /* CalenderScene */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -198,7 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				65CF617A2C0C5ED7003E6D75 /* Coordinator.swift */,
-				65CF617E2C0C5F20003E6D75 /* HomeCoordinator.swift */,
+				65CF617E2C0C5F20003E6D75 /* CalenderCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -207,25 +207,25 @@
 			isa = PBXGroup;
 			children = (
 				65CF617C2C0C5EEC003E6D75 /* DIContainer.swift */,
-				65CF61802C0C5F44003E6D75 /* HomeDIContainer.swift */,
+				65CF61802C0C5F44003E6D75 /* CalenderDIContainer.swift */,
 			);
 			path = DIContainer;
 			sourceTree = "<group>";
 		};
-		65CF61822C0C6030003E6D75 /* HomeScene */ = {
+		65CF61822C0C6030003E6D75 /* CalenderScene */ = {
 			isa = PBXGroup;
 			children = (
 				65CF61862C0C6067003E6D75 /* View */,
 				65CF61852C0C605D003E6D75 /* ViewController */,
 				65CF61872C0C606C003E6D75 /* ViewModel */,
 			);
-			path = HomeScene;
+			path = CalenderScene;
 			sourceTree = "<group>";
 		};
 		65CF61852C0C605D003E6D75 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				65CF61832C0C6053003E6D75 /* HomeViewController.swift */,
+				65CF61832C0C6053003E6D75 /* CalenderViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -240,7 +240,7 @@
 		65CF61872C0C606C003E6D75 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				65CF61882C0C6092003E6D75 /* HomeViewModel.swift */,
+				65CF61882C0C6092003E6D75 /* CalenderViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -375,14 +375,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65CF61812C0C5F44003E6D75 /* HomeDIContainer.swift in Sources */,
-				65CF61892C0C6092003E6D75 /* HomeViewModel.swift in Sources */,
+				65CF61812C0C5F44003E6D75 /* CalenderDIContainer.swift in Sources */,
+				65CF61892C0C6092003E6D75 /* CalenderViewModel.swift in Sources */,
 				65CF611E2C036432003E6D75 /* AppDelegate.swift in Sources */,
 				65CF617B2C0C5ED7003E6D75 /* Coordinator.swift in Sources */,
 				65CF61772C0B03EA003E6D75 /* Log.swift in Sources */,
-				65CF61842C0C6053003E6D75 /* HomeViewController.swift in Sources */,
+				65CF61842C0C6053003E6D75 /* CalenderViewController.swift in Sources */,
 				65CF617D2C0C5EEC003E6D75 /* DIContainer.swift in Sources */,
-				65CF617F2C0C5F20003E6D75 /* HomeCoordinator.swift in Sources */,
+				65CF617F2C0C5F20003E6D75 /* CalenderCoordinator.swift in Sources */,
 				65CF61202C036432003E6D75 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

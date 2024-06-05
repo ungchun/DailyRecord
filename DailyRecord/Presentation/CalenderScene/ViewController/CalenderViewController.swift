@@ -1,5 +1,5 @@
 //
-//  HomeViewController.swift
+//  CalenderViewController.swift
 //  DailyRecord
 //
 //  Created by Kim SungHun on 6/2/24.
@@ -7,12 +7,12 @@
 
 import UIKit
 
-final class HomeViewController: UIViewController {
+final class CalenderViewController: UIViewController {
 	
-	var coordinator: HomeCoordinator?
-	private let viewModel: HomeViewModel
+	var coordinator: CalenderCoordinator?
+	private let viewModel: CalenderViewModel
 	
-	init(viewModel: HomeViewModel) {
+	init(viewModel: CalenderViewModel) {
 		self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
 		
