@@ -48,6 +48,8 @@
 		65CF61842C0C6053003E6D75 /* CalenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61832C0C6053003E6D75 /* CalenderViewController.swift */; };
 		65CF61892C0C6092003E6D75 /* CalenderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61882C0C6092003E6D75 /* CalenderViewModel.swift */; };
 		65CF618C2C108CBD003E6D75 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 65CF618B2C108CBD003E6D75 /* FSCalendar */; };
+		65CF618F2C109223003E6D75 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 65CF618E2C109223003E6D75 /* SnapKit */; };
+		65CF61912C109223003E6D75 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 65CF61902C109223003E6D75 /* SnapKit-Dynamic */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,8 +81,10 @@
 				65CF613F2C0AEDB0003E6D75 /* FirebaseAnalyticsSwift in Frameworks */,
 				65CF613B2C0AEDB0003E6D75 /* FirebaseAnalytics in Frameworks */,
 				65CF613D2C0AEDB0003E6D75 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
+				65CF61912C109223003E6D75 /* SnapKit-Dynamic in Frameworks */,
 				65CF61632C0AEDB0003E6D75 /* FirebaseMLModelDownloader in Frameworks */,
 				65CF61572C0AEDB0003E6D75 /* FirebaseFirestoreSwift in Frameworks */,
+				65CF618F2C109223003E6D75 /* SnapKit in Frameworks */,
 				65CF61432C0AEDB0003E6D75 /* FirebaseAppCheck in Frameworks */,
 				65CF61412C0AEDB0003E6D75 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				65CF61472C0AEDB0003E6D75 /* FirebaseAuth in Frameworks */,
@@ -294,6 +298,8 @@
 				65CF616E2C0AEDB0003E6D75 /* FirebaseStorageCombine-Community */,
 				65CF61702C0AEDB0003E6D75 /* FirebaseVertexAI-Preview */,
 				65CF618B2C108CBD003E6D75 /* FSCalendar */,
+				65CF618E2C109223003E6D75 /* SnapKit */,
+				65CF61902C109223003E6D75 /* SnapKit-Dynamic */,
 			);
 			productName = DailyRecord;
 			productReference = 65CF611A2C036432003E6D75 /* DailyRecord.app */;
@@ -326,6 +332,7 @@
 			packageReferences = (
 				65CF61392C0AEDB0003E6D75 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				65CF618A2C108CBD003E6D75 /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				65CF618D2C109223003E6D75 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 65CF611B2C036432003E6D75 /* Products */;
 			projectDirPath = "";
@@ -629,6 +636,14 @@
 				minimumVersion = 2.8.4;
 			};
 		};
+		65CF618D2C109223003E6D75 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -776,6 +791,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 65CF618A2C108CBD003E6D75 /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
+		};
+		65CF618E2C109223003E6D75 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 65CF618D2C109223003E6D75 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		65CF61902C109223003E6D75 /* SnapKit-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 65CF618D2C109223003E6D75 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = "SnapKit-Dynamic";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
