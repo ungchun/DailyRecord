@@ -8,8 +8,9 @@
 import UIKit
 
 final class CalenderCoordinator: Coordinator {
-	var DIContainer: CalenderDIContainer
-	private var navigationController: UINavigationController
+	private let navigationController: UINavigationController
+	
+	let DIContainer: CalenderDIContainer
 	
 	init(DIContainer: CalenderDIContainer,
 			 navigationController: UINavigationController) {
@@ -20,12 +21,18 @@ final class CalenderCoordinator: Coordinator {
 
 extension CalenderCoordinator {
 	func start() {
-		startCalender()
-	}
-	
-	func startCalender() {
 		let calenderViewController = DIContainer.makeCalenderViewController()
 		calenderViewController.coordinator = self
 		self.navigationController.viewControllers = [calenderViewController]
+	}
+	
+	func showRecord() {
+		let recordDIContainer = DIContainer.makeRecordDIContainer()
+		let recordCoordinator = recordDIContainer.makeRecordCoordinator()
+		recordCoordinator.start()
+	}
+	
+	func dismiss() {
+		navigationController.popViewController(animated: true)
 	}
 }

@@ -16,9 +16,12 @@ final class CalenderDIContainer: DIContainer {
 }
 
 extension CalenderDIContainer {
+	
+	// MARK: - Calender
+	
 	func makeCalenderCoordinator() -> CalenderCoordinator {
 		return CalenderCoordinator(DIContainer: self,
-													 navigationController: navigationController)
+															 navigationController: navigationController)
 	}
 	
 	func makeCalenderViewController() -> CalenderViewController {
@@ -27,5 +30,11 @@ extension CalenderDIContainer {
 	
 	private func makeCalenderViewModel() -> CalenderViewModel {
 		return CalenderViewModel()
+	}
+	
+	// MARK: - Record
+	
+	func makeRecordDIContainer() -> RecordDIContainer {
+		return RecordDIContainer(navigationController: navigationController)
 	}
 }
