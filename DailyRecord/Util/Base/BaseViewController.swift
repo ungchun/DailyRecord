@@ -9,16 +9,16 @@ import UIKit
 
 class BaseViewController: UIViewController {
 	override func viewDidLoad() {
-			super.viewDidLoad()
+		super.viewDidLoad()
 		
-			addView()
-			setupView()
-			setLayout()
+		addView()
+		setLayout()
+		setupView()
 	}
 	
 	func addView() { }
 	
-	func setupView() { }
-	
 	func setLayout() { }
+	
+	func setupView() { }
 }
