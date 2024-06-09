@@ -50,6 +50,11 @@
 		65CF618C2C108CBD003E6D75 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 65CF618B2C108CBD003E6D75 /* FSCalendar */; };
 		65CF618F2C109223003E6D75 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 65CF618E2C109223003E6D75 /* SnapKit */; };
 		65CF61912C109223003E6D75 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 65CF61902C109223003E6D75 /* SnapKit-Dynamic */; };
+		65CF61972C116E87003E6D75 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61962C116E87003E6D75 /* RecordViewController.swift */; };
+		65CF61992C117061003E6D75 /* RecordDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61982C117061003E6D75 /* RecordDIContainer.swift */; };
+		65CF619B2C11706A003E6D75 /* RecordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF619A2C11706A003E6D75 /* RecordCoordinator.swift */; };
+		65CF619E2C158B71003E6D75 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF619D2C158B71003E6D75 /* BaseViewController.swift */; };
+		65CF61A02C158B77003E6D75 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF619F2C158B77003E6D75 /* BaseViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +72,11 @@
 		65CF61802C0C5F44003E6D75 /* CalenderDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderDIContainer.swift; sourceTree = "<group>"; };
 		65CF61832C0C6053003E6D75 /* CalenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderViewController.swift; sourceTree = "<group>"; };
 		65CF61882C0C6092003E6D75 /* CalenderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderViewModel.swift; sourceTree = "<group>"; };
+		65CF61962C116E87003E6D75 /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
+		65CF61982C117061003E6D75 /* RecordDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDIContainer.swift; sourceTree = "<group>"; };
+		65CF619A2C11706A003E6D75 /* RecordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCoordinator.swift; sourceTree = "<group>"; };
+		65CF619D2C158B71003E6D75 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		65CF619F2C158B77003E6D75 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				65CF61822C0C6030003E6D75 /* CalenderScene */,
+				65CF61922C116DB6003E6D75 /* RecordScene */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -176,6 +187,7 @@
 		65CF61352C073D4C003E6D75 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				65CF619C2C158B66003E6D75 /* Base */,
 				65CF61752C0B03DC003E6D75 /* Logger */,
 			);
 			path = Util;
@@ -205,6 +217,7 @@
 			children = (
 				65CF617A2C0C5ED7003E6D75 /* Coordinator.swift */,
 				65CF617E2C0C5F20003E6D75 /* CalenderCoordinator.swift */,
+				65CF619A2C11706A003E6D75 /* RecordCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -214,6 +227,7 @@
 			children = (
 				65CF617C2C0C5EEC003E6D75 /* DIContainer.swift */,
 				65CF61802C0C5F44003E6D75 /* CalenderDIContainer.swift */,
+				65CF61982C117061003E6D75 /* RecordDIContainer.swift */,
 			);
 			path = DIContainer;
 			sourceTree = "<group>";
@@ -249,6 +263,47 @@
 				65CF61882C0C6092003E6D75 /* CalenderViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		65CF61922C116DB6003E6D75 /* RecordScene */ = {
+			isa = PBXGroup;
+			children = (
+				65CF61932C116E68003E6D75 /* View */,
+				65CF61942C116E6C003E6D75 /* ViewController */,
+				65CF61952C116E76003E6D75 /* ViewModel */,
+			);
+			path = RecordScene;
+			sourceTree = "<group>";
+		};
+		65CF61932C116E68003E6D75 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		65CF61942C116E6C003E6D75 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				65CF61962C116E87003E6D75 /* RecordViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		65CF61952C116E76003E6D75 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		65CF619C2C158B66003E6D75 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				65CF619D2C158B71003E6D75 /* BaseViewController.swift */,
+				65CF619F2C158B77003E6D75 /* BaseViewModel.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -386,13 +441,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65CF619E2C158B71003E6D75 /* BaseViewController.swift in Sources */,
 				65CF61812C0C5F44003E6D75 /* CalenderDIContainer.swift in Sources */,
+				65CF619B2C11706A003E6D75 /* RecordCoordinator.swift in Sources */,
+				65CF61A02C158B77003E6D75 /* BaseViewModel.swift in Sources */,
 				65CF61892C0C6092003E6D75 /* CalenderViewModel.swift in Sources */,
 				65CF611E2C036432003E6D75 /* AppDelegate.swift in Sources */,
 				65CF617B2C0C5ED7003E6D75 /* Coordinator.swift in Sources */,
+				65CF61992C117061003E6D75 /* RecordDIContainer.swift in Sources */,
 				65CF61772C0B03EA003E6D75 /* Log.swift in Sources */,
 				65CF61842C0C6053003E6D75 /* CalenderViewController.swift in Sources */,
 				65CF617D2C0C5EEC003E6D75 /* DIContainer.swift in Sources */,
+				65CF61972C116E87003E6D75 /* RecordViewController.swift in Sources */,
 				65CF617F2C0C5F20003E6D75 /* CalenderCoordinator.swift in Sources */,
 				65CF61202C036432003E6D75 /* SceneDelegate.swift in Sources */,
 			);
