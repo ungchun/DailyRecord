@@ -55,6 +55,7 @@
 		65CF619B2C11706A003E6D75 /* RecordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF619A2C11706A003E6D75 /* RecordCoordinator.swift */; };
 		65CF619E2C158B71003E6D75 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF619D2C158B71003E6D75 /* BaseViewController.swift */; };
 		65CF61A02C158B77003E6D75 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF619F2C158B77003E6D75 /* BaseViewModel.swift */; };
+		65CF61C22C1D6039003E6D75 /* RecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61C12C1D6039003E6D75 /* RecordViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +78,7 @@
 		65CF619A2C11706A003E6D75 /* RecordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCoordinator.swift; sourceTree = "<group>"; };
 		65CF619D2C158B71003E6D75 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		65CF619F2C158B77003E6D75 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		65CF61C12C1D6039003E6D75 /* RecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -293,6 +295,7 @@
 		65CF61952C116E76003E6D75 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				65CF61C12C1D6039003E6D75 /* RecordViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -449,6 +452,7 @@
 				65CF611E2C036432003E6D75 /* AppDelegate.swift in Sources */,
 				65CF617B2C0C5ED7003E6D75 /* Coordinator.swift in Sources */,
 				65CF61992C117061003E6D75 /* RecordDIContainer.swift in Sources */,
+				65CF61C22C1D6039003E6D75 /* RecordViewModel.swift in Sources */,
 				65CF61772C0B03EA003E6D75 /* Log.swift in Sources */,
 				65CF61842C0C6053003E6D75 /* CalenderViewController.swift in Sources */,
 				65CF617D2C0C5EEC003E6D75 /* DIContainer.swift in Sources */,
