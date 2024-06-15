@@ -9,9 +9,14 @@ import UIKit
 
 final class RecordDIContainer: DIContainer {
 	private let navigationController: UINavigationController
+	private let selectDate: Date
 	
-	init(navigationController: UINavigationController) {
+	init(
+		navigationController: UINavigationController,
+		selectDate: Date
+	) {
 		self.navigationController = navigationController
+		self.selectDate = selectDate
 	}
 }
 
@@ -25,9 +30,12 @@ extension RecordDIContainer {
 	}
 	
 	func makeRecordViewController() -> RecordViewController {
-		return RecordViewController()
+		return RecordViewController(
+			viewModel: makeRecordViewModel()
+		)
 	}
 	
-	// makeRecordViewModel
-	
+	private func makeRecordViewModel() -> RecordViewModel {
+		return RecordViewModel(selectDate: selectDate)
+	}
 }

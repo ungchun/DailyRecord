@@ -34,7 +34,10 @@ extension CalenderDIContainer {
 	
 	// MARK: - Record
 	
-	func makeRecordDIContainer() -> RecordDIContainer {
-		return RecordDIContainer(navigationController: navigationController)
+	func makeRecordDIContainer(selectDate: Date) -> RecordDIContainer {
+		return RecordDIContainer(
+			navigationController: navigationController,
+			selectDate: selectDate
+		)
 	}
 }
