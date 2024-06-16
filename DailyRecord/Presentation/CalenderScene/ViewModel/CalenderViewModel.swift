@@ -7,6 +7,6 @@
 
 import Foundation
 
-final class CalenderViewModel {
+final class CalenderViewModel: BaseViewModel {
 	
 }
