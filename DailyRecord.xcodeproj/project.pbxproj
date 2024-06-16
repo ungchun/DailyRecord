@@ -43,10 +43,19 @@
 		65CF61772C0B03EA003E6D75 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61762C0B03EA003E6D75 /* Log.swift */; };
 		65CF617B2C0C5ED7003E6D75 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF617A2C0C5ED7003E6D75 /* Coordinator.swift */; };
 		65CF617D2C0C5EEC003E6D75 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF617C2C0C5EEC003E6D75 /* DIContainer.swift */; };
-		65CF617F2C0C5F20003E6D75 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF617E2C0C5F20003E6D75 /* HomeCoordinator.swift */; };
-		65CF61812C0C5F44003E6D75 /* HomeDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61802C0C5F44003E6D75 /* HomeDIContainer.swift */; };
-		65CF61842C0C6053003E6D75 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61832C0C6053003E6D75 /* HomeViewController.swift */; };
-		65CF61892C0C6092003E6D75 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61882C0C6092003E6D75 /* HomeViewModel.swift */; };
+		65CF617F2C0C5F20003E6D75 /* CalenderCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF617E2C0C5F20003E6D75 /* CalenderCoordinator.swift */; };
+		65CF61812C0C5F44003E6D75 /* CalenderDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61802C0C5F44003E6D75 /* CalenderDIContainer.swift */; };
+		65CF61842C0C6053003E6D75 /* CalenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61832C0C6053003E6D75 /* CalenderViewController.swift */; };
+		65CF61892C0C6092003E6D75 /* CalenderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61882C0C6092003E6D75 /* CalenderViewModel.swift */; };
+		65CF618C2C108CBD003E6D75 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 65CF618B2C108CBD003E6D75 /* FSCalendar */; };
+		65CF618F2C109223003E6D75 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 65CF618E2C109223003E6D75 /* SnapKit */; };
+		65CF61912C109223003E6D75 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 65CF61902C109223003E6D75 /* SnapKit-Dynamic */; };
+		65CF61972C116E87003E6D75 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61962C116E87003E6D75 /* RecordViewController.swift */; };
+		65CF61992C117061003E6D75 /* RecordDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61982C117061003E6D75 /* RecordDIContainer.swift */; };
+		65CF619B2C11706A003E6D75 /* RecordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF619A2C11706A003E6D75 /* RecordCoordinator.swift */; };
+		65CF619E2C158B71003E6D75 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF619D2C158B71003E6D75 /* BaseViewController.swift */; };
+		65CF61A02C158B77003E6D75 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF619F2C158B77003E6D75 /* BaseViewModel.swift */; };
+		65CF61C22C1D6039003E6D75 /* RecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61C12C1D6039003E6D75 /* RecordViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,10 +69,16 @@
 		65CF61762C0B03EA003E6D75 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		65CF617A2C0C5ED7003E6D75 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		65CF617C2C0C5EEC003E6D75 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
-		65CF617E2C0C5F20003E6D75 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
-		65CF61802C0C5F44003E6D75 /* HomeDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDIContainer.swift; sourceTree = "<group>"; };
-		65CF61832C0C6053003E6D75 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		65CF61882C0C6092003E6D75 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		65CF617E2C0C5F20003E6D75 /* CalenderCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderCoordinator.swift; sourceTree = "<group>"; };
+		65CF61802C0C5F44003E6D75 /* CalenderDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderDIContainer.swift; sourceTree = "<group>"; };
+		65CF61832C0C6053003E6D75 /* CalenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderViewController.swift; sourceTree = "<group>"; };
+		65CF61882C0C6092003E6D75 /* CalenderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderViewModel.swift; sourceTree = "<group>"; };
+		65CF61962C116E87003E6D75 /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
+		65CF61982C117061003E6D75 /* RecordDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDIContainer.swift; sourceTree = "<group>"; };
+		65CF619A2C11706A003E6D75 /* RecordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCoordinator.swift; sourceTree = "<group>"; };
+		65CF619D2C158B71003E6D75 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		65CF619F2C158B77003E6D75 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		65CF61C12C1D6039003E6D75 /* RecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,12 +88,15 @@
 			files = (
 				65CF614D2C0AEDB0003E6D75 /* FirebaseDatabase in Frameworks */,
 				65CF615B2C0AEDB0003E6D75 /* FirebaseFunctionsCombine-Community in Frameworks */,
+				65CF618C2C108CBD003E6D75 /* FSCalendar in Frameworks */,
 				65CF61532C0AEDB0003E6D75 /* FirebaseFirestore in Frameworks */,
 				65CF613F2C0AEDB0003E6D75 /* FirebaseAnalyticsSwift in Frameworks */,
 				65CF613B2C0AEDB0003E6D75 /* FirebaseAnalytics in Frameworks */,
 				65CF613D2C0AEDB0003E6D75 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
+				65CF61912C109223003E6D75 /* SnapKit-Dynamic in Frameworks */,
 				65CF61632C0AEDB0003E6D75 /* FirebaseMLModelDownloader in Frameworks */,
 				65CF61572C0AEDB0003E6D75 /* FirebaseFirestoreSwift in Frameworks */,
+				65CF618F2C109223003E6D75 /* SnapKit in Frameworks */,
 				65CF61432C0AEDB0003E6D75 /* FirebaseAppCheck in Frameworks */,
 				65CF61412C0AEDB0003E6D75 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				65CF61472C0AEDB0003E6D75 /* FirebaseAuth in Frameworks */,
@@ -162,7 +180,8 @@
 		65CF61342C073D44003E6D75 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				65CF61822C0C6030003E6D75 /* HomeScene */,
+				65CF61822C0C6030003E6D75 /* CalenderScene */,
+				65CF61922C116DB6003E6D75 /* RecordScene */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -170,6 +189,7 @@
 		65CF61352C073D4C003E6D75 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				65CF619C2C158B66003E6D75 /* Base */,
 				65CF61752C0B03DC003E6D75 /* Logger */,
 			);
 			path = Util;
@@ -198,7 +218,8 @@
 			isa = PBXGroup;
 			children = (
 				65CF617A2C0C5ED7003E6D75 /* Coordinator.swift */,
-				65CF617E2C0C5F20003E6D75 /* HomeCoordinator.swift */,
+				65CF617E2C0C5F20003E6D75 /* CalenderCoordinator.swift */,
+				65CF619A2C11706A003E6D75 /* RecordCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -207,25 +228,26 @@
 			isa = PBXGroup;
 			children = (
 				65CF617C2C0C5EEC003E6D75 /* DIContainer.swift */,
-				65CF61802C0C5F44003E6D75 /* HomeDIContainer.swift */,
+				65CF61802C0C5F44003E6D75 /* CalenderDIContainer.swift */,
+				65CF61982C117061003E6D75 /* RecordDIContainer.swift */,
 			);
 			path = DIContainer;
 			sourceTree = "<group>";
 		};
-		65CF61822C0C6030003E6D75 /* HomeScene */ = {
+		65CF61822C0C6030003E6D75 /* CalenderScene */ = {
 			isa = PBXGroup;
 			children = (
 				65CF61862C0C6067003E6D75 /* View */,
 				65CF61852C0C605D003E6D75 /* ViewController */,
 				65CF61872C0C606C003E6D75 /* ViewModel */,
 			);
-			path = HomeScene;
+			path = CalenderScene;
 			sourceTree = "<group>";
 		};
 		65CF61852C0C605D003E6D75 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				65CF61832C0C6053003E6D75 /* HomeViewController.swift */,
+				65CF61832C0C6053003E6D75 /* CalenderViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -240,9 +262,51 @@
 		65CF61872C0C606C003E6D75 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				65CF61882C0C6092003E6D75 /* HomeViewModel.swift */,
+				65CF61882C0C6092003E6D75 /* CalenderViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		65CF61922C116DB6003E6D75 /* RecordScene */ = {
+			isa = PBXGroup;
+			children = (
+				65CF61932C116E68003E6D75 /* View */,
+				65CF61942C116E6C003E6D75 /* ViewController */,
+				65CF61952C116E76003E6D75 /* ViewModel */,
+			);
+			path = RecordScene;
+			sourceTree = "<group>";
+		};
+		65CF61932C116E68003E6D75 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		65CF61942C116E6C003E6D75 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				65CF61962C116E87003E6D75 /* RecordViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		65CF61952C116E76003E6D75 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				65CF61C12C1D6039003E6D75 /* RecordViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		65CF619C2C158B66003E6D75 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				65CF619D2C158B71003E6D75 /* BaseViewController.swift */,
+				65CF619F2C158B77003E6D75 /* BaseViewModel.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -291,6 +355,9 @@
 				65CF616C2C0AEDB0003E6D75 /* FirebaseStorage */,
 				65CF616E2C0AEDB0003E6D75 /* FirebaseStorageCombine-Community */,
 				65CF61702C0AEDB0003E6D75 /* FirebaseVertexAI-Preview */,
+				65CF618B2C108CBD003E6D75 /* FSCalendar */,
+				65CF618E2C109223003E6D75 /* SnapKit */,
+				65CF61902C109223003E6D75 /* SnapKit-Dynamic */,
 			);
 			productName = DailyRecord;
 			productReference = 65CF611A2C036432003E6D75 /* DailyRecord.app */;
@@ -322,6 +389,8 @@
 			mainGroup = 65CF61112C036432003E6D75;
 			packageReferences = (
 				65CF61392C0AEDB0003E6D75 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				65CF618A2C108CBD003E6D75 /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				65CF618D2C109223003E6D75 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 65CF611B2C036432003E6D75 /* Products */;
 			projectDirPath = "";
@@ -375,14 +444,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65CF61812C0C5F44003E6D75 /* HomeDIContainer.swift in Sources */,
-				65CF61892C0C6092003E6D75 /* HomeViewModel.swift in Sources */,
+				65CF619E2C158B71003E6D75 /* BaseViewController.swift in Sources */,
+				65CF61812C0C5F44003E6D75 /* CalenderDIContainer.swift in Sources */,
+				65CF619B2C11706A003E6D75 /* RecordCoordinator.swift in Sources */,
+				65CF61A02C158B77003E6D75 /* BaseViewModel.swift in Sources */,
+				65CF61892C0C6092003E6D75 /* CalenderViewModel.swift in Sources */,
 				65CF611E2C036432003E6D75 /* AppDelegate.swift in Sources */,
 				65CF617B2C0C5ED7003E6D75 /* Coordinator.swift in Sources */,
+				65CF61992C117061003E6D75 /* RecordDIContainer.swift in Sources */,
+				65CF61C22C1D6039003E6D75 /* RecordViewModel.swift in Sources */,
 				65CF61772C0B03EA003E6D75 /* Log.swift in Sources */,
-				65CF61842C0C6053003E6D75 /* HomeViewController.swift in Sources */,
+				65CF61842C0C6053003E6D75 /* CalenderViewController.swift in Sources */,
 				65CF617D2C0C5EEC003E6D75 /* DIContainer.swift in Sources */,
-				65CF617F2C0C5F20003E6D75 /* HomeCoordinator.swift in Sources */,
+				65CF61972C116E87003E6D75 /* RecordViewController.swift in Sources */,
+				65CF617F2C0C5F20003E6D75 /* CalenderCoordinator.swift in Sources */,
 				65CF61202C036432003E6D75 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -617,6 +692,22 @@
 				minimumVersion = 10.27.0;
 			};
 		};
+		65CF618A2C108CBD003E6D75 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.4;
+			};
+		};
+		65CF618D2C109223003E6D75 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -759,6 +850,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 65CF61392C0AEDB0003E6D75 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseVertexAI-Preview";
+		};
+		65CF618B2C108CBD003E6D75 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 65CF618A2C108CBD003E6D75 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
+		};
+		65CF618E2C109223003E6D75 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 65CF618D2C109223003E6D75 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		65CF61902C109223003E6D75 /* SnapKit-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 65CF618D2C109223003E6D75 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = "SnapKit-Dynamic";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

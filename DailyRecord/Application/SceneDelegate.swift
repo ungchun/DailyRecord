@@ -15,17 +15,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 						 willConnectTo session: UISceneSession,
 						 options connectionOptions: UIScene.ConnectionOptions) {
 		if let windowScene = scene as? UIWindowScene {
-			var homeDIContainer: HomeDIContainer?
-			var homeCoordinator: HomeCoordinator?
+			var calenderDIContainer: CalenderDIContainer?
+			var calenderCoordinator: CalenderCoordinator?
 			let window = UIWindow(windowScene: windowScene)
 			self.window = window
 			
 			let navigationController = UINavigationController()
 			self.window?.rootViewController = navigationController
 			
-			homeDIContainer = HomeDIContainer(navigationController: navigationController)
-			homeCoordinator = homeDIContainer?.makeHomeCoordinator()
-			homeCoordinator?.start()
+			calenderDIContainer = CalenderDIContainer(navigationController: navigationController)
+			calenderCoordinator = calenderDIContainer?.makeCalenderCoordinator()
+			calenderCoordinator?.start()
 			
 			self.window?.makeKeyAndVisible()
 		}
