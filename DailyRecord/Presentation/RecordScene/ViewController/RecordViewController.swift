@@ -44,7 +44,7 @@ final class RecordViewController: BaseViewController {
 	
 	private lazy var inputDiaryView: UITextView = {
 		let textView = UITextView()
-		textView.text = "문구 입력..."
+		textView.text = "placeholder"
 		textView.textColor = .secondaryLabel
 		textView.font = .systemFont(ofSize: 15.0)
 		textView.delegate = self
@@ -53,9 +53,33 @@ final class RecordViewController: BaseViewController {
 		return textView
 	}()
 	
+	// TODO: FooterView
+	private let footerView: UIView = {
+		let view = UIView()
+		return view
+	}()
+	
 	private let divider: UIView = {
 		let view = UIView()
 		view.backgroundColor = .red
+		return view
+	}()
+	
+	// TODO: 사진 첨부
+	private let galleryIcon: UIImageView = {
+		let view = UIImageView()
+		view.image = UIImage(systemName: "photo")
+		view.contentMode = .scaleAspectFit
+		view.isUserInteractionEnabled = true
+		return view
+	}()
+	
+	// TODO: 저장
+	private let saveIcon: UIImageView = {
+		let view = UIImageView()
+		view.image = UIImage(systemName: "checkmark")
+		view.contentMode = .scaleAspectFit
+		view.isUserInteractionEnabled = true
 		return view
 	}()
 	
@@ -122,13 +146,18 @@ final class RecordViewController: BaseViewController {
 	// MARK: - Functions
 	
 	override func addView() {
-		[scrollView, divider].forEach {
+		[scrollView, footerView].forEach {
 			view.addSubview($0)
 		}
 		
 		scrollView.addSubview(contentView)
+		
 		[todayEmotionImageView, todayDateView, inputDiaryView].forEach {
 			contentView.addSubview($0)
+		}
+		
+		[divider, galleryIcon, saveIcon].forEach {
+			footerView.addSubview($0)
 		}
 	}
 	
@@ -159,10 +188,26 @@ final class RecordViewController: BaseViewController {
 			make.bottom.equalToSuperview()
 		}
 		
-		divider.snp.makeConstraints { make in
+		footerView.snp.makeConstraints { make in
 			make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
 			make.left.right.equalToSuperview()
+			make.height.equalTo(30)
+		}
+		
+		divider.snp.makeConstraints { make in
+			make.top.equalTo(footerView.snp.top)
+			make.left.right.equalToSuperview()
 			make.height.equalTo(2)
+		}
+		
+		galleryIcon.snp.makeConstraints { make in
+			make.top.equalTo(divider.snp.bottom).offset(8)
+			make.leading.equalTo(footerView.snp.leading).offset(16)
+		}
+		
+		saveIcon.snp.makeConstraints { make in
+			make.top.equalTo(divider.snp.bottom).offset(8)
+			make.trailing.equalTo(footerView.snp.trailing).offset(-16)
 		}
 	}
 	
@@ -171,17 +216,25 @@ final class RecordViewController: BaseViewController {
 		
 		todayDateView.text = String(describing: viewModel.selectDate)
 		
-		let tapGesture = UITapGestureRecognizer(target: self,
-																						action: #selector(showPopup))
-		todayEmotionImageView.addGestureRecognizer(tapGesture)
+		let showPopupTapGesture = UITapGestureRecognizer(target: self,
+																						action: #selector(showPopupTrigger))
+		todayEmotionImageView.addGestureRecognizer(showPopupTapGesture)
+		
+		let galleryTapGesture = UITapGestureRecognizer(target: self,
+																						action: #selector(galleryTrigger))
+		galleryIcon.addGestureRecognizer(galleryTapGesture)
+		
+		let saveTapGesture = UITapGestureRecognizer(target: self,
+																						action: #selector(saveTrigger))
+		saveIcon.addGestureRecognizer(saveTapGesture)
 	}
 }
 
 private extension RecordViewController {
-	@objc func showPopup() {
+	@objc func showPopupTrigger() {
 		dimmingView = UIView(frame: view.bounds)
 		dimmingView?.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(closePopup))
+		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(closePopupTrigger))
 		dimmingView?.addGestureRecognizer(tapGesture)
 		
 		view.addSubview(dimmingView!)
@@ -237,7 +290,7 @@ private extension RecordViewController {
 		}
 	}
 	
-	@objc func closePopup() {
+	@objc func closePopupTrigger() {
 		UIView.animate(withDuration: 0.3, animations: {
 			self.emotionalImagePopupView.alpha = 0
 			self.dimmingView?.alpha = 0
@@ -245,6 +298,14 @@ private extension RecordViewController {
 			self.emotionalImagePopupView.removeFromSuperview()
 			self.dimmingView?.removeFromSuperview()
 		}
+	}
+	
+	@objc func galleryTrigger() {
+		
+	}
+	
+	@objc func saveTrigger() {
+		Log.debug("save", String(inputDiaryView.text))
 	}
 }
 
