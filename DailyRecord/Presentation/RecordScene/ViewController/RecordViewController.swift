@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PhotosUI
 
 import SnapKit
 
@@ -53,76 +54,11 @@ final class RecordViewController: BaseViewController {
 		return textView
 	}()
 	
-	// TODO: FooterView
-	private let footerView: UIView = {
-		let view = UIView()
-		return view
-	}()
+	private let attachedImageCollectionView = AttachedImageCollectionView()
 	
-	private let divider: UIView = {
-		let view = UIView()
-		view.backgroundColor = .red
-		return view
-	}()
+	private let footerView = RecordFooterView()
 	
-	// TODO: 사진 첨부
-	private let galleryIcon: UIImageView = {
-		let view = UIImageView()
-		view.image = UIImage(systemName: "photo")
-		view.contentMode = .scaleAspectFit
-		view.isUserInteractionEnabled = true
-		return view
-	}()
-	
-	// TODO: 저장
-	private let saveIcon: UIImageView = {
-		let view = UIImageView()
-		view.image = UIImage(systemName: "checkmark")
-		view.contentMode = .scaleAspectFit
-		view.isUserInteractionEnabled = true
-		return view
-	}()
-	
-	// TODO: Custom View로 분리
-	private var dimmingView: UIView?
-	
-	private let emotionalImagePopupView: UIView = {
-		let view = UIView()
-		view.backgroundColor = .white
-		view.layer.cornerRadius = 10
-		view.layer.shadowColor = UIColor.black.cgColor
-		view.layer.shadowOpacity = 0.3
-		view.layer.shadowOffset = CGSize(width: 0, height: 2)
-		view.layer.shadowRadius = 4
-		return view
-	}()
-	
-	// TODO: 감정 이미지로 수정
-	private let demoImage1: UIView = {
-		let view = UIView()
-		view.backgroundColor = .blue
-		return view
-	}()
-	private let demoImage2: UIView = {
-		let view = UIView()
-		view.backgroundColor = .red
-		return view
-	}()
-	private let demoImage3: UIView = {
-		let view = UIView()
-		view.backgroundColor = .green
-		return view
-	}()
-	private let demoImage4: UIView = {
-		let view = UIView()
-		view.backgroundColor = .purple
-		return view
-	}()
-	private let demoImage5: UIView = {
-		let view = UIView()
-		view.backgroundColor = .brown
-		return view
-	}()
+	private let emotionalImagePopupView = EmotionalImagePopupView()
 	
 	// MARK: - Life Cycle
 	
@@ -152,12 +88,8 @@ final class RecordViewController: BaseViewController {
 		
 		scrollView.addSubview(contentView)
 		
-		[todayEmotionImageView, todayDateView, inputDiaryView].forEach {
+		[todayEmotionImageView, todayDateView, attachedImageCollectionView, inputDiaryView].forEach {
 			contentView.addSubview($0)
-		}
-		
-		[divider, galleryIcon, saveIcon].forEach {
-			footerView.addSubview($0)
 		}
 	}
 	
@@ -182,8 +114,14 @@ final class RecordViewController: BaseViewController {
 			make.centerX.equalToSuperview()
 		}
 		
-		inputDiaryView.snp.makeConstraints { make in
+		attachedImageCollectionView.snp.makeConstraints { make in
 			make.top.equalTo(todayDateView.snp.bottom).offset(20)
+			make.left.right.equalToSuperview().inset(20)
+			make.height.equalTo(0)
+		}
+		
+		inputDiaryView.snp.makeConstraints { make in
+			make.top.equalTo(self.attachedImageCollectionView.snp.bottom).offset(20)
 			make.left.right.equalToSuperview().inset(20)
 			make.bottom.equalToSuperview()
 		}
@@ -193,22 +131,6 @@ final class RecordViewController: BaseViewController {
 			make.left.right.equalToSuperview()
 			make.height.equalTo(30)
 		}
-		
-		divider.snp.makeConstraints { make in
-			make.top.equalTo(footerView.snp.top)
-			make.left.right.equalToSuperview()
-			make.height.equalTo(2)
-		}
-		
-		galleryIcon.snp.makeConstraints { make in
-			make.top.equalTo(divider.snp.bottom).offset(8)
-			make.leading.equalTo(footerView.snp.leading).offset(16)
-		}
-		
-		saveIcon.snp.makeConstraints { make in
-			make.top.equalTo(divider.snp.bottom).offset(8)
-			make.trailing.equalTo(footerView.snp.trailing).offset(-16)
-		}
 	}
 	
 	override func setupView() {
@@ -217,91 +139,48 @@ final class RecordViewController: BaseViewController {
 		todayDateView.text = String(describing: viewModel.selectDate)
 		
 		let showPopupTapGesture = UITapGestureRecognizer(target: self,
-																						action: #selector(showPopupTrigger))
+																										 action: #selector(showPopupTrigger))
 		todayEmotionImageView.addGestureRecognizer(showPopupTapGesture)
 		
-		let galleryTapGesture = UITapGestureRecognizer(target: self,
-																						action: #selector(galleryTrigger))
-		galleryIcon.addGestureRecognizer(galleryTapGesture)
+		let galleryTapGesture = UITapGestureRecognizer(target: self, action: #selector(galleryTrigger))
+		footerView.galleryIcon.addGestureRecognizer(galleryTapGesture)
 		
-		let saveTapGesture = UITapGestureRecognizer(target: self,
-																						action: #selector(saveTrigger))
-		saveIcon.addGestureRecognizer(saveTapGesture)
+		let saveTapGesture = UITapGestureRecognizer(target: self, action: #selector(saveTrigger))
+		footerView.saveIcon.addGestureRecognizer(saveTapGesture)
 	}
 }
 
 private extension RecordViewController {
 	@objc func showPopupTrigger() {
-		dimmingView = UIView(frame: view.bounds)
-		dimmingView?.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+		DispatchQueue.main.async { [weak self] in
+			// self?.imageCollectionView.showCollectionView()
+			self?.attachedImageCollectionView.snp.updateConstraints({ make in
+				make.height.equalTo(100)
+			})
+		}
+		
+		emotionalImagePopupView.frame = view.bounds
 		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(closePopupTrigger))
-		dimmingView?.addGestureRecognizer(tapGesture)
+		emotionalImagePopupView.dimmingView.addGestureRecognizer(tapGesture)
 		
-		view.addSubview(dimmingView!)
 		view.addSubview(emotionalImagePopupView)
-		
-		emotionalImagePopupView.addSubview(demoImage1)
-		emotionalImagePopupView.addSubview(demoImage2)
-		emotionalImagePopupView.addSubview(demoImage3)
-		emotionalImagePopupView.addSubview(demoImage4)
-		emotionalImagePopupView.addSubview(demoImage5)
-		
-		demoImage1.snp.makeConstraints { make in
-			make.top.equalToSuperview().offset(20)
-			make.left.equalToSuperview().offset(20)
-			make.width.height.equalTo(60)
-		}
-		
-		demoImage2.snp.makeConstraints { make in
-			make.top.equalToSuperview().offset(20)
-			make.centerX.equalToSuperview()
-			make.width.height.equalTo(60)
-		}
-		
-		demoImage3.snp.makeConstraints { make in
-			make.top.equalToSuperview().offset(20)
-			make.right.equalToSuperview().offset(-20)
-			make.width.height.equalTo(60)
-		}
-		
-		demoImage4.snp.makeConstraints { make in
-			make.top.equalTo(demoImage1.snp.bottom).offset(20)
-			make.centerX.equalToSuperview().offset(-50)
-			make.width.height.equalTo(60)
-		}
-		
-		demoImage5.snp.makeConstraints { make in
-			make.top.equalTo(demoImage3.snp.bottom).offset(20)
-			make.centerX.equalToSuperview().offset(50)
-			make.width.height.equalTo(60)
-		}
-		
-		emotionalImagePopupView.snp.makeConstraints { make in
-			make.center.equalToSuperview()
-			make.width.equalTo(250)
-			make.height.equalTo(180)
-		}
-		
-		emotionalImagePopupView.alpha = 0
-		dimmingView?.alpha = 0
-		UIView.animate(withDuration: 0.3) {
-			self.emotionalImagePopupView.alpha = 1
-			self.dimmingView?.alpha = 1
-		}
+		emotionalImagePopupView.showPopup()
 	}
 	
 	@objc func closePopupTrigger() {
-		UIView.animate(withDuration: 0.3, animations: {
-			self.emotionalImagePopupView.alpha = 0
-			self.dimmingView?.alpha = 0
-		}) { _ in
-			self.emotionalImagePopupView.removeFromSuperview()
-			self.dimmingView?.removeFromSuperview()
+		emotionalImagePopupView.hidePopup { [weak self] in
+			self?.emotionalImagePopupView.removeFromSuperview()
 		}
 	}
 	
 	@objc func galleryTrigger() {
+		var configuration = PHPickerConfiguration()
+		configuration.filter = .images
+		configuration.selectionLimit = 5
 		
+		let picker = PHPickerViewController(configuration: configuration)
+		picker.delegate = self
+		present(picker, animated: true, completion: nil)
 	}
 	
 	@objc func saveTrigger() {
@@ -314,5 +193,23 @@ extension RecordViewController: UITextViewDelegate {
 		guard textView.textColor == .secondaryLabel else { return }
 		textView.text = nil
 		textView.textColor = .label
+	}
+}
+
+extension RecordViewController: PHPickerViewControllerDelegate {
+	func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+		picker.dismiss(animated: true, completion: nil)
+		
+		for result in results {
+			result.itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+				if let image = image as? UIImage {
+					// 이미지가 선택된 후의 동작 구현
+					DispatchQueue.main.async {
+						// 예시: 선택된 이미지를 로그에 출력
+						Log.debug("Selected image: \(image)")
+					}
+				}
+			}
+		}
 	}
 }
