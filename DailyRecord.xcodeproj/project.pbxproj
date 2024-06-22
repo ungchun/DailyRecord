@@ -60,6 +60,10 @@
 		65CF61C62C243EDD003E6D75 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61C52C243EDD003E6D75 /* BaseView.swift */; };
 		65CF61C82C24425A003E6D75 /* EmotionalImagePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61C72C24425A003E6D75 /* EmotionalImagePopupView.swift */; };
 		65CF61CA2C24454E003E6D75 /* AttachedImageCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61C92C24454E003E6D75 /* AttachedImageCollectionView.swift */; };
+		65CF61CD2C26B571003E6D75 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61CC2C26B571003E6D75 /* LoginViewController.swift */; };
+		65CF61CF2C26B587003E6D75 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61CE2C26B587003E6D75 /* LoginViewModel.swift */; };
+		65CF61D12C26BAA6003E6D75 /* LoginDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61D02C26BAA6003E6D75 /* LoginDIContainer.swift */; };
+		65CF61D32C26BAB5003E6D75 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61D22C26BAB5003E6D75 /* LoginCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +91,10 @@
 		65CF61C52C243EDD003E6D75 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		65CF61C72C24425A003E6D75 /* EmotionalImagePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionalImagePopupView.swift; sourceTree = "<group>"; };
 		65CF61C92C24454E003E6D75 /* AttachedImageCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachedImageCollectionView.swift; sourceTree = "<group>"; };
+		65CF61CC2C26B571003E6D75 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		65CF61CE2C26B587003E6D75 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		65CF61D02C26BAA6003E6D75 /* LoginDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDIContainer.swift; sourceTree = "<group>"; };
+		65CF61D22C26BAB5003E6D75 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +196,7 @@
 		65CF61342C073D44003E6D75 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				65CF61CB2C26B4F5003E6D75 /* LoginScene */,
 				65CF61822C0C6030003E6D75 /* CalenderScene */,
 				65CF61922C116DB6003E6D75 /* RecordScene */,
 			);
@@ -226,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				65CF617A2C0C5ED7003E6D75 /* Coordinator.swift */,
+				65CF61D22C26BAB5003E6D75 /* LoginCoordinator.swift */,
 				65CF617E2C0C5F20003E6D75 /* CalenderCoordinator.swift */,
 				65CF619A2C11706A003E6D75 /* RecordCoordinator.swift */,
 			);
@@ -236,6 +246,7 @@
 			isa = PBXGroup;
 			children = (
 				65CF617C2C0C5EEC003E6D75 /* DIContainer.swift */,
+				65CF61D02C26BAA6003E6D75 /* LoginDIContainer.swift */,
 				65CF61802C0C5F44003E6D75 /* CalenderDIContainer.swift */,
 				65CF61982C117061003E6D75 /* RecordDIContainer.swift */,
 			);
@@ -319,6 +330,15 @@
 				65CF61C52C243EDD003E6D75 /* BaseView.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		65CF61CB2C26B4F5003E6D75 /* LoginScene */ = {
+			isa = PBXGroup;
+			children = (
+				65CF61CC2C26B571003E6D75 /* LoginViewController.swift */,
+				65CF61CE2C26B587003E6D75 /* LoginViewModel.swift */,
+			);
+			path = LoginScene;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -464,17 +484,21 @@
 				65CF61892C0C6092003E6D75 /* CalenderViewModel.swift in Sources */,
 				65CF611E2C036432003E6D75 /* AppDelegate.swift in Sources */,
 				65CF617B2C0C5ED7003E6D75 /* Coordinator.swift in Sources */,
+				65CF61CD2C26B571003E6D75 /* LoginViewController.swift in Sources */,
 				65CF61C82C24425A003E6D75 /* EmotionalImagePopupView.swift in Sources */,
 				65CF61992C117061003E6D75 /* RecordDIContainer.swift in Sources */,
 				65CF61C22C1D6039003E6D75 /* RecordViewModel.swift in Sources */,
 				65CF61772C0B03EA003E6D75 /* Log.swift in Sources */,
 				65CF61C42C243E78003E6D75 /* RecordFooterView.swift in Sources */,
+				65CF61D12C26BAA6003E6D75 /* LoginDIContainer.swift in Sources */,
 				65CF61CA2C24454E003E6D75 /* AttachedImageCollectionView.swift in Sources */,
 				65CF61842C0C6053003E6D75 /* CalenderViewController.swift in Sources */,
+				65CF61D32C26BAB5003E6D75 /* LoginCoordinator.swift in Sources */,
 				65CF617D2C0C5EEC003E6D75 /* DIContainer.swift in Sources */,
 				65CF61972C116E87003E6D75 /* RecordViewController.swift in Sources */,
 				65CF617F2C0C5F20003E6D75 /* CalenderCoordinator.swift in Sources */,
 				65CF61202C036432003E6D75 /* SceneDelegate.swift in Sources */,
+				65CF61CF2C26B587003E6D75 /* LoginViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
