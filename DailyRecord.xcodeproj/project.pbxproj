@@ -56,6 +56,10 @@
 		65CF619E2C158B71003E6D75 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF619D2C158B71003E6D75 /* BaseViewController.swift */; };
 		65CF61A02C158B77003E6D75 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF619F2C158B77003E6D75 /* BaseViewModel.swift */; };
 		65CF61C22C1D6039003E6D75 /* RecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61C12C1D6039003E6D75 /* RecordViewModel.swift */; };
+		65CF61C42C243E78003E6D75 /* RecordFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61C32C243E78003E6D75 /* RecordFooterView.swift */; };
+		65CF61C62C243EDD003E6D75 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61C52C243EDD003E6D75 /* BaseView.swift */; };
+		65CF61C82C24425A003E6D75 /* EmotionalImagePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61C72C24425A003E6D75 /* EmotionalImagePopupView.swift */; };
+		65CF61CA2C24454E003E6D75 /* AttachedImageCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61C92C24454E003E6D75 /* AttachedImageCollectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +83,10 @@
 		65CF619D2C158B71003E6D75 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		65CF619F2C158B77003E6D75 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		65CF61C12C1D6039003E6D75 /* RecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewModel.swift; sourceTree = "<group>"; };
+		65CF61C32C243E78003E6D75 /* RecordFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordFooterView.swift; sourceTree = "<group>"; };
+		65CF61C52C243EDD003E6D75 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		65CF61C72C24425A003E6D75 /* EmotionalImagePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionalImagePopupView.swift; sourceTree = "<group>"; };
+		65CF61C92C24454E003E6D75 /* AttachedImageCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachedImageCollectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,6 +288,9 @@
 		65CF61932C116E68003E6D75 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				65CF61C32C243E78003E6D75 /* RecordFooterView.swift */,
+				65CF61C72C24425A003E6D75 /* EmotionalImagePopupView.swift */,
+				65CF61C92C24454E003E6D75 /* AttachedImageCollectionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -305,6 +316,7 @@
 			children = (
 				65CF619D2C158B71003E6D75 /* BaseViewController.swift */,
 				65CF619F2C158B77003E6D75 /* BaseViewModel.swift */,
+				65CF61C52C243EDD003E6D75 /* BaseView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -447,13 +459,17 @@
 				65CF619E2C158B71003E6D75 /* BaseViewController.swift in Sources */,
 				65CF61812C0C5F44003E6D75 /* CalenderDIContainer.swift in Sources */,
 				65CF619B2C11706A003E6D75 /* RecordCoordinator.swift in Sources */,
+				65CF61C62C243EDD003E6D75 /* BaseView.swift in Sources */,
 				65CF61A02C158B77003E6D75 /* BaseViewModel.swift in Sources */,
 				65CF61892C0C6092003E6D75 /* CalenderViewModel.swift in Sources */,
 				65CF611E2C036432003E6D75 /* AppDelegate.swift in Sources */,
 				65CF617B2C0C5ED7003E6D75 /* Coordinator.swift in Sources */,
+				65CF61C82C24425A003E6D75 /* EmotionalImagePopupView.swift in Sources */,
 				65CF61992C117061003E6D75 /* RecordDIContainer.swift in Sources */,
 				65CF61C22C1D6039003E6D75 /* RecordViewModel.swift in Sources */,
 				65CF61772C0B03EA003E6D75 /* Log.swift in Sources */,
+				65CF61C42C243E78003E6D75 /* RecordFooterView.swift in Sources */,
+				65CF61CA2C24454E003E6D75 /* AttachedImageCollectionView.swift in Sources */,
 				65CF61842C0C6053003E6D75 /* CalenderViewController.swift in Sources */,
 				65CF617D2C0C5EEC003E6D75 /* DIContainer.swift in Sources */,
 				65CF61972C116E87003E6D75 /* RecordViewController.swift in Sources */,
@@ -607,6 +623,8 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DailyRecord/Resource/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라를 사용하기 위해 권한이 필요합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "사진을 첨부하기 위해 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -639,6 +657,8 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DailyRecord/Resource/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라를 사용하기 위해 권한이 필요합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "사진을 첨부하기 위해 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
