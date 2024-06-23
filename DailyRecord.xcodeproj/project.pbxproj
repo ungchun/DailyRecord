@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		659946542C27DD8E0030598B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 659946532C27DD8E0030598B /* SnapKit */; };
+		659946572C27E9C40030598B /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 659946562C27E9C40030598B /* KakaoSDK */; };
+		659946592C27E9C40030598B /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 659946582C27E9C40030598B /* KakaoSDKAuth */; };
+		6599465B2C27E9C40030598B /* KakaoSDKCert in Frameworks */ = {isa = PBXBuildFile; productRef = 6599465A2C27E9C40030598B /* KakaoSDKCert */; };
+		6599465D2C27E9C40030598B /* KakaoSDKCertCore in Frameworks */ = {isa = PBXBuildFile; productRef = 6599465C2C27E9C40030598B /* KakaoSDKCertCore */; };
+		6599465F2C27E9C40030598B /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 6599465E2C27E9C40030598B /* KakaoSDKCommon */; };
 		65CF611E2C036432003E6D75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF611D2C036432003E6D75 /* AppDelegate.swift */; };
 		65CF61202C036432003E6D75 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF611F2C036432003E6D75 /* SceneDelegate.swift */; };
 		65CF61272C036433003E6D75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65CF61262C036433003E6D75 /* Assets.xcassets */; };
@@ -48,8 +54,6 @@
 		65CF61842C0C6053003E6D75 /* CalenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61832C0C6053003E6D75 /* CalenderViewController.swift */; };
 		65CF61892C0C6092003E6D75 /* CalenderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61882C0C6092003E6D75 /* CalenderViewModel.swift */; };
 		65CF618C2C108CBD003E6D75 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 65CF618B2C108CBD003E6D75 /* FSCalendar */; };
-		65CF618F2C109223003E6D75 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 65CF618E2C109223003E6D75 /* SnapKit */; };
-		65CF61912C109223003E6D75 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 65CF61902C109223003E6D75 /* SnapKit-Dynamic */; };
 		65CF61972C116E87003E6D75 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61962C116E87003E6D75 /* RecordViewController.swift */; };
 		65CF61992C117061003E6D75 /* RecordDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61982C117061003E6D75 /* RecordDIContainer.swift */; };
 		65CF619B2C11706A003E6D75 /* RecordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF619A2C11706A003E6D75 /* RecordCoordinator.swift */; };
@@ -95,6 +99,7 @@
 		65CF61CE2C26B587003E6D75 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		65CF61D02C26BAA6003E6D75 /* LoginDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDIContainer.swift; sourceTree = "<group>"; };
 		65CF61D22C26BAB5003E6D75 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
+		65CF61D42C27CEC6003E6D75 /* DailyRecord.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DailyRecord.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,27 +109,31 @@
 			files = (
 				65CF614D2C0AEDB0003E6D75 /* FirebaseDatabase in Frameworks */,
 				65CF615B2C0AEDB0003E6D75 /* FirebaseFunctionsCombine-Community in Frameworks */,
+				659946572C27E9C40030598B /* KakaoSDK in Frameworks */,
 				65CF618C2C108CBD003E6D75 /* FSCalendar in Frameworks */,
 				65CF61532C0AEDB0003E6D75 /* FirebaseFirestore in Frameworks */,
 				65CF613F2C0AEDB0003E6D75 /* FirebaseAnalyticsSwift in Frameworks */,
 				65CF613B2C0AEDB0003E6D75 /* FirebaseAnalytics in Frameworks */,
+				659946592C27E9C40030598B /* KakaoSDKAuth in Frameworks */,
+				6599465F2C27E9C40030598B /* KakaoSDKCommon in Frameworks */,
 				65CF613D2C0AEDB0003E6D75 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
-				65CF61912C109223003E6D75 /* SnapKit-Dynamic in Frameworks */,
 				65CF61632C0AEDB0003E6D75 /* FirebaseMLModelDownloader in Frameworks */,
 				65CF61572C0AEDB0003E6D75 /* FirebaseFirestoreSwift in Frameworks */,
-				65CF618F2C109223003E6D75 /* SnapKit in Frameworks */,
+				659946542C27DD8E0030598B /* SnapKit in Frameworks */,
 				65CF61432C0AEDB0003E6D75 /* FirebaseAppCheck in Frameworks */,
 				65CF61412C0AEDB0003E6D75 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				65CF61472C0AEDB0003E6D75 /* FirebaseAuth in Frameworks */,
 				65CF614B2C0AEDB0003E6D75 /* FirebaseCrashlytics in Frameworks */,
 				65CF616B2C0AEDB0003E6D75 /* FirebaseRemoteConfigSwift in Frameworks */,
 				65CF615D2C0AEDB0003E6D75 /* FirebaseInAppMessaging-Beta in Frameworks */,
+				6599465D2C27E9C40030598B /* KakaoSDKCertCore in Frameworks */,
 				65CF614F2C0AEDB0003E6D75 /* FirebaseDatabaseSwift in Frameworks */,
 				65CF61592C0AEDB0003E6D75 /* FirebaseFunctions in Frameworks */,
 				65CF616F2C0AEDB0003E6D75 /* FirebaseStorageCombine-Community in Frameworks */,
 				65CF61692C0AEDB0003E6D75 /* FirebaseRemoteConfig in Frameworks */,
 				65CF61452C0AEDB0003E6D75 /* FirebaseAppDistribution-Beta in Frameworks */,
 				65CF61492C0AEDB0003E6D75 /* FirebaseAuthCombine-Community in Frameworks */,
+				6599465B2C27E9C40030598B /* KakaoSDKCert in Frameworks */,
 				65CF61672C0AEDB0003E6D75 /* FirebasePerformance in Frameworks */,
 				65CF615F2C0AEDB0003E6D75 /* FirebaseInAppMessagingSwift-Beta in Frameworks */,
 				65CF616D2C0AEDB0003E6D75 /* FirebaseStorage in Frameworks */,
@@ -158,6 +167,7 @@
 		65CF611C2C036432003E6D75 /* DailyRecord */ = {
 			isa = PBXGroup;
 			children = (
+				65CF61D42C27CEC6003E6D75 /* DailyRecord.entitlements */,
 				65CF61312C073D1E003E6D75 /* Application */,
 				65CF61332C073D34003E6D75 /* Data */,
 				65CF61322C073D2D003E6D75 /* Domain */,
@@ -388,8 +398,12 @@
 				65CF616E2C0AEDB0003E6D75 /* FirebaseStorageCombine-Community */,
 				65CF61702C0AEDB0003E6D75 /* FirebaseVertexAI-Preview */,
 				65CF618B2C108CBD003E6D75 /* FSCalendar */,
-				65CF618E2C109223003E6D75 /* SnapKit */,
-				65CF61902C109223003E6D75 /* SnapKit-Dynamic */,
+				659946532C27DD8E0030598B /* SnapKit */,
+				659946562C27E9C40030598B /* KakaoSDK */,
+				659946582C27E9C40030598B /* KakaoSDKAuth */,
+				6599465A2C27E9C40030598B /* KakaoSDKCert */,
+				6599465C2C27E9C40030598B /* KakaoSDKCertCore */,
+				6599465E2C27E9C40030598B /* KakaoSDKCommon */,
 			);
 			productName = DailyRecord;
 			productReference = 65CF611A2C036432003E6D75 /* DailyRecord.app */;
@@ -422,7 +436,8 @@
 			packageReferences = (
 				65CF61392C0AEDB0003E6D75 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				65CF618A2C108CBD003E6D75 /* XCRemoteSwiftPackageReference "FSCalendar" */,
-				65CF618D2C109223003E6D75 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				659946522C27DD8E0030598B /* XCRemoteSwiftPackageReference "SnapKit" */,
+				659946552C27E9C40030598B /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 			);
 			productRefGroup = 65CF611B2C036432003E6D75 /* Products */;
 			projectDirPath = "";
@@ -640,6 +655,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DailyRecord/DailyRecord.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -675,6 +691,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DailyRecord/DailyRecord.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F92UQYH2RA;
@@ -728,6 +745,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		659946522C27DD8E0030598B /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		659946552C27E9C40030598B /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.22.3;
+			};
+		};
 		65CF61392C0AEDB0003E6D75 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -744,17 +777,39 @@
 				minimumVersion = 2.8.4;
 			};
 		};
-		65CF618D2C109223003E6D75 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.7.1;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		659946532C27DD8E0030598B /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 659946522C27DD8E0030598B /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		659946562C27E9C40030598B /* KakaoSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 659946552C27E9C40030598B /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDK;
+		};
+		659946582C27E9C40030598B /* KakaoSDKAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 659946552C27E9C40030598B /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKAuth;
+		};
+		6599465A2C27E9C40030598B /* KakaoSDKCert */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 659946552C27E9C40030598B /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKCert;
+		};
+		6599465C2C27E9C40030598B /* KakaoSDKCertCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 659946552C27E9C40030598B /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKCertCore;
+		};
+		6599465E2C27E9C40030598B /* KakaoSDKCommon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 659946552C27E9C40030598B /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKCommon;
+		};
 		65CF613A2C0AEDB0003E6D75 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 65CF61392C0AEDB0003E6D75 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
@@ -899,16 +954,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 65CF618A2C108CBD003E6D75 /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
-		};
-		65CF618E2C109223003E6D75 /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 65CF618D2C109223003E6D75 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
-		65CF61902C109223003E6D75 /* SnapKit-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 65CF618D2C109223003E6D75 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = "SnapKit-Dynamic";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
