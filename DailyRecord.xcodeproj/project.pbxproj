@@ -13,6 +13,11 @@
 		6599465B2C27E9C40030598B /* KakaoSDKCert in Frameworks */ = {isa = PBXBuildFile; productRef = 6599465A2C27E9C40030598B /* KakaoSDKCert */; };
 		6599465D2C27E9C40030598B /* KakaoSDKCertCore in Frameworks */ = {isa = PBXBuildFile; productRef = 6599465C2C27E9C40030598B /* KakaoSDKCertCore */; };
 		6599465F2C27E9C40030598B /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 6599465E2C27E9C40030598B /* KakaoSDKCommon */; };
+		659946612C2810B10030598B /* FirebaseDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946602C2810B10030598B /* FirebaseDemo.swift */; };
+		659946632C2FE4BE0030598B /* UserResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946622C2FE4BE0030598B /* UserResponseDTO.swift */; };
+		659946662C2FE79F0030598B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946652C2FE79F0030598B /* User.swift */; };
+		6599466A2C3024A60030598B /* UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946692C3024A60030598B /* UserRequest.swift */; };
+		6599466D2C3024F40030598B /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6599466C2C3024F40030598B /* Encodable+.swift */; };
 		65CF611E2C036432003E6D75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF611D2C036432003E6D75 /* AppDelegate.swift */; };
 		65CF61202C036432003E6D75 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF611F2C036432003E6D75 /* SceneDelegate.swift */; };
 		65CF61272C036433003E6D75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65CF61262C036433003E6D75 /* Assets.xcassets */; };
@@ -71,6 +76,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		659946602C2810B10030598B /* FirebaseDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDemo.swift; sourceTree = "<group>"; };
+		659946622C2FE4BE0030598B /* UserResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponseDTO.swift; sourceTree = "<group>"; };
+		659946652C2FE79F0030598B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		659946692C3024A60030598B /* UserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequest.swift; sourceTree = "<group>"; };
+		6599466C2C3024F40030598B /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
 		65CF611A2C036432003E6D75 /* DailyRecord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyRecord.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65CF611D2C036432003E6D75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65CF611F2C036432003E6D75 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -148,6 +158,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		659946642C2FE79A0030598B /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				659946652C2FE79F0030598B /* User.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		659946672C2FE7A50030598B /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				659946622C2FE4BE0030598B /* UserResponseDTO.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		659946682C2FF2140030598B /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				659946692C3024A60030598B /* UserRequest.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		6599466B2C3024D70030598B /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				6599466C2C3024F40030598B /* Encodable+.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		65CF61112C036432003E6D75 = {
 			isa = PBXGroup;
 			children = (
@@ -192,6 +234,8 @@
 		65CF61322C073D2D003E6D75 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				659946642C2FE79A0030598B /* Entity */,
+				659946602C2810B10030598B /* FirebaseDemo.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -199,6 +243,8 @@
 		65CF61332C073D34003E6D75 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				659946682C2FF2140030598B /* Request */,
+				659946672C2FE7A50030598B /* Response */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -218,6 +264,7 @@
 			children = (
 				65CF619C2C158B66003E6D75 /* Base */,
 				65CF61752C0B03DC003E6D75 /* Logger */,
+				6599466B2C3024D70030598B /* Extension */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -491,9 +538,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				659946662C2FE79F0030598B /* User.swift in Sources */,
 				65CF619E2C158B71003E6D75 /* BaseViewController.swift in Sources */,
+				6599466A2C3024A60030598B /* UserRequest.swift in Sources */,
 				65CF61812C0C5F44003E6D75 /* CalenderDIContainer.swift in Sources */,
 				65CF619B2C11706A003E6D75 /* RecordCoordinator.swift in Sources */,
+				659946612C2810B10030598B /* FirebaseDemo.swift in Sources */,
 				65CF61C62C243EDD003E6D75 /* BaseView.swift in Sources */,
 				65CF61A02C158B77003E6D75 /* BaseViewModel.swift in Sources */,
 				65CF61892C0C6092003E6D75 /* CalenderViewModel.swift in Sources */,
@@ -503,6 +553,7 @@
 				65CF61C82C24425A003E6D75 /* EmotionalImagePopupView.swift in Sources */,
 				65CF61992C117061003E6D75 /* RecordDIContainer.swift in Sources */,
 				65CF61C22C1D6039003E6D75 /* RecordViewModel.swift in Sources */,
+				659946632C2FE4BE0030598B /* UserResponseDTO.swift in Sources */,
 				65CF61772C0B03EA003E6D75 /* Log.swift in Sources */,
 				65CF61C42C243E78003E6D75 /* RecordFooterView.swift in Sources */,
 				65CF61D12C26BAA6003E6D75 /* LoginDIContainer.swift in Sources */,
@@ -514,6 +565,7 @@
 				65CF617F2C0C5F20003E6D75 /* CalenderCoordinator.swift in Sources */,
 				65CF61202C036432003E6D75 /* SceneDelegate.swift in Sources */,
 				65CF61CF2C26B587003E6D75 /* LoginViewModel.swift in Sources */,
+				6599466D2C3024F40030598B /* Encodable+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
