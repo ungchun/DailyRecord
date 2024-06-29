@@ -191,7 +191,15 @@ extension LoginViewController {
 					Log.error(error)
 					return
 				}
-				self?.coordinator?.showCalender()
+				
+				Task {
+					do {
+						try await self?.viewModel.createUserTirgger()
+						self?.coordinator?.showCalender()
+					} catch {
+						// 로그인 에러
+					}
+				}
 			}
 		}
 	}
