@@ -18,14 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 						 willConnectTo session: UISceneSession,
 						 options connectionOptions: UIScene.ConnectionOptions) {
 		if let windowScene = scene as? UIWindowScene {
-			
-			/**
-			 # 자동 로그인 로직 구현하기
-			 Auth.auth().currentUser == nil : auth 등록이 안 되어 있거나
-			 싱글턴 docID 값이 없을 때 : 가입은 되어 있으나 앱을 다시 깔았을 경우
-			 */
-			
-			if Auth.auth().currentUser == nil {
+			if Auth.auth().currentUser == nil || UserDefaultsSetting.uid.isEmpty {
 				// 로그인 뷰
 				var loginDIContainer: LoginDIContainer?
 				var loginCoordinator: LoginCoordinator?
