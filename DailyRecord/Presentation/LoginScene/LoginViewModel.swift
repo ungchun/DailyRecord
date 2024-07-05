@@ -7,6 +7,8 @@
 
 import Foundation
 
+import FirebaseAuth
+
 enum LoginPlatForm: String {
 	case apple
 }
@@ -29,12 +31,20 @@ extension LoginViewModel {
 	
 	@MainActor
 	func createUserTirgger() async throws {
-		let userRequest = UserRequest(uid: "", docID: "",
-																	nickname: randomNickname.randomElement()!,
-																	platForm: LoginPlatForm.apple.rawValue,
-																	fcmToken: "")
-		let userData = try userRequest.asDictionary()
-		try await firestoreService.create(collectionPath: .user,
-																			data: userData)
+		guard let userID = Auth.auth().currentUser?.uid else { return }
+		let resposne = try await firestoreService.read(collectionPath: .user,
+																									 docID: userID)
+		if resposne == nil {
+			let userRequest = UserRequest(uid: "",
+																		nickname: randomNickname.randomElement()!,
+																		platForm: LoginPlatForm.apple.rawValue,
+																		fcmToken: "")
+			let userData = try userRequest.asDictionary()
+			try await firestoreService.create(collectionPath: .user,
+																				data: userData)
+			
+		} else {
+			UserDefaultsSetting.uid = userID
+		}
 	}
 }

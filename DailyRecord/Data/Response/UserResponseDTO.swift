@@ -14,3 +14,11 @@ struct UserResponseDTO: Decodable {
 	let platForm: String?
 	let fcmToken: String?
 }
+
+// MARK: - to Entity
+
+extension UserResponseDTO {
+	func toEntity() -> User {
+		return .init()
+	}
+}

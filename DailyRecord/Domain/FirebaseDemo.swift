@@ -27,22 +27,23 @@ extension FirestoreService {
 		collectionPath: CollectionPath,
 		data: [String : Any]
 	) async throws {
+		guard let userID = Auth.auth().currentUser?.uid else { return }
 		let documentRef = db.collection(collectionPath.rawValue)
 		try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
 			let docID = documentRef.document().documentID
-			documentRef.document(docID).setData(data) { [weak self] error in
+			documentRef.document(collectionPath == .user
+													 ? userID : docID).setData(data) { [weak self] error in
 				if let error = error {
 					continuation.resume(throwing: error)
 				} else {
 					if collectionPath == .user { // 회원가입
-						guard let userID = Auth.auth().currentUser?.uid else { return }
 						Task { [weak self] in
 							guard let self = self else { return }
 							do {
 								try await self.update(collectionPath: .user,
-																			docID: docID,
-																			updateData: ["docID": docID, "uid": userID])
-								// TODO: docID 싱글턴 세팅
+																			docID: userID,
+																			updateData: ["uid": userID])
+								UserDefaultsSetting.uid = userID
 								continuation.resume()
 							} catch {
 								continuation.resume(throwing: error)
