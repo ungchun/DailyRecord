@@ -198,6 +198,7 @@ extension LoginViewController {
 						self?.coordinator?.showCalender()
 					} catch {
 						// 로그인 에러
+						// TODO: SET TOAST
 					}
 				}
 			}

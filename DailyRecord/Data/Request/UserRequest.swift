@@ -9,7 +9,6 @@ import Foundation
 
 struct UserRequest: Encodable {
 	let uid: String
-	let docID: String
 	let nickname: String
 	let platForm: String
 	let fcmToken: String
