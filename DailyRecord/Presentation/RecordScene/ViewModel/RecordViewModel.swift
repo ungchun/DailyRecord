@@ -11,11 +11,17 @@ final class RecordViewModel: BaseViewModel {
 	
 	// MARK: - Properties
 	
+	private let recordUseCase: DefaultRecordUseCase
+	
 	let selectDate: Date
 	
+	// MARK: - Init
+	
 	init(
+		recordUseCase: DefaultRecordUseCase,
 		selectDate: Date
 	) {
+		self.recordUseCase = recordUseCase
 		self.selectDate = selectDate
 	}
 }
