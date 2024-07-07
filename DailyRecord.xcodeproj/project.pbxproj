@@ -22,6 +22,9 @@
 		659946772C3A68E50030598B /* LoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946762C3A68E50030598B /* LoginUseCase.swift */; };
 		659946792C3A69400030598B /* LoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946782C3A69400030598B /* LoginRepository.swift */; };
 		6599467C2C3A6A3D0030598B /* DefaultLoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6599467B2C3A6A3D0030598B /* DefaultLoginRepository.swift */; };
+		6599467E2C3A8B060030598B /* RecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6599467D2C3A8B060030598B /* RecordRepository.swift */; };
+		659946802C3A8B1D0030598B /* DefaultRecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6599467F2C3A8B1D0030598B /* DefaultRecordRepository.swift */; };
+		659946822C3A8B410030598B /* RecordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946812C3A8B410030598B /* RecordUseCase.swift */; };
 		65CF611E2C036432003E6D75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF611D2C036432003E6D75 /* AppDelegate.swift */; };
 		65CF61202C036432003E6D75 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF611F2C036432003E6D75 /* SceneDelegate.swift */; };
 		65CF61272C036433003E6D75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65CF61262C036433003E6D75 /* Assets.xcassets */; };
@@ -89,6 +92,9 @@
 		659946762C3A68E50030598B /* LoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCase.swift; sourceTree = "<group>"; };
 		659946782C3A69400030598B /* LoginRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRepository.swift; sourceTree = "<group>"; };
 		6599467B2C3A6A3D0030598B /* DefaultLoginRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLoginRepository.swift; sourceTree = "<group>"; };
+		6599467D2C3A8B060030598B /* RecordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRepository.swift; sourceTree = "<group>"; };
+		6599467F2C3A8B1D0030598B /* DefaultRecordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRecordRepository.swift; sourceTree = "<group>"; };
+		659946812C3A8B410030598B /* RecordUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordUseCase.swift; sourceTree = "<group>"; };
 		65CF611A2C036432003E6D75 /* DailyRecord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyRecord.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65CF611D2C036432003E6D75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65CF611F2C036432003E6D75 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -219,6 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				659946762C3A68E50030598B /* LoginUseCase.swift */,
+				659946812C3A8B410030598B /* RecordUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -227,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				659946782C3A69400030598B /* LoginRepository.swift */,
+				6599467D2C3A8B060030598B /* RecordRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -235,6 +243,7 @@
 			isa = PBXGroup;
 			children = (
 				6599467B2C3A6A3D0030598B /* DefaultLoginRepository.swift */,
+				6599467F2C3A8B1D0030598B /* DefaultRecordRepository.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -602,6 +611,7 @@
 				659946792C3A69400030598B /* LoginRepository.swift in Sources */,
 				65CF61A02C158B77003E6D75 /* BaseViewModel.swift in Sources */,
 				65CF61892C0C6092003E6D75 /* CalenderViewModel.swift in Sources */,
+				659946802C3A8B1D0030598B /* DefaultRecordRepository.swift in Sources */,
 				65CF611E2C036432003E6D75 /* AppDelegate.swift in Sources */,
 				65CF617B2C0C5ED7003E6D75 /* Coordinator.swift in Sources */,
 				65CF61CD2C26B571003E6D75 /* LoginViewController.swift in Sources */,
@@ -613,8 +623,10 @@
 				65CF61C42C243E78003E6D75 /* RecordFooterView.swift in Sources */,
 				65CF61D12C26BAA6003E6D75 /* LoginDIContainer.swift in Sources */,
 				65CF61CA2C24454E003E6D75 /* AttachedImageCollectionView.swift in Sources */,
+				6599467E2C3A8B060030598B /* RecordRepository.swift in Sources */,
 				65CF61842C0C6053003E6D75 /* CalenderViewController.swift in Sources */,
 				65CF61D32C26BAB5003E6D75 /* LoginCoordinator.swift in Sources */,
+				659946822C3A8B410030598B /* RecordUseCase.swift in Sources */,
 				65CF617D2C0C5EEC003E6D75 /* DIContainer.swift in Sources */,
 				65CF61972C116E87003E6D75 /* RecordViewController.swift in Sources */,
 				659946732C3839860030598B /* UserDefaultsSetting.swift in Sources */,
