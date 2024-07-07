@@ -29,7 +29,7 @@ extension LoginDIContainer {
 	}
 	
 	private func makeLoginViewModel() -> LoginViewModel {
-		return LoginViewModel()
+		return LoginViewModel(loginUseCase: LoginUseCase(loginRepository: LoginRepository()))
 	}
 	
 	// MARK: - Calender

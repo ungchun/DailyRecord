@@ -9,7 +9,6 @@ import Foundation
 
 struct UserResponseDTO: Decodable {
 	let uid: String?
-	let docID: String?
 	let nickname: String?
 	let platForm: String?
 	let fcmToken: String?
@@ -19,6 +18,6 @@ struct UserResponseDTO: Decodable {
 
 extension UserResponseDTO {
 	func toEntity() -> User {
-		return .init()
+		return .init(uid: uid ?? "")
 	}
 }
