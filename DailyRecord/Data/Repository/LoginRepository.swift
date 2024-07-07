@@ -11,7 +11,9 @@ import FirebaseFirestore
 final class LoginRepository: DefaultLoginRepository {
 	private let db = Firestore.firestore()
 	private let collectionPath = "user"
-	
+}
+
+extension LoginRepository {
 	func createUser(data: [String : Any]) async throws {
 		guard let userID = Auth.auth().currentUser?.uid else { return }
 		let documentRef = db.collection(collectionPath)
