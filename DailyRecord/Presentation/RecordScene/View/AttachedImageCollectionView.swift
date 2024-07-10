@@ -8,7 +8,17 @@
 import UIKit
 import SnapKit
 
+protocol AttachedImageCollectionViewDelegate: AnyObject {
+	func attachedImageCollectionViewUpdate()
+}
+
 final class AttachedImageCollectionView: BaseView {
+	
+	// MARK: - Properties
+	
+	weak var delegate: AttachedImageCollectionViewDelegate?
+	
+	private var images: [UIImage] = []
 	
 	// MARK: - Views
 	
@@ -23,7 +33,6 @@ final class AttachedImageCollectionView: BaseView {
 		let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
 		collectionView.backgroundColor = .clear
 		collectionView.showsHorizontalScrollIndicator = false
-		//		collectionView.isHidden = true
 		collectionView.dataSource = self
 		collectionView.delegate = self
 		collectionView.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: CustomCollectionViewCell.reuseIdentifier)
@@ -49,27 +58,27 @@ final class AttachedImageCollectionView: BaseView {
 	override func setupView() {
 		collectionView.snp.makeConstraints { make in
 			make.edges.equalToSuperview()
-			make.height.equalTo(0)
 		}
 	}
 }
 
 extension AttachedImageCollectionView {
-	func showCollectionView() {
-		//		collectionView.isHidden = false
-		//		collectionView.snp.updateConstraints { make in
-		//			make.height.equalTo(100)
-		//		}
+	func setImages(_ images: [UIImage]) {
+		DispatchQueue.main.async { [weak self] in
+			self?.images = images
+			self?.collectionView.reloadData()
+		}
 	}
 	
 	@objc private func deleteButtonTapped(_ sender: UIButton) {
 		if let cell = sender.superview as? CustomCollectionViewCell,
 			 let indexPath = self.collectionView.indexPath(for: cell) {
-			// 여기에 삭제 동작을 구현
-			print("Delete button tapped at indexPath: \(indexPath)")
-			// 예시: 데이터 소스에서 해당 항목을 삭제하고 컬렉션 뷰를 업데이트
-			// dataSource.remove(at: indexPath.row)
-			// collectionView.deleteItems(at: [indexPath])
+			images.remove(at: indexPath.row)
+			collectionView.deleteItems(at: [indexPath])
+			
+			if images.isEmpty {
+				delegate?.attachedImageCollectionViewUpdate()
+			}
 		}
 	}
 }
@@ -77,7 +86,7 @@ extension AttachedImageCollectionView {
 extension AttachedImageCollectionView: UICollectionViewDataSource, UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView,
 											numberOfItemsInSection section: Int) -> Int {
-		return 5 // 5개의 셀
+		return images.count
 	}
 	
 	func collectionView(_ collectionView: UICollectionView,
@@ -86,9 +95,7 @@ extension AttachedImageCollectionView: UICollectionViewDataSource, UICollectionV
 			withReuseIdentifier: CustomCollectionViewCell.reuseIdentifier,
 			for: indexPath
 		) as! CustomCollectionViewCell
-		// 셀에 필요한 데이터 설정
-		cell.backgroundColor = .blue // 임시 배경 색상
-		// cell.imageView.image = UIImage(named: "your_image_name") // 이미지 설정 예시
+		cell.imageView.image = images[indexPath.item]
 		cell.deleteButton.addTarget(self,
 																action: #selector(deleteButtonTapped(_:)),
 																for: .touchUpInside)
@@ -124,7 +131,6 @@ final class CustomCollectionViewCell: UICollectionViewCell {
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		
 		addView()
 		setupView()
 	}
