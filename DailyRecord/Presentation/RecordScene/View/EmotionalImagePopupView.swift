@@ -9,7 +9,15 @@ import UIKit
 
 import SnapKit
 
+protocol EmotionalImagePopupViewDelegate: AnyObject {
+	func emotionalImageTapTrigger(tempImageName: String)
+}
+
 final class EmotionalImagePopupView: BaseView {
+	
+	// MARK: - Properties
+	
+	weak var delegate: EmotionalImagePopupViewDelegate?
 	
 	// MARK: - Views
 	
@@ -30,33 +38,38 @@ final class EmotionalImagePopupView: BaseView {
 		return view
 	}()
 	
-	private let demoImage1: UIView = {
-		let view = UIView()
-		view.backgroundColor = .blue
+	private let demoImage1: UIImageView = {
+		let view = UIImageView()
+		view.image = UIImage(named: "cry")
+		view.isUserInteractionEnabled = true
 		return view
 	}()
 	
-	private let demoImage2: UIView = {
-		let view = UIView()
-		view.backgroundColor = .red
+	private let demoImage2: UIImageView = {
+		let view = UIImageView()
+		view.image = UIImage(named: "happy")
+		view.isUserInteractionEnabled = true
 		return view
 	}()
 	
-	private let demoImage3: UIView = {
-		let view = UIView()
-		view.backgroundColor = .green
+	private let demoImage3: UIImageView = {
+		let view = UIImageView()
+		view.image = UIImage(named: "sad")
+		view.isUserInteractionEnabled = true
 		return view
 	}()
 	
-	private let demoImage4: UIView = {
-		let view = UIView()
-		view.backgroundColor = .purple
+	private let demoImage4: UIImageView = {
+		let view = UIImageView()
+		view.image = UIImage(named: "smile")
+		view.isUserInteractionEnabled = true
 		return view
 	}()
 	
-	private let demoImage5: UIView = {
-		let view = UIView()
-		view.backgroundColor = .brown
+	private let demoImage5: UIImageView = {
+		let view = UIImageView()
+		view.image = UIImage(named: "thinking")
+		view.isUserInteractionEnabled = true
 		return view
 	}()
 	
@@ -126,6 +139,8 @@ final class EmotionalImagePopupView: BaseView {
 	override func setupView() {
 		dimmingView.alpha = 0
 		emotionalImagePopupView.alpha = 0
+		
+		addTapGestures()
 	}
 }
 
@@ -143,6 +158,57 @@ extension EmotionalImagePopupView {
 			self.emotionalImagePopupView.alpha = 0
 		}) { _ in
 			completion()
+		}
+	}
+	
+	private func addTapGestures() {
+		let tapGesture1 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
+		demoImage1.addGestureRecognizer(tapGesture1)
+		demoImage1.tag = 1
+		
+		let tapGesture2 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
+		demoImage2.addGestureRecognizer(tapGesture2)
+		demoImage2.tag = 2
+		
+		let tapGesture3 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
+		demoImage3.addGestureRecognizer(tapGesture3)
+		demoImage3.tag = 3
+		
+		let tapGesture4 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
+		demoImage4.addGestureRecognizer(tapGesture4)
+		demoImage4.tag = 4
+		
+		let tapGesture5 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
+		demoImage5.addGestureRecognizer(tapGesture5)
+		demoImage5.tag = 5
+	}
+	
+	@objc private func imageTapped(_ sender: UITapGestureRecognizer) {
+		guard let tappedView = sender.view else { return }
+		
+		switch tappedView.tag {
+		case 1:
+			hidePopup {
+				self.delegate?.emotionalImageTapTrigger(tempImageName: "cry")
+			}
+		case 2:
+			hidePopup {
+				self.delegate?.emotionalImageTapTrigger(tempImageName: "happy")
+			}
+		case 3:
+			hidePopup {
+				self.delegate?.emotionalImageTapTrigger(tempImageName: "sad")
+			}
+		case 4:
+			hidePopup {
+				self.delegate?.emotionalImageTapTrigger(tempImageName: "smile")
+			}
+		case 5:
+			hidePopup {
+				self.delegate?.emotionalImageTapTrigger(tempImageName: "thinking")
+			}
+		default:
+			break
 		}
 	}
 }

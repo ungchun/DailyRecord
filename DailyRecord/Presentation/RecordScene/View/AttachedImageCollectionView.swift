@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 protocol AttachedImageCollectionViewDelegate: AnyObject {
-	func attachedImageCollectionViewUpdate()
+	func collectionViewZeroHeightTrigger()
 }
 
 final class AttachedImageCollectionView: BaseView {
@@ -18,7 +18,7 @@ final class AttachedImageCollectionView: BaseView {
 	
 	weak var delegate: AttachedImageCollectionViewDelegate?
 	
-	private var images: [UIImage] = []
+	private(set) var images: [UIImage] = []
 	
 	// MARK: - Views
 	
@@ -77,7 +77,7 @@ extension AttachedImageCollectionView {
 			collectionView.deleteItems(at: [indexPath])
 			
 			if images.isEmpty {
-				delegate?.attachedImageCollectionViewUpdate()
+				delegate?.collectionViewZeroHeightTrigger()
 			}
 		}
 	}
