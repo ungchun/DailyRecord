@@ -27,10 +27,12 @@ final class RecordViewModel: BaseViewModel {
 	private let recordUseCase: DefaultRecordUseCase
 	
 	let selectDate: Date // 선택 날짜
-	var calendarDate: Int = 0 // 선택 날짜
+	
 	var content: String = "" // 글 내용
 	var imageList: [UIImage] = [] // 첨부 이미지
-	var createTime: Int = 0 // 생성(수정) 시간
+	
+	private var calendarDate: Int = 0 // 선택 날짜
+	private var createTime: Int = 0 // 생성(수정) 시간
 	
 	// MARK: - Init
 	
