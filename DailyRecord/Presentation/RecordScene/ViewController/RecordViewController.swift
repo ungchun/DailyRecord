@@ -154,6 +154,7 @@ final class RecordViewController: BaseViewController {
 		footerView.saveIcon.addGestureRecognizer(saveTapGesture)
 		
 		attachedImageCollectionView.delegate = self
+		emotionalImagePopupView.delegate = self
 		
 		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
 		view.addGestureRecognizer(tapGesture)
@@ -187,7 +188,10 @@ private extension RecordViewController {
 	}
 	
 	@objc func saveTrigger() {
-		Log.debug("save", String(viewModel.content))
+		viewModel.imageList = attachedImageCollectionView.images
+		Task {
+			try await viewModel.createRecordTirgger()
+		}
 	}
 	
 	@objc func dismissKeyboard() {
@@ -196,12 +200,19 @@ private extension RecordViewController {
 }
 
 extension RecordViewController: AttachedImageCollectionViewDelegate {
-	func attachedImageCollectionViewUpdate() {
+	func collectionViewZeroHeightTrigger() {
 		DispatchQueue.main.async { [weak self] in
 			self?.attachedImageCollectionView.snp.updateConstraints { make in
 				make.height.equalTo(0.5)
 			}
 		}
+	}
+}
+
+extension RecordViewController: EmotionalImagePopupViewDelegate {
+	func emotionalImageTapTrigger(tempImageName: String) {
+		todayEmotionImageView.backgroundColor = .clear
+		todayEmotionImageView.image = UIImage(named: tempImageName)
 	}
 }
 

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol DefaultRecordUseCase {
-	
+	func createRecord(data: [String : Any]) async throws
 }
 
 final class RecordUseCase: DefaultRecordUseCase {
@@ -16,5 +16,11 @@ final class RecordUseCase: DefaultRecordUseCase {
 	
 	init(recordRepository: DefaultRecordRepository) {
 		self.recordRepository = recordRepository
+	}
+}
+
+extension RecordUseCase {
+	func createRecord(data: [String : Any]) async throws {
+		try await recordRepository.createRecord(data: data)
 	}
 }
