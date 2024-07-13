@@ -25,6 +25,8 @@
 		6599467E2C3A8B060030598B /* RecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6599467D2C3A8B060030598B /* RecordRepository.swift */; };
 		659946802C3A8B1D0030598B /* DefaultRecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6599467F2C3A8B1D0030598B /* DefaultRecordRepository.swift */; };
 		659946822C3A8B410030598B /* RecordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946812C3A8B410030598B /* RecordUseCase.swift */; };
+		659946842C3AB97A0030598B /* RecordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946832C3AB97A0030598B /* RecordRequest.swift */; };
+		659946862C3AB9880030598B /* RecordResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946852C3AB9880030598B /* RecordResponseDTO.swift */; };
 		65CF611E2C036432003E6D75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF611D2C036432003E6D75 /* AppDelegate.swift */; };
 		65CF61202C036432003E6D75 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF611F2C036432003E6D75 /* SceneDelegate.swift */; };
 		65CF61272C036433003E6D75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65CF61262C036433003E6D75 /* Assets.xcassets */; };
@@ -95,6 +97,8 @@
 		6599467D2C3A8B060030598B /* RecordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRepository.swift; sourceTree = "<group>"; };
 		6599467F2C3A8B1D0030598B /* DefaultRecordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRecordRepository.swift; sourceTree = "<group>"; };
 		659946812C3A8B410030598B /* RecordUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordUseCase.swift; sourceTree = "<group>"; };
+		659946832C3AB97A0030598B /* RecordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRequest.swift; sourceTree = "<group>"; };
+		659946852C3AB9880030598B /* RecordResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordResponseDTO.swift; sourceTree = "<group>"; };
 		65CF611A2C036432003E6D75 /* DailyRecord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyRecord.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65CF611D2C036432003E6D75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65CF611F2C036432003E6D75 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -184,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				659946622C2FE4BE0030598B /* UserResponseDTO.swift */,
+				659946852C3AB9880030598B /* RecordResponseDTO.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -192,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				659946692C3024A60030598B /* UserRequest.swift */,
+				659946832C3AB97A0030598B /* RecordRequest.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -624,7 +630,9 @@
 				65CF61D12C26BAA6003E6D75 /* LoginDIContainer.swift in Sources */,
 				65CF61CA2C24454E003E6D75 /* AttachedImageCollectionView.swift in Sources */,
 				6599467E2C3A8B060030598B /* RecordRepository.swift in Sources */,
+				659946862C3AB9880030598B /* RecordResponseDTO.swift in Sources */,
 				65CF61842C0C6053003E6D75 /* CalenderViewController.swift in Sources */,
+				659946842C3AB97A0030598B /* RecordRequest.swift in Sources */,
 				65CF61D32C26BAB5003E6D75 /* LoginCoordinator.swift in Sources */,
 				659946822C3A8B410030598B /* RecordUseCase.swift in Sources */,
 				65CF617D2C0C5EEC003E6D75 /* DIContainer.swift in Sources */,
