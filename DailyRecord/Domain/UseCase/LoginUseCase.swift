@@ -20,7 +20,9 @@ final class LoginUseCase: DefaultLoginUseCase {
 	init(loginRepository: DefaultLoginRepository) {
 		self.loginRepository = loginRepository
 	}
-	
+}
+
+extension LoginUseCase {
 	func createUser(data: [String : Any]) async throws {
 		try await loginRepository.createUser(data: data)
 	}

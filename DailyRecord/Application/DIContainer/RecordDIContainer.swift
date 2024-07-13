@@ -36,6 +36,9 @@ extension RecordDIContainer {
 	}
 	
 	private func makeRecordViewModel() -> RecordViewModel {
-		return RecordViewModel(selectDate: selectDate)
+		return RecordViewModel(
+			recordUseCase: RecordUseCase(recordRepository: RecordRepository()),
+			selectDate: selectDate
+		)
 	}
 }

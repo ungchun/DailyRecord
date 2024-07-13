@@ -11,11 +11,14 @@ import FirebaseFirestore
 final class LoginRepository: DefaultLoginRepository {
 	private let db = Firestore.firestore()
 	private let collectionPath = "user"
-	
+}
+
+extension LoginRepository {
 	func createUser(data: [String : Any]) async throws {
 		guard let userID = Auth.auth().currentUser?.uid else { return }
 		let documentRef = db.collection(collectionPath)
-		try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+		try await withCheckedThrowingContinuation {
+			(continuation: CheckedContinuation<Void, Error>) in
 			documentRef.document(userID).setData(data) { [weak self] error in
 				if let error = error {
 					continuation.resume(throwing: error)
@@ -63,7 +66,8 @@ final class LoginRepository: DefaultLoginRepository {
 	func updateUserInfo(updateData: [String: Any]) async throws {
 		guard let userID = Auth.auth().currentUser?.uid else { return }
 		let documentRef = db.collection(collectionPath).document(userID)
-		try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+		try await withCheckedThrowingContinuation {
+			(continuation: CheckedContinuation<Void, Error>) in
 			documentRef.updateData(updateData) { error in
 				if let error = error {
 					continuation.resume(throwing: error)
@@ -78,7 +82,8 @@ final class LoginRepository: DefaultLoginRepository {
 		// TODO: 회원 탈퇴
 		guard let userID = Auth.auth().currentUser?.uid else { return }
 		let documentRef = db.collection(collectionPath).document(userID)
-		try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+		try await withCheckedThrowingContinuation {
+			(continuation: CheckedContinuation<Void, Error>) in
 			documentRef.updateData([fieldID:""]){ error in
 				if let error = error {
 					continuation.resume(throwing: error)

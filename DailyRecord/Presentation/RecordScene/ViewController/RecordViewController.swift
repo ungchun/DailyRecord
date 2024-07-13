@@ -136,7 +136,12 @@ final class RecordViewController: BaseViewController {
 	override func setupView() {
 		view.backgroundColor = .white
 		
-		todayDateView.text = String(describing: viewModel.selectDate)
+		let formatter = DateFormatter()
+		formatter.locale = Locale(identifier: "ko_KR")
+		formatter.dateFormat = "yyyy.MM.dd.EEEE"
+		formatter.timeZone = TimeZone(abbreviation: "KST")
+		let selectedDateInKST = formatter.string(from: viewModel.selectDate)
+		todayDateView.text = selectedDateInKST
 		
 		let showPopupTapGesture = UITapGestureRecognizer(target: self,
 																										 action: #selector(showPopupTrigger))
@@ -147,18 +152,17 @@ final class RecordViewController: BaseViewController {
 		
 		let saveTapGesture = UITapGestureRecognizer(target: self, action: #selector(saveTrigger))
 		footerView.saveIcon.addGestureRecognizer(saveTapGesture)
+		
+		attachedImageCollectionView.delegate = self
+		emotionalImagePopupView.delegate = self
+		
+		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+		view.addGestureRecognizer(tapGesture)
 	}
 }
 
 private extension RecordViewController {
 	@objc func showPopupTrigger() {
-		DispatchQueue.main.async { [weak self] in
-			// self?.imageCollectionView.showCollectionView()
-			self?.attachedImageCollectionView.snp.updateConstraints({ make in
-				make.height.equalTo(100)
-			})
-		}
-		
 		emotionalImagePopupView.frame = view.bounds
 		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(closePopupTrigger))
 		emotionalImagePopupView.dimmingView.addGestureRecognizer(tapGesture)
@@ -184,11 +188,39 @@ private extension RecordViewController {
 	}
 	
 	@objc func saveTrigger() {
-		Log.debug("save", String(inputDiaryView.text))
+		viewModel.imageList = attachedImageCollectionView.images
+		Task {
+			try await viewModel.createRecordTirgger()
+		}
+	}
+	
+	@objc func dismissKeyboard() {
+		view.endEditing(true)
+	}
+}
+
+extension RecordViewController: AttachedImageCollectionViewDelegate {
+	func collectionViewZeroHeightTrigger() {
+		DispatchQueue.main.async { [weak self] in
+			self?.attachedImageCollectionView.snp.updateConstraints { make in
+				make.height.equalTo(0.5)
+			}
+		}
+	}
+}
+
+extension RecordViewController: EmotionalImagePopupViewDelegate {
+	func emotionalImageTapTrigger(tempImageName: String) {
+		todayEmotionImageView.backgroundColor = .clear
+		todayEmotionImageView.image = UIImage(named: tempImageName)
 	}
 }
 
 extension RecordViewController: UITextViewDelegate {
+	func textViewDidChange(_ textView: UITextView) {
+		viewModel.content = textView.text
+	}
+	
 	func textViewDidBeginEditing(_ textView: UITextView) {
 		guard textView.textColor == .secondaryLabel else { return }
 		textView.text = nil
@@ -199,14 +231,18 @@ extension RecordViewController: UITextViewDelegate {
 extension RecordViewController: PHPickerViewControllerDelegate {
 	func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
 		picker.dismiss(animated: true, completion: nil)
-		
+		var selectedImages: [UIImage] = []
 		for result in results {
-			result.itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+			result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, error) in
 				if let image = image as? UIImage {
-					// 이미지가 선택된 후의 동작 구현
-					DispatchQueue.main.async {
-						// 예시: 선택된 이미지를 로그에 출력
-						Log.debug("Selected image: \(image)")
+					selectedImages.append(image)
+					if results.count == selectedImages.count {
+						self?.attachedImageCollectionView.setImages(selectedImages)
+						DispatchQueue.main.async {
+							self?.attachedImageCollectionView.snp.updateConstraints { make in
+								make.height.equalTo(100)
+							}
+						}
 					}
 				}
 			}

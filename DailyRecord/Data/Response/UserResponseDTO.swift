@@ -10,8 +10,8 @@ import Foundation
 struct UserResponseDTO: Decodable {
 	let uid: String?
 	let nickname: String?
-	let platForm: String?
-	let fcmToken: String?
+	let platform: String?
+	let fcm_token: String?
 }
 
 // MARK: - to Entity

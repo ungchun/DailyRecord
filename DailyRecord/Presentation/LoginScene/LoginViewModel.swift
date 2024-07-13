@@ -42,8 +42,8 @@ extension LoginViewModel {
 		if resposne == nil {
 			let userRequest = UserRequest(uid: "",
 																		nickname: randomNickname.randomElement()!,
-																		platForm: LoginPlatForm.apple.rawValue,
-																		fcmToken: "")
+																		platform: LoginPlatForm.apple.rawValue,
+																		fcm_token: "")
 			let userData = try userRequest.asDictionary()
 			try await loginUseCase.createUser(data: userData)
 		} else {
