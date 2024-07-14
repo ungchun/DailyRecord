@@ -29,7 +29,9 @@ extension CalenderDIContainer {
 	}
 	
 	private func makeCalenderViewModel() -> CalenderViewModel {
-		return CalenderViewModel()
+		return CalenderViewModel(
+			calenderUseCase: CalenderUseCase(calenderRepository: CalenderRepository())
+		)
 	}
 	
 	// MARK: - Record
