@@ -1,5 +1,5 @@
 //
-//  CalenderRepository.swift
+//  CalendarRepository.swift
 //  DailyRecord
 //
 //  Created by Kim SungHun on 7/13/24.
@@ -8,12 +8,12 @@
 import Firebase
 import FirebaseFirestore
 
-final class CalenderRepository: DefaultCalenderRepository {
+final class CalendarRepository: DefaultCalendarRepository {
 	private let db = Firestore.firestore()
-	private let collectionPath = "calender"
+	private let collectionPath = "calendar"
 }
 
-extension CalenderRepository {
+extension CalendarRepository {
 	
 	// TODO: year, month, day 하드코딩 부분 수정 및 테스트 확실히 해볼 필요 있음
 	

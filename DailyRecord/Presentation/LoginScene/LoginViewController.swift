@@ -195,7 +195,7 @@ extension LoginViewController {
 				Task {
 					do {
 						try await self?.viewModel.createUserTirgger()
-						self?.coordinator?.showCalender()
+						self?.coordinator?.showCalendar()
 					} catch {
 						// 로그인 에러
 						// TODO: SET TOAST

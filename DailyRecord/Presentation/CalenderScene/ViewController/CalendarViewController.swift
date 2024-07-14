@@ -1,5 +1,5 @@
 //
-//  CalenderViewController.swift
+//  CalendarViewController.swift
 //  DailyRecord
 //
 //  Created by Kim SungHun on 6/2/24.
@@ -10,13 +10,13 @@ import UIKit
 import FSCalendar
 import SnapKit
 
-final class CalenderViewController: BaseViewController {
+final class CalendarViewController: BaseViewController {
 	
 	// MARK: - Properties
 	
-	var coordinator: CalenderCoordinator?
+	var coordinator: CalendarCoordinator?
 	
-	private let viewModel: CalenderViewModel
+	private let viewModel: CalendarViewModel
 	
 	// MARK: - Views
 	
@@ -55,7 +55,7 @@ final class CalenderViewController: BaseViewController {
 	// MARK: - Life Cycle
 	
 	init(
-		viewModel: CalenderViewModel
+		viewModel: CalendarViewModel
 	) {
 		self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
@@ -68,6 +68,8 @@ final class CalenderViewController: BaseViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = .white
+		
+		viewModel.TEST()
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -109,7 +111,7 @@ final class CalenderViewController: BaseViewController {
 
 // MARK: - FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance
 
-extension CalenderViewController: FSCalendarDelegate,
+extension CalendarViewController: FSCalendarDelegate,
 																	FSCalendarDataSource,
 																	FSCalendarDelegateAppearance {
 	func calendar(_ calendar: FSCalendar,

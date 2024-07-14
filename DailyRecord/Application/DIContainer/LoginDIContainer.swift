@@ -32,10 +32,10 @@ extension LoginDIContainer {
 		return LoginViewModel(loginUseCase: LoginUseCase(loginRepository: LoginRepository()))
 	}
 	
-	// MARK: - Calender
+	// MARK: - Calendar
 	
-	func makeCalenderDIContainer() -> CalenderDIContainer {
-		return CalenderDIContainer(
+	func makeCalendarDIContainer() -> CalendarDIContainer {
+		return CalendarDIContainer(
 			navigationController: navigationController
 		)
 	}
