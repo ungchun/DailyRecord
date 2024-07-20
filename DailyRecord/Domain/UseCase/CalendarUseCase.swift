@@ -8,7 +8,7 @@
 import Foundation
 
 protocol DefaultCalendarUseCase {
-	func readMonthRecord() async throws -> [RecordEntity]
+	func readMonthRecord(year: Int, month: Int) async throws -> [RecordEntity]
 }
 
 final class CalendarUseCase: DefaultCalendarUseCase {
@@ -20,7 +20,9 @@ final class CalendarUseCase: DefaultCalendarUseCase {
 }
 
 extension CalendarUseCase {
-	func readMonthRecord() async throws -> [RecordEntity] {
-		return try await calendarRepository.readMonthRecord().map{$0.toEntity()}
+	func readMonthRecord(year: Int, month: Int) async throws -> [RecordEntity] {
+		return try await calendarRepository.readMonthRecord(
+			year: year, month: month
+		).map{$0.toEntity()}
 	}
 }

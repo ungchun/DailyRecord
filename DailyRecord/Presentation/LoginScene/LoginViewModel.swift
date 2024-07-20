@@ -45,7 +45,12 @@ extension LoginViewModel {
 																		platform: LoginPlatForm.apple.rawValue,
 																		fcm_token: "")
 			let userData = try userRequest.asDictionary()
-			try await loginUseCase.createUser(data: userData)
+			
+			do {
+				try await loginUseCase.createUser(data: userData)
+			} catch {
+				// TODO: 에러 처리
+			}
 		} else {
 			UserDefaultsSetting.uid = userID
 		}

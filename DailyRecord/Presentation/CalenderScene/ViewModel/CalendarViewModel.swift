@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 final class CalendarViewModel: BaseViewModel {
 	
@@ -13,7 +14,7 @@ final class CalendarViewModel: BaseViewModel {
 	
 	private let calendarUseCase: DefaultCalendarUseCase
 	
-	var records: [RecordEntity] = []
+	@Published var records: [RecordEntity] = []
 	
 	// MARK: - Init
 	
@@ -29,10 +30,12 @@ extension CalendarViewModel {
 	// MARK: - Functions
 	
 	@MainActor
-	func TEST() {
+	func fetchMonthRecordTrigger(year: Int, month: Int) {
 		Task {
 			do {
-				records = try await self.calendarUseCase.readMonthRecord()
+				records = try await self.calendarUseCase.readMonthRecord(
+					year: year, month: month
+				)
 			} catch {
 				// TODO: 에러 처리
 			}

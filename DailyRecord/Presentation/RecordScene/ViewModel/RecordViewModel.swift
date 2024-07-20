@@ -60,7 +60,12 @@ extension RecordViewModel {
 																			calendar_date: self.calendarDate)
 		
 		let recordData = try recordRequest.asDictionary()
-		try await recordUseCase.createRecord(data: recordData)
+		
+		do {
+			try await recordUseCase.createRecord(data: recordData)
+		} catch {
+			// TODO: 에러 처리
+		}
 	}
 	
 	// TODO: 이미지 올릴 때 퀄리티 좀 낮춰서 올리기

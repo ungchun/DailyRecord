@@ -17,7 +17,7 @@ extension CalendarRepository {
 	
 	// TODO: year, month, day 하드코딩 부분 수정 및 테스트 확실히 해볼 필요 있음
 	
-	func readMonthRecord() async throws -> [RecordResponseDTO] {
+	func readMonthRecord(year: Int, month: Int) async throws -> [RecordResponseDTO] {
 			guard let userID = Auth.auth().currentUser?.uid else {
 					throw NSError(domain: "AuthError",
 												code: 1001,
@@ -28,8 +28,8 @@ extension CalendarRepository {
 			
 			// 월의 시작과 끝을 설정
 			var components = DateComponents()
-			components.year = 2024
-			components.month = 7
+			components.year = year
+			components.month = month
 			components.day = 1
 			let calendar = Calendar.current
 			
