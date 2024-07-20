@@ -33,6 +33,7 @@ final class RecordViewController: BaseViewController {
 	private let todayEmotionImageView: UIImageView = {
 		let imageView = UIImageView()
 		imageView.backgroundColor = .yellow
+		imageView.contentMode = .scaleAspectFit
 		imageView.isUserInteractionEnabled = true
 		return imageView
 	}()
@@ -210,9 +211,24 @@ extension RecordViewController: AttachedImageCollectionViewDelegate {
 }
 
 extension RecordViewController: EmotionalImagePopupViewDelegate {
-	func emotionalImageTapTrigger(tempImageName: String) {
-		todayEmotionImageView.backgroundColor = .clear
-		todayEmotionImageView.image = UIImage(named: tempImageName)
+	func emotionalImageTapTrigger(selectEmotionType: EmotionType) {
+		if let image = UIImage(named: selectEmotionType.rawValue) {
+			closePopupTrigger()
+			
+			viewModel.emotionType = selectEmotionType
+			
+			todayEmotionImageView.backgroundColor = .clear
+			todayEmotionImageView.image = image
+			let originalWidth = image.size.width
+			let originalHeight = image.size.height
+			let aspectRatio = originalHeight / originalWidth
+			let desiredWidth: CGFloat = 100
+			let desiredHeight = desiredWidth * aspectRatio
+			todayEmotionImageView.snp.updateConstraints { make in
+				make.width.equalTo(desiredWidth)
+				make.height.equalTo(desiredHeight)
+			}
+		}
 	}
 }
 

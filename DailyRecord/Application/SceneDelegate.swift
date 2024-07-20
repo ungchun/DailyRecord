@@ -35,17 +35,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 				self.window?.makeKeyAndVisible()
 			} else {
 				// 캘린더 뷰
-				var calenderDIContainer: CalenderDIContainer?
-				var calenderCoordinator: CalenderCoordinator?
+				var calendarDIContainer: CalendarDIContainer?
+				var calendarCoordinator: CalendarCoordinator?
 				let window = UIWindow(windowScene: windowScene)
 				self.window = window
 				
 				let navigationController = UINavigationController()
 				self.window?.rootViewController = navigationController
 				
-				calenderDIContainer = CalenderDIContainer(navigationController: navigationController)
-				calenderCoordinator = calenderDIContainer?.makeCalenderCoordinator()
-				calenderCoordinator?.start()
+				calendarDIContainer = CalendarDIContainer(navigationController: navigationController)
+				calendarCoordinator = calendarDIContainer?.makeCalendarCoordinator()
+				calendarCoordinator?.start()
 				
 				self.window?.makeKeyAndVisible()
 			}

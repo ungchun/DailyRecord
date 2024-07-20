@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 protocol EmotionalImagePopupViewDelegate: AnyObject {
-	func emotionalImageTapTrigger(tempImageName: String)
+	func emotionalImageTapTrigger(selectEmotionType: EmotionType)
 }
 
 final class EmotionalImagePopupView: BaseView {
@@ -38,37 +38,50 @@ final class EmotionalImagePopupView: BaseView {
 		return view
 	}()
 	
-	private let demoImage1: UIImageView = {
-		let view = UIImageView()
-		view.image = UIImage(named: "cry")
-		view.isUserInteractionEnabled = true
-		return view
-	}()
-	
-	private let demoImage2: UIImageView = {
+	private let happyEmotion: UIImageView = {
 		let view = UIImageView()
 		view.image = UIImage(named: "happy")
+		view.sizeToFit()
 		view.isUserInteractionEnabled = true
 		return view
 	}()
 	
-	private let demoImage3: UIImageView = {
+	private let goodEmotion: UIImageView = {
 		let view = UIImageView()
-		view.image = UIImage(named: "sad")
+		view.image = UIImage(named: "good")
+		view.sizeToFit()
 		view.isUserInteractionEnabled = true
 		return view
 	}()
 	
-	private let demoImage4: UIImageView = {
+	private let normalEmotion: UIImageView = {
 		let view = UIImageView()
-		view.image = UIImage(named: "smile")
+		view.image = UIImage(named: "normal")
+		view.sizeToFit()
 		view.isUserInteractionEnabled = true
 		return view
 	}()
 	
-	private let demoImage5: UIImageView = {
+	private let badEmotion: UIImageView = {
 		let view = UIImageView()
-		view.image = UIImage(named: "thinking")
+		view.image = UIImage(named: "bad")
+		view.sizeToFit()
+		view.isUserInteractionEnabled = true
+		return view
+	}()
+	
+	private let irritationEmotion: UIImageView = {
+		let view = UIImageView()
+		view.image = UIImage(named: "irritation")
+		view.sizeToFit()
+		view.isUserInteractionEnabled = true
+		return view
+	}()
+	
+	private let sickEmotion: UIImageView = {
+		let view = UIImageView()
+		view.image = UIImage(named: "sick")
+		view.sizeToFit()
 		view.isUserInteractionEnabled = true
 		return view
 	}()
@@ -89,7 +102,7 @@ final class EmotionalImagePopupView: BaseView {
 		addSubview(dimmingView)
 		addSubview(emotionalImagePopupView)
 		
-		[demoImage1, demoImage2, demoImage3, demoImage4, demoImage5].forEach {
+		[happyEmotion, goodEmotion, normalEmotion, badEmotion, irritationEmotion, sickEmotion].forEach {
 			emotionalImagePopupView.addSubview($0)
 		}
 	}
@@ -99,33 +112,41 @@ final class EmotionalImagePopupView: BaseView {
 			make.edges.equalToSuperview()
 		}
 		
-		demoImage1.snp.makeConstraints { make in
+		happyEmotion.snp.makeConstraints { make in
 			make.top.equalToSuperview().offset(20)
 			make.left.equalToSuperview().offset(20)
 			make.width.height.equalTo(60)
 		}
 		
-		demoImage2.snp.makeConstraints { make in
+		goodEmotion.snp.makeConstraints { make in
 			make.top.equalToSuperview().offset(20)
 			make.centerX.equalToSuperview()
-			make.width.height.equalTo(60)
+			make.width.equalTo(60)
+			make.height.equalTo(50)
 		}
 		
-		demoImage3.snp.makeConstraints { make in
+		normalEmotion.snp.makeConstraints { make in
 			make.top.equalToSuperview().offset(20)
 			make.right.equalToSuperview().offset(-20)
 			make.width.height.equalTo(60)
 		}
 		
-		demoImage4.snp.makeConstraints { make in
-			make.top.equalTo(demoImage1.snp.bottom).offset(20)
-			make.centerX.equalToSuperview().offset(-50)
+		badEmotion.snp.makeConstraints { make in
+			make.top.equalTo(happyEmotion.snp.bottom).offset(20)
+			make.left.equalToSuperview().offset(20)
+			make.width.equalTo(60)
+			make.height.equalTo(50)
+		}
+		
+		irritationEmotion.snp.makeConstraints { make in
+			make.top.equalTo(goodEmotion.snp.bottom).offset(20)
+			make.centerX.equalToSuperview()
 			make.width.height.equalTo(60)
 		}
 		
-		demoImage5.snp.makeConstraints { make in
-			make.top.equalTo(demoImage3.snp.bottom).offset(20)
-			make.centerX.equalToSuperview().offset(50)
+		sickEmotion.snp.makeConstraints { make in
+			make.top.equalTo(normalEmotion.snp.bottom).offset(20)
+			make.right.equalToSuperview().offset(-20)
 			make.width.height.equalTo(60)
 		}
 		
@@ -163,24 +184,24 @@ extension EmotionalImagePopupView {
 	
 	private func addTapGestures() {
 		let tapGesture1 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
-		demoImage1.addGestureRecognizer(tapGesture1)
-		demoImage1.tag = 1
+		happyEmotion.addGestureRecognizer(tapGesture1)
+		happyEmotion.tag = 1
 		
 		let tapGesture2 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
-		demoImage2.addGestureRecognizer(tapGesture2)
-		demoImage2.tag = 2
+		goodEmotion.addGestureRecognizer(tapGesture2)
+		goodEmotion.tag = 2
 		
 		let tapGesture3 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
-		demoImage3.addGestureRecognizer(tapGesture3)
-		demoImage3.tag = 3
+		normalEmotion.addGestureRecognizer(tapGesture3)
+		normalEmotion.tag = 3
 		
 		let tapGesture4 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
-		demoImage4.addGestureRecognizer(tapGesture4)
-		demoImage4.tag = 4
+		badEmotion.addGestureRecognizer(tapGesture4)
+		badEmotion.tag = 4
 		
 		let tapGesture5 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
-		demoImage5.addGestureRecognizer(tapGesture5)
-		demoImage5.tag = 5
+		irritationEmotion.addGestureRecognizer(tapGesture5)
+		irritationEmotion.tag = 5
 	}
 	
 	@objc private func imageTapped(_ sender: UITapGestureRecognizer) {
@@ -189,23 +210,27 @@ extension EmotionalImagePopupView {
 		switch tappedView.tag {
 		case 1:
 			hidePopup {
-				self.delegate?.emotionalImageTapTrigger(tempImageName: "cry")
+				self.delegate?.emotionalImageTapTrigger(selectEmotionType: .happy)
 			}
 		case 2:
 			hidePopup {
-				self.delegate?.emotionalImageTapTrigger(tempImageName: "happy")
+				self.delegate?.emotionalImageTapTrigger(selectEmotionType: .good)
 			}
 		case 3:
 			hidePopup {
-				self.delegate?.emotionalImageTapTrigger(tempImageName: "sad")
+				self.delegate?.emotionalImageTapTrigger(selectEmotionType: .normal)
 			}
 		case 4:
 			hidePopup {
-				self.delegate?.emotionalImageTapTrigger(tempImageName: "smile")
+				self.delegate?.emotionalImageTapTrigger(selectEmotionType: .bad)
 			}
 		case 5:
 			hidePopup {
-				self.delegate?.emotionalImageTapTrigger(tempImageName: "thinking")
+				self.delegate?.emotionalImageTapTrigger(selectEmotionType: .irritation)
+			}
+		case 6:
+			hidePopup {
+				self.delegate?.emotionalImageTapTrigger(selectEmotionType: .sick)
 			}
 		default:
 			break

@@ -10,16 +10,6 @@ import UIKit
 import FirebaseAuth
 import FirebaseStorage
 
-extension Date {
-	var millisecondsSince1970: Int64 {
-		Int64((self.timeIntervalSince1970 * 1000.0).rounded())
-	}
-	
-	init(milliseconds: Int64) {
-		self = Date(timeIntervalSince1970: TimeInterval(milliseconds) / 1000)
-	}
-}
-
 final class RecordViewModel: BaseViewModel {
 	
 	// MARK: - Properties
@@ -30,6 +20,7 @@ final class RecordViewModel: BaseViewModel {
 	
 	var content: String = "" // 글 내용
 	var imageList: [UIImage] = [] // 첨부 이미지
+	var emotionType: EmotionType = .none
 	
 	private var calendarDate: Int = 0 // 선택 날짜
 	private var createTime: Int = 0 // 생성(수정) 시간
@@ -63,12 +54,18 @@ extension RecordViewModel {
 		
 		let recordRequest = RecordRequest(user_id: userID,
 																			content: self.content,
+																			emotion_type: emotionType.rawValue,
 																			image_list: imageUrls,
 																			create_time: self.createTime,
 																			calendar_date: self.calendarDate)
 		
 		let recordData = try recordRequest.asDictionary()
-		try await recordUseCase.createRecord(data: recordData)
+		
+		do {
+			try await recordUseCase.createRecord(data: recordData)
+		} catch {
+			// TODO: 에러 처리
+		}
 	}
 	
 	// TODO: 이미지 올릴 때 퀄리티 좀 낮춰서 올리기

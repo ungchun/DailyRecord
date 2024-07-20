@@ -26,10 +26,10 @@ extension LoginCoordinator {
 		self.navigationController.viewControllers = [loginViewController]
 	}
 	
-	func showCalender() {
-		let calenderDIContainer = DIContainer.makeCalenderDIContainer()
-		let calenderCoordinator = calenderDIContainer.makeCalenderCoordinator()
-		calenderCoordinator.start()
+	func showCalendar() {
+		let calendarDIContainer = DIContainer.makeCalendarDIContainer()
+		let calendarCoordinator = calendarDIContainer.makeCalendarCoordinator()
+		calendarCoordinator.start()
 	}
 	
 	func dismiss() {

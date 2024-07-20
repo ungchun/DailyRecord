@@ -10,6 +10,7 @@ import Foundation
 struct RecordRequest: Encodable {
 	let user_id: String
 	let content: String
+	let emotion_type: String
 	let image_list: [String]
 	let create_time: Int
 	let calendar_date: Int
