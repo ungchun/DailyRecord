@@ -116,6 +116,7 @@ final class CustomCollectionViewCell: UICollectionViewCell {
 	let imageView: UIImageView = {
 		let imageView = UIImageView()
 		imageView.contentMode = .scaleAspectFill
+		imageView.layer.cornerRadius = 12
 		imageView.clipsToBounds = true
 		return imageView
 	}()
@@ -123,7 +124,7 @@ final class CustomCollectionViewCell: UICollectionViewCell {
 	let deleteButton: UIButton = {
 		let button = UIButton()
 		button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
-		button.tintColor = .red
+		button.tintColor = .azDarkGray
 		return button
 	}()
 	

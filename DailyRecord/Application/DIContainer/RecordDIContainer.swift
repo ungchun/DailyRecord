@@ -9,14 +9,14 @@ import UIKit
 
 final class RecordDIContainer: DIContainer {
 	private let navigationController: UINavigationController
-	private let selectDate: Date
+	private let selectData: RecordEntity
 	
 	init(
 		navigationController: UINavigationController,
-		selectDate: Date
+		selectData: RecordEntity
 	) {
 		self.navigationController = navigationController
-		self.selectDate = selectDate
+		self.selectData = selectData
 	}
 }
 
@@ -38,7 +38,7 @@ extension RecordDIContainer {
 	private func makeRecordViewModel() -> RecordViewModel {
 		return RecordViewModel(
 			recordUseCase: RecordUseCase(recordRepository: RecordRepository()),
-			selectDate: selectDate
+			selectData: selectData
 		)
 	}
 }

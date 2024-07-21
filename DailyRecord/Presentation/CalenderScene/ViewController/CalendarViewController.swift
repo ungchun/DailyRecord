@@ -11,44 +11,6 @@ import Combine
 import FSCalendar
 import SnapKit
 
-class LoadingIndicator {
-	static func showLoading() {
-		DispatchQueue.main.async {
-			/// 최상단에 있는 window 객체 획득
-			let scenes = UIApplication.shared.connectedScenes
-			let windowScene = scenes.first as? UIWindowScene
-			if let window = windowScene?.windows.first {
-				let loadingIndicatorView: UIActivityIndicatorView
-				if let existedView = window.subviews.first(where: {
-					$0 is UIActivityIndicatorView
-				} ) as? UIActivityIndicatorView {
-					loadingIndicatorView = existedView
-				} else {
-					loadingIndicatorView = UIActivityIndicatorView(style: .medium)
-					/// 다른 UI가 눌리지 않도록 indicatorView의 크기를 full로 할당
-					loadingIndicatorView.frame = window.frame
-					loadingIndicatorView.color = .lightGray
-					loadingIndicatorView.backgroundColor = .black.withAlphaComponent(0.5)
-					window.addSubview(loadingIndicatorView)
-				}
-				loadingIndicatorView.startAnimating()
-			}
-		}
-	}
-	
-	static func hideLoading() {
-		DispatchQueue.main.async {
-			let scenes = UIApplication.shared.connectedScenes
-			let windowScene = scenes.first as? UIWindowScene
-			if let window = windowScene?.windows.first {
-				window.subviews.filter({ $0 is UIActivityIndicatorView }).forEach {
-					$0.removeFromSuperview()
-				}
-			}
-		}
-	}
-}
-
 final class CalendarViewController: BaseViewController {
 	
 	// MARK: - Properties
@@ -63,8 +25,9 @@ final class CalendarViewController: BaseViewController {
 	
 	private let writeButton: UIButton = {
 		let button = UIButton(type: .system)
-		let pencilImage = UIImage(named: "pencil")?.resizeImage(to: CGSize(width: 24,
-																																			 height: 24))
+		let pencilImage = UIImage(named: "pencil")?.resizeImage(
+			to: CGSize(width: 24,height: 24)
+		)
 		button.setImage(pencilImage, for: .normal)
 		button.backgroundColor = .azDarkGray
 		button.tintColor = .white
@@ -120,15 +83,6 @@ final class CalendarViewController: BaseViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		bindViewModel()
-		
-		view.backgroundColor = .azBlack
-		
-		let currentPageDate = Date()
-		if let year = Int(dateFormat(Date(), format: "yyyy")),
-			 let month = Int(dateFormat(Date(), format: "M")) {
-			viewModel.fetchMonthRecordTrigger(year: year, month: month)
-		}
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -171,7 +125,14 @@ final class CalendarViewController: BaseViewController {
 	}
 	
 	override func setupView() {
+		bindViewModel()
 		
+		view.backgroundColor = .azBlack
+		
+		if let year = Int(dateFormat(Date(), format: "yyyy")),
+			 let month = Int(dateFormat(Date(), format: "M")) {
+			viewModel.fetchMonthRecordTrigger(year: year, month: month)
+		}
 	}
 }
 
@@ -181,7 +142,6 @@ extension CalendarViewController {
 			.receive(on: DispatchQueue.main)
 			.sink { [weak self] _ in
 				self?.calendarView.reloadData()
-				Log.debug("AZHY CALL")
 			}
 			.store(in: &cancellables)
 	}
@@ -211,7 +171,15 @@ extension CalendarViewController: FSCalendarDelegate,
 	
 	func calendar(_ calendar: FSCalendar, didSelect date: Date,
 								at monthPosition: FSCalendarMonthPosition) {
-		coordinator?.showRecord(selectDate: date)
+		var selectData = RecordEntity(calendarDate: Int(date.millisecondsSince1970))
+		if let matchedEntity = viewModel.records.first(where: { entity in
+				let seconds = TimeInterval(entity.calendarDate) / 1000
+				let responseDate = Date(timeIntervalSince1970: seconds)
+				return date == responseDate
+		}) {
+				selectData = matchedEntity
+		}
+		coordinator?.showRecord(selectData: selectData)
 	}
 	
 	// 일요일에 해당되는 모든 날짜의 색상 red로 변경

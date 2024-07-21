@@ -23,13 +23,12 @@ final class EmotionalImagePopupView: BaseView {
 	
 	let dimmingView: UIView = {
 		let view = UIView()
-		view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
 		return view
 	}()
 	
 	private let emotionalImagePopupView: UIView = {
 		let view = UIView()
-		view.backgroundColor = .white
+		view.backgroundColor = .azDarkGray
 		view.layer.cornerRadius = 10
 		view.layer.shadowColor = UIColor.black.cgColor
 		view.layer.shadowOpacity = 0.3
@@ -102,7 +101,8 @@ final class EmotionalImagePopupView: BaseView {
 		addSubview(dimmingView)
 		addSubview(emotionalImagePopupView)
 		
-		[happyEmotion, goodEmotion, normalEmotion, badEmotion, irritationEmotion, sickEmotion].forEach {
+		[happyEmotion, goodEmotion, normalEmotion,
+		 badEmotion, irritationEmotion, sickEmotion].forEach {
 			emotionalImagePopupView.addSubview($0)
 		}
 	}

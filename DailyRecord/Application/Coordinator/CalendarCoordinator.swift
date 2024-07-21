@@ -26,8 +26,8 @@ extension CalendarCoordinator {
 		self.navigationController.viewControllers = [calendarViewController]
 	}
 	
-	func showRecord(selectDate: Date) {
-		let recordDIContainer = DIContainer.makeRecordDIContainer(selectDate: selectDate)
+	func showRecord(selectData: RecordEntity) {
+		let recordDIContainer = DIContainer.makeRecordDIContainer(selectData: selectData)
 		let recordCoordinator = recordDIContainer.makeRecordCoordinator()
 		recordCoordinator.start()
 	}

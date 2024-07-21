@@ -36,10 +36,10 @@ extension CalendarDIContainer {
 	
 	// MARK: - Record
 	
-	func makeRecordDIContainer(selectDate: Date) -> RecordDIContainer {
+	func makeRecordDIContainer(selectData: RecordEntity) -> RecordDIContainer {
 		return RecordDIContainer(
 			navigationController: navigationController,
-			selectDate: selectDate
+			selectData: selectData
 		)
 	}
 }
