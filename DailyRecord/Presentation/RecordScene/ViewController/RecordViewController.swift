@@ -32,7 +32,8 @@ final class RecordViewController: BaseViewController {
 	
 	private let todayEmotionImageView: UIImageView = {
 		let imageView = UIImageView()
-		imageView.backgroundColor = .yellow
+		imageView.image = UIImage(systemName: "plus.circle")
+		imageView.tintColor = .azLightGray
 		imageView.contentMode = .scaleAspectFit
 		imageView.isUserInteractionEnabled = true
 		return imageView
@@ -40,17 +41,20 @@ final class RecordViewController: BaseViewController {
 	
 	private let todayDateView: UILabel = {
 		let label = UILabel()
+		label.font = UIFont(name: "omyu_pretty", size: 16)
+		label.textColor = .azLightGray
 		label.textAlignment = .center
 		return label
 	}()
 	
 	private lazy var inputDiaryView: UITextView = {
 		let textView = UITextView()
-		textView.text = "placeholder"
-		textView.textColor = .secondaryLabel
-		textView.font = .systemFont(ofSize: 15.0)
 		textView.delegate = self
-		textView.backgroundColor = .green
+		textView.font = UIFont(name: "omyu_pretty", size: 16)
+		textView.textColor = .azLightGray.withAlphaComponent(0.5)
+		textView.text = "오늘 하루는 어떠셨나요"
+		textView.delegate = self
+		textView.backgroundColor = .clear
 		textView.isScrollEnabled = false
 		return textView
 	}()
@@ -89,7 +93,8 @@ final class RecordViewController: BaseViewController {
 		
 		scrollView.addSubview(contentView)
 		
-		[todayEmotionImageView, todayDateView, attachedImageCollectionView, inputDiaryView].forEach {
+		[todayEmotionImageView, todayDateView,
+		 attachedImageCollectionView, inputDiaryView].forEach {
 			contentView.addSubview($0)
 		}
 	}
@@ -107,11 +112,11 @@ final class RecordViewController: BaseViewController {
 		todayEmotionImageView.snp.makeConstraints { make in
 			make.top.equalTo(contentView.snp.top).offset(20)
 			make.centerX.equalToSuperview()
-			make.width.height.equalTo(100)
+			make.width.height.equalTo(30)
 		}
 		
 		todayDateView.snp.makeConstraints { make in
-			make.top.equalTo(todayEmotionImageView.snp.bottom).offset(20)
+			make.top.equalTo(todayEmotionImageView.snp.bottom).offset(10)
 			make.centerX.equalToSuperview()
 		}
 		
@@ -128,21 +133,21 @@ final class RecordViewController: BaseViewController {
 		}
 		
 		footerView.snp.makeConstraints { make in
-			make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+			make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-12)
 			make.left.right.equalToSuperview()
 			make.height.equalTo(30)
 		}
 	}
 	
 	override func setupView() {
-		view.backgroundColor = .white
-		
-		let formatter = DateFormatter()
-		formatter.locale = Locale(identifier: "ko_KR")
-		formatter.dateFormat = "yyyy.MM.dd.EEEE"
-		formatter.timeZone = TimeZone(abbreviation: "KST")
-		let selectedDateInKST = formatter.string(from: viewModel.selectDate)
-		todayDateView.text = selectedDateInKST
+		view.backgroundColor = .azBlack
+		let date = Date(timeIntervalSince1970:
+											TimeInterval(viewModel.selectData.calendarDate) / 1000)
+		let dateFormatter = DateFormatter()
+		dateFormatter.locale = Locale(identifier: "ko_KR")
+		dateFormatter.timeZone = TimeZone(identifier: "KST")
+		dateFormatter.dateFormat = "yyyy.MM.dd EEEE"
+		todayDateView.text = dateFormatter.string(from: date)
 		
 		let showPopupTapGesture = UITapGestureRecognizer(target: self,
 																										 action: #selector(showPopupTrigger))
@@ -238,9 +243,9 @@ extension RecordViewController: UITextViewDelegate {
 	}
 	
 	func textViewDidBeginEditing(_ textView: UITextView) {
-		guard textView.textColor == .secondaryLabel else { return }
+		guard textView.textColor == .azLightGray.withAlphaComponent(0.5) else { return }
 		textView.text = nil
-		textView.textColor = .label
+		textView.textColor = .azLightGray
 	}
 }
 

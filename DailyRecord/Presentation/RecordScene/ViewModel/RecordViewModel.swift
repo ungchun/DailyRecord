@@ -16,7 +16,7 @@ final class RecordViewModel: BaseViewModel {
 	
 	private let recordUseCase: DefaultRecordUseCase
 	
-	let selectDate: Date // 선택 날짜
+	var selectData: RecordEntity
 	
 	var content: String = "" // 글 내용
 	var imageList: [UIImage] = [] // 첨부 이미지
@@ -29,10 +29,10 @@ final class RecordViewModel: BaseViewModel {
 	
 	init(
 		recordUseCase: DefaultRecordUseCase,
-		selectDate: Date
+		selectData: RecordEntity
 	) {
 		self.recordUseCase = recordUseCase
-		self.selectDate = selectDate
+		self.selectData = selectData
 	}
 }
 
@@ -44,7 +44,7 @@ extension RecordViewModel {
 	func createRecordTirgger() async throws {
 		guard let userID = Auth.auth().currentUser?.uid else { return }
 		var imageUrls: [String] = []
-		self.calendarDate = Int(self.selectDate.millisecondsSince1970)
+		self.calendarDate = selectData.calendarDate
 		
 		// 이미지 리스트를 업로드하고 URL을 배열에 저장
 		for image in self.imageList {
