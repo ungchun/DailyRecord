@@ -25,7 +25,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 				let window = UIWindow(windowScene: windowScene)
 				self.window = window
 				
-				let navigationController = UINavigationController()
+				self.window?.overrideUserInterfaceStyle = .dark
+				
+				let navigationController = BaseNavigationController()
 				self.window?.rootViewController = navigationController
 				
 				loginDIContainer = LoginDIContainer(navigationController: navigationController)
@@ -40,7 +42,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 				let window = UIWindow(windowScene: windowScene)
 				self.window = window
 				
-				let navigationController = UINavigationController()
+				self.window?.overrideUserInterfaceStyle = .dark
+				
+				let navigationController = BaseNavigationController()
 				self.window?.rootViewController = navigationController
 				
 				calendarDIContainer = CalendarDIContainer(navigationController: navigationController)
