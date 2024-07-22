@@ -68,10 +68,9 @@ extension RecordViewModel {
 		}
 	}
 	
-	// TODO: 이미지 올릴 때 퀄리티 좀 낮춰서 올리기
 	func uploadImage(_ image: UIImage, userID: String) async throws -> String {
 		let storageRef = Storage.storage().reference().child("record/\(userID)/\(UUID().uuidString).jpg")
-		guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+		guard let imageData = image.jpegData(compressionQuality: 0.1) else {
 			throw NSError(
 				domain: "ImageConversionError",
 				code: 1001,
