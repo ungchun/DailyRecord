@@ -183,25 +183,47 @@ extension EmotionalImagePopupView {
 	}
 	
 	private func addTapGestures() {
-		let tapGesture1 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
-		happyEmotion.addGestureRecognizer(tapGesture1)
+		let happyTapGesture = UITapGestureRecognizer(
+			target: self,
+			action: #selector(imageTapped(_:))
+		)
+		happyEmotion.addGestureRecognizer(happyTapGesture)
 		happyEmotion.tag = 1
 		
-		let tapGesture2 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
-		goodEmotion.addGestureRecognizer(tapGesture2)
+		let goodTapGesture = UITapGestureRecognizer(
+			target: self,
+			action: #selector(imageTapped(_:))
+		)
+		goodEmotion.addGestureRecognizer(goodTapGesture)
 		goodEmotion.tag = 2
 		
-		let tapGesture3 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
-		normalEmotion.addGestureRecognizer(tapGesture3)
+		let normalTapGesture = UITapGestureRecognizer(
+			target: self,
+			action: #selector(imageTapped(_:))
+		)
+		normalEmotion.addGestureRecognizer(normalTapGesture)
 		normalEmotion.tag = 3
 		
-		let tapGesture4 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
-		badEmotion.addGestureRecognizer(tapGesture4)
+		let badTapGesture = UITapGestureRecognizer(
+			target: self,
+			action: #selector(imageTapped(_:))
+		)
+		badEmotion.addGestureRecognizer(badTapGesture)
 		badEmotion.tag = 4
 		
-		let tapGesture5 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
-		irritationEmotion.addGestureRecognizer(tapGesture5)
+		let irritationTapGesture = UITapGestureRecognizer(
+			target: self,
+			action: #selector(imageTapped(_:))
+		)
+		irritationEmotion.addGestureRecognizer(irritationTapGesture)
 		irritationEmotion.tag = 5
+		
+		let sickTapGesture = UITapGestureRecognizer(
+			target: self,
+			action: #selector(imageTapped(_:))
+		)
+		sickEmotion.addGestureRecognizer(sickTapGesture)
+		sickEmotion.tag = 6
 	}
 	
 	@objc private func imageTapped(_ sender: UITapGestureRecognizer) {
