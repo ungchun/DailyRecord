@@ -9,13 +9,17 @@ import UIKit
 
 final class RecordDIContainer: DIContainer {
 	private let navigationController: UINavigationController
+	
+	private let calendarViewModel: CalendarViewModel
 	private let selectData: RecordEntity
 	
 	init(
 		navigationController: UINavigationController,
+		calendarViewModel: CalendarViewModel,
 		selectData: RecordEntity
 	) {
 		self.navigationController = navigationController
+		self.calendarViewModel = calendarViewModel
 		self.selectData = selectData
 	}
 }
@@ -31,7 +35,8 @@ extension RecordDIContainer {
 	
 	func makeRecordViewController() -> RecordViewController {
 		return RecordViewController(
-			viewModel: makeRecordViewModel()
+			viewModel: makeRecordViewModel(),
+			calendarViewModel: calendarViewModel
 		)
 	}
 	

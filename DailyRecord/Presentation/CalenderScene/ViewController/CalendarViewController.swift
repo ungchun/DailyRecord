@@ -40,7 +40,7 @@ final class CalendarViewController: BaseViewController {
 		let label = UILabel()
 		label.font = UIFont(name: "omyu_pretty", size: 40)
 		label.textColor = .azLightGray
-		label.text = dateFormat(Date(), format: "M월")
+		label.text = formattedDateString(Date(), format: "M월")
 		return label
 	}()
 	
@@ -129,8 +129,8 @@ final class CalendarViewController: BaseViewController {
 		
 		view.backgroundColor = .azBlack
 		
-		if let year = Int(dateFormat(Date(), format: "yyyy")),
-			 let month = Int(dateFormat(Date(), format: "M")) {
+		if let year = Int(formattedDateString(Date(), format: "yyyy")),
+			 let month = Int(formattedDateString(Date(), format: "M")) {
 			viewModel.fetchMonthRecordTrigger(year: year, month: month)
 		}
 	}
@@ -146,7 +146,7 @@ extension CalendarViewController {
 			.store(in: &cancellables)
 	}
 	
-	private func dateFormat(_ date: Date, format: String) -> String {
+	private func formattedDateString(_ date: Date, format: String) -> String {
 		let dateFormatter = DateFormatter()
 		dateFormatter.locale = Locale(identifier: "ko_kr")
 		dateFormatter.timeZone = TimeZone(identifier: "KST")
@@ -179,7 +179,10 @@ extension CalendarViewController: FSCalendarDelegate,
 		}) {
 				selectData = matchedEntity
 		}
-		coordinator?.showRecord(selectData: selectData)
+		coordinator?.showRecord(
+			calendarViewModel: viewModel,
+			selectData: selectData
+		)
 	}
 	
 	// 일요일에 해당되는 모든 날짜의 색상 red로 변경
@@ -208,9 +211,9 @@ extension CalendarViewController: FSCalendarDelegate,
 	
 	func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
 		let currentPage = calendar.currentPage
-		calendarHeaderView.text = dateFormat(currentPage, format: "M월")
-		if let year = Int(dateFormat(currentPage, format: "yyyy")),
-			 let month = Int(dateFormat(currentPage, format: "M")) {
+		calendarHeaderView.text = formattedDateString(currentPage, format: "M월")
+		if let year = Int(formattedDateString(currentPage, format: "yyyy")),
+			 let month = Int(formattedDateString(currentPage, format: "M")) {
 			viewModel.fetchMonthRecordTrigger(year: year, month: month)
 		}
 	}

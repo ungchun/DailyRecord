@@ -17,6 +17,7 @@ final class RecordViewController: BaseViewController {
 	var coordinator: RecordCoordinator?
 	
 	private let viewModel: RecordViewModel
+	private let calendarViewModel: CalendarViewModel
 	
 	// MARK: - Views
 	
@@ -68,9 +69,11 @@ final class RecordViewController: BaseViewController {
 	// MARK: - Life Cycle
 	
 	init(
-		viewModel: RecordViewModel
+		viewModel: RecordViewModel,
+		calendarViewModel: CalendarViewModel
 	) {
 		self.viewModel = viewModel
+		self.calendarViewModel = calendarViewModel
 		super.init(nibName: nil, bundle: nil)
 	}
 	
@@ -194,10 +197,29 @@ private extension RecordViewController {
 	}
 	
 	@objc func saveTrigger() {
+		LoadingIndicator.showLoading()
 		viewModel.imageList = attachedImageCollectionView.images
 		Task {
 			try await viewModel.createRecordTirgger()
+			
+			let timeInterval = TimeInterval(viewModel.selectData.calendarDate) / 1000
+			let date = Date(timeIntervalSince1970: timeInterval)
+			if let year = Int(formattedDateString(Date(), format: "yyyy")),
+				 let month = Int(formattedDateString(Date(), format: "M")) {
+				// TODO: TOAST
+				calendarViewModel.fetchMonthRecordTrigger(year: year, month: month)
+				LoadingIndicator.hideLoading()
+				coordinator?.dismiss()
+			}
 		}
+	}
+	
+	private func formattedDateString(_ date: Date, format: String) -> String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.locale = Locale(identifier: "ko_kr")
+		dateFormatter.timeZone = TimeZone(identifier: "KST")
+		dateFormatter.dateFormat = format
+		return dateFormatter.string(from: date)
 	}
 	
 	@objc func dismissKeyboard() {
