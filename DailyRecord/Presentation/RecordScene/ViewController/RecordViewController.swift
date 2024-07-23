@@ -45,6 +45,7 @@ final class RecordViewController: BaseViewController {
 		label.font = UIFont(name: "omyu_pretty", size: 16)
 		label.textColor = .azLightGray
 		label.textAlignment = .center
+		label.numberOfLines = 0
 		return label
 	}()
 	
@@ -146,11 +147,9 @@ final class RecordViewController: BaseViewController {
 		view.backgroundColor = .azBlack
 		let date = Date(timeIntervalSince1970:
 											TimeInterval(viewModel.selectData.calendarDate) / 1000)
-		let dateFormatter = DateFormatter()
-		dateFormatter.locale = Locale(identifier: "ko_KR")
-		dateFormatter.timeZone = TimeZone(identifier: "KST")
-		dateFormatter.dateFormat = "yyyy.MM.dd EEEE"
-		todayDateView.text = dateFormatter.string(from: date)
+		let datePart = formattedDateString(date, format: "yyyy.MM.dd")
+		let dayOfWeekPart = formattedDateString(date, format: "EEEE")
+		todayDateView.text = "\(datePart)\n\(dayOfWeekPart)"
 		
 		let showPopupTapGesture = UITapGestureRecognizer(target: self,
 																										 action: #selector(showPopupTrigger))
