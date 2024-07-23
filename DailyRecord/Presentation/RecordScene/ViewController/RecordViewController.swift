@@ -248,7 +248,7 @@ extension RecordViewController: EmotionalImagePopupViewDelegate {
 			let originalWidth = image.size.width
 			let originalHeight = image.size.height
 			let aspectRatio = originalHeight / originalWidth
-			let desiredWidth: CGFloat = 100
+			let desiredWidth: CGFloat = 80
 			let desiredHeight = desiredWidth * aspectRatio
 			todayEmotionImageView.snp.updateConstraints { make in
 				make.width.equalTo(desiredWidth)
