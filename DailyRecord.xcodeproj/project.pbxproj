@@ -38,6 +38,8 @@
 		659946AE2C4BD8DA0030598B /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946AD2C4BD8DA0030598B /* UIColor+.swift */; };
 		659946B02C4BECC00030598B /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946AF2C4BECC00030598B /* LoadingIndicator.swift */; };
 		659946B22C4D1AF10030598B /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946B12C4D1AF10030598B /* BaseNavigationController.swift */; };
+		659946B42C4FD4AB0030598B /* RecordHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946B32C4FD4AB0030598B /* RecordHistoryViewController.swift */; };
+		659946B62C54E13B0030598B /* ImageCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946B52C54E13B0030598B /* ImageCarouselView.swift */; };
 		65CF611E2C036432003E6D75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF611D2C036432003E6D75 /* AppDelegate.swift */; };
 		65CF61202C036432003E6D75 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF611F2C036432003E6D75 /* SceneDelegate.swift */; };
 		65CF61272C036433003E6D75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65CF61262C036433003E6D75 /* Assets.xcassets */; };
@@ -79,7 +81,7 @@
 		65CF61842C0C6053003E6D75 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61832C0C6053003E6D75 /* CalendarViewController.swift */; };
 		65CF61892C0C6092003E6D75 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61882C0C6092003E6D75 /* CalendarViewModel.swift */; };
 		65CF618C2C108CBD003E6D75 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 65CF618B2C108CBD003E6D75 /* FSCalendar */; };
-		65CF61972C116E87003E6D75 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61962C116E87003E6D75 /* RecordViewController.swift */; };
+		65CF61972C116E87003E6D75 /* RecordWriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61962C116E87003E6D75 /* RecordWriteViewController.swift */; };
 		65CF61992C117061003E6D75 /* RecordDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61982C117061003E6D75 /* RecordDIContainer.swift */; };
 		65CF619B2C11706A003E6D75 /* RecordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF619A2C11706A003E6D75 /* RecordCoordinator.swift */; };
 		65CF619E2C158B71003E6D75 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF619D2C158B71003E6D75 /* BaseViewController.swift */; };
@@ -121,6 +123,8 @@
 		659946AD2C4BD8DA0030598B /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		659946AF2C4BECC00030598B /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		659946B12C4D1AF10030598B /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
+		659946B32C4FD4AB0030598B /* RecordHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordHistoryViewController.swift; sourceTree = "<group>"; };
+		659946B52C54E13B0030598B /* ImageCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCarouselView.swift; sourceTree = "<group>"; };
 		65CF611A2C036432003E6D75 /* DailyRecord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyRecord.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65CF611D2C036432003E6D75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65CF611F2C036432003E6D75 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -135,7 +139,7 @@
 		65CF61802C0C5F44003E6D75 /* CalendarDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDIContainer.swift; sourceTree = "<group>"; };
 		65CF61832C0C6053003E6D75 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		65CF61882C0C6092003E6D75 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
-		65CF61962C116E87003E6D75 /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
+		65CF61962C116E87003E6D75 /* RecordWriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordWriteViewController.swift; sourceTree = "<group>"; };
 		65CF61982C117061003E6D75 /* RecordDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDIContainer.swift; sourceTree = "<group>"; };
 		65CF619A2C11706A003E6D75 /* RecordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCoordinator.swift; sourceTree = "<group>"; };
 		65CF619D2C158B71003E6D75 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -474,6 +478,7 @@
 				65CF61C32C243E78003E6D75 /* RecordFooterView.swift */,
 				65CF61C72C24425A003E6D75 /* EmotionalImagePopupView.swift */,
 				65CF61C92C24454E003E6D75 /* AttachedImageCollectionView.swift */,
+				659946B52C54E13B0030598B /* ImageCarouselView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -481,7 +486,8 @@
 		65CF61942C116E6C003E6D75 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				65CF61962C116E87003E6D75 /* RecordViewController.swift */,
+				65CF61962C116E87003E6D75 /* RecordWriteViewController.swift */,
+				659946B32C4FD4AB0030598B /* RecordHistoryViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -674,6 +680,7 @@
 				659946802C3A8B1D0030598B /* DefaultRecordRepository.swift in Sources */,
 				65CF611E2C036432003E6D75 /* AppDelegate.swift in Sources */,
 				65CF617B2C0C5ED7003E6D75 /* Coordinator.swift in Sources */,
+				659946B62C54E13B0030598B /* ImageCarouselView.swift in Sources */,
 				659946882C4249690030598B /* CalendarRepository.swift in Sources */,
 				65CF61CD2C26B571003E6D75 /* LoginViewController.swift in Sources */,
 				65CF61C82C24425A003E6D75 /* EmotionalImagePopupView.swift in Sources */,
@@ -691,9 +698,10 @@
 				65CF61D32C26BAB5003E6D75 /* LoginCoordinator.swift in Sources */,
 				659946972C43F1980030598B /* Type.swift in Sources */,
 				659946902C4249E30030598B /* CalendarUseCase.swift in Sources */,
+				659946B42C4FD4AB0030598B /* RecordHistoryViewController.swift in Sources */,
 				659946822C3A8B410030598B /* RecordUseCase.swift in Sources */,
 				65CF617D2C0C5EEC003E6D75 /* DIContainer.swift in Sources */,
-				65CF61972C116E87003E6D75 /* RecordViewController.swift in Sources */,
+				65CF61972C116E87003E6D75 /* RecordWriteViewController.swift in Sources */,
 				659946B22C4D1AF10030598B /* BaseNavigationController.swift in Sources */,
 				659946732C3839860030598B /* UserDefaultsSetting.swift in Sources */,
 				65CF617F2C0C5F20003E6D75 /* CalendarCoordinator.swift in Sources */,
