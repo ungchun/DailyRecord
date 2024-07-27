@@ -10,8 +10,6 @@ import PhotosUI
 
 import SnapKit
 
-// write
-// see
 final class RecordWriteViewController: BaseViewController {
 	
 	// MARK: - Properties
@@ -57,7 +55,6 @@ final class RecordWriteViewController: BaseViewController {
 		textView.font = UIFont(name: "omyu_pretty", size: 16)
 		textView.textColor = .azLightGray.withAlphaComponent(0.5)
 		textView.text = "오늘 하루는 어떠셨나요"
-		textView.delegate = self
 		textView.backgroundColor = .clear
 		textView.isScrollEnabled = false
 		return textView
@@ -88,13 +85,6 @@ final class RecordWriteViewController: BaseViewController {
 		super.viewDidLoad()
 		
 		// 작성이 안 되어 있으면 화면 가운데 alert 올라오게
-		
-		if viewModel.selectData.createTime == 0 {
-			// 작성 안 함
-			
-		} else {
-			// 작성 함
-		}
 	}
 	
 	// MARK: - Functions
@@ -210,8 +200,8 @@ private extension RecordWriteViewController {
 		Task {
 			try await viewModel.createRecordTirgger()
 			
-			let timeInterval = TimeInterval(viewModel.selectData.calendarDate) / 1000
-			let date = Date(timeIntervalSince1970: timeInterval)
+			// let timeInterval = TimeInterval(viewModel.selectData.calendarDate) / 1000
+			// let date = Date(timeIntervalSince1970: timeInterval)
 			if let year = Int(formattedDateString(Date(), format: "yyyy")),
 				 let month = Int(formattedDateString(Date(), format: "M")) {
 				// TODO: TOAST

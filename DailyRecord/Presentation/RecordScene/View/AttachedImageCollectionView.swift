@@ -35,7 +35,10 @@ final class AttachedImageCollectionView: BaseView {
 		collectionView.showsHorizontalScrollIndicator = false
 		collectionView.dataSource = self
 		collectionView.delegate = self
-		collectionView.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: CustomCollectionViewCell.reuseIdentifier)
+		collectionView.register(
+			AttachedImageCollectionViewCell.self,
+			forCellWithReuseIdentifier: AttachedImageCollectionViewCell.reuseIdentifier
+		)
 		return collectionView
 	}()
 	
@@ -71,7 +74,7 @@ extension AttachedImageCollectionView {
 	}
 	
 	@objc private func deleteButtonTapped(_ sender: UIButton) {
-		if let cell = sender.superview as? CustomCollectionViewCell,
+		if let cell = sender.superview as? AttachedImageCollectionViewCell,
 			 let indexPath = self.collectionView.indexPath(for: cell) {
 			images.remove(at: indexPath.row)
 			collectionView.deleteItems(at: [indexPath])
@@ -92,9 +95,9 @@ extension AttachedImageCollectionView: UICollectionViewDataSource, UICollectionV
 	func collectionView(_ collectionView: UICollectionView,
 											cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(
-			withReuseIdentifier: CustomCollectionViewCell.reuseIdentifier,
+			withReuseIdentifier: AttachedImageCollectionViewCell.reuseIdentifier,
 			for: indexPath
-		) as! CustomCollectionViewCell
+		) as! AttachedImageCollectionViewCell
 		cell.imageView.image = images[indexPath.item]
 		cell.deleteButton.addTarget(self,
 																action: #selector(deleteButtonTapped(_:)),
@@ -103,7 +106,7 @@ extension AttachedImageCollectionView: UICollectionViewDataSource, UICollectionV
 	}
 }
 
-final class CustomCollectionViewCell: UICollectionViewCell {
+final class AttachedImageCollectionViewCell: UICollectionViewCell {
 	
 	// MARK: - Properties
 	
@@ -141,7 +144,7 @@ final class CustomCollectionViewCell: UICollectionViewCell {
 	}
 }
 
-private extension CustomCollectionViewCell {
+private extension AttachedImageCollectionViewCell {
 	
 	// MARK: - Functions
 	
