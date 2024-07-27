@@ -10,7 +10,9 @@ import PhotosUI
 
 import SnapKit
 
-final class RecordViewController: BaseViewController {
+// write
+// see
+final class RecordWriteViewController: BaseViewController {
 	
 	// MARK: - Properties
 	
@@ -86,6 +88,13 @@ final class RecordViewController: BaseViewController {
 		super.viewDidLoad()
 		
 		// 작성이 안 되어 있으면 화면 가운데 alert 올라오게
+		
+		if viewModel.selectData.createTime == 0 {
+			// 작성 안 함
+			
+		} else {
+			// 작성 함
+		}
 	}
 	
 	// MARK: - Functions
@@ -169,7 +178,7 @@ final class RecordViewController: BaseViewController {
 	}
 }
 
-private extension RecordViewController {
+private extension RecordWriteViewController {
 	@objc func showPopupTrigger() {
 		emotionalImagePopupView.frame = view.bounds
 		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(closePopupTrigger))
@@ -226,7 +235,7 @@ private extension RecordViewController {
 	}
 }
 
-extension RecordViewController: AttachedImageCollectionViewDelegate {
+extension RecordWriteViewController: AttachedImageCollectionViewDelegate {
 	func collectionViewZeroHeightTrigger() {
 		DispatchQueue.main.async { [weak self] in
 			self?.attachedImageCollectionView.snp.updateConstraints { make in
@@ -236,7 +245,7 @@ extension RecordViewController: AttachedImageCollectionViewDelegate {
 	}
 }
 
-extension RecordViewController: EmotionalImagePopupViewDelegate {
+extension RecordWriteViewController: EmotionalImagePopupViewDelegate {
 	func emotionalImageTapTrigger(selectEmotionType: EmotionType) {
 		if let image = UIImage(named: selectEmotionType.rawValue) {
 			closePopupTrigger()
@@ -258,7 +267,7 @@ extension RecordViewController: EmotionalImagePopupViewDelegate {
 	}
 }
 
-extension RecordViewController: UITextViewDelegate {
+extension RecordWriteViewController: UITextViewDelegate {
 	func textViewDidChange(_ textView: UITextView) {
 		viewModel.content = textView.text
 	}
@@ -270,7 +279,7 @@ extension RecordViewController: UITextViewDelegate {
 	}
 }
 
-extension RecordViewController: PHPickerViewControllerDelegate {
+extension RecordWriteViewController: PHPickerViewControllerDelegate {
 	func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
 		picker.dismiss(animated: true, completion: nil)
 		var selectedImages: [UIImage] = []

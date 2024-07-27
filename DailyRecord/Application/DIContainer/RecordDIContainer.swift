@@ -30,11 +30,19 @@ extension RecordDIContainer {
 	
 	func makeRecordCoordinator() -> RecordCoordinator {
 		return RecordCoordinator(DIContainer: self,
-														 navigationController: navigationController)
+														 navigationController: navigationController,
+														 hasData: selectData.createTime != 0)
 	}
 	
-	func makeRecordViewController() -> RecordViewController {
-		return RecordViewController(
+	func makeRecordHistoryViewController() -> RecordHistoryViewController {
+		return RecordHistoryViewController(
+			viewModel: makeRecordViewModel(),
+			calendarViewModel: calendarViewModel
+		)
+	}
+	
+	func makeRecordWriteViewController() -> RecordWriteViewController {
+		return RecordWriteViewController(
 			viewModel: makeRecordViewModel(),
 			calendarViewModel: calendarViewModel
 		)

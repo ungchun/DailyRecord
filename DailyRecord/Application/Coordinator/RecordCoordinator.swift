@@ -8,22 +8,33 @@
 import UIKit
 
 final class RecordCoordinator: Coordinator {
-	private let navigationController: UINavigationController
-	
 	let DIContainer: RecordDIContainer
 	
-	init(DIContainer: RecordDIContainer,
-			 navigationController: UINavigationController) {
+	private let navigationController: UINavigationController
+	private let hasData: Bool
+	
+	init(
+		DIContainer: RecordDIContainer,
+		navigationController: UINavigationController,
+		hasData: Bool
+	) {
 		self.DIContainer = DIContainer
 		self.navigationController = navigationController
+		self.hasData = hasData
 	}
 }
 
 extension RecordCoordinator {
 	func start() {
-		let recordViewController = DIContainer.makeRecordViewController()
-		recordViewController.coordinator = self
-		self.navigationController.pushViewController(recordViewController, animated: true)
+		if hasData {
+			let recordViewController = DIContainer.makeRecordHistoryViewController()
+			recordViewController.coordinator = self
+			self.navigationController.pushViewController(recordViewController, animated: true)
+		} else {
+			let recordViewController = DIContainer.makeRecordWriteViewController()
+			recordViewController.coordinator = self
+			self.navigationController.pushViewController(recordViewController, animated: true)
+		}
 	}
 	
 	func dismiss() {
