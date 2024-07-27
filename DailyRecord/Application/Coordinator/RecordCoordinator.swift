@@ -37,7 +37,18 @@ extension RecordCoordinator {
 		}
 	}
 	
+	func showWriteViewController(_ viewModel: RecordViewModel) {
+		let recordViewController = DIContainer.makeRecordWriteViewController(viewModel)
+		recordViewController.coordinator = self
+		self.navigationController.pushViewController(recordViewController,
+																								 animated: true)
+	}
+	
 	func dismiss() {
 		navigationController.popViewController(animated: true)
+	}
+	
+	func popToRoot() {
+		navigationController.popToRootViewController(animated: true)
 	}
 }

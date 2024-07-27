@@ -85,6 +85,8 @@ final class RecordWriteViewController: BaseViewController {
 		super.viewDidLoad()
 		
 		// 작성이 안 되어 있으면 화면 가운데 alert 올라오게
+		
+		fetchEditData()
 	}
 	
 	// MARK: - Functions
@@ -126,7 +128,8 @@ final class RecordWriteViewController: BaseViewController {
 		attachedImageCollectionView.snp.makeConstraints { make in
 			make.top.equalTo(todayDateView.snp.bottom).offset(20)
 			make.left.right.equalToSuperview().inset(20)
-			make.height.equalTo(0)
+			make.height.equalTo(viewModel.selectData.createTime == 0
+													? 0 : 100)
 		}
 		
 		inputDiaryView.snp.makeConstraints { make in
@@ -154,7 +157,8 @@ final class RecordWriteViewController: BaseViewController {
 																										 action: #selector(showPopupTrigger))
 		todayEmotionImageView.addGestureRecognizer(showPopupTapGesture)
 		
-		let galleryTapGesture = UITapGestureRecognizer(target: self, action: #selector(galleryTrigger))
+		let galleryTapGesture = UITapGestureRecognizer(target: self,
+																									 action: #selector(galleryTrigger))
 		footerView.galleryIcon.addGestureRecognizer(galleryTapGesture)
 		
 		let saveTapGesture = UITapGestureRecognizer(target: self, action: #selector(saveTrigger))
@@ -165,6 +169,29 @@ final class RecordWriteViewController: BaseViewController {
 		
 		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
 		view.addGestureRecognizer(tapGesture)
+	}
+}
+
+private extension RecordWriteViewController {
+	func fetchEditData() {
+		if viewModel.selectData.createTime != 0 {
+			viewModel.setNotImageData {
+				self.updateNotImageView()
+			}
+			
+			viewModel.setImageData {
+				self.updateImageView()
+			}
+		}
+	}
+	
+	func updateNotImageView() {
+		inputDiaryView.text = viewModel.content
+		emotionalImageTapTrigger(selectEmotionType: viewModel.emotionType)
+	}
+	
+	func updateImageView() {
+		attachedImageCollectionView.setImages(viewModel.imageList)
 	}
 }
 
@@ -200,14 +227,12 @@ private extension RecordWriteViewController {
 		Task {
 			try await viewModel.createRecordTirgger()
 			
-			// let timeInterval = TimeInterval(viewModel.selectData.calendarDate) / 1000
-			// let date = Date(timeIntervalSince1970: timeInterval)
 			if let year = Int(formattedDateString(Date(), format: "yyyy")),
 				 let month = Int(formattedDateString(Date(), format: "M")) {
 				// TODO: TOAST
 				calendarViewModel.fetchMonthRecordTrigger(year: year, month: month)
 				LoadingIndicator.hideLoading()
-				coordinator?.dismiss()
+				coordinator?.popToRoot()
 			}
 		}
 	}
@@ -263,9 +288,11 @@ extension RecordWriteViewController: UITextViewDelegate {
 	}
 	
 	func textViewDidBeginEditing(_ textView: UITextView) {
-		guard textView.textColor == .azLightGray.withAlphaComponent(0.5) else { return }
-		textView.text = nil
-		textView.textColor = .azLightGray
+		if textView.text == "오늘 하루는 어떠셨나요" {
+			guard textView.textColor == .azLightGray.withAlphaComponent(0.5) else { return }
+			textView.text = nil
+			textView.textColor = .azLightGray
+		}
 	}
 }
 

@@ -176,14 +176,32 @@ extension RecordHistoryViewController {
 														withConfiguration: largeConfig)?.rotated(by: 90)
 		let editButtonItem = UIBarButtonItem(
 			image: iconImage,
-			style: .plain,
-			target: self, action: #selector(editButtonTapped)
+			primaryAction: nil,
+			menu: menu
 		)
 		navigationItem.rightBarButtonItem = editButtonItem
 	}
 	
-	@objc private func editButtonTapped() {
-		print("Right bar button tapped")
+	private var menu: UIMenu {
+		return UIMenu(title: "",
+									image: nil,
+									identifier: nil,
+									options: [], children: menuItems)
+	}
+	
+	private var menuItems: [UIAction] {
+		return [UIAction(title: "수정하기",
+										 image: UIImage(systemName: "pencil"),
+										 handler: { _ in
+			self.coordinator?.showWriteViewController(self.viewModel)
+			Log.debug("AZHY BEFORE", self.viewModel.selectData)
+		}),
+						UIAction(title: "삭제하기",
+										 image: UIImage(systemName: "trash"),
+										 attributes: .destructive,
+										 handler: { _ in
+			// 삭제하기
+		})]
 	}
 	
 	private func formattedDateString(_ date: Date, format: String) -> String {

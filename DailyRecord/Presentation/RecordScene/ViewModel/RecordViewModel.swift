@@ -56,7 +56,7 @@ extension RecordViewModel {
 																			content: self.content,
 																			emotion_type: emotionType.rawValue,
 																			image_list: imageUrls,
-																			create_time: self.createTime,
+																			create_time: Int(Date().millisecondsSince1970),
 																			calendar_date: self.calendarDate)
 		
 		let recordData = try recordRequest.asDictionary()
@@ -93,5 +93,53 @@ extension RecordViewModel {
 				}
 			}
 		}
+	}
+}
+
+extension RecordViewModel {
+	func setNotImageData(completion: @escaping () -> Void) {
+		content = selectData.content
+		emotionType = selectData.emotionType
+		createTime = selectData.createTime
+		completion()
+	}
+	
+	func setImageData(completion: @escaping () -> Void) {
+		let urlStrings = selectData.imageList
+		let dispatchGroup = DispatchGroup()
+		var loadedImages: [UIImage] = []
+		
+		for urlString in urlStrings {
+			if let url = URL(string: urlString) {
+				dispatchGroup.enter()
+				loadImage(from: url) { image in
+					if let image = image {
+						loadedImages.append(image)
+					}
+					dispatchGroup.leave()
+				}
+			}
+		}
+		
+		dispatchGroup.notify(queue: .main) {
+			self.imageList = loadedImages
+			completion()
+		}
+	}
+	
+	private func loadImage(from url: URL,
+												 completion: @escaping (UIImage?) -> Void) {
+		URLSession.shared.dataTask(with: url) { data, response, error in
+			if let data = data, error == nil {
+				let image = UIImage(data: data)
+				DispatchQueue.main.async {
+					completion(image)
+				}
+			} else {
+				DispatchQueue.main.async {
+					completion(nil)
+				}
+			}
+		}.resume()
 	}
 }

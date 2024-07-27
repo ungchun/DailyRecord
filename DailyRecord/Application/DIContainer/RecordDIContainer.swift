@@ -41,11 +41,18 @@ extension RecordDIContainer {
 		)
 	}
 	
-	func makeRecordWriteViewController() -> RecordWriteViewController {
-		return RecordWriteViewController(
-			viewModel: makeRecordViewModel(),
-			calendarViewModel: calendarViewModel
-		)
+	func makeRecordWriteViewController(_ viewModel: RecordViewModel? = nil) -> RecordWriteViewController {
+		if let viewModel = viewModel {
+			return RecordWriteViewController(
+				viewModel: viewModel,
+				calendarViewModel: calendarViewModel
+			)
+		} else {
+			return RecordWriteViewController(
+				viewModel: makeRecordViewModel(),
+				calendarViewModel: calendarViewModel
+			)
+		}
 	}
 	
 	private func makeRecordViewModel() -> RecordViewModel {
