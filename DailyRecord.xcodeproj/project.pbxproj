@@ -435,7 +435,6 @@
 		65CF61822C0C6030003E6D75 /* CalenderScene */ = {
 			isa = PBXGroup;
 			children = (
-				65CF61862C0C6067003E6D75 /* View */,
 				65CF61852C0C605D003E6D75 /* ViewController */,
 				65CF61872C0C606C003E6D75 /* ViewModel */,
 			);
@@ -448,13 +447,6 @@
 				65CF61832C0C6053003E6D75 /* CalendarViewController.swift */,
 			);
 			path = ViewController;
-			sourceTree = "<group>";
-		};
-		65CF61862C0C6067003E6D75 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		65CF61872C0C606C003E6D75 /* ViewModel */ = {
