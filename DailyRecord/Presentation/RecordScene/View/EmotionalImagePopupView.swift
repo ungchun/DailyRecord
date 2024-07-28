@@ -158,27 +158,32 @@ final class EmotionalImagePopupView: BaseView {
 	}
 	
 	override func setupView() {
-		dimmingView.alpha = 0
-		emotionalImagePopupView.alpha = 0
-		
+		DispatchQueue.main.async { [weak self] in
+			self?.dimmingView.alpha = 0
+			self?.emotionalImagePopupView.alpha = 0
+		}
 		addTapGestures()
 	}
 }
 
 extension EmotionalImagePopupView {
 	func showPopup() {
-		UIView.animate(withDuration: 0.3) {
-			self.dimmingView.alpha = 1
-			self.emotionalImagePopupView.alpha = 1
+		DispatchQueue.main.async { [weak self] in
+			UIView.animate(withDuration: 0.3) {
+				self?.dimmingView.alpha = 1
+				self?.emotionalImagePopupView.alpha = 1
+			}
 		}
 	}
 	
 	func hidePopup(completion: @escaping () -> Void) {
-		UIView.animate(withDuration: 0.3, animations: {
-			self.dimmingView.alpha = 0
-			self.emotionalImagePopupView.alpha = 0
-		}) { _ in
-			completion()
+		DispatchQueue.main.async { [weak self] in
+			UIView.animate(withDuration: 0.3, animations: {
+				self?.dimmingView.alpha = 0
+				self?.emotionalImagePopupView.alpha = 0
+			}) { _ in
+				completion()
+			}
 		}
 	}
 	

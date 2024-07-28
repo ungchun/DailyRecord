@@ -35,4 +35,8 @@ extension LoginCoordinator {
 	func dismiss() {
 		navigationController.popViewController(animated: true)
 	}
+	
+	func popToRoot() {
+		navigationController.popToRootViewController(animated: true)
+	}
 }

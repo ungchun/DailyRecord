@@ -78,7 +78,6 @@ extension LoginRepository {
 	}
 	
 	func removeUser(fieldID: String) async throws {
-		// TODO: 회원 탈퇴
 		guard let userID = Auth.auth().currentUser?.uid else { return }
 		let documentRef = db.collection("user").document(userID)
 		try await withCheckedThrowingContinuation {

@@ -127,11 +127,19 @@ final class CalendarViewController: BaseViewController {
 	override func setupView() {
 		bindViewModel()
 		
-		view.backgroundColor = .azBlack
+		DispatchQueue.main.async { [weak self] in
+			self?.view.backgroundColor = .azBlack
+		}
 		
 		if let year = Int(formattedDateString(Date(), format: "yyyy")),
 			 let month = Int(formattedDateString(Date(), format: "M")) {
-			viewModel.fetchMonthRecordTrigger(year: year, month: month)
+			Task {
+				do {
+					try await viewModel.fetchMonthRecordTrigger(year: year, month: month)
+				} catch {
+					// 에러 처리
+				}
+			}
 		}
 	}
 }
@@ -211,10 +219,18 @@ extension CalendarViewController: FSCalendarDelegate,
 	
 	func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
 		let currentPage = calendar.currentPage
-		calendarHeaderView.text = formattedDateString(currentPage, format: "M월")
+		DispatchQueue.main.async { [weak self] in
+			self?.calendarHeaderView.text = self?.formattedDateString(currentPage, format: "M월")
+		}
 		if let year = Int(formattedDateString(currentPage, format: "yyyy")),
 			 let month = Int(formattedDateString(currentPage, format: "M")) {
-			viewModel.fetchMonthRecordTrigger(year: year, month: month)
+			Task {
+				do {
+					try await viewModel.fetchMonthRecordTrigger(year: year, month: month)
+				} catch {
+					// 에러 처리
+				}
+			}
 		}
 	}
 	
@@ -229,8 +245,10 @@ extension CalendarViewController: FSCalendarDelegate,
 			at: position
 		) as? CalendarCell else { return FSCalendarCell() }
 		
-		cell.backImageView.image = nil
-		cell.titleLabel.isHidden = false
+		DispatchQueue.main.async {
+			cell.backImageView.image = nil
+			cell.titleLabel.isHidden = false
+		}
 		
 		viewModel.records.forEach { entity in
 			let seconds = TimeInterval(entity.calendarDate) / 1000
@@ -287,7 +305,9 @@ class CalendarCell: FSCalendarCell {
 	override func prepareForReuse() {
 		super.prepareForReuse()
 		
-		backImageView.image = nil
+		DispatchQueue.main.async { [weak self] in
+			self?.backImageView.image = nil
+		}
 	}
 	
 	/// 셀의 높이와 너비 중 작은 값을 리턴한다

@@ -146,12 +146,17 @@ final class RecordWriteViewController: BaseViewController {
 	}
 	
 	override func setupView() {
-		view.backgroundColor = .azBlack
+		DispatchQueue.main.async { [weak self] in
+			self?.view.backgroundColor = .azBlack
+		}
+		
 		let date = Date(timeIntervalSince1970:
 											TimeInterval(viewModel.selectData.calendarDate) / 1000)
 		let datePart = formattedDateString(date, format: "yyyy.MM.dd")
 		let dayOfWeekPart = formattedDateString(date, format: "EEEE")
-		todayDateView.text = "\(datePart)\n\(dayOfWeekPart)"
+		DispatchQueue.main.async { [weak self] in
+			self?.todayDateView.text = "\(datePart)\n\(dayOfWeekPart)"
+		}
 		
 		let showPopupTapGesture = UITapGestureRecognizer(target: self,
 																										 action: #selector(showPopupTrigger))
@@ -188,7 +193,9 @@ private extension RecordWriteViewController {
 	}
 	
 	func updateNotImageView() {
-		inputDiaryView.text = viewModel.content
+		DispatchQueue.main.async { [weak self] in
+			self?.inputDiaryView.text = self?.viewModel.content
+		}
 		emotionalImageTapTrigger(selectEmotionType: viewModel.emotionType)
 	}
 	
@@ -199,7 +206,10 @@ private extension RecordWriteViewController {
 
 private extension RecordWriteViewController {
 	@objc func showPopupTrigger() {
-		emotionalImagePopupView.frame = view.bounds
+		DispatchQueue.main.async { [weak self] in
+			guard let self = self else { return }
+			self.emotionalImagePopupView.frame = self.view.bounds
+		}
 		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(closePopupTrigger))
 		emotionalImagePopupView.dimmingView.addGestureRecognizer(tapGesture)
 		
@@ -208,8 +218,10 @@ private extension RecordWriteViewController {
 	}
 	
 	@objc func closePopupTrigger() {
-		emotionalImagePopupView.hidePopup { [weak self] in
-			self?.emotionalImagePopupView.removeFromSuperview()
+		DispatchQueue.main.async { [weak self] in
+			self?.emotionalImagePopupView.hidePopup { [weak self] in
+				self?.emotionalImagePopupView.removeFromSuperview()
+			}
 		}
 	}
 	
@@ -227,21 +239,31 @@ private extension RecordWriteViewController {
 		LoadingIndicator.showLoading()
 		viewModel.imageList = attachedImageCollectionView.images
 		Task { [weak self] in
-			try await self?.viewModel.createRecordTirgger()
-			
-			if let calendarDate = self?.viewModel.selectData.calendarDate {
-				let date = Date(timeIntervalSince1970:
-													TimeInterval(calendarDate) / 1000)
-				if let dayOfyear = self?.formattedDateString(date, format: "yyyy"),
-					 let dayOfmonth = self?.formattedDateString(date, format: "M") {
-					if let year = Int(dayOfyear),
-						 let month = Int(dayOfmonth) {
-						self?.calendarViewModel.fetchMonthRecordTrigger(year: year, month: month)
-						LoadingIndicator.hideLoading()
-						self?.showToast(message: "일기를 작성했어요!")
-						self?.coordinator?.popToRoot()
+			do {
+				try await self?.viewModel.createRecordTirgger()
+				
+				if let calendarDate = self?.viewModel.selectData.calendarDate {
+					let date = Date(timeIntervalSince1970:
+														TimeInterval(calendarDate) / 1000)
+					if let dayOfyear = self?.formattedDateString(date, format: "yyyy"),
+						 let dayOfmonth = self?.formattedDateString(date, format: "M") {
+						if let year = Int(dayOfyear),
+							 let month = Int(dayOfmonth) {
+							do {
+								try await self?.calendarViewModel.fetchMonthRecordTrigger(
+									year: year, month: month
+								)
+							} catch {
+								// 에러 처리
+							}
+							LoadingIndicator.hideLoading()
+							self?.showToast(message: "일기를 작성했어요!")
+							self?.coordinator?.popToRoot()
+						}
 					}
 				}
+			} catch {
+				// 에러 처리
 			}
 		}
 	}
@@ -261,10 +283,8 @@ private extension RecordWriteViewController {
 
 extension RecordWriteViewController: AttachedImageCollectionViewDelegate {
 	func collectionViewZeroHeightTrigger() {
-		DispatchQueue.main.async { [weak self] in
-			self?.attachedImageCollectionView.snp.updateConstraints { make in
-				make.height.equalTo(0.5)
-			}
+		self.attachedImageCollectionView.snp.updateConstraints { make in
+			make.height.equalTo(0.5)
 		}
 	}
 }
@@ -276,8 +296,11 @@ extension RecordWriteViewController: EmotionalImagePopupViewDelegate {
 			
 			viewModel.emotionType = selectEmotionType
 			
-			todayEmotionImageView.backgroundColor = .clear
-			todayEmotionImageView.image = image
+			DispatchQueue.main.async { [weak self] in
+				self?.todayEmotionImageView.backgroundColor = .clear
+				self?.todayEmotionImageView.image = image
+			}
+			
 			let originalWidth = image.size.width
 			let originalHeight = image.size.height
 			let aspectRatio = originalHeight / originalWidth
@@ -315,10 +338,8 @@ extension RecordWriteViewController: PHPickerViewControllerDelegate {
 					selectedImages.append(image)
 					if results.count == selectedImages.count {
 						self?.attachedImageCollectionView.setImages(selectedImages)
-						DispatchQueue.main.async {
-							self?.attachedImageCollectionView.snp.updateConstraints { make in
-								make.height.equalTo(100)
-							}
+						self?.attachedImageCollectionView.snp.updateConstraints { make in
+							make.height.equalTo(100)
 						}
 					}
 				}

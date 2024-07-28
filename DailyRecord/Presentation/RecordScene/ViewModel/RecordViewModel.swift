@@ -60,11 +60,7 @@ extension RecordViewModel {
 		
 		let recordData = try recordRequest.asDictionary()
 		
-		do {
-			try await recordUseCase.createRecord(data: recordData)
-		} catch {
-			// TODO: 에러 처리
-		}
+		try await recordUseCase.createRecord(data: recordData)
 	}
 	
 	private func uploadImage(_ image: UIImage, userID: String) async throws -> String {
@@ -95,12 +91,8 @@ extension RecordViewModel {
 	}
 	
 	func removeRecordTirgger() async throws {
-		do {
-			self.calendarDate = selectData.calendarDate
-			try await recordUseCase.removeRecord(docID: String(calendarDate))
-		} catch {
-			// TODO: 에러 처리
-		}
+		self.calendarDate = selectData.calendarDate
+		try await recordUseCase.removeRecord(docID: String(calendarDate))
 	}
 }
 

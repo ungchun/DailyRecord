@@ -67,18 +67,17 @@ final class AttachedImageCollectionView: BaseView {
 
 extension AttachedImageCollectionView {
 	func setImages(_ images: [UIImage]) {
-		DispatchQueue.main.async { [weak self] in
-			self?.images = images
-			self?.collectionView.reloadData()
-		}
+		self.images = images
+		collectionView.reloadData()
 	}
 	
 	@objc private func deleteButtonTapped(_ sender: UIButton) {
 		if let cell = sender.superview as? AttachedImageCollectionViewCell,
 			 let indexPath = self.collectionView.indexPath(for: cell) {
 			images.remove(at: indexPath.row)
-			collectionView.deleteItems(at: [indexPath])
-			
+			DispatchQueue.main.async { [weak self] in
+				self?.collectionView.deleteItems(at: [indexPath])
+			}
 			if images.isEmpty {
 				delegate?.collectionViewZeroHeightTrigger()
 			}

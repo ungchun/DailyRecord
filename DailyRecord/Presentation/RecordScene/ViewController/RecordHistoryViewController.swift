@@ -132,17 +132,23 @@ final class RecordHistoryViewController: BaseViewController {
 	override func setupView() {
 		setupNavigationBar()
 		
-		view.backgroundColor = .azBlack
+		DispatchQueue.main.async { [weak self] in
+			self?.view.backgroundColor = .azBlack
+		}
 		
 		let date = Date(timeIntervalSince1970:
 											TimeInterval(viewModel.selectData.calendarDate) / 1000)
 		let datePart = formattedDateString(date, format: "yyyy.MM.dd")
 		let dayOfWeekPart = formattedDateString(date, format: "EEEE")
-		createDateView.text = "\(datePart)\n\(dayOfWeekPart)"
+		DispatchQueue.main.async { [weak self] in
+			self?.createDateView.text = "\(datePart)\n\(dayOfWeekPart)"
+		}
 		
 		if let image = UIImage(named: viewModel.selectData.emotionType.rawValue) {
-			todayEmotionImageView.backgroundColor = .clear
-			todayEmotionImageView.image = image
+			DispatchQueue.main.async { [weak self] in
+				self?.todayEmotionImageView.backgroundColor = .clear
+				self?.todayEmotionImageView.image = image
+			}
 			let originalWidth = image.size.width
 			let originalHeight = image.size.height
 			let aspectRatio = originalHeight / originalWidth
@@ -156,15 +162,14 @@ final class RecordHistoryViewController: BaseViewController {
 		
 		if !viewModel.selectData.imageList.isEmpty {
 			imageCarouselView.setImages(viewModel.selectData.imageList)
-			
-			DispatchQueue.main.async {
-				self.imageCarouselView.snp.updateConstraints { make in
-					make.height.equalTo(100)
-				}
+			imageCarouselView.snp.updateConstraints { make in
+				make.height.equalTo(100)
 			}
 		}
 		
-		inputDiaryView.text = viewModel.selectData.content
+		DispatchQueue.main.async { [weak self] in
+			self?.inputDiaryView.text = self?.viewModel.selectData.content
+		}
 	}
 }
 
@@ -203,23 +208,32 @@ extension RecordHistoryViewController {
 			alert.addAction(UIAlertAction(title: "취소", style: .default) { _ in })
 			alert.addAction(UIAlertAction(title: "삭제", style: .destructive) { _ in
 				Task { [weak self] in
-					try await self?.viewModel.removeRecordTirgger()
-					if let calendarDate = self?.viewModel.selectData.calendarDate {
-						let date = Date(timeIntervalSince1970:
-															TimeInterval(calendarDate) / 1000)
-						if let dayOfyear = self?.formattedDateString(date, format: "yyyy"),
-							 let dayOfmonth = self?.formattedDateString(date, format: "M") {
-							if let year = Int(dayOfyear),
-								 let month = Int(dayOfmonth) {
-								self?.showToast(message: "일기를 삭제했어요!")
-								self?.calendarViewModel.fetchMonthRecordTrigger(year: year, month: month)
-								self?.coordinator?.popToRoot()
+					do {
+						try await self?.viewModel.removeRecordTirgger()
+						if let calendarDate = self?.viewModel.selectData.calendarDate {
+							let date = Date(timeIntervalSince1970:
+																TimeInterval(calendarDate) / 1000)
+							if let dayOfyear = self?.formattedDateString(date, format: "yyyy"),
+								 let dayOfmonth = self?.formattedDateString(date, format: "M") {
+								if let year = Int(dayOfyear),
+									 let month = Int(dayOfmonth) {
+									do {
+										try await self?.calendarViewModel.fetchMonthRecordTrigger(
+											year: year, month: month
+										)
+									} catch {
+										// 에러 처리
+									}
+									self?.showToast(message: "일기를 삭제했어요!")
+									self?.coordinator?.popToRoot()
+								}
 							}
 						}
+					} catch {
+						// 에러 처리
 					}
 				}
 			})
-			
 			self.present(alert, animated: true, completion: nil)
 		})]
 	}

@@ -86,7 +86,9 @@ final class LoginViewController: BaseViewController {
 	}
 	
 	override func setupView() {
-		view.backgroundColor = .white
+		DispatchQueue.main.async { [weak self] in
+			self?.view.backgroundColor = .white
+		}
 		
 		let appleLoginTapGesture = UITapGestureRecognizer(target: self,
 																											action: #selector(appleLoginTrigger))
@@ -197,8 +199,8 @@ extension LoginViewController {
 						try await self?.viewModel.createUserTirgger()
 						self?.coordinator?.showCalendar()
 					} catch {
-						// 로그인 에러
-						// TODO: SET TOAST
+						self?.showToast(message: "에러가 발생했어요.")
+						self?.coordinator?.popToRoot()
 					}
 				}
 			}
