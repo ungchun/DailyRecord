@@ -13,7 +13,7 @@ final class RecordFooterView: BaseView {
 	
 	private let divider: UIView = {
 		let view = UIView()
-		view.backgroundColor = .red
+		view.backgroundColor = .azDarkGray
 		return view
 	}()
 	
@@ -22,6 +22,7 @@ final class RecordFooterView: BaseView {
 		view.image = UIImage(systemName: "photo")
 		view.contentMode = .scaleAspectFit
 		view.isUserInteractionEnabled = true
+		view.tintColor = .azLightGray
 		return view
 	}()
 	
@@ -30,6 +31,7 @@ final class RecordFooterView: BaseView {
 		view.image = UIImage(systemName: "checkmark")
 		view.contentMode = .scaleAspectFit
 		view.isUserInteractionEnabled = true
+		view.tintColor = .azLightGray
 		return view
 	}()
 	
@@ -45,17 +47,19 @@ final class RecordFooterView: BaseView {
 		divider.snp.makeConstraints { make in
 			make.top.equalToSuperview()
 			make.left.right.equalToSuperview()
-			make.height.equalTo(2)
+			make.height.equalTo(1)
 		}
 		
 		galleryIcon.snp.makeConstraints { make in
-			make.top.equalTo(divider.snp.bottom).offset(8)
-			make.leading.equalToSuperview().offset(16)
+			make.top.equalTo(divider.snp.bottom).offset(16)
+			make.leading.equalToSuperview().offset(24)
+			make.width.height.equalTo(20)
 		}
 		
 		saveIcon.snp.makeConstraints { make in
-			make.top.equalTo(divider.snp.bottom).offset(8)
-			make.trailing.equalToSuperview().offset(-16)
+			make.top.equalTo(divider.snp.bottom).offset(16)
+			make.trailing.equalToSuperview().offset(-24)
+			make.width.height.equalTo(20)
 		}
 	}
 	

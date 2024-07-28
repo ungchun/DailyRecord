@@ -23,13 +23,12 @@ final class EmotionalImagePopupView: BaseView {
 	
 	let dimmingView: UIView = {
 		let view = UIView()
-		view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
 		return view
 	}()
 	
 	private let emotionalImagePopupView: UIView = {
 		let view = UIView()
-		view.backgroundColor = .white
+		view.backgroundColor = .azDarkGray
 		view.layer.cornerRadius = 10
 		view.layer.shadowColor = UIColor.black.cgColor
 		view.layer.shadowOpacity = 0.3
@@ -102,7 +101,8 @@ final class EmotionalImagePopupView: BaseView {
 		addSubview(dimmingView)
 		addSubview(emotionalImagePopupView)
 		
-		[happyEmotion, goodEmotion, normalEmotion, badEmotion, irritationEmotion, sickEmotion].forEach {
+		[happyEmotion, goodEmotion, normalEmotion,
+		 badEmotion, irritationEmotion, sickEmotion].forEach {
 			emotionalImagePopupView.addSubview($0)
 		}
 	}
@@ -158,50 +158,77 @@ final class EmotionalImagePopupView: BaseView {
 	}
 	
 	override func setupView() {
-		dimmingView.alpha = 0
-		emotionalImagePopupView.alpha = 0
-		
+		DispatchQueue.main.async { [weak self] in
+			self?.dimmingView.alpha = 0
+			self?.emotionalImagePopupView.alpha = 0
+		}
 		addTapGestures()
 	}
 }
 
 extension EmotionalImagePopupView {
 	func showPopup() {
-		UIView.animate(withDuration: 0.3) {
-			self.dimmingView.alpha = 1
-			self.emotionalImagePopupView.alpha = 1
+		DispatchQueue.main.async { [weak self] in
+			UIView.animate(withDuration: 0.3) {
+				self?.dimmingView.alpha = 1
+				self?.emotionalImagePopupView.alpha = 1
+			}
 		}
 	}
 	
 	func hidePopup(completion: @escaping () -> Void) {
-		UIView.animate(withDuration: 0.3, animations: {
-			self.dimmingView.alpha = 0
-			self.emotionalImagePopupView.alpha = 0
-		}) { _ in
-			completion()
+		DispatchQueue.main.async { [weak self] in
+			UIView.animate(withDuration: 0.3, animations: {
+				self?.dimmingView.alpha = 0
+				self?.emotionalImagePopupView.alpha = 0
+			}) { _ in
+				completion()
+			}
 		}
 	}
 	
 	private func addTapGestures() {
-		let tapGesture1 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
-		happyEmotion.addGestureRecognizer(tapGesture1)
+		let happyTapGesture = UITapGestureRecognizer(
+			target: self,
+			action: #selector(imageTapped(_:))
+		)
+		happyEmotion.addGestureRecognizer(happyTapGesture)
 		happyEmotion.tag = 1
 		
-		let tapGesture2 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
-		goodEmotion.addGestureRecognizer(tapGesture2)
+		let goodTapGesture = UITapGestureRecognizer(
+			target: self,
+			action: #selector(imageTapped(_:))
+		)
+		goodEmotion.addGestureRecognizer(goodTapGesture)
 		goodEmotion.tag = 2
 		
-		let tapGesture3 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
-		normalEmotion.addGestureRecognizer(tapGesture3)
+		let normalTapGesture = UITapGestureRecognizer(
+			target: self,
+			action: #selector(imageTapped(_:))
+		)
+		normalEmotion.addGestureRecognizer(normalTapGesture)
 		normalEmotion.tag = 3
 		
-		let tapGesture4 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
-		badEmotion.addGestureRecognizer(tapGesture4)
+		let badTapGesture = UITapGestureRecognizer(
+			target: self,
+			action: #selector(imageTapped(_:))
+		)
+		badEmotion.addGestureRecognizer(badTapGesture)
 		badEmotion.tag = 4
 		
-		let tapGesture5 = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
-		irritationEmotion.addGestureRecognizer(tapGesture5)
+		let irritationTapGesture = UITapGestureRecognizer(
+			target: self,
+			action: #selector(imageTapped(_:))
+		)
+		irritationEmotion.addGestureRecognizer(irritationTapGesture)
 		irritationEmotion.tag = 5
+		
+		let sickTapGesture = UITapGestureRecognizer(
+			target: self,
+			action: #selector(imageTapped(_:))
+		)
+		sickEmotion.addGestureRecognizer(sickTapGesture)
+		sickEmotion.tag = 6
 	}
 	
 	@objc private func imageTapped(_ sender: UITapGestureRecognizer) {

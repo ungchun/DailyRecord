@@ -10,13 +10,9 @@ import FirebaseFirestore
 
 final class CalendarRepository: DefaultCalendarRepository {
 	private let db = Firestore.firestore()
-	private let collectionPath = "calendar"
 }
 
 extension CalendarRepository {
-	
-	// TODO: year, month, day 하드코딩 부분 수정 및 테스트 확실히 해볼 필요 있음
-	
 	func readMonthRecord(year: Int, month: Int) async throws -> [RecordResponseDTO] {
 			guard let userID = Auth.auth().currentUser?.uid else {
 					throw NSError(domain: "AuthError",
@@ -65,8 +61,10 @@ extension CalendarRepository {
 											var records: [RecordResponseDTO] = []
 											for document in querySnapshot!.documents {
 													let data = document.data()
-													let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
-													let recordResponse = try JSONDecoder().decode(RecordResponseDTO.self, from: jsonData)
+													let jsonData = try JSONSerialization.data(withJSONObject: data,
+																																		options: [])
+													let recordResponse = try JSONDecoder().decode(RecordResponseDTO.self,
+																																				from: jsonData)
 													records.append(recordResponse)
 											}
 											continuation.resume(returning: records)

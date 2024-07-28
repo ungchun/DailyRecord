@@ -35,10 +35,10 @@ extension LoginViewModel {
 	
 	// MARK: - Functions
 	
-	@MainActor
 	func createUserTirgger() async throws {
 		guard let userID = Auth.auth().currentUser?.uid else { return }
 		let resposne = try await loginUseCase.getUserInfo()
+		
 		if resposne == nil {
 			let userRequest = UserRequest(uid: "",
 																		nickname: randomNickname.randomElement()!,
@@ -46,11 +46,7 @@ extension LoginViewModel {
 																		fcm_token: "")
 			let userData = try userRequest.asDictionary()
 			
-			do {
-				try await loginUseCase.createUser(data: userData)
-			} catch {
-				// TODO: 에러 처리
-			}
+			try await loginUseCase.createUser(data: userData)
 		} else {
 			UserDefaultsSetting.uid = userID
 		}

@@ -9,4 +9,5 @@ import Foundation
 
 protocol DefaultRecordRepository {
 	func createRecord(data: [String : Any]) async throws
+	func removeRecord(docID: String) async throws
 }

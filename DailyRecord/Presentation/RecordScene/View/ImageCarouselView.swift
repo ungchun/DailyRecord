@@ -1,24 +1,19 @@
 //
-//  AttachedImageCollectionView.swift
+//  ImageCarouselView.swift
 //  DailyRecord
 //
-//  Created by Kim SungHun on 6/20/24.
+//  Created by Kim SungHun on 7/27/24.
 //
 
 import UIKit
+
 import SnapKit
 
-protocol AttachedImageCollectionViewDelegate: AnyObject {
-	func collectionViewZeroHeightTrigger()
-}
-
-final class AttachedImageCollectionView: BaseView {
+final class ImageCarouselView: BaseView {
 	
 	// MARK: - Properties
 	
-	weak var delegate: AttachedImageCollectionViewDelegate?
-	
-	private(set) var images: [UIImage] = []
+	private(set) var imageURLs: [String] = []
 	
 	// MARK: - Views
 	
@@ -36,8 +31,8 @@ final class AttachedImageCollectionView: BaseView {
 		collectionView.dataSource = self
 		collectionView.delegate = self
 		collectionView.register(
-			AttachedImageCollectionViewCell.self,
-			forCellWithReuseIdentifier: AttachedImageCollectionViewCell.reuseIdentifier
+			ImageCarouselViewCell.self,
+			forCellWithReuseIdentifier: ImageCarouselViewCell.reuseIdentifier
 		)
 		return collectionView
 	}()
@@ -64,48 +59,36 @@ final class AttachedImageCollectionView: BaseView {
 		}
 	}
 }
-
-extension AttachedImageCollectionView {
-	func setImages(_ images: [UIImage]) {
-		self.images = images
-		collectionView.reloadData()
-	}
-	
-	@objc private func deleteButtonTapped(_ sender: UIButton) {
-		if let cell = sender.superview as? AttachedImageCollectionViewCell,
-			 let indexPath = self.collectionView.indexPath(for: cell) {
-			images.remove(at: indexPath.row)
-			DispatchQueue.main.async { [weak self] in
-				self?.collectionView.deleteItems(at: [indexPath])
-			}
-			if images.isEmpty {
-				delegate?.collectionViewZeroHeightTrigger()
-			}
+extension ImageCarouselView {
+	func setImages(_ imageURLs: [String]) {
+		DispatchQueue.main.async { [weak self] in
+			self?.imageURLs = imageURLs
+			self?.collectionView.reloadData()
 		}
 	}
 }
 
-extension AttachedImageCollectionView: UICollectionViewDataSource, UICollectionViewDelegate {
+extension ImageCarouselView: UICollectionViewDataSource, UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView,
 											numberOfItemsInSection section: Int) -> Int {
-		return images.count
+		return imageURLs.count
 	}
 	
 	func collectionView(_ collectionView: UICollectionView,
 											cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(
-			withReuseIdentifier: AttachedImageCollectionViewCell.reuseIdentifier,
+			withReuseIdentifier: ImageCarouselViewCell.reuseIdentifier,
 			for: indexPath
-		) as! AttachedImageCollectionViewCell
-		cell.imageView.image = images[indexPath.item]
-		cell.deleteButton.addTarget(self,
-																action: #selector(deleteButtonTapped(_:)),
-																for: .touchUpInside)
+		) as! ImageCarouselViewCell
+		
+		if let url = URL(string: imageURLs[indexPath.item]) {
+			cell.loadImage(from: url)
+		}
 		return cell
 	}
 }
 
-final class AttachedImageCollectionViewCell: UICollectionViewCell {
+final class ImageCarouselViewCell: UICollectionViewCell {
 	
 	// MARK: - Properties
 	
@@ -115,20 +98,21 @@ final class AttachedImageCollectionViewCell: UICollectionViewCell {
 	
 	// MARK: - Views
 	
-	let imageView: UIImageView = {
+	private let imageView: UIImageView = {
 		let imageView = UIImageView()
 		imageView.contentMode = .scaleAspectFill
-		imageView.layer.cornerRadius = 12
 		imageView.clipsToBounds = true
+		imageView.layer.cornerRadius = 12
+		imageView.layer.masksToBounds = true
 		return imageView
 	}()
 	
-	let deleteButton: UIButton = {
-		let button = UIButton()
-		button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
-		button.tintColor = .azDarkGray
-		return button
+	private let loadingIndicator: UIActivityIndicatorView = {
+		let indicator = UIActivityIndicatorView(style: .medium)
+		indicator.hidesWhenStopped = true
+		return indicator
 	}()
+	
 	
 	// MARK: - Life Cycle
 	
@@ -143,13 +127,13 @@ final class AttachedImageCollectionViewCell: UICollectionViewCell {
 	}
 }
 
-private extension AttachedImageCollectionViewCell {
+private extension ImageCarouselViewCell {
 	
 	// MARK: - Functions
 	
 	func addView() {
 		addSubview(imageView)
-		addSubview(deleteButton)
+		addSubview(loadingIndicator)
 	}
 	
 	func setupView() {
@@ -157,10 +141,25 @@ private extension AttachedImageCollectionViewCell {
 			make.edges.equalToSuperview()
 		}
 		
-		deleteButton.snp.makeConstraints { make in
-			make.top.equalToSuperview().offset(5)
-			make.right.equalToSuperview().offset(-5)
-			make.width.height.equalTo(20)
+		loadingIndicator.snp.makeConstraints { make in
+			make.centerX.equalToSuperview()
+			make.centerY.equalToSuperview()
 		}
+	}
+	
+	func loadImage(from url: URL) {
+		loadingIndicator.startAnimating()
+		URLSession.shared.dataTask(with: url) { data, response, error in
+			guard let data = data, error == nil, let image = UIImage(data: data) else {
+				DispatchQueue.main.async {
+					self.loadingIndicator.stopAnimating()
+				}
+				return
+			}
+			DispatchQueue.main.async {
+				self.loadingIndicator.stopAnimating()
+				self.imageView.image = image
+			}
+		}.resume()
 	}
 }

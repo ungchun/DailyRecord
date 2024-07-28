@@ -10,7 +10,6 @@ import FirebaseFirestore
 
 final class RecordRepository: DefaultRecordRepository {
 	private let db = Firestore.firestore()
-	private let collectionPath = "record"
 }
 
 extension RecordRepository {
@@ -33,5 +32,20 @@ extension RecordRepository {
 		}
 	}
 	
-	// TODO: read, update, delete
+	func removeRecord(docID: String) async throws {
+		guard let userID = Auth.auth().currentUser?.uid else { return }
+		let documentRef = db.collection("user").document(userID)
+			.collection("record").document(docID)
+		
+		try await withCheckedThrowingContinuation {
+			(continuation: CheckedContinuation<Void, Error>) in
+			documentRef.delete { error in
+				if let error = error {
+					continuation.resume(throwing: error)
+				} else {
+					continuation.resume()
+				}
+			}
+		}
+	}
 }

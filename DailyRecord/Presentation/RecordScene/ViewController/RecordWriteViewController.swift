@@ -10,13 +10,14 @@ import PhotosUI
 
 import SnapKit
 
-final class RecordViewController: BaseViewController {
+final class RecordWriteViewController: BaseViewController {
 	
 	// MARK: - Properties
 	
 	var coordinator: RecordCoordinator?
 	
 	private let viewModel: RecordViewModel
+	private let calendarViewModel: CalendarViewModel
 	
 	// MARK: - Views
 	
@@ -32,7 +33,8 @@ final class RecordViewController: BaseViewController {
 	
 	private let todayEmotionImageView: UIImageView = {
 		let imageView = UIImageView()
-		imageView.backgroundColor = .yellow
+		imageView.image = UIImage(systemName: "plus.circle")
+		imageView.tintColor = .azLightGray
 		imageView.contentMode = .scaleAspectFit
 		imageView.isUserInteractionEnabled = true
 		return imageView
@@ -40,17 +42,20 @@ final class RecordViewController: BaseViewController {
 	
 	private let todayDateView: UILabel = {
 		let label = UILabel()
+		label.font = UIFont(name: "omyu_pretty", size: 16)
+		label.textColor = .azLightGray
 		label.textAlignment = .center
+		label.numberOfLines = 0
 		return label
 	}()
 	
 	private lazy var inputDiaryView: UITextView = {
 		let textView = UITextView()
-		textView.text = "placeholder"
-		textView.textColor = .secondaryLabel
-		textView.font = .systemFont(ofSize: 15.0)
 		textView.delegate = self
-		textView.backgroundColor = .green
+		textView.font = UIFont(name: "omyu_pretty", size: 16)
+		textView.textColor = .azLightGray.withAlphaComponent(0.5)
+		textView.text = "오늘 하루는 어떠셨나요"
+		textView.backgroundColor = .clear
 		textView.isScrollEnabled = false
 		return textView
 	}()
@@ -64,9 +69,11 @@ final class RecordViewController: BaseViewController {
 	// MARK: - Life Cycle
 	
 	init(
-		viewModel: RecordViewModel
+		viewModel: RecordViewModel,
+		calendarViewModel: CalendarViewModel
 	) {
 		self.viewModel = viewModel
+		self.calendarViewModel = calendarViewModel
 		super.init(nibName: nil, bundle: nil)
 	}
 	
@@ -78,6 +85,8 @@ final class RecordViewController: BaseViewController {
 		super.viewDidLoad()
 		
 		// 작성이 안 되어 있으면 화면 가운데 alert 올라오게
+		
+		fetchEditData()
 	}
 	
 	// MARK: - Functions
@@ -89,7 +98,8 @@ final class RecordViewController: BaseViewController {
 		
 		scrollView.addSubview(contentView)
 		
-		[todayEmotionImageView, todayDateView, attachedImageCollectionView, inputDiaryView].forEach {
+		[todayEmotionImageView, todayDateView,
+		 attachedImageCollectionView, inputDiaryView].forEach {
 			contentView.addSubview($0)
 		}
 	}
@@ -107,18 +117,19 @@ final class RecordViewController: BaseViewController {
 		todayEmotionImageView.snp.makeConstraints { make in
 			make.top.equalTo(contentView.snp.top).offset(20)
 			make.centerX.equalToSuperview()
-			make.width.height.equalTo(100)
+			make.width.height.equalTo(30)
 		}
 		
 		todayDateView.snp.makeConstraints { make in
-			make.top.equalTo(todayEmotionImageView.snp.bottom).offset(20)
+			make.top.equalTo(todayEmotionImageView.snp.bottom).offset(10)
 			make.centerX.equalToSuperview()
 		}
 		
 		attachedImageCollectionView.snp.makeConstraints { make in
 			make.top.equalTo(todayDateView.snp.bottom).offset(20)
 			make.left.right.equalToSuperview().inset(20)
-			make.height.equalTo(0)
+			make.height.equalTo(viewModel.selectData.imageList.isEmpty
+													? 0 : 100)
 		}
 		
 		inputDiaryView.snp.makeConstraints { make in
@@ -128,27 +139,31 @@ final class RecordViewController: BaseViewController {
 		}
 		
 		footerView.snp.makeConstraints { make in
-			make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+			make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-12)
 			make.left.right.equalToSuperview()
 			make.height.equalTo(30)
 		}
 	}
 	
 	override func setupView() {
-		view.backgroundColor = .white
+		DispatchQueue.main.async { [weak self] in
+			self?.view.backgroundColor = .azBlack
+		}
 		
-		let formatter = DateFormatter()
-		formatter.locale = Locale(identifier: "ko_KR")
-		formatter.dateFormat = "yyyy.MM.dd.EEEE"
-		formatter.timeZone = TimeZone(abbreviation: "KST")
-		let selectedDateInKST = formatter.string(from: viewModel.selectDate)
-		todayDateView.text = selectedDateInKST
+		let date = Date(timeIntervalSince1970:
+											TimeInterval(viewModel.selectData.calendarDate) / 1000)
+		let datePart = formattedDateString(date, format: "yyyy.MM.dd")
+		let dayOfWeekPart = formattedDateString(date, format: "EEEE")
+		DispatchQueue.main.async { [weak self] in
+			self?.todayDateView.text = "\(datePart)\n\(dayOfWeekPart)"
+		}
 		
 		let showPopupTapGesture = UITapGestureRecognizer(target: self,
 																										 action: #selector(showPopupTrigger))
 		todayEmotionImageView.addGestureRecognizer(showPopupTapGesture)
 		
-		let galleryTapGesture = UITapGestureRecognizer(target: self, action: #selector(galleryTrigger))
+		let galleryTapGesture = UITapGestureRecognizer(target: self,
+																									 action: #selector(galleryTrigger))
 		footerView.galleryIcon.addGestureRecognizer(galleryTapGesture)
 		
 		let saveTapGesture = UITapGestureRecognizer(target: self, action: #selector(saveTrigger))
@@ -162,9 +177,39 @@ final class RecordViewController: BaseViewController {
 	}
 }
 
-private extension RecordViewController {
+private extension RecordWriteViewController {
+	func fetchEditData() {
+		if viewModel.selectData.createTime != 0 {
+			viewModel.setNotImageData {
+				self.updateNotImageView()
+			}
+			
+			viewModel.setImageData {
+				if !self.viewModel.imageList.isEmpty {
+					self.updateImageView()
+				}
+			}
+		}
+	}
+	
+	func updateNotImageView() {
+		DispatchQueue.main.async { [weak self] in
+			self?.inputDiaryView.text = self?.viewModel.content
+		}
+		emotionalImageTapTrigger(selectEmotionType: viewModel.emotionType)
+	}
+	
+	func updateImageView() {
+		attachedImageCollectionView.setImages(viewModel.imageList)
+	}
+}
+
+private extension RecordWriteViewController {
 	@objc func showPopupTrigger() {
-		emotionalImagePopupView.frame = view.bounds
+		DispatchQueue.main.async { [weak self] in
+			guard let self = self else { return }
+			self.emotionalImagePopupView.frame = self.view.bounds
+		}
 		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(closePopupTrigger))
 		emotionalImagePopupView.dimmingView.addGestureRecognizer(tapGesture)
 		
@@ -173,8 +218,10 @@ private extension RecordViewController {
 	}
 	
 	@objc func closePopupTrigger() {
-		emotionalImagePopupView.hidePopup { [weak self] in
-			self?.emotionalImagePopupView.removeFromSuperview()
+		DispatchQueue.main.async { [weak self] in
+			self?.emotionalImagePopupView.hidePopup { [weak self] in
+				self?.emotionalImagePopupView.removeFromSuperview()
+			}
 		}
 	}
 	
@@ -189,10 +236,46 @@ private extension RecordViewController {
 	}
 	
 	@objc func saveTrigger() {
+		LoadingIndicator.showLoading()
 		viewModel.imageList = attachedImageCollectionView.images
-		Task {
-			try await viewModel.createRecordTirgger()
+		Task { [weak self] in
+			do {
+				try await self?.viewModel.createRecordTirgger()
+				
+				if let calendarDate = self?.viewModel.selectData.calendarDate {
+					let date = Date(timeIntervalSince1970:
+														TimeInterval(calendarDate) / 1000)
+					if let dayOfyear = self?.formattedDateString(date, format: "yyyy"),
+						 let dayOfmonth = self?.formattedDateString(date, format: "M") {
+						if let year = Int(dayOfyear),
+							 let month = Int(dayOfmonth) {
+							do {
+								try await self?.calendarViewModel.fetchMonthRecordTrigger(
+									year: year, month: month
+								)
+							} catch {
+								self?.showToast(message: "에러가 발생했어요")
+								self?.coordinator?.popToRoot()
+							}
+							LoadingIndicator.hideLoading()
+							self?.showToast(message: "일기를 작성했어요!")
+							self?.coordinator?.popToRoot()
+						}
+					}
+				}
+			} catch {
+				self?.showToast(message: "에러가 발생했어요")
+				self?.coordinator?.popToRoot()
+			}
 		}
+	}
+	
+	private func formattedDateString(_ date: Date, format: String) -> String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.locale = Locale(identifier: "ko_kr")
+		dateFormatter.timeZone = TimeZone(identifier: "KST")
+		dateFormatter.dateFormat = format
+		return dateFormatter.string(from: date)
 	}
 	
 	@objc func dismissKeyboard() {
@@ -200,29 +283,30 @@ private extension RecordViewController {
 	}
 }
 
-extension RecordViewController: AttachedImageCollectionViewDelegate {
+extension RecordWriteViewController: AttachedImageCollectionViewDelegate {
 	func collectionViewZeroHeightTrigger() {
-		DispatchQueue.main.async { [weak self] in
-			self?.attachedImageCollectionView.snp.updateConstraints { make in
-				make.height.equalTo(0.5)
-			}
+		self.attachedImageCollectionView.snp.updateConstraints { make in
+			make.height.equalTo(0.5)
 		}
 	}
 }
 
-extension RecordViewController: EmotionalImagePopupViewDelegate {
+extension RecordWriteViewController: EmotionalImagePopupViewDelegate {
 	func emotionalImageTapTrigger(selectEmotionType: EmotionType) {
 		if let image = UIImage(named: selectEmotionType.rawValue) {
 			closePopupTrigger()
 			
 			viewModel.emotionType = selectEmotionType
 			
-			todayEmotionImageView.backgroundColor = .clear
-			todayEmotionImageView.image = image
+			DispatchQueue.main.async { [weak self] in
+				self?.todayEmotionImageView.backgroundColor = .clear
+				self?.todayEmotionImageView.image = image
+			}
+			
 			let originalWidth = image.size.width
 			let originalHeight = image.size.height
 			let aspectRatio = originalHeight / originalWidth
-			let desiredWidth: CGFloat = 100
+			let desiredWidth: CGFloat = 80
 			let desiredHeight = desiredWidth * aspectRatio
 			todayEmotionImageView.snp.updateConstraints { make in
 				make.width.equalTo(desiredWidth)
@@ -232,19 +316,21 @@ extension RecordViewController: EmotionalImagePopupViewDelegate {
 	}
 }
 
-extension RecordViewController: UITextViewDelegate {
+extension RecordWriteViewController: UITextViewDelegate {
 	func textViewDidChange(_ textView: UITextView) {
 		viewModel.content = textView.text
 	}
 	
 	func textViewDidBeginEditing(_ textView: UITextView) {
-		guard textView.textColor == .secondaryLabel else { return }
-		textView.text = nil
-		textView.textColor = .label
+		if textView.text == "오늘 하루는 어떠셨나요" {
+			guard textView.textColor == .azLightGray.withAlphaComponent(0.5) else { return }
+			textView.text = nil
+			textView.textColor = .azLightGray
+		}
 	}
 }
 
-extension RecordViewController: PHPickerViewControllerDelegate {
+extension RecordWriteViewController: PHPickerViewControllerDelegate {
 	func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
 		picker.dismiss(animated: true, completion: nil)
 		var selectedImages: [UIImage] = []
@@ -254,10 +340,8 @@ extension RecordViewController: PHPickerViewControllerDelegate {
 					selectedImages.append(image)
 					if results.count == selectedImages.count {
 						self?.attachedImageCollectionView.setImages(selectedImages)
-						DispatchQueue.main.async {
-							self?.attachedImageCollectionView.snp.updateConstraints { make in
-								make.height.equalTo(100)
-							}
+						self?.attachedImageCollectionView.snp.updateConstraints { make in
+							make.height.equalTo(100)
 						}
 					}
 				}

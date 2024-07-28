@@ -11,44 +11,6 @@ import Combine
 import FSCalendar
 import SnapKit
 
-class LoadingIndicator {
-	static func showLoading() {
-		DispatchQueue.main.async {
-			/// 최상단에 있는 window 객체 획득
-			let scenes = UIApplication.shared.connectedScenes
-			let windowScene = scenes.first as? UIWindowScene
-			if let window = windowScene?.windows.first {
-				let loadingIndicatorView: UIActivityIndicatorView
-				if let existedView = window.subviews.first(where: {
-					$0 is UIActivityIndicatorView
-				} ) as? UIActivityIndicatorView {
-					loadingIndicatorView = existedView
-				} else {
-					loadingIndicatorView = UIActivityIndicatorView(style: .medium)
-					/// 다른 UI가 눌리지 않도록 indicatorView의 크기를 full로 할당
-					loadingIndicatorView.frame = window.frame
-					loadingIndicatorView.color = .lightGray
-					loadingIndicatorView.backgroundColor = .black.withAlphaComponent(0.5)
-					window.addSubview(loadingIndicatorView)
-				}
-				loadingIndicatorView.startAnimating()
-			}
-		}
-	}
-	
-	static func hideLoading() {
-		DispatchQueue.main.async {
-			let scenes = UIApplication.shared.connectedScenes
-			let windowScene = scenes.first as? UIWindowScene
-			if let window = windowScene?.windows.first {
-				window.subviews.filter({ $0 is UIActivityIndicatorView }).forEach {
-					$0.removeFromSuperview()
-				}
-			}
-		}
-	}
-}
-
 final class CalendarViewController: BaseViewController {
 	
 	// MARK: - Properties
@@ -63,8 +25,9 @@ final class CalendarViewController: BaseViewController {
 	
 	private let writeButton: UIButton = {
 		let button = UIButton(type: .system)
-		let pencilImage = UIImage(named: "pencil")?.resizeImage(to: CGSize(width: 24,
-																																			 height: 24))
+		let pencilImage = UIImage(named: "pencil")?.resizeImage(
+			to: CGSize(width: 24,height: 24)
+		)
 		button.setImage(pencilImage, for: .normal)
 		button.backgroundColor = .azDarkGray
 		button.tintColor = .white
@@ -77,7 +40,7 @@ final class CalendarViewController: BaseViewController {
 		let label = UILabel()
 		label.font = UIFont(name: "omyu_pretty", size: 40)
 		label.textColor = .azLightGray
-		label.text = dateFormat(Date(), format: "M월")
+		label.text = formattedDateString(Date(), format: "M월")
 		return label
 	}()
 	
@@ -120,15 +83,6 @@ final class CalendarViewController: BaseViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		bindViewModel()
-		
-		view.backgroundColor = .azBlack
-		
-		let currentPageDate = Date()
-		if let year = Int(dateFormat(Date(), format: "yyyy")),
-			 let month = Int(dateFormat(Date(), format: "M")) {
-			viewModel.fetchMonthRecordTrigger(year: year, month: month)
-		}
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -171,7 +125,23 @@ final class CalendarViewController: BaseViewController {
 	}
 	
 	override func setupView() {
+		bindViewModel()
 		
+		DispatchQueue.main.async { [weak self] in
+			self?.view.backgroundColor = .azBlack
+		}
+		
+		if let year = Int(formattedDateString(Date(), format: "yyyy")),
+			 let month = Int(formattedDateString(Date(), format: "M")) {
+			Task { [weak self] in
+				do {
+					try await self?.viewModel.fetchMonthRecordTrigger(year: year, month: month)
+				} catch {
+					self?.showToast(message: "에러가 발생했어요")
+					self?.coordinator?.popToRoot()
+				}
+			}
+		}
 	}
 }
 
@@ -181,12 +151,11 @@ extension CalendarViewController {
 			.receive(on: DispatchQueue.main)
 			.sink { [weak self] _ in
 				self?.calendarView.reloadData()
-				Log.debug("AZHY CALL")
 			}
 			.store(in: &cancellables)
 	}
 	
-	private func dateFormat(_ date: Date, format: String) -> String {
+	private func formattedDateString(_ date: Date, format: String) -> String {
 		let dateFormatter = DateFormatter()
 		dateFormatter.locale = Locale(identifier: "ko_kr")
 		dateFormatter.timeZone = TimeZone(identifier: "KST")
@@ -211,7 +180,18 @@ extension CalendarViewController: FSCalendarDelegate,
 	
 	func calendar(_ calendar: FSCalendar, didSelect date: Date,
 								at monthPosition: FSCalendarMonthPosition) {
-		coordinator?.showRecord(selectDate: date)
+		var selectData = RecordEntity(calendarDate: Int(date.millisecondsSince1970))
+		if let matchedEntity = viewModel.records.first(where: { entity in
+			let seconds = TimeInterval(entity.calendarDate) / 1000
+			let responseDate = Date(timeIntervalSince1970: seconds)
+			return date == responseDate
+		}) {
+			selectData = matchedEntity
+		}
+		coordinator?.showRecord(
+			calendarViewModel: viewModel,
+			selectData: selectData
+		)
 	}
 	
 	// 일요일에 해당되는 모든 날짜의 색상 red로 변경
@@ -240,10 +220,21 @@ extension CalendarViewController: FSCalendarDelegate,
 	
 	func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
 		let currentPage = calendar.currentPage
-		calendarHeaderView.text = dateFormat(currentPage, format: "M월")
-		if let year = Int(dateFormat(currentPage, format: "yyyy")),
-			 let month = Int(dateFormat(currentPage, format: "M")) {
-			viewModel.fetchMonthRecordTrigger(year: year, month: month)
+		DispatchQueue.main.async { [weak self] in
+			self?.calendarHeaderView.text = self?.formattedDateString(currentPage, format: "M월")
+		}
+		if let year = Int(formattedDateString(currentPage, format: "yyyy")),
+			 let month = Int(formattedDateString(currentPage, format: "M")) {
+			Task { [weak self] in
+				do {
+					// TODO: 월 바꿀 때 버벅이는 현상때문에 우선 0.5초 딜레이 줌, 배포 전 개선사항
+					try await Task.sleep(nanoseconds: 500_000_000)
+					try await self?.viewModel.fetchMonthRecordTrigger(year: year, month: month)
+				} catch {
+					self?.showToast(message: "에러가 발생했어요")
+					self?.coordinator?.popToRoot()
+				}
+			}
 		}
 	}
 	
@@ -258,8 +249,10 @@ extension CalendarViewController: FSCalendarDelegate,
 			at: position
 		) as? CalendarCell else { return FSCalendarCell() }
 		
-		cell.backImageView.image = nil
-		cell.titleLabel.isHidden = false
+		DispatchQueue.main.async {
+			cell.backImageView.image = nil
+			cell.titleLabel.isHidden = false
+		}
 		
 		viewModel.records.forEach { entity in
 			let seconds = TimeInterval(entity.calendarDate) / 1000
@@ -316,7 +309,9 @@ class CalendarCell: FSCalendarCell {
 	override func prepareForReuse() {
 		super.prepareForReuse()
 		
-		backImageView.image = nil
+		DispatchQueue.main.async { [weak self] in
+			self?.backImageView.image = nil
+		}
 	}
 	
 	/// 셀의 높이와 너비 중 작은 값을 리턴한다

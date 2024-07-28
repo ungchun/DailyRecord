@@ -16,7 +16,7 @@ final class RecordViewModel: BaseViewModel {
 	
 	private let recordUseCase: DefaultRecordUseCase
 	
-	let selectDate: Date // 선택 날짜
+	var selectData: RecordEntity
 	
 	var content: String = "" // 글 내용
 	var imageList: [UIImage] = [] // 첨부 이미지
@@ -29,10 +29,10 @@ final class RecordViewModel: BaseViewModel {
 	
 	init(
 		recordUseCase: DefaultRecordUseCase,
-		selectDate: Date
+		selectData: RecordEntity
 	) {
 		self.recordUseCase = recordUseCase
-		self.selectDate = selectDate
+		self.selectData = selectData
 	}
 }
 
@@ -40,11 +40,10 @@ extension RecordViewModel {
 	
 	// MARK: - Functions
 	
-	@MainActor
 	func createRecordTirgger() async throws {
 		guard let userID = Auth.auth().currentUser?.uid else { return }
 		var imageUrls: [String] = []
-		self.calendarDate = Int(self.selectDate.millisecondsSince1970)
+		self.calendarDate = selectData.calendarDate
 		
 		// 이미지 리스트를 업로드하고 URL을 배열에 저장
 		for image in self.imageList {
@@ -56,22 +55,17 @@ extension RecordViewModel {
 																			content: self.content,
 																			emotion_type: emotionType.rawValue,
 																			image_list: imageUrls,
-																			create_time: self.createTime,
+																			create_time: Int(Date().millisecondsSince1970),
 																			calendar_date: self.calendarDate)
 		
 		let recordData = try recordRequest.asDictionary()
 		
-		do {
-			try await recordUseCase.createRecord(data: recordData)
-		} catch {
-			// TODO: 에러 처리
-		}
+		try await recordUseCase.createRecord(data: recordData)
 	}
 	
-	// TODO: 이미지 올릴 때 퀄리티 좀 낮춰서 올리기
-	func uploadImage(_ image: UIImage, userID: String) async throws -> String {
+	private func uploadImage(_ image: UIImage, userID: String) async throws -> String {
 		let storageRef = Storage.storage().reference().child("record/\(userID)/\(UUID().uuidString).jpg")
-		guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+		guard let imageData = image.jpegData(compressionQuality: 0.1) else {
 			throw NSError(
 				domain: "ImageConversionError",
 				code: 1001,
@@ -94,5 +88,58 @@ extension RecordViewModel {
 				}
 			}
 		}
+	}
+	
+	func removeRecordTirgger() async throws {
+		self.calendarDate = selectData.calendarDate
+		try await recordUseCase.removeRecord(docID: String(calendarDate))
+	}
+}
+
+extension RecordViewModel {
+	func setNotImageData(completion: @escaping () -> Void) {
+		content = selectData.content
+		emotionType = selectData.emotionType
+		createTime = selectData.createTime
+		completion()
+	}
+	
+	func setImageData(completion: @escaping () -> Void) {
+		let urlStrings = selectData.imageList
+		let dispatchGroup = DispatchGroup()
+		var loadedImages: [UIImage] = []
+		
+		for urlString in urlStrings {
+			if let url = URL(string: urlString) {
+				dispatchGroup.enter()
+				loadImage(from: url) { image in
+					if let image = image {
+						loadedImages.append(image)
+					}
+					dispatchGroup.leave()
+				}
+			}
+		}
+		
+		dispatchGroup.notify(queue: .main) {
+			self.imageList = loadedImages
+			completion()
+		}
+	}
+	
+	private func loadImage(from url: URL,
+												 completion: @escaping (UIImage?) -> Void) {
+		URLSession.shared.dataTask(with: url) { data, response, error in
+			if let data = data, error == nil {
+				let image = UIImage(data: data)
+				DispatchQueue.main.async {
+					completion(image)
+				}
+			} else {
+				DispatchQueue.main.async {
+					completion(nil)
+				}
+			}
+		}.resume()
 	}
 }
