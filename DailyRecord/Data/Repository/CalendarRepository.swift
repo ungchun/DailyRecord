@@ -10,7 +10,6 @@ import FirebaseFirestore
 
 final class CalendarRepository: DefaultCalendarRepository {
 	private let db = Firestore.firestore()
-	private let collectionPath = "calendar"
 }
 
 extension CalendarRepository {

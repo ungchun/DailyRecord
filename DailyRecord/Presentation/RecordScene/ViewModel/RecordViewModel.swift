@@ -40,7 +40,6 @@ extension RecordViewModel {
 	
 	// MARK: - Functions
 	
-	@MainActor
 	func createRecordTirgger() async throws {
 		guard let userID = Auth.auth().currentUser?.uid else { return }
 		var imageUrls: [String] = []
@@ -68,7 +67,7 @@ extension RecordViewModel {
 		}
 	}
 	
-	func uploadImage(_ image: UIImage, userID: String) async throws -> String {
+	private func uploadImage(_ image: UIImage, userID: String) async throws -> String {
 		let storageRef = Storage.storage().reference().child("record/\(userID)/\(UUID().uuidString).jpg")
 		guard let imageData = image.jpegData(compressionQuality: 0.1) else {
 			throw NSError(
@@ -92,6 +91,15 @@ extension RecordViewModel {
 					}
 				}
 			}
+		}
+	}
+	
+	func removeRecordTirgger() async throws {
+		do {
+			self.calendarDate = selectData.calendarDate
+			try await recordUseCase.removeRecord(docID: String(calendarDate))
+		} catch {
+			// TODO: 에러 처리
 		}
 	}
 }

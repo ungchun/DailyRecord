@@ -194,13 +194,27 @@ extension RecordHistoryViewController {
 										 image: UIImage(systemName: "pencil"),
 										 handler: { _ in
 			self.coordinator?.showWriteViewController(self.viewModel)
-			Log.debug("AZHY BEFORE", self.viewModel.selectData)
 		}),
 						UIAction(title: "삭제하기",
 										 image: UIImage(systemName: "trash"),
 										 attributes: .destructive,
 										 handler: { _ in
-			// 삭제하기
+			Task { [weak self] in
+				try await self?.viewModel.removeRecordTirgger()
+				if let calendarDate = self?.viewModel.selectData.calendarDate {
+					let date = Date(timeIntervalSince1970:
+														TimeInterval(calendarDate) / 1000)
+					if let dayOfyear = self?.formattedDateString(date, format: "yyyy"),
+						 let dayOfmonth = self?.formattedDateString(date, format: "M") {
+						if let year = Int(dayOfyear),
+							 let month = Int(dayOfmonth) {
+							// TODO: TOAST
+							self?.calendarViewModel.fetchMonthRecordTrigger(year: year, month: month)
+							self?.coordinator?.popToRoot()
+						}
+					}
+				}
+			}
 		})]
 	}
 	

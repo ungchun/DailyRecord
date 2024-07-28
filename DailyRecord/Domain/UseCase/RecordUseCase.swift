@@ -9,6 +9,7 @@ import Foundation
 
 protocol DefaultRecordUseCase {
 	func createRecord(data: [String : Any]) async throws
+	func removeRecord(docID: String) async throws
 }
 
 final class RecordUseCase: DefaultRecordUseCase {
@@ -22,5 +23,9 @@ final class RecordUseCase: DefaultRecordUseCase {
 extension RecordUseCase {
 	func createRecord(data: [String : Any]) async throws {
 		try await recordRepository.createRecord(data: data)
+	}
+	
+	func removeRecord(docID: String) async throws {
+		try await recordRepository.removeRecord(docID: docID)
 	}
 }

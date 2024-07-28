@@ -10,13 +10,12 @@ import FirebaseFirestore
 
 final class LoginRepository: DefaultLoginRepository {
 	private let db = Firestore.firestore()
-	private let collectionPath = "user"
 }
 
 extension LoginRepository {
 	func createUser(data: [String : Any]) async throws {
 		guard let userID = Auth.auth().currentUser?.uid else { return }
-		let documentRef = db.collection(collectionPath)
+		let documentRef = db.collection("user")
 		try await withCheckedThrowingContinuation {
 			(continuation: CheckedContinuation<Void, Error>) in
 			documentRef.document(userID).setData(data) { [weak self] error in
@@ -40,7 +39,7 @@ extension LoginRepository {
 	
 	func getUserInfo() async throws -> UserResponseDTO? {
 		guard let userID = Auth.auth().currentUser?.uid else { return nil }
-		let documentRef = db.collection(collectionPath).document(userID)
+		let documentRef = db.collection("user").document(userID)
 		return try await withCheckedThrowingContinuation {
 			(continuation: CheckedContinuation<UserResponseDTO?, Error>) in
 			documentRef.getDocument { (snapshot, error) in
@@ -65,7 +64,7 @@ extension LoginRepository {
 	
 	func updateUserInfo(updateData: [String: Any]) async throws {
 		guard let userID = Auth.auth().currentUser?.uid else { return }
-		let documentRef = db.collection(collectionPath).document(userID)
+		let documentRef = db.collection("user").document(userID)
 		try await withCheckedThrowingContinuation {
 			(continuation: CheckedContinuation<Void, Error>) in
 			documentRef.updateData(updateData) { error in
@@ -81,7 +80,7 @@ extension LoginRepository {
 	func removeUser(fieldID: String) async throws {
 		// TODO: 회원 탈퇴
 		guard let userID = Auth.auth().currentUser?.uid else { return }
-		let documentRef = db.collection(collectionPath).document(userID)
+		let documentRef = db.collection("user").document(userID)
 		try await withCheckedThrowingContinuation {
 			(continuation: CheckedContinuation<Void, Error>) in
 			documentRef.updateData([fieldID:""]){ error in

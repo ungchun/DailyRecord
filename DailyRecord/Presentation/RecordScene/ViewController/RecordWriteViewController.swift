@@ -128,7 +128,7 @@ final class RecordWriteViewController: BaseViewController {
 		attachedImageCollectionView.snp.makeConstraints { make in
 			make.top.equalTo(todayDateView.snp.bottom).offset(20)
 			make.left.right.equalToSuperview().inset(20)
-			make.height.equalTo(viewModel.selectData.createTime == 0
+			make.height.equalTo(viewModel.selectData.imageList.isEmpty
 													? 0 : 100)
 		}
 		
@@ -180,7 +180,9 @@ private extension RecordWriteViewController {
 			}
 			
 			viewModel.setImageData {
-				self.updateImageView()
+				if !self.viewModel.imageList.isEmpty {
+					self.updateImageView()
+				}
 			}
 		}
 	}
@@ -224,15 +226,22 @@ private extension RecordWriteViewController {
 	@objc func saveTrigger() {
 		LoadingIndicator.showLoading()
 		viewModel.imageList = attachedImageCollectionView.images
-		Task {
-			try await viewModel.createRecordTirgger()
+		Task { [weak self] in
+			try await self?.viewModel.createRecordTirgger()
 			
-			if let year = Int(formattedDateString(Date(), format: "yyyy")),
-				 let month = Int(formattedDateString(Date(), format: "M")) {
-				// TODO: TOAST
-				calendarViewModel.fetchMonthRecordTrigger(year: year, month: month)
-				LoadingIndicator.hideLoading()
-				coordinator?.popToRoot()
+			if let calendarDate = self?.viewModel.selectData.calendarDate {
+				let date = Date(timeIntervalSince1970:
+													TimeInterval(calendarDate) / 1000)
+				if let dayOfyear = self?.formattedDateString(date, format: "yyyy"),
+					 let dayOfmonth = self?.formattedDateString(date, format: "M") {
+					if let year = Int(dayOfyear),
+						 let month = Int(dayOfmonth) {
+						// TODO: TOAST
+						self?.calendarViewModel.fetchMonthRecordTrigger(year: year, month: month)
+						LoadingIndicator.hideLoading()
+						self?.coordinator?.popToRoot()
+					}
+				}
 			}
 		}
 	}
