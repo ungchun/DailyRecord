@@ -31,7 +31,8 @@ extension CalendarViewModel {
 	
 	@MainActor
 	func fetchMonthRecordTrigger(year: Int, month: Int) {
-		Task {
+		Task { [weak self] in
+			guard let self = self else { return }
 			do {
 				records = try await self.calendarUseCase.readMonthRecord(
 					year: year, month: month

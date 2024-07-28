@@ -173,11 +173,11 @@ extension CalendarViewController: FSCalendarDelegate,
 								at monthPosition: FSCalendarMonthPosition) {
 		var selectData = RecordEntity(calendarDate: Int(date.millisecondsSince1970))
 		if let matchedEntity = viewModel.records.first(where: { entity in
-				let seconds = TimeInterval(entity.calendarDate) / 1000
-				let responseDate = Date(timeIntervalSince1970: seconds)
-				return date == responseDate
+			let seconds = TimeInterval(entity.calendarDate) / 1000
+			let responseDate = Date(timeIntervalSince1970: seconds)
+			return date == responseDate
 		}) {
-				selectData = matchedEntity
+			selectData = matchedEntity
 		}
 		coordinator?.showRecord(
 			calendarViewModel: viewModel,

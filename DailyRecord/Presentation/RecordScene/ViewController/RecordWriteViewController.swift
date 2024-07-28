@@ -236,9 +236,9 @@ private extension RecordWriteViewController {
 					 let dayOfmonth = self?.formattedDateString(date, format: "M") {
 					if let year = Int(dayOfyear),
 						 let month = Int(dayOfmonth) {
-						// TODO: TOAST
 						self?.calendarViewModel.fetchMonthRecordTrigger(year: year, month: month)
 						LoadingIndicator.hideLoading()
+						self?.showToast(message: "일기를 작성했어요!")
 						self?.coordinator?.popToRoot()
 					}
 				}
