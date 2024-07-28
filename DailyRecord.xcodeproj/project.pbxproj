@@ -40,6 +40,7 @@
 		659946B22C4D1AF10030598B /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946B12C4D1AF10030598B /* BaseNavigationController.swift */; };
 		659946B42C4FD4AB0030598B /* RecordHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946B32C4FD4AB0030598B /* RecordHistoryViewController.swift */; };
 		659946B62C54E13B0030598B /* ImageCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946B52C54E13B0030598B /* ImageCarouselView.swift */; };
+		659946BB2C564FCF0030598B /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946BA2C564FCF0030598B /* UIViewController+.swift */; };
 		65CF611E2C036432003E6D75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF611D2C036432003E6D75 /* AppDelegate.swift */; };
 		65CF61202C036432003E6D75 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF611F2C036432003E6D75 /* SceneDelegate.swift */; };
 		65CF61272C036433003E6D75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65CF61262C036433003E6D75 /* Assets.xcassets */; };
@@ -125,6 +126,7 @@
 		659946B12C4D1AF10030598B /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		659946B32C4FD4AB0030598B /* RecordHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordHistoryViewController.swift; sourceTree = "<group>"; };
 		659946B52C54E13B0030598B /* ImageCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCarouselView.swift; sourceTree = "<group>"; };
+		659946BA2C564FCF0030598B /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		65CF611A2C036432003E6D75 /* DailyRecord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyRecord.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65CF611D2C036432003E6D75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65CF611F2C036432003E6D75 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 				659946912C424C660030598B /* Date+.swift */,
 				659946AB2C4BD8C70030598B /* UIImage+.swift */,
 				659946AD2C4BD8DA0030598B /* UIColor+.swift */,
+				659946BA2C564FCF0030598B /* UIViewController+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -703,6 +706,7 @@
 				65CF617D2C0C5EEC003E6D75 /* DIContainer.swift in Sources */,
 				65CF61972C116E87003E6D75 /* RecordWriteViewController.swift in Sources */,
 				659946B22C4D1AF10030598B /* BaseNavigationController.swift in Sources */,
+				659946BB2C564FCF0030598B /* UIViewController+.swift in Sources */,
 				659946732C3839860030598B /* UserDefaultsSetting.swift in Sources */,
 				65CF617F2C0C5F20003E6D75 /* CalendarCoordinator.swift in Sources */,
 				65CF61202C036432003E6D75 /* SceneDelegate.swift in Sources */,
