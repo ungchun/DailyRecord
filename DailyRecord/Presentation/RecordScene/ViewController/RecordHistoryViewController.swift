@@ -222,7 +222,8 @@ extension RecordHistoryViewController {
 											year: year, month: month
 										)
 									} catch {
-										// 에러 처리
+										self?.showToast(message: "에러가 발생했어요")
+										self?.coordinator?.popToRoot()
 									}
 									self?.showToast(message: "일기를 삭제했어요!")
 									self?.coordinator?.popToRoot()
@@ -230,7 +231,8 @@ extension RecordHistoryViewController {
 							}
 						}
 					} catch {
-						// 에러 처리
+						self?.showToast(message: "에러가 발생했어요")
+						self?.coordinator?.popToRoot()
 					}
 				}
 			})

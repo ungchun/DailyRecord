@@ -254,7 +254,8 @@ private extension RecordWriteViewController {
 									year: year, month: month
 								)
 							} catch {
-								// 에러 처리
+								self?.showToast(message: "에러가 발생했어요")
+								self?.coordinator?.popToRoot()
 							}
 							LoadingIndicator.hideLoading()
 							self?.showToast(message: "일기를 작성했어요!")
@@ -263,7 +264,8 @@ private extension RecordWriteViewController {
 					}
 				}
 			} catch {
-				// 에러 처리
+				self?.showToast(message: "에러가 발생했어요")
+				self?.coordinator?.popToRoot()
 			}
 		}
 	}

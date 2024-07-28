@@ -199,7 +199,7 @@ extension LoginViewController {
 						try await self?.viewModel.createUserTirgger()
 						self?.coordinator?.showCalendar()
 					} catch {
-						self?.showToast(message: "에러가 발생했어요.")
+						self?.showToast(message: "에러가 발생했어요")
 						self?.coordinator?.popToRoot()
 					}
 				}

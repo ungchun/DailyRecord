@@ -133,11 +133,12 @@ final class CalendarViewController: BaseViewController {
 		
 		if let year = Int(formattedDateString(Date(), format: "yyyy")),
 			 let month = Int(formattedDateString(Date(), format: "M")) {
-			Task {
+			Task { [weak self] in
 				do {
-					try await viewModel.fetchMonthRecordTrigger(year: year, month: month)
+					try await self?.viewModel.fetchMonthRecordTrigger(year: year, month: month)
 				} catch {
-					// 에러 처리
+					self?.showToast(message: "에러가 발생했어요")
+					self?.coordinator?.popToRoot()
 				}
 			}
 		}
@@ -224,11 +225,12 @@ extension CalendarViewController: FSCalendarDelegate,
 		}
 		if let year = Int(formattedDateString(currentPage, format: "yyyy")),
 			 let month = Int(formattedDateString(currentPage, format: "M")) {
-			Task {
+			Task { [weak self] in
 				do {
-					try await viewModel.fetchMonthRecordTrigger(year: year, month: month)
+					try await self?.viewModel.fetchMonthRecordTrigger(year: year, month: month)
 				} catch {
-					// 에러 처리
+					self?.showToast(message: "에러가 발생했어요")
+					self?.coordinator?.popToRoot()
 				}
 			}
 		}
