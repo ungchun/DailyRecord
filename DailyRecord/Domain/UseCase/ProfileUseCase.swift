@@ -15,24 +15,24 @@ protocol DefaultProfileUseCase {
 }
 
 final class ProfileUseCase: DefaultProfileUseCase {
-	let loginRepository: DefaultLoginRepository
+	let profileRepository: DefaultProfileRepository
 	
-	init(loginRepository: DefaultLoginRepository) {
-		self.loginRepository = loginRepository
+	init(profileRepository: DefaultProfileRepository) {
+		self.profileRepository = profileRepository
 	}
 }
 
 extension ProfileUseCase {
 	func createUser(data: [String : Any]) async throws {
-		try await loginRepository.createUser(data: data)
+		try await profileRepository.createUser(data: data)
 	}
 	
 	func getUserInfo() async throws -> User? {
-		return try await loginRepository.getUserInfo()?.toEntity()
+		return try await profileRepository.getUserInfo()?.toEntity()
 	}
 	
 	func updateUserInfo(updateData: [String : Any]) async throws {
-		try await loginRepository.updateUserInfo(updateData: updateData)
+		try await profileRepository.updateUserInfo(updateData: updateData)
 	}
 	
 	func removeUser() async throws {
