@@ -8,11 +8,11 @@
 import Firebase
 import FirebaseFirestore
 
-final class LoginRepository: DefaultLoginRepository {
+final class ProfileRepository: DefaultProfileRepository {
 	private let db = Firestore.firestore()
 }
 
-extension LoginRepository {
+extension ProfileRepository {
 	func createUser(data: [String : Any]) async throws {
 		guard let userID = Auth.auth().currentUser?.uid else { return }
 		let documentRef = db.collection("user")
