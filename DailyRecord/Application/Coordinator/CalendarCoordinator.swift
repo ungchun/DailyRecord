@@ -38,6 +38,12 @@ extension CalendarCoordinator {
 		recordCoordinator.start()
 	}
 	
+	func showProfile() {
+		let profileDIContainer = DIContainer.makeProfileDIContainer()
+		let profleCoordinator = profileDIContainer.makeProfileCoordinator()
+		profleCoordinator.start()
+	}
+	
 	func dismiss() {
 		navigationController.popViewController(animated: true)
 	}

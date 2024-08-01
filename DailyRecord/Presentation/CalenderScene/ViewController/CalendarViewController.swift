@@ -23,6 +23,16 @@ final class CalendarViewController: BaseViewController {
 	
 	// MARK: - Views
 	
+	private let settingButton: UIButton = {
+		let button = UIButton(type: .system)
+		let pencilImage = UIImage(systemName: "gearshape.fill")?.resizeImage(
+			to: CGSize(width: 24,height: 24)
+		)
+		button.setImage(pencilImage, for: .normal)
+		button.tintColor = .white
+		return button
+	}()
+	
 	private let writeButton: UIButton = {
 		let button = UIButton(type: .system)
 		let pencilImage = UIImage(named: "pencil")?.resizeImage(
@@ -68,7 +78,7 @@ final class CalendarViewController: BaseViewController {
 		return calendar
 	}()
 	
-	// MARK: - Life Cycle
+	// MARK: - Init
 	
 	init(
 		viewModel: CalendarViewModel
@@ -80,6 +90,8 @@ final class CalendarViewController: BaseViewController {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
+	
+	// MARK: - Life Cycle
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -98,7 +110,8 @@ final class CalendarViewController: BaseViewController {
 	// MARK: - Functions
 	
 	override func addView() {
-		[calendarHeaderView, calendarView, writeButton].forEach {
+		[calendarHeaderView, calendarView,
+		 writeButton, settingButton].forEach {
 			view.addSubview($0)
 		}
 	}
@@ -122,10 +135,19 @@ final class CalendarViewController: BaseViewController {
 			make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-20)
 			make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
 		}
+		
+		settingButton.snp.makeConstraints { make in
+			make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-20)
+			make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+		}
 	}
 	
 	override func setupView() {
 		bindViewModel()
+		
+		settingButton.addTarget(self,
+														action: #selector(showProfileTrigger),
+														for: .touchUpInside)
 		
 		DispatchQueue.main.async { [weak self] in
 			self?.view.backgroundColor = .azBlack
@@ -153,6 +175,10 @@ extension CalendarViewController {
 				self?.calendarView.reloadData()
 			}
 			.store(in: &cancellables)
+	}
+	
+	@objc private func showProfileTrigger() {
+		coordinator?.showProfile()
 	}
 	
 	private func formattedDateString(_ date: Date, format: String) -> String {
