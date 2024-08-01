@@ -19,24 +19,34 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 						 options connectionOptions: UIScene.ConnectionOptions) {
 		if let windowScene = scene as? UIWindowScene {
 			if Auth.auth().currentUser == nil || UserDefaultsSetting.uid.isEmpty {
-				// 로그인 뷰
-				var loginDIContainer: LoginDIContainer?
-				var loginCoordinator: LoginCoordinator?
-				let window = UIWindow(windowScene: windowScene)
-				self.window = window
-				
-				self.window?.overrideUserInterfaceStyle = .dark
-				
-				let navigationController = BaseNavigationController()
-				self.window?.rootViewController = navigationController
-				
-				loginDIContainer = LoginDIContainer(navigationController: navigationController)
-				loginCoordinator = loginDIContainer?.makeLoginCoordinator()
-				loginCoordinator?.start()
-				
-				self.window?.makeKeyAndVisible()
+				Auth.auth().signInAnonymously { authResult, error in
+					if let error = error {
+						// TODO: 에러 처리
+						return
+					}
+					
+					if let user = authResult?.user {
+						UserDefaultsSetting.uid = user.uid
+						UserDefaultsSetting.isAnonymously = true
+						
+						var calendarDIContainer: CalendarDIContainer?
+						var calendarCoordinator: CalendarCoordinator?
+						let window = UIWindow(windowScene: windowScene)
+						self.window = window
+						
+						self.window?.overrideUserInterfaceStyle = .dark
+						
+						let navigationController = BaseNavigationController()
+						self.window?.rootViewController = navigationController
+						
+						calendarDIContainer = CalendarDIContainer(navigationController: navigationController)
+						calendarCoordinator = calendarDIContainer?.makeCalendarCoordinator()
+						calendarCoordinator?.start()
+						
+						self.window?.makeKeyAndVisible()
+					}
+				}
 			} else {
-				// 캘린더 뷰
 				var calendarDIContainer: CalendarDIContainer?
 				var calendarCoordinator: CalendarCoordinator?
 				let window = UIWindow(windowScene: windowScene)
