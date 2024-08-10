@@ -13,9 +13,28 @@ enum LoginPlatForm: String {
 	case apple
 }
 
+enum ProfileCellItem: String, CaseIterable {
+	case appleLogin = "애플 로그인 연동"
+	case linkAccount = "계정 연동"
+	case deleteAccount = "회원 탈퇴"
+	
+	var iconName: String {
+		switch self {
+		case .appleLogin:
+			return "apple.logo"
+		case .linkAccount:
+			return "link.circle"
+		case .deleteAccount:
+			return "trash.circle"
+		}
+	}
+}
+
 final class ProfileViewModel: BaseViewModel {
 	
 	// MARK: - Properties
+	
+	let profileCellItems = ProfileCellItem.allCases.map { $0.rawValue }
 	
 	private let profileUseCase: DefaultProfileUseCase
 	
@@ -52,5 +71,9 @@ extension ProfileViewModel {
 		} else {
 			UserDefaultsSetting.uid = userID
 		}
+	}
+	
+	func removeUserTrigger() async throws {
+		try await profileUseCase.removeUser()
 	}
 }

@@ -18,17 +18,32 @@ final class ProfileViewController: BaseViewController {
 	var coordinator: ProfileCoordinator?
 	
 	private let viewModel: ProfileViewModel
+	private let calendarViewModel: CalendarViewModel
 	
 	private var currentNonce: String = ""
 	
+	private static let reuseIdentifier: String = "ProfileCell"
+	
 	// MARK: - Views
+	
+	private let tableView: UITableView = {
+		let tableView = UITableView()
+		tableView.translatesAutoresizingMaskIntoConstraints = false
+		tableView.register(
+			UITableViewCell.self,
+			forCellReuseIdentifier: ProfileViewController.reuseIdentifier
+		)
+		return tableView
+	}()
 	
 	// MARK: - Init
 	
 	init(
-		viewModel: ProfileViewModel
+		viewModel: ProfileViewModel,
+		calendarViewModel: CalendarViewModel
 	) {
 		self.viewModel = viewModel
+		self.calendarViewModel = calendarViewModel
 		super.init(nibName: nil, bundle: nil)
 	}
 	
@@ -40,26 +55,115 @@ final class ProfileViewController: BaseViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		view.backgroundColor = .yellow
 	}
 	
 	// MARK: - Functions
 	
 	override func addView() {
-		
+		[tableView].forEach {
+			view.addSubview($0)
+		}
 	}
 	
 	override func setLayout() {
-		
+		tableView.snp.makeConstraints { make in
+			make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+			make.leading.equalToSuperview()
+			make.trailing.equalToSuperview()
+			make.bottom.equalToSuperview()
+		}
 	}
 	
 	override func setupView() {
+		view.backgroundColor = .azBlack
 		
+		tableView.dataSource = self
+		tableView.delegate = self
+		tableView.backgroundColor = .azBlack
+		tableView.separatorStyle = .none
+		tableView.isScrollEnabled = false
+	}
+}
+
+extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return viewModel.profileCellItems.count - 1
+	}
+	
+	func tableView(_ tableView: UITableView,
+								 cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(
+			withIdentifier: ProfileViewController.reuseIdentifier,
+			for: indexPath
+		)
+		
+		let items: [ProfileCellItem] = UserDefaultsSetting.isAnonymously
+		? [.linkAccount, .deleteAccount]
+		: [.appleLogin, .deleteAccount]
+		
+		let item = items[indexPath.row]
+		
+		cell.textLabel?.text = item.rawValue
+		cell.textLabel?.font = UIFont(name: "omyu_pretty", size: 16)
+		cell.textLabel?.textColor = item == .deleteAccount ? .red : .azWhite
+		
+		cell.imageView?.image = UIImage(systemName: item.iconName)
+		cell.imageView?.tintColor = item == .deleteAccount ? .red : .white
+		
+		cell.selectionStyle = .none
+		cell.backgroundColor = .azBlack
+		return cell
+	}
+	
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
+		
+		let items: [ProfileCellItem] = UserDefaultsSetting.isAnonymously
+		? [.linkAccount, .deleteAccount]
+		: [.appleLogin, .deleteAccount]
+		
+		let selectedItem = items[indexPath.row]
+		
+		switch selectedItem {
+		case .linkAccount:
+			appleLoginTrigger()
+		case .deleteAccount:
+			showRemoveUserAlert()
+		default:
+			break
+		}
 	}
 }
 
 extension ProfileViewController {
+	@objc private func appleLoginTrigger() {
+		startSignInWithAppleFlow()
+	}
 	
+	private func showRemoveUserAlert() {
+		let alertController = UIAlertController(
+			title: "회원 탈퇴",
+			message: "정말 탈퇴하시겠습니까? 회원 탈퇴 후 복구는 어렵습니다.",
+			preferredStyle: .alert
+		)
+		
+		let cancelAction = UIAlertAction(title: "탈퇴하기", style: .destructive) { _ in
+			Task { [weak self] in
+				do {
+					try await self?.viewModel.removeUserTrigger()
+				} catch {
+					self?.showToast(message: "에러가 발생했어요")
+					self?.coordinator?.popToRoot()
+				}
+			}
+		}
+		alertController.addAction(cancelAction)
+		
+		let deleteAction = UIAlertAction(title: "취소", style: .cancel) { _ in }
+		alertController.addAction(deleteAction)
+		
+		present(alertController, animated: true, completion: nil)
+	}
 }
 
 extension ProfileViewController: ASAuthorizationControllerDelegate {
@@ -98,7 +202,8 @@ extension ProfileViewController: ASAuthorizationControllerDelegate {
 				var random: UInt8 = 0
 				let errorCode = SecRandomCopyBytes(kSecRandomDefault, 1, &random)
 				if errorCode != errSecSuccess {
-					Log.debug("SecRandomCopyBytes failed", errorCode)
+					self.showToast(message: "에러가 발생했어요")
+					self.coordinator?.popToRoot()
 				}
 				return random
 			}
@@ -124,34 +229,97 @@ extension ProfileViewController {
 		if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
 			let nonce = currentNonce
 			guard let appleIDToken = appleIDCredential.identityToken else {
-				Log.debug("Unable to fetch identity token")
+				self.showToast(message: "에러가 발생했어요")
+				self.coordinator?.popToRoot()
 				return
 			}
 			guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
-				Log.debug("Unable to serialize token string from data",
-									"\(appleIDToken.debugDescription)")
+				self.showToast(message: "에러가 발생했어요")
+				self.coordinator?.popToRoot()
 				return
 			}
 			
 			let credential = OAuthProvider.credential(withProviderID: "apple.com",
 																								idToken: idTokenString,
 																								rawNonce: nonce)
-			Auth.auth().signIn(with: credential) { [weak self] authResult, error in
-				if let error = error {
-					Log.error(error)
-					return
-				}
-				
-				Task {
-					do {
-						try await self?.viewModel.createUserTirgger()
-					} catch {
-						self?.showToast(message: "에러가 발생했어요")
-						self?.coordinator?.popToRoot()
+			
+			let appleIDProvider = ASAuthorizationAppleIDProvider()
+			appleIDProvider.getCredentialState(forUserID: appleIDCredential.user) {
+				(credentialState, error) in
+				switch credentialState {
+				case .authorized:
+					Auth.auth().signIn(with: credential) { (authResult, error) in
+						if let error = error {
+							if (error as NSError).code == AuthErrorCode.credentialAlreadyInUse.rawValue {
+								self.showToast(message: "에러가 발생했어요")
+								self.coordinator?.popToRoot()
+							}
+							return
+						} else {
+							if let uid = authResult?.user.uid {
+								UserDefaultsSetting.isAnonymously = false
+								UserDefaultsSetting.uid = uid
+								UserDefaultsSetting.idTokenString = idTokenString
+								UserDefaultsSetting.nonce = nonce
+								
+								Task {
+									do {
+										try await self.viewModel.createUserTirgger()
+										if let year = Int(self.formattedDateString(Date(), format: "yyyy")),
+											 let month = Int(self.formattedDateString(Date(), format: "M")) {
+											try await self.calendarViewModel.fetchMonthRecordTrigger(
+												year: year, month: month
+											) {
+												self.coordinator?.popToRoot()
+											}
+										}
+									} catch {
+										self.showToast(message: "에러가 발생했어요")
+										self.coordinator?.popToRoot()
+									}
+								}
+							}
+						}
 					}
+				case .revoked:
+					Log.debug("REVOKED")
+				case .notFound:
+					Auth.auth().currentUser?.link(with: credential) { authResult, error in
+						if let error = error {
+							Log.error(error)
+							self.showToast(message: "에러가 발생했어요")
+							self.coordinator?.popToRoot()
+						} else {
+							if let user = authResult?.user {
+								UserDefaultsSetting.isAnonymously = false
+								UserDefaultsSetting.uid = user.uid
+								UserDefaultsSetting.idTokenString = idTokenString
+								UserDefaultsSetting.nonce = nonce
+								Task {
+									do {
+										try await self.viewModel.createUserTirgger()
+									} catch {
+										Log.error(error)
+										self.showToast(message: "에러가 발생했어요")
+										self.coordinator?.popToRoot()
+									}
+								}
+							}
+						}
+					}
+				default:
+					break
 				}
 			}
 		}
+	}
+	
+	private func formattedDateString(_ date: Date, format: String) -> String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.locale = Locale(identifier: "ko_kr")
+		dateFormatter.timeZone = TimeZone(identifier: "KST")
+		dateFormatter.dateFormat = format
+		return dateFormatter.string(from: date)
 	}
 }
 

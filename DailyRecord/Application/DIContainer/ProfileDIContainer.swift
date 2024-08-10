@@ -10,8 +10,14 @@ import UIKit
 final class ProfileDIContainer: DIContainer {
 	private let navigationController: UINavigationController
 	
-	init(navigationController: UINavigationController) {
+	private let calendarViewModel: CalendarViewModel
+	
+	init(
+		navigationController: UINavigationController,
+		calendarViewModel: CalendarViewModel
+	) {
 		self.navigationController = navigationController
+		self.calendarViewModel = calendarViewModel
 	}
 }
 
@@ -25,7 +31,10 @@ extension ProfileDIContainer {
 	}
 	
 	func makeProfileViewController() -> ProfileViewController {
-		return ProfileViewController(viewModel: makeProfileViewModel())
+		return ProfileViewController(
+			viewModel: makeProfileViewModel(),
+			calendarViewModel: calendarViewModel
+		)
 	}
 	
 	private func makeProfileViewModel() -> ProfileViewModel {

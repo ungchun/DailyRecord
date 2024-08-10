@@ -157,7 +157,7 @@ final class CalendarViewController: BaseViewController {
 			 let month = Int(formattedDateString(Date(), format: "M")) {
 			Task { [weak self] in
 				do {
-					try await self?.viewModel.fetchMonthRecordTrigger(year: year, month: month)
+					try await self?.viewModel.fetchMonthRecordTrigger(year: year, month: month) { }
 				} catch {
 					self?.showToast(message: "에러가 발생했어요")
 					self?.coordinator?.popToRoot()
@@ -178,7 +178,7 @@ extension CalendarViewController {
 	}
 	
 	@objc private func showProfileTrigger() {
-		coordinator?.showProfile()
+		coordinator?.showProfile(calendarViewModel: viewModel)
 	}
 	
 	private func formattedDateString(_ date: Date, format: String) -> String {
@@ -255,7 +255,7 @@ extension CalendarViewController: FSCalendarDelegate,
 				do {
 					// TODO: 월 바꿀 때 버벅이는 현상때문에 우선 0.5초 딜레이 줌, 배포 전 개선사항
 					try await Task.sleep(nanoseconds: 500_000_000)
-					try await self?.viewModel.fetchMonthRecordTrigger(year: year, month: month)
+					try await self?.viewModel.fetchMonthRecordTrigger(year: year, month: month) { }
 				} catch {
 					self?.showToast(message: "에러가 발생했어요")
 					self?.coordinator?.popToRoot()

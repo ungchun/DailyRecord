@@ -36,6 +36,6 @@ extension ProfileUseCase {
 	}
 	
 	func removeUser() async throws {
-		
+		try await profileRepository.removeUser()
 	}
 }

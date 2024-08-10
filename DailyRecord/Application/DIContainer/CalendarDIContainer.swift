@@ -49,9 +49,12 @@ extension CalendarDIContainer {
 	
 	// MARK: - Profile
 	
-	func makeProfileDIContainer() -> ProfileDIContainer {
+	func makeProfileDIContainer(
+		calendarViewModel: CalendarViewModel
+	) -> ProfileDIContainer {
 		return ProfileDIContainer(
-			navigationController: navigationController
+			navigationController: navigationController,
+			calendarViewModel: calendarViewModel
 		)
 	}
 }
