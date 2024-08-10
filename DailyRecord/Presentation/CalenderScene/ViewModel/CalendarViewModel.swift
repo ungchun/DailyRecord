@@ -29,14 +29,19 @@ extension CalendarViewModel {
 	
 	// MARK: - Functions
 	
-	func fetchMonthRecordTrigger(year: Int, month: Int) async throws {
+	func fetchMonthRecordTrigger(
+		year: Int,
+		month: Int,
+		completion: @escaping () -> Void
+	) async throws {
 		Task { [weak self] in
 			guard let self = self else { return }
 			let response = try await self.calendarUseCase.readMonthRecord(
 				year: year, month: month
-			 )
+			)
 			await MainActor.run {
 				self.records = response
+				completion()
 			}
 		}
 	}
