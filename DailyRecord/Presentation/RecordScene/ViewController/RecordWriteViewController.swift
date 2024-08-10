@@ -252,7 +252,7 @@ private extension RecordWriteViewController {
 							do {
 								try await self?.calendarViewModel.fetchMonthRecordTrigger(
 									year: year, month: month
-								)
+								) { }
 							} catch {
 								self?.showToast(message: "에러가 발생했어요")
 								self?.coordinator?.popToRoot()

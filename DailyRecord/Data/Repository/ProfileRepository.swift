@@ -8,11 +8,11 @@
 import Firebase
 import FirebaseFirestore
 
-final class LoginRepository: DefaultLoginRepository {
+final class ProfileRepository: DefaultProfileRepository {
 	private let db = Firestore.firestore()
 }
 
-extension LoginRepository {
+extension ProfileRepository {
 	func createUser(data: [String : Any]) async throws {
 		guard let userID = Auth.auth().currentUser?.uid else { return }
 		let documentRef = db.collection("user")
@@ -77,16 +77,30 @@ extension LoginRepository {
 		}
 	}
 	
-	func removeUser(fieldID: String) async throws {
-		guard let userID = Auth.auth().currentUser?.uid else { return }
-		let documentRef = db.collection("user").document(userID)
+	func removeUser() async throws {
 		try await withCheckedThrowingContinuation {
 			(continuation: CheckedContinuation<Void, Error>) in
-			documentRef.updateData([fieldID:""]){ error in
-				if let error = error {
-					continuation.resume(throwing: error)
+			let credential = OAuthProvider.credential(withProviderID: "apple.com",
+																								idToken: UserDefaultsSetting.idTokenString,
+																								rawNonce: UserDefaultsSetting.nonce)
+			Auth.auth().currentUser?.reauthenticate(with: credential) { _,_ in
+				if let user = Auth.auth().currentUser {
+					user.delete { error in
+						if let error = error {
+							continuation.resume(throwing: error)
+						} else {
+							Task {
+								UserDefaultsSetting.uid = ""
+								UserDefaultsSetting.idTokenString = ""
+								UserDefaultsSetting.nonce = ""
+								try Auth.auth().signOut()
+								continuation.resume()
+								exit(0)
+							}
+						}
+					}
 				} else {
-					continuation.resume()
+					Log.debug("로그인 정보가 존재하지 않습니다.")
 				}
 			}
 		}

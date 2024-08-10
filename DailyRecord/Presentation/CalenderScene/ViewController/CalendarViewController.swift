@@ -23,6 +23,16 @@ final class CalendarViewController: BaseViewController {
 	
 	// MARK: - Views
 	
+	private let settingButton: UIButton = {
+		let button = UIButton(type: .system)
+		let pencilImage = UIImage(systemName: "gearshape.fill")?.resizeImage(
+			to: CGSize(width: 24,height: 24)
+		)
+		button.setImage(pencilImage, for: .normal)
+		button.tintColor = .white
+		return button
+	}()
+	
 	private let writeButton: UIButton = {
 		let button = UIButton(type: .system)
 		let pencilImage = UIImage(named: "pencil")?.resizeImage(
@@ -68,7 +78,7 @@ final class CalendarViewController: BaseViewController {
 		return calendar
 	}()
 	
-	// MARK: - Life Cycle
+	// MARK: - Init
 	
 	init(
 		viewModel: CalendarViewModel
@@ -80,6 +90,8 @@ final class CalendarViewController: BaseViewController {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
+	
+	// MARK: - Life Cycle
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -98,7 +110,8 @@ final class CalendarViewController: BaseViewController {
 	// MARK: - Functions
 	
 	override func addView() {
-		[calendarHeaderView, calendarView, writeButton].forEach {
+		[calendarHeaderView, calendarView,
+		 writeButton, settingButton].forEach {
 			view.addSubview($0)
 		}
 	}
@@ -122,10 +135,19 @@ final class CalendarViewController: BaseViewController {
 			make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-20)
 			make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
 		}
+		
+		settingButton.snp.makeConstraints { make in
+			make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-20)
+			make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+		}
 	}
 	
 	override func setupView() {
 		bindViewModel()
+		
+		settingButton.addTarget(self,
+														action: #selector(showProfileTrigger),
+														for: .touchUpInside)
 		
 		DispatchQueue.main.async { [weak self] in
 			self?.view.backgroundColor = .azBlack
@@ -135,7 +157,7 @@ final class CalendarViewController: BaseViewController {
 			 let month = Int(formattedDateString(Date(), format: "M")) {
 			Task { [weak self] in
 				do {
-					try await self?.viewModel.fetchMonthRecordTrigger(year: year, month: month)
+					try await self?.viewModel.fetchMonthRecordTrigger(year: year, month: month) { }
 				} catch {
 					self?.showToast(message: "에러가 발생했어요")
 					self?.coordinator?.popToRoot()
@@ -153,6 +175,10 @@ extension CalendarViewController {
 				self?.calendarView.reloadData()
 			}
 			.store(in: &cancellables)
+	}
+	
+	@objc private func showProfileTrigger() {
+		coordinator?.showProfile(calendarViewModel: viewModel)
 	}
 	
 	private func formattedDateString(_ date: Date, format: String) -> String {
@@ -229,7 +255,7 @@ extension CalendarViewController: FSCalendarDelegate,
 				do {
 					// TODO: 월 바꿀 때 버벅이는 현상때문에 우선 0.5초 딜레이 줌, 배포 전 개선사항
 					try await Task.sleep(nanoseconds: 500_000_000)
-					try await self?.viewModel.fetchMonthRecordTrigger(year: year, month: month)
+					try await self?.viewModel.fetchMonthRecordTrigger(year: year, month: month) { }
 				} catch {
 					self?.showToast(message: "에러가 발생했어요")
 					self?.coordinator?.popToRoot()
