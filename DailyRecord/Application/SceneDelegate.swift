@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			if Auth.auth().currentUser == nil || UserDefaultsSetting.uid.isEmpty {
 				Auth.auth().signInAnonymously { authResult, error in
 					if let error = error {
-						// TODO: 에러 처리
+						Log.error(error)
 						return
 					}
 					
