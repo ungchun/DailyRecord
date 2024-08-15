@@ -83,10 +83,6 @@ final class RecordWriteViewController: BaseViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
-		// 작성이 안 되어 있으면 화면 가운데 alert 올라오게
-		
-		fetchEditData()
 	}
 	
 	// MARK: - Functions
@@ -128,7 +124,7 @@ final class RecordWriteViewController: BaseViewController {
 		attachedImageCollectionView.snp.makeConstraints { make in
 			make.top.equalTo(todayDateView.snp.bottom).offset(20)
 			make.left.right.equalToSuperview().inset(20)
-			make.height.equalTo(viewModel.selectData.imageList.isEmpty
+			make.height.equalTo(viewModel.selectData.imageListURL.isEmpty
 													? 0 : 100)
 		}
 		
@@ -146,6 +142,8 @@ final class RecordWriteViewController: BaseViewController {
 	}
 	
 	override func setupView() {
+		fetchEditData()
+		
 		DispatchQueue.main.async { [weak self] in
 			self?.view.backgroundColor = .azBlack
 		}
@@ -184,11 +182,7 @@ private extension RecordWriteViewController {
 				self.updateNotImageView()
 			}
 			
-			viewModel.setImageData {
-				if !self.viewModel.imageList.isEmpty {
-					self.updateImageView()
-				}
-			}
+			self.updateImageView()
 		}
 	}
 	
@@ -285,8 +279,10 @@ private extension RecordWriteViewController {
 
 extension RecordWriteViewController: AttachedImageCollectionViewDelegate {
 	func collectionViewZeroHeightTrigger() {
-		self.attachedImageCollectionView.snp.updateConstraints { make in
-			make.height.equalTo(0.5)
+		DispatchQueue.main.async { [weak self] in
+			self?.attachedImageCollectionView.snp.updateConstraints { make in
+				make.height.equalTo(0.5)
+			}
 		}
 	}
 }
@@ -308,9 +304,11 @@ extension RecordWriteViewController: EmotionalImagePopupViewDelegate {
 			let aspectRatio = originalHeight / originalWidth
 			let desiredWidth: CGFloat = 80
 			let desiredHeight = desiredWidth * aspectRatio
-			todayEmotionImageView.snp.updateConstraints { make in
-				make.width.equalTo(desiredWidth)
-				make.height.equalTo(desiredHeight)
+			DispatchQueue.main.async { [weak self] in
+				self?.todayEmotionImageView.snp.updateConstraints { make in
+					make.width.equalTo(desiredWidth)
+					make.height.equalTo(desiredHeight)
+				}
 			}
 		}
 	}
@@ -339,9 +337,11 @@ extension RecordWriteViewController: PHPickerViewControllerDelegate {
 				if let image = image as? UIImage {
 					selectedImages.append(image)
 					if results.count == selectedImages.count {
-						self?.attachedImageCollectionView.setImages(selectedImages)
-						self?.attachedImageCollectionView.snp.updateConstraints { make in
-							make.height.equalTo(100)
+						DispatchQueue.main.async { [weak self] in
+							self?.attachedImageCollectionView.setImages(selectedImages)
+							self?.attachedImageCollectionView.snp.updateConstraints { make in
+								make.height.equalTo(100)
+							}
 						}
 					}
 				}

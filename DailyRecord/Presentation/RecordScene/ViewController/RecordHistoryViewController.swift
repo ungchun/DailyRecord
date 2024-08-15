@@ -160,10 +160,16 @@ final class RecordHistoryViewController: BaseViewController {
 			}
 		}
 		
-		if !viewModel.selectData.imageList.isEmpty {
-			imageCarouselView.setImages(viewModel.selectData.imageList)
-			imageCarouselView.snp.updateConstraints { make in
-				make.height.equalTo(100)
+		if !viewModel.selectData.imageListURL.isEmpty {
+			viewModel.setImageData {
+				if !self.viewModel.imageList.isEmpty {
+					self.imageCarouselView.setImages(self.viewModel.imageList)
+					DispatchQueue.main.async { [weak self] in
+						self?.imageCarouselView.snp.updateConstraints { make in
+							make.height.equalTo(100)
+						}
+					}
+				}
 			}
 		}
 		
