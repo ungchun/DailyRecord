@@ -253,7 +253,6 @@ extension CalendarViewController: FSCalendarDelegate,
 			 let month = Int(formattedDateString(currentPage, format: "M")) {
 			Task { [weak self] in
 				do {
-					// TODO: 월 바꿀 때 버벅이는 현상때문에 우선 0.5초 딜레이 줌, 배포 전 개선사항
 					try await Task.sleep(nanoseconds: 500_000_000)
 					try await self?.viewModel.fetchMonthRecordTrigger(year: year, month: month) { }
 				} catch {

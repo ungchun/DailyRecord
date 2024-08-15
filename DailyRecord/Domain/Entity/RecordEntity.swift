@@ -11,20 +11,20 @@ struct RecordEntity {
 	let uid: String
 	let content: String
 	let emotionType: EmotionType
-	let imageList: [String]
+	let imageListURL: [String]
 	let createTime: Int
 	let calendarDate: Int
 	
 	init(uid: String = "",
 			 content: String = "",
 			 emotionType: EmotionType = .none,
-			 imageList: [String] = [],
+			 imageListURL: [String] = [],
 			 createTime: Int = 0,
 			 calendarDate: Int = 0) {
 		self.uid = uid
 		self.content = content
 		self.emotionType = emotionType
-		self.imageList = imageList
+		self.imageListURL = imageListURL
 		self.createTime = createTime
 		self.calendarDate = calendarDate
 	}
