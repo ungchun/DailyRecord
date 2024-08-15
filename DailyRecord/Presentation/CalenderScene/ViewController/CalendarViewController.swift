@@ -149,6 +149,10 @@ final class CalendarViewController: BaseViewController {
 														action: #selector(showProfileTrigger),
 														for: .touchUpInside)
 		
+		writeButton.addTarget(self,
+													action: #selector(todayWriteTrigger),
+													for: .touchUpInside)
+		
 		DispatchQueue.main.async { [weak self] in
 			self?.view.backgroundColor = .azBlack
 		}
@@ -179,6 +183,22 @@ extension CalendarViewController {
 	
 	@objc private func showProfileTrigger() {
 		coordinator?.showProfile(calendarViewModel: viewModel)
+	}
+	
+	@objc private func todayWriteTrigger() {
+		let nowDate = Calendar.current.startOfDay(for: Date())
+		var selectData = RecordEntity(calendarDate: Int(nowDate.millisecondsSince1970))
+		if let matchedEntity = viewModel.records.first(where: { entity in
+			let seconds = TimeInterval(entity.calendarDate) / 1000
+			let responseDate = Date(timeIntervalSince1970: seconds)
+			return nowDate == responseDate
+		}) {
+			selectData = matchedEntity
+		}
+		coordinator?.showRecord(
+			calendarViewModel: viewModel,
+			selectData: selectData
+		)
 	}
 	
 	private func formattedDateString(_ date: Date, format: String) -> String {
