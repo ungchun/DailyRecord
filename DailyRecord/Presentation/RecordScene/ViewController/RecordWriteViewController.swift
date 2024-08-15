@@ -187,9 +187,12 @@ private extension RecordWriteViewController {
 	}
 	
 	func updateNotImageView() {
-		DispatchQueue.main.async { [weak self] in
-			self?.inputDiaryView.text = self?.viewModel.content
+		if !self.viewModel.content.isEmpty {
+			DispatchQueue.main.async { [weak self] in
+				self?.inputDiaryView.text = self?.viewModel.content
+			}
 		}
+		
 		emotionalImageTapTrigger(selectEmotionType: viewModel.emotionType)
 	}
 	
