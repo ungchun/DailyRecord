@@ -108,7 +108,6 @@ final class RecordHistoryViewController: BaseViewController {
 		todayEmotionImageView.snp.makeConstraints { make in
 			make.top.equalTo(contentView.snp.top).offset(20)
 			make.centerX.equalToSuperview()
-			make.width.height.equalTo(30)
 		}
 		
 		createDateView.snp.makeConstraints { make in

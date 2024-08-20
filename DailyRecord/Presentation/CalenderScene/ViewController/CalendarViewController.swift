@@ -308,16 +308,19 @@ extension CalendarViewController: FSCalendarDelegate,
 						cell.backImageView.image = image
 						cell.titleLabel.isHidden = true
 					}
+				} else {
+					DispatchQueue.main.async {
+						cell.circleView.isHidden = false
+					}
 				}
 			}
 		}
+		
 		return cell
 	}
 }
 
-class CalendarCell: FSCalendarCell {
-	
-	// 뒤에 표시될 이미지
+final class CalendarCell: FSCalendarCell {
 	var backImageView = {
 		let view = UIImageView()
 		view.contentMode = .scaleAspectFit
@@ -325,10 +328,18 @@ class CalendarCell: FSCalendarCell {
 		return view
 	}()
 	
+	var circleView: UIView = {
+		let view = UIView()
+		view.backgroundColor = .red
+		view.layer.cornerRadius = 2
+		view.layer.masksToBounds = true
+		view.isHidden = true
+		return view
+	}()
+	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		
-		// 날짜 텍스트가 디폴트로 약간 위로 올라가 있어서, 아예 레이아웃을 잡아준다
 		self.titleLabel.snp.makeConstraints { make in
 			make.center.equalTo(contentView)
 		}
@@ -339,8 +350,12 @@ class CalendarCell: FSCalendarCell {
 			make.size.equalTo(minSize())
 		}
 		
-		/// Circle Image
-		// backImageView.layer.cornerRadius = minSize()/2
+		contentView.addSubview(circleView)
+		circleView.snp.makeConstraints { make in
+			make.top.equalTo(contentView).offset(4)
+			make.trailing.equalTo(contentView).offset(-4)
+			make.width.height.equalTo(4)
+		}
 	}
 	
 	required init(coder aDecoder: NSCoder!) {
@@ -356,10 +371,10 @@ class CalendarCell: FSCalendarCell {
 		
 		DispatchQueue.main.async { [weak self] in
 			self?.backImageView.image = nil
+			self?.circleView.isHidden = true
 		}
 	}
 	
-	/// 셀의 높이와 너비 중 작은 값을 리턴한다
 	func minSize() -> CGFloat {
 		let width = contentView.bounds.width - 5
 		let height = contentView.bounds.height - 5
