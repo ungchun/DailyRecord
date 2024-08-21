@@ -11,10 +11,10 @@ import Foundation
 
 enum EmotionType: String {
 	case none
+	case very_happy
 	case happy
-	case good
-	case normal
-	case bad
-	case irritation
-	case sick
+	case very_sad
+	case sad
+	case neutral
+	case angry
 }
