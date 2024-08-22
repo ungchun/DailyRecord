@@ -167,7 +167,7 @@ final class EmotionalImagePopupView: BaseView {
 extension EmotionalImagePopupView {
 	func showPopup() {
 		DispatchQueue.main.async { [weak self] in
-			UIView.animate(withDuration: 0.3) {
+			UIView.animate(withDuration: 0.6) {
 				self?.dimmingView.alpha = 1
 				self?.emotionalImagePopupView.alpha = 1
 			}

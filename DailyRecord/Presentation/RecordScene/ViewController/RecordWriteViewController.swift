@@ -172,6 +172,10 @@ final class RecordWriteViewController: BaseViewController {
 		
 		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
 		view.addGestureRecognizer(tapGesture)
+		
+		if viewModel.selectData.createTime == 0 {
+			showPopupTrigger()
+		}
 	}
 }
 
