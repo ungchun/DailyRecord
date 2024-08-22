@@ -67,8 +67,10 @@ final class AttachedImageCollectionView: BaseView {
 
 extension AttachedImageCollectionView {
 	func setImages(_ images: [UIImage]) {
-		self.images = images
-		collectionView.reloadData()
+		DispatchQueue.main.async {
+			self.images = images
+			self.collectionView.reloadData()
+		}
 	}
 	
 	@objc private func deleteButtonTapped(_ sender: UIButton) {

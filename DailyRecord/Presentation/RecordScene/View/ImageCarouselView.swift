@@ -13,7 +13,7 @@ final class ImageCarouselView: BaseView {
 	
 	// MARK: - Properties
 	
-	private(set) var imageURLs: [String] = []
+	private(set) var images: [UIImage] = []
 	
 	// MARK: - Views
 	
@@ -60,9 +60,9 @@ final class ImageCarouselView: BaseView {
 	}
 }
 extension ImageCarouselView {
-	func setImages(_ imageURLs: [String]) {
+	func setImages(_ images: [UIImage]) {
 		DispatchQueue.main.async { [weak self] in
-			self?.imageURLs = imageURLs
+			self?.images = images
 			self?.collectionView.reloadData()
 		}
 	}
@@ -71,7 +71,7 @@ extension ImageCarouselView {
 extension ImageCarouselView: UICollectionViewDataSource, UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView,
 											numberOfItemsInSection section: Int) -> Int {
-		return imageURLs.count
+		return images.count
 	}
 	
 	func collectionView(_ collectionView: UICollectionView,
@@ -81,9 +81,7 @@ extension ImageCarouselView: UICollectionViewDataSource, UICollectionViewDelegat
 			for: indexPath
 		) as! ImageCarouselViewCell
 		
-		if let url = URL(string: imageURLs[indexPath.item]) {
-			cell.loadImage(from: url)
-		}
+		cell.imageView.image = images[indexPath.item]
 		return cell
 	}
 }
@@ -98,7 +96,7 @@ final class ImageCarouselViewCell: UICollectionViewCell {
 	
 	// MARK: - Views
 	
-	private let imageView: UIImageView = {
+	let imageView: UIImageView = {
 		let imageView = UIImageView()
 		imageView.contentMode = .scaleAspectFill
 		imageView.clipsToBounds = true
@@ -145,21 +143,5 @@ private extension ImageCarouselViewCell {
 			make.centerX.equalToSuperview()
 			make.centerY.equalToSuperview()
 		}
-	}
-	
-	func loadImage(from url: URL) {
-		loadingIndicator.startAnimating()
-		URLSession.shared.dataTask(with: url) { data, response, error in
-			guard let data = data, error == nil, let image = UIImage(data: data) else {
-				DispatchQueue.main.async {
-					self.loadingIndicator.stopAnimating()
-				}
-				return
-			}
-			DispatchQueue.main.async {
-				self.loadingIndicator.stopAnimating()
-				self.imageView.image = image
-			}
-		}.resume()
 	}
 }

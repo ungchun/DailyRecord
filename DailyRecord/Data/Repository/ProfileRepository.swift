@@ -26,7 +26,7 @@ extension ProfileRepository {
 						guard let self = self else { return }
 						do {
 							try await self.updateUserInfo(updateData: ["uid": userID])
-							UserDefaultsSetting.uid = userID
+							try KeyChainManager.shared.create(account: .uid, data: userID)
 							continuation.resume()
 						} catch {
 							continuation.resume(throwing: error)
@@ -78,11 +78,13 @@ extension ProfileRepository {
 	}
 	
 	func removeUser() async throws {
+		let idToken = try KeyChainManager.shared.read(account: .idTokenString)
+		let nonce = try KeyChainManager.shared.read(account: .nonce)
 		try await withCheckedThrowingContinuation {
 			(continuation: CheckedContinuation<Void, Error>) in
 			let credential = OAuthProvider.credential(withProviderID: "apple.com",
-																								idToken: UserDefaultsSetting.idTokenString,
-																								rawNonce: UserDefaultsSetting.nonce)
+																								idToken: idToken,
+																								rawNonce: nonce)
 			Auth.auth().currentUser?.reauthenticate(with: credential) { _,_ in
 				if let user = Auth.auth().currentUser {
 					user.delete { error in
@@ -90,12 +92,16 @@ extension ProfileRepository {
 							continuation.resume(throwing: error)
 						} else {
 							Task {
-								UserDefaultsSetting.uid = ""
-								UserDefaultsSetting.idTokenString = ""
-								UserDefaultsSetting.nonce = ""
-								try Auth.auth().signOut()
-								continuation.resume()
-								exit(0)
+								do {
+									try KeyChainManager.shared.delete(account: .uid)
+									try KeyChainManager.shared.delete(account: .idTokenString)
+									try KeyChainManager.shared.delete(account: .nonce)
+									try Auth.auth().signOut()
+									continuation.resume()
+									exit(0)
+								} catch {
+									throw NSError()
+								}
 							}
 						}
 					}

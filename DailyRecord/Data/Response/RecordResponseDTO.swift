@@ -23,7 +23,7 @@ extension RecordResponseDTO {
 		return .init(uid: uid ?? "",
 								 content: content ?? "",
 								 emotionType: EmotionType(rawValue: emotion_type ?? "") ?? .none,
-								 imageList: image_list ?? [],
+								 imageListURL: image_list ?? [],
 								 createTime: create_time ?? 0,
 								 calendarDate: calendar_date ?? 0)
 	}

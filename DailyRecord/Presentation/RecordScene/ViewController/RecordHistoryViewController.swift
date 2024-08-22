@@ -108,7 +108,6 @@ final class RecordHistoryViewController: BaseViewController {
 		todayEmotionImageView.snp.makeConstraints { make in
 			make.top.equalTo(contentView.snp.top).offset(20)
 			make.centerX.equalToSuperview()
-			make.width.height.equalTo(30)
 		}
 		
 		createDateView.snp.makeConstraints { make in
@@ -160,10 +159,16 @@ final class RecordHistoryViewController: BaseViewController {
 			}
 		}
 		
-		if !viewModel.selectData.imageList.isEmpty {
-			imageCarouselView.setImages(viewModel.selectData.imageList)
-			imageCarouselView.snp.updateConstraints { make in
-				make.height.equalTo(100)
+		if !viewModel.selectData.imageListURL.isEmpty {
+			viewModel.setImageData {
+				if !self.viewModel.imageList.isEmpty {
+					self.imageCarouselView.setImages(self.viewModel.imageList)
+					DispatchQueue.main.async { [weak self] in
+						self?.imageCarouselView.snp.updateConstraints { make in
+							make.height.equalTo(100)
+						}
+					}
+				}
 			}
 		}
 		

@@ -257,11 +257,15 @@ extension ProfileViewController {
 							return
 						} else {
 							if let uid = authResult?.user.uid {
-								UserDefaultsSetting.isAnonymously = false
-								UserDefaultsSetting.uid = uid
-								UserDefaultsSetting.idTokenString = idTokenString
-								UserDefaultsSetting.nonce = nonce
-								
+								do {
+									UserDefaultsSetting.isAnonymously = false
+									try KeyChainManager.shared.create(account: .uid, data: uid)
+									try KeyChainManager.shared.create(account: .idTokenString, data: idTokenString)
+									try KeyChainManager.shared.create(account: .nonce, data: nonce)
+								} catch {
+									self.showToast(message: "에러가 발생했어요")
+									self.coordinator?.popToRoot()
+								}
 								Task {
 									do {
 										try await self.viewModel.createUserTirgger()
@@ -291,10 +295,15 @@ extension ProfileViewController {
 							self.coordinator?.popToRoot()
 						} else {
 							if let user = authResult?.user {
-								UserDefaultsSetting.isAnonymously = false
-								UserDefaultsSetting.uid = user.uid
-								UserDefaultsSetting.idTokenString = idTokenString
-								UserDefaultsSetting.nonce = nonce
+								do {
+									UserDefaultsSetting.isAnonymously = false
+									try KeyChainManager.shared.create(account: .uid, data: user.uid)
+									try KeyChainManager.shared.create(account: .idTokenString, data: idTokenString)
+									try KeyChainManager.shared.create(account: .nonce, data: nonce)
+								} catch {
+									self.showToast(message: "에러가 발생했어요")
+									self.coordinator?.popToRoot()
+								}
 								Task {
 									do {
 										try await self.viewModel.createUserTirgger()

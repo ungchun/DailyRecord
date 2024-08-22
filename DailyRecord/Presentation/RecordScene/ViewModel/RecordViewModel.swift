@@ -105,16 +105,16 @@ extension RecordViewModel {
 	}
 	
 	func setImageData(completion: @escaping () -> Void) {
-		let urlStrings = selectData.imageList
+		let urlStrings = selectData.imageListURL
 		let dispatchGroup = DispatchGroup()
-		var loadedImages: [UIImage] = []
-		
-		for urlString in urlStrings {
-			if let url = URL(string: urlString) {
+		var loadedImages: [UIImage] = Array(repeating: UIImage(),
+																				count: urlStrings.count)
+		for idx in urlStrings.indices {
+			if let url = URL(string: urlStrings[idx]) {
 				dispatchGroup.enter()
 				loadImage(from: url) { image in
 					if let image = image {
-						loadedImages.append(image)
+						loadedImages[idx] = image
 					}
 					dispatchGroup.leave()
 				}

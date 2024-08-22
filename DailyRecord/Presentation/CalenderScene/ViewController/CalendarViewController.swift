@@ -149,6 +149,10 @@ final class CalendarViewController: BaseViewController {
 														action: #selector(showProfileTrigger),
 														for: .touchUpInside)
 		
+		writeButton.addTarget(self,
+													action: #selector(todayWriteTrigger),
+													for: .touchUpInside)
+		
 		DispatchQueue.main.async { [weak self] in
 			self?.view.backgroundColor = .azBlack
 		}
@@ -179,6 +183,22 @@ extension CalendarViewController {
 	
 	@objc private func showProfileTrigger() {
 		coordinator?.showProfile(calendarViewModel: viewModel)
+	}
+	
+	@objc private func todayWriteTrigger() {
+		let nowDate = Calendar.current.startOfDay(for: Date())
+		var selectData = RecordEntity(calendarDate: Int(nowDate.millisecondsSince1970))
+		if let matchedEntity = viewModel.records.first(where: { entity in
+			let seconds = TimeInterval(entity.calendarDate) / 1000
+			let responseDate = Date(timeIntervalSince1970: seconds)
+			return nowDate == responseDate
+		}) {
+			selectData = matchedEntity
+		}
+		coordinator?.showRecord(
+			calendarViewModel: viewModel,
+			selectData: selectData
+		)
 	}
 	
 	private func formattedDateString(_ date: Date, format: String) -> String {
@@ -253,7 +273,6 @@ extension CalendarViewController: FSCalendarDelegate,
 			 let month = Int(formattedDateString(currentPage, format: "M")) {
 			Task { [weak self] in
 				do {
-					// TODO: 월 바꿀 때 버벅이는 현상때문에 우선 0.5초 딜레이 줌, 배포 전 개선사항
 					try await Task.sleep(nanoseconds: 500_000_000)
 					try await self?.viewModel.fetchMonthRecordTrigger(year: year, month: month) { }
 				} catch {
@@ -289,16 +308,19 @@ extension CalendarViewController: FSCalendarDelegate,
 						cell.backImageView.image = image
 						cell.titleLabel.isHidden = true
 					}
+				} else {
+					DispatchQueue.main.async {
+						cell.circleView.isHidden = false
+					}
 				}
 			}
 		}
+		
 		return cell
 	}
 }
 
-class CalendarCell: FSCalendarCell {
-	
-	// 뒤에 표시될 이미지
+final class CalendarCell: FSCalendarCell {
 	var backImageView = {
 		let view = UIImageView()
 		view.contentMode = .scaleAspectFit
@@ -306,10 +328,18 @@ class CalendarCell: FSCalendarCell {
 		return view
 	}()
 	
+	var circleView: UIView = {
+		let view = UIView()
+		view.backgroundColor = .red
+		view.layer.cornerRadius = 2
+		view.layer.masksToBounds = true
+		view.isHidden = true
+		return view
+	}()
+	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		
-		// 날짜 텍스트가 디폴트로 약간 위로 올라가 있어서, 아예 레이아웃을 잡아준다
 		self.titleLabel.snp.makeConstraints { make in
 			make.center.equalTo(contentView)
 		}
@@ -320,8 +350,12 @@ class CalendarCell: FSCalendarCell {
 			make.size.equalTo(minSize())
 		}
 		
-		/// Circle Image
-		// backImageView.layer.cornerRadius = minSize()/2
+		contentView.addSubview(circleView)
+		circleView.snp.makeConstraints { make in
+			make.top.equalTo(contentView).offset(4)
+			make.trailing.equalTo(contentView).offset(-4)
+			make.width.height.equalTo(4)
+		}
 	}
 	
 	required init(coder aDecoder: NSCoder!) {
@@ -337,10 +371,10 @@ class CalendarCell: FSCalendarCell {
 		
 		DispatchQueue.main.async { [weak self] in
 			self?.backImageView.image = nil
+			self?.circleView.isHidden = true
 		}
 	}
 	
-	/// 셀의 높이와 너비 중 작은 값을 리턴한다
 	func minSize() -> CGFloat {
 		let width = contentView.bounds.width - 5
 		let height = contentView.bounds.height - 5
