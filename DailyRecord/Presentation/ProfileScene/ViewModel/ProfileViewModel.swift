@@ -16,6 +16,7 @@ enum LoginPlatForm: String {
 enum ProfileCellItem: String, CaseIterable {
 	case appleLogin = "애플 로그인 연동"
 	case linkAccount = "계정 연동"
+	case darkMode = "다크 모드"
 	case deleteAccount = "회원 탈퇴"
 	
 	var iconName: String {
@@ -24,8 +25,10 @@ enum ProfileCellItem: String, CaseIterable {
 			return "apple.logo"
 		case .linkAccount:
 			return "link.circle"
+		case .darkMode:
+			return "moon"
 		case .deleteAccount:
-			return "trash.circle"
+			return "trash"
 		}
 	}
 }
