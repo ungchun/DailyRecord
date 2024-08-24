@@ -10,6 +10,7 @@
 		6508A21D2C6DD5AC005AB6DC /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6508A21C2C6DD5AC005AB6DC /* KeyChainManager.swift */; };
 		6508A21F2C6DD5DA005AB6DC /* KeyChainAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6508A21E2C6DD5DA005AB6DC /* KeyChainAccount.swift */; };
 		6508A2212C79C91D005AB6DC /* FullscreenImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6508A2202C79C91D005AB6DC /* FullscreenImageView.swift */; };
+		6508A2232C79D021005AB6DC /* SetDarkModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6508A2222C79D021005AB6DC /* SetDarkModeViewController.swift */; };
 		657DB90E2C5BB5EB008DD96E /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DB90D2C5BB5EB008DD96E /* ProfileViewModel.swift */; };
 		657DB9102C5BB600008DD96E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DB90F2C5BB600008DD96E /* ProfileViewController.swift */; };
 		657DB9122C5BB845008DD96E /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DB9112C5BB845008DD96E /* ProfileCoordinator.swift */; };
@@ -105,6 +106,7 @@
 		6508A21C2C6DD5AC005AB6DC /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
 		6508A21E2C6DD5DA005AB6DC /* KeyChainAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainAccount.swift; sourceTree = "<group>"; };
 		6508A2202C79C91D005AB6DC /* FullscreenImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullscreenImageView.swift; sourceTree = "<group>"; };
+		6508A2222C79D021005AB6DC /* SetDarkModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDarkModeViewController.swift; sourceTree = "<group>"; };
 		657DB90D2C5BB5EB008DD96E /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		657DB90F2C5BB600008DD96E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		657DB9112C5BB845008DD96E /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				657DB90F2C5BB600008DD96E /* ProfileViewController.swift */,
+				6508A2222C79D021005AB6DC /* SetDarkModeViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -719,6 +722,7 @@
 				65CF61C22C1D6039003E6D75 /* RecordViewModel.swift in Sources */,
 				659946632C2FE4BE0030598B /* UserResponseDTO.swift in Sources */,
 				65CF61772C0B03EA003E6D75 /* Log.swift in Sources */,
+				6508A2232C79D021005AB6DC /* SetDarkModeViewController.swift in Sources */,
 				65CF61C42C243E78003E6D75 /* RecordFooterView.swift in Sources */,
 				657DB90E2C5BB5EB008DD96E /* ProfileViewModel.swift in Sources */,
 				6508A2212C79C91D005AB6DC /* FullscreenImageView.swift in Sources */,
