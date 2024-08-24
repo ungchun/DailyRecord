@@ -84,6 +84,18 @@ extension ImageCarouselView: UICollectionViewDataSource, UICollectionViewDelegat
 		cell.imageView.image = images[indexPath.item]
 		return cell
 	}
+	
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		let fullScreenVC = FullscreenImageViewController(images: images,
+																										 initialIndex: indexPath.item)
+		fullScreenVC.modalPresentationStyle = .fullScreen
+		let scenes = UIApplication.shared.connectedScenes
+		let windowScene = scenes.first as? UIWindowScene
+		let window = windowScene?.windows.first
+		if let topViewController = window?.rootViewController {
+			topViewController.present(fullScreenVC, animated: true, completion: nil)
+		}
+	}
 }
 
 final class ImageCarouselViewCell: UICollectionViewCell {
