@@ -43,7 +43,6 @@
 		659946972C43F1980030598B /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946962C43F1980030598B /* Type.swift */; };
 		6599469A2C4961840030598B /* omyu_pretty.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 659946992C4961840030598B /* omyu_pretty.ttf */; };
 		659946AC2C4BD8C70030598B /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946AB2C4BD8C70030598B /* UIImage+.swift */; };
-		659946AE2C4BD8DA0030598B /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946AD2C4BD8DA0030598B /* UIColor+.swift */; };
 		659946B02C4BECC00030598B /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946AF2C4BECC00030598B /* LoadingIndicator.swift */; };
 		659946B22C4D1AF10030598B /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946B12C4D1AF10030598B /* BaseNavigationController.swift */; };
 		659946B42C4FD4AB0030598B /* RecordHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946B32C4FD4AB0030598B /* RecordHistoryViewController.swift */; };
@@ -133,7 +132,6 @@
 		659946962C43F1980030598B /* Type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Type.swift; sourceTree = "<group>"; };
 		659946992C4961840030598B /* omyu_pretty.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = omyu_pretty.ttf; sourceTree = "<group>"; };
 		659946AB2C4BD8C70030598B /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
-		659946AD2C4BD8DA0030598B /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		659946AF2C4BECC00030598B /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		659946B12C4D1AF10030598B /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		659946B32C4FD4AB0030598B /* RecordHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordHistoryViewController.swift; sourceTree = "<group>"; };
@@ -280,7 +278,6 @@
 				6599466C2C3024F40030598B /* Encodable+.swift */,
 				659946912C424C660030598B /* Date+.swift */,
 				659946AB2C4BD8C70030598B /* UIImage+.swift */,
-				659946AD2C4BD8DA0030598B /* UIColor+.swift */,
 				659946BA2C564FCF0030598B /* UIViewController+.swift */,
 			);
 			path = Extension;
@@ -745,7 +742,6 @@
 				65CF61202C036432003E6D75 /* SceneDelegate.swift in Sources */,
 				659946AC2C4BD8C70030598B /* UIImage+.swift in Sources */,
 				6599466D2C3024F40030598B /* Encodable+.swift in Sources */,
-				659946AE2C4BD8DA0030598B /* UIColor+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -895,13 +891,13 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DailyRecord/Resource/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "다온";
 				INFOPLIST_KEY_NSCameraUsageDescription = "카메라를 사용하기 위해 권한이 필요합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "사진을 첨부하기 위해 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -931,13 +927,13 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DailyRecord/Resource/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "다온";
 				INFOPLIST_KEY_NSCameraUsageDescription = "카메라를 사용하기 위해 권한이 필요합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "사진을 첨부하기 위해 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
