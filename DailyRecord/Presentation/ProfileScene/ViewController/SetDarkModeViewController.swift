@@ -134,6 +134,8 @@ final class SetDarkModeViewController: BaseViewController {
 	override func setupView() {
 		view.backgroundColor = .azBlack
 		
+		setupInitialSelection()
+		
 		let didTapSystemModeGesture = UITapGestureRecognizer(target: self,
 																												 action: #selector(didTapModeButton))
 		systemModeStackView.addGestureRecognizer(didTapSystemModeGesture)
@@ -149,6 +151,20 @@ final class SetDarkModeViewController: BaseViewController {
 }
 
 extension SetDarkModeViewController {
+	private func setupInitialSelection() {
+		switch UserDefaultsSetting.currentDisplayMode {
+		case .system:
+			systemModeButton.isSelected = true
+			selectedMode = systemModeButton
+		case .light:
+			lightModeButton.isSelected = true
+			selectedMode = lightModeButton
+		case .dark:
+			darkModeButton.isSelected = true
+			selectedMode = darkModeButton
+		}
+	}
+	
 	@objc private func didTapModeButton(_ sender: UITapGestureRecognizer) {
 		guard let stackView = sender.view as? UIStackView else { return }
 		
@@ -160,11 +176,21 @@ extension SetDarkModeViewController {
 			selectedMode = tappedButton
 			
 			if tappedButton == systemModeButton {
-				// 시스템 설정 모드 선택
+				UserDefaultsSetting.displayMode = DisplayMode.system.rawValue
+				overrideUserInterfaceStyle = .unspecified
 			} else if tappedButton == lightModeButton {
-				// 라이트 모드 선택
+				UserDefaultsSetting.displayMode = DisplayMode.light.rawValue
+				overrideUserInterfaceStyle = .light
 			} else if tappedButton == darkModeButton {
-				// 다크 모드 선택
+				UserDefaultsSetting.displayMode = DisplayMode.dark.rawValue
+				overrideUserInterfaceStyle = .dark
+			}
+			
+			let scenes = UIApplication.shared.connectedScenes
+			let windowScene = scenes.first as? UIWindowScene
+			let window = windowScene?.windows.first
+			if let topViewController = window?.rootViewController {
+				topViewController.overrideUserInterfaceStyle = self.overrideUserInterfaceStyle
 			}
 		}
 	}

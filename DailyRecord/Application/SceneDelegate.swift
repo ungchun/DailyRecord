@@ -35,7 +35,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 							let window = UIWindow(windowScene: windowScene)
 							self.window = window
 							
-							self.window?.overrideUserInterfaceStyle = .dark
+							if UserDefaultsSetting.currentDisplayMode == .system {
+								window.overrideUserInterfaceStyle = .unspecified
+							} else if UserDefaultsSetting.currentDisplayMode == .light {
+								window.overrideUserInterfaceStyle = .light
+							} else if UserDefaultsSetting.currentDisplayMode == .dark {
+								window.overrideUserInterfaceStyle = .dark
+							}
 							
 							let navigationController = BaseNavigationController()
 							self.window?.rootViewController = navigationController
@@ -57,7 +63,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 				let window = UIWindow(windowScene: windowScene)
 				self.window = window
 				
-				self.window?.overrideUserInterfaceStyle = .dark
+				if UserDefaultsSetting.currentDisplayMode == .system {
+					window.overrideUserInterfaceStyle = .unspecified
+				} else if UserDefaultsSetting.currentDisplayMode == .light {
+					window.overrideUserInterfaceStyle = .light
+				} else if UserDefaultsSetting.currentDisplayMode == .dark {
+					window.overrideUserInterfaceStyle = .dark
+				}
 				
 				let navigationController = BaseNavigationController()
 				self.window?.rootViewController = navigationController
