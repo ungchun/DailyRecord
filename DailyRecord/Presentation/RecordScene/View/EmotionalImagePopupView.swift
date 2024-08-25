@@ -94,8 +94,9 @@ final class EmotionalImagePopupView: BaseView {
 	// MARK: - Functions
 	
 	override func addView() {
-		addSubview(dimmingView)
-		addSubview(emotionalImagePopupView)
+		[dimmingView, emotionalImagePopupView].forEach {
+			addSubview($0)
+		}
 		
 		[veryHappyEmotion, happyEmotion, neutralEmotion,
 		 verySadEmotion, sadEmotion, angryEmotion].forEach {

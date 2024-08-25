@@ -142,8 +142,9 @@ private extension ImageCarouselViewCell {
 	// MARK: - Functions
 	
 	func addView() {
-		addSubview(imageView)
-		addSubview(loadingIndicator)
+		[imageView, loadingIndicator].forEach {
+			addSubview($0)
+		}
 	}
 	
 	func setupView() {

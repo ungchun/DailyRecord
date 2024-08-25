@@ -64,8 +64,10 @@ final class FullscreenImageViewController: BaseViewController {
 	}
 	
 	override func addView() {
-		view.addSubview(scrollView)
-		view.addSubview(indexLabelContainer)
+		[scrollView, indexLabelContainer].forEach {
+			view.addSubview($0)
+		}
+		
 		indexLabelContainer.addSubview(indexLabel)
 		
 		for (index, image) in images.enumerated() {

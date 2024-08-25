@@ -150,8 +150,9 @@ private extension AttachedImageCollectionViewCell {
 	// MARK: - Functions
 	
 	func addView() {
-		addSubview(imageView)
-		addSubview(deleteButton)
+		[imageView, deleteButton].forEach {
+			addSubview($0)
+		}
 	}
 	
 	func setupView() {

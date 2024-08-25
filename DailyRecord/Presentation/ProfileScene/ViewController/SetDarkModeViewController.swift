@@ -106,9 +106,9 @@ final class SetDarkModeViewController: BaseViewController {
 	// MARK: - Functions
 	
 	override func addView() {
-		view.addSubview(systemModeStackView)
-		view.addSubview(lightModeStackView)
-		view.addSubview(darkModeStackView)
+		[systemModeStackView, lightModeStackView, darkModeStackView].forEach {
+			view.addSubview($0)
+		}
 	}
 	
 	override func setLayout() {
@@ -177,20 +177,13 @@ extension SetDarkModeViewController {
 			
 			if tappedButton == systemModeButton {
 				UserDefaultsSetting.displayMode = DisplayMode.system.rawValue
-				overrideUserInterfaceStyle = .unspecified
+				view.window?.overrideUserInterfaceStyle = .unspecified
 			} else if tappedButton == lightModeButton {
 				UserDefaultsSetting.displayMode = DisplayMode.light.rawValue
-				overrideUserInterfaceStyle = .light
+				view.window?.overrideUserInterfaceStyle = .light
 			} else if tappedButton == darkModeButton {
 				UserDefaultsSetting.displayMode = DisplayMode.dark.rawValue
-				overrideUserInterfaceStyle = .dark
-			}
-			
-			let scenes = UIApplication.shared.connectedScenes
-			let windowScene = scenes.first as? UIWindowScene
-			let window = windowScene?.windows.first
-			if let topViewController = window?.rootViewController {
-				topViewController.overrideUserInterfaceStyle = self.overrideUserInterfaceStyle
+				view.window?.overrideUserInterfaceStyle = .dark
 			}
 		}
 	}

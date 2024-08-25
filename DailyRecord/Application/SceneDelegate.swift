@@ -35,18 +35,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 							let window = UIWindow(windowScene: windowScene)
 							self.window = window
 							
-							if UserDefaultsSetting.currentDisplayMode == .system {
-								window.overrideUserInterfaceStyle = .unspecified
-							} else if UserDefaultsSetting.currentDisplayMode == .light {
-								window.overrideUserInterfaceStyle = .light
-							} else if UserDefaultsSetting.currentDisplayMode == .dark {
-								window.overrideUserInterfaceStyle = .dark
-							}
+							self.initDisplayMode(window)
 							
 							let navigationController = BaseNavigationController()
 							self.window?.rootViewController = navigationController
 							
-							calendarDIContainer = CalendarDIContainer(navigationController: navigationController)
+							calendarDIContainer = CalendarDIContainer(
+								navigationController: navigationController
+							)
 							calendarCoordinator = calendarDIContainer?.makeCalendarCoordinator()
 							calendarCoordinator?.start()
 							
@@ -63,13 +59,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 				let window = UIWindow(windowScene: windowScene)
 				self.window = window
 				
-				if UserDefaultsSetting.currentDisplayMode == .system {
-					window.overrideUserInterfaceStyle = .unspecified
-				} else if UserDefaultsSetting.currentDisplayMode == .light {
-					window.overrideUserInterfaceStyle = .light
-				} else if UserDefaultsSetting.currentDisplayMode == .dark {
-					window.overrideUserInterfaceStyle = .dark
-				}
+				initDisplayMode(window)
 				
 				let navigationController = BaseNavigationController()
 				self.window?.rootViewController = navigationController
@@ -109,5 +99,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	
 	func sceneDidEnterBackground(_ scene: UIScene) {
 		
+	}
+}
+
+extension SceneDelegate {
+	private func initDisplayMode(_ window: UIWindow) {
+		if UserDefaultsSetting.currentDisplayMode == .system {
+			window.overrideUserInterfaceStyle = .unspecified
+		} else if UserDefaultsSetting.currentDisplayMode == .light {
+			window.overrideUserInterfaceStyle = .light
+		} else if UserDefaultsSetting.currentDisplayMode == .dark {
+			window.overrideUserInterfaceStyle = .dark
+		}
 	}
 }
