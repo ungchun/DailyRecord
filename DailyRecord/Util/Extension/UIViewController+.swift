@@ -16,10 +16,10 @@ extension UIViewController {
 		toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
 		toastLabel.textColor = UIColor.white
 		toastLabel.font = font
-		toastLabel.textAlignment = .center;
+		toastLabel.textAlignment = .center
 		toastLabel.text = message
 		toastLabel.alpha = 1.0
-		toastLabel.layer.cornerRadius = 10;
+		toastLabel.layer.cornerRadius = 16
 		toastLabel.clipsToBounds  =  true
 		self.view.addSubview(toastLabel)
 		UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {

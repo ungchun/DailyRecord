@@ -109,7 +109,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
 		
 		let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .default)
 		cell.imageView?.image = UIImage(systemName: item.iconName, withConfiguration: config)
-		cell.imageView?.tintColor = item == .deleteAccount ? .red : .white
+		cell.imageView?.tintColor = item == .deleteAccount ? .red : .azWhite
 		
 		cell.selectionStyle = .none
 		cell.backgroundColor = .azBlack

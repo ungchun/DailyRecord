@@ -47,7 +47,7 @@ final class RecordFooterView: BaseView {
 		divider.snp.makeConstraints { make in
 			make.top.equalToSuperview()
 			make.left.right.equalToSuperview()
-			make.height.equalTo(1)
+			make.height.equalTo(2)
 		}
 		
 		galleryIcon.snp.makeConstraints { make in

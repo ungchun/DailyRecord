@@ -30,8 +30,8 @@ final class FullscreenImageViewController: BaseViewController {
 	
 	private var indexLabelContainer: UIView = {
 		let containerView = UIView()
-		containerView.backgroundColor = .azDarkGray
-		containerView.layer.cornerRadius = 8
+		containerView.backgroundColor = .azBlack
+		containerView.layer.cornerRadius = 16
 		containerView.translatesAutoresizingMaskIntoConstraints = false
 		return containerView
 	}()

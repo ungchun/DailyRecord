@@ -112,7 +112,7 @@ final class ImageCarouselViewCell: UICollectionViewCell {
 		let imageView = UIImageView()
 		imageView.contentMode = .scaleAspectFill
 		imageView.clipsToBounds = true
-		imageView.layer.cornerRadius = 12
+		imageView.layer.cornerRadius = 16
 		imageView.layer.masksToBounds = true
 		return imageView
 	}()
