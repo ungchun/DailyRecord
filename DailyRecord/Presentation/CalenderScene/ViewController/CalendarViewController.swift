@@ -314,6 +314,30 @@ extension CalendarViewController: FSCalendarDelegate,
 		DispatchQueue.main.async {
 			cell.backImageView.image = nil
 			cell.titleLabel.isHidden = false
+			cell.contentView.subviews.forEach { subview in
+				if subview.tag == 1001 {
+					subview.removeFromSuperview()
+				}
+			}
+		}
+		
+		if Calendar.current.isDateInToday(date) {
+			DispatchQueue.main.async {
+				let squareView = UIView()
+				squareView.backgroundColor = .azDarkGray.withAlphaComponent(0.5)
+				squareView.tag = 1001
+				
+				cell.contentView.addSubview(squareView)
+				squareView.translatesAutoresizingMaskIntoConstraints = false
+				NSLayoutConstraint.activate([
+					squareView.widthAnchor.constraint(equalTo: cell.contentView.widthAnchor,
+																						multiplier: 0.5),
+					squareView.heightAnchor.constraint(equalToConstant: 10),
+					squareView.centerXAnchor.constraint(equalTo: cell.contentView.centerXAnchor),
+					squareView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor,
+																						 constant: -5)
+				])
+			}
 		}
 		
 		viewModel.records.forEach { entity in
@@ -324,6 +348,14 @@ extension CalendarViewController: FSCalendarDelegate,
 					DispatchQueue.main.async {
 						cell.backImageView.image = image
 						cell.titleLabel.isHidden = true
+						
+						if Calendar.current.isDateInToday(date) {
+							cell.contentView.subviews.forEach { subview in
+								if subview.tag == 1001 {
+									subview.removeFromSuperview()
+								}
+							}
+						}
 					}
 				} else {
 					DispatchQueue.main.async {
