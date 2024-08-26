@@ -178,6 +178,7 @@ final class RecordHistoryViewController: BaseViewController {
 		
 		DispatchQueue.main.async { [weak self] in
 			self?.inputDiaryView.text = self?.viewModel.selectData.content
+			self?.inputDiaryView.setLineSpacing(lineSpacing: 8)
 		}
 	}
 }
