@@ -27,6 +27,13 @@ extension ProfileCoordinator {
 																								 animated: true)
 	}
 	
+	func showSetDarkmode() {
+		let setDarkModeViewController = DIContainer.makeSetDarkModeViewController()
+		setDarkModeViewController.coordinator = self
+		self.navigationController.pushViewController(setDarkModeViewController,
+																								 animated: true)
+	}
+	
 	func popToRoot() {
 		self.navigationController.popToRootViewController(animated: true)
 	}

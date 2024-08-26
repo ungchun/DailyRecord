@@ -108,6 +108,7 @@ final class RecordHistoryViewController: BaseViewController {
 		todayEmotionImageView.snp.makeConstraints { make in
 			make.top.equalTo(contentView.snp.top).offset(20)
 			make.centerX.equalToSuperview()
+			make.width.height.equalTo(0)
 		}
 		
 		createDateView.snp.makeConstraints { make in
@@ -148,14 +149,17 @@ final class RecordHistoryViewController: BaseViewController {
 				self?.todayEmotionImageView.backgroundColor = .clear
 				self?.todayEmotionImageView.image = image
 			}
+			
 			let originalWidth = image.size.width
 			let originalHeight = image.size.height
 			let aspectRatio = originalHeight / originalWidth
 			let desiredWidth: CGFloat = 80
 			let desiredHeight = desiredWidth * aspectRatio
-			todayEmotionImageView.snp.updateConstraints { make in
-				make.width.equalTo(desiredWidth)
-				make.height.equalTo(desiredHeight)
+			DispatchQueue.main.async { [weak self] in
+				self?.todayEmotionImageView.snp.updateConstraints { make in
+					make.width.equalTo(desiredWidth)
+					make.height.equalTo(desiredHeight)
+				}
 			}
 		}
 		
@@ -174,6 +178,7 @@ final class RecordHistoryViewController: BaseViewController {
 		
 		DispatchQueue.main.async { [weak self] in
 			self?.inputDiaryView.text = self?.viewModel.selectData.content
+			self?.inputDiaryView.setLineSpacing(lineSpacing: 8)
 		}
 	}
 }

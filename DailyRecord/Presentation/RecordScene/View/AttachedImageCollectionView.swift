@@ -120,7 +120,7 @@ final class AttachedImageCollectionViewCell: UICollectionViewCell {
 	let imageView: UIImageView = {
 		let imageView = UIImageView()
 		imageView.contentMode = .scaleAspectFill
-		imageView.layer.cornerRadius = 12
+		imageView.layer.cornerRadius = 16
 		imageView.clipsToBounds = true
 		return imageView
 	}()
@@ -128,7 +128,7 @@ final class AttachedImageCollectionViewCell: UICollectionViewCell {
 	let deleteButton: UIButton = {
 		let button = UIButton()
 		button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
-		button.tintColor = .azDarkGray
+		button.tintColor = .azWhite
 		return button
 	}()
 	
@@ -150,8 +150,9 @@ private extension AttachedImageCollectionViewCell {
 	// MARK: - Functions
 	
 	func addView() {
-		addSubview(imageView)
-		addSubview(deleteButton)
+		[imageView, deleteButton].forEach {
+			addSubview($0)
+		}
 	}
 	
 	func setupView() {

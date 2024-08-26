@@ -98,8 +98,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
 		)
 		
 		let items: [ProfileCellItem] = UserDefaultsSetting.isAnonymously
-		? [.linkAccount, .deleteAccount]
-		: [.appleLogin, .deleteAccount]
+		? [.linkAccount, .darkMode, .deleteAccount]
+		: [.appleLogin, .darkMode, .deleteAccount]
 		
 		let item = items[indexPath.row]
 		
@@ -107,8 +107,9 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
 		cell.textLabel?.font = UIFont(name: "omyu_pretty", size: 16)
 		cell.textLabel?.textColor = item == .deleteAccount ? .red : .azWhite
 		
-		cell.imageView?.image = UIImage(systemName: item.iconName)
-		cell.imageView?.tintColor = item == .deleteAccount ? .red : .white
+		let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .default)
+		cell.imageView?.image = UIImage(systemName: item.iconName, withConfiguration: config)
+		cell.imageView?.tintColor = item == .deleteAccount ? .red : .azWhite
 		
 		cell.selectionStyle = .none
 		cell.backgroundColor = .azBlack
@@ -119,14 +120,16 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
 		tableView.deselectRow(at: indexPath, animated: true)
 		
 		let items: [ProfileCellItem] = UserDefaultsSetting.isAnonymously
-		? [.linkAccount, .deleteAccount]
-		: [.appleLogin, .deleteAccount]
+		? [.linkAccount, .darkMode, .deleteAccount]
+		: [.appleLogin, .darkMode, .deleteAccount]
 		
 		let selectedItem = items[indexPath.row]
 		
 		switch selectedItem {
 		case .linkAccount:
 			appleLoginTrigger()
+		case .darkMode:
+			darkModeTrigger()
 		case .deleteAccount:
 			showRemoveUserAlert()
 		default:
@@ -138,6 +141,10 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
 extension ProfileViewController {
 	@objc private func appleLoginTrigger() {
 		startSignInWithAppleFlow()
+	}
+	
+	private func darkModeTrigger() {
+		coordinator?.showSetDarkmode()
 	}
 	
 	private func showRemoveUserAlert() {

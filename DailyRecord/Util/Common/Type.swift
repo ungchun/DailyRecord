@@ -18,3 +18,11 @@ enum EmotionType: String {
 	case neutral
 	case angry
 }
+
+// MARK: - 디스플레이 모드
+
+enum DisplayMode: String {
+	case system = "system"
+	case light = "light"
+	case dark = "dark"
+}

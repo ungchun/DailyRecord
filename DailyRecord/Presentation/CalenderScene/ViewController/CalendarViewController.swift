@@ -29,7 +29,7 @@ final class CalendarViewController: BaseViewController {
 			to: CGSize(width: 24,height: 24)
 		)
 		button.setImage(pencilImage, for: .normal)
-		button.tintColor = .white
+		button.tintColor = .azWhite
 		return button
 	}()
 	
@@ -39,8 +39,8 @@ final class CalendarViewController: BaseViewController {
 			to: CGSize(width: 24,height: 24)
 		)
 		button.setImage(pencilImage, for: .normal)
-		button.backgroundColor = .azDarkGray
-		button.tintColor = .white
+		button.backgroundColor = .azWhite
+		button.tintColor = .azBlack
 		button.layer.cornerRadius = 30
 		button.layer.masksToBounds = true
 		return button
@@ -49,7 +49,7 @@ final class CalendarViewController: BaseViewController {
 	private lazy var calendarHeaderView: UILabel = {
 		let label = UILabel()
 		label.font = UIFont(name: "omyu_pretty", size: 40)
-		label.textColor = .azLightGray
+		label.textColor = .azWhite
 		label.text = formattedDateString(Date(), format: "M월")
 		return label
 	}()
@@ -73,7 +73,6 @@ final class CalendarViewController: BaseViewController {
 		calendar.appearance.weekdayTextColor = .azLightGray
 		calendar.appearance.todayColor = .azDarkGray
 		calendar.appearance.selectionColor = .clear
-		
 		calendar.appearance.titleFont = UIFont(name: "omyu_pretty", size: 12)
 		return calendar
 	}()
@@ -187,6 +186,15 @@ extension CalendarViewController {
 	
 	@objc private func todayWriteTrigger() {
 		let nowDate = Calendar.current.startOfDay(for: Date())
+		let day = Calendar.current.component(.weekday, from: nowDate) - 1
+		if Calendar.current.shortWeekdaySymbols[day] == "Sun" {
+			calendarView.appearance.titleSelectionColor = .azRed
+		} else if Calendar.current.shortWeekdaySymbols[day] == "Sat" {
+			calendarView.appearance.titleSelectionColor = .azBlue
+		} else {
+			calendarView.appearance.titleSelectionColor = .azWhite
+		}
+		
 		var selectData = RecordEntity(calendarDate: Int(nowDate.millisecondsSince1970))
 		if let matchedEntity = viewModel.records.first(where: { entity in
 			let seconds = TimeInterval(entity.calendarDate) / 1000
@@ -226,6 +234,15 @@ extension CalendarViewController: FSCalendarDelegate,
 	
 	func calendar(_ calendar: FSCalendar, didSelect date: Date,
 								at monthPosition: FSCalendarMonthPosition) {
+		let day = Calendar.current.component(.weekday, from: date) - 1
+		if Calendar.current.shortWeekdaySymbols[day] == "Sun" {
+			calendar.appearance.titleSelectionColor = .azRed
+		} else if Calendar.current.shortWeekdaySymbols[day] == "Sat" {
+			calendar.appearance.titleSelectionColor = .azBlue
+		} else {
+			calendar.appearance.titleSelectionColor = .azWhite
+		}
+		
 		var selectData = RecordEntity(calendarDate: Int(date.millisecondsSince1970))
 		if let matchedEntity = viewModel.records.first(where: { entity in
 			let seconds = TimeInterval(entity.calendarDate) / 1000
@@ -247,7 +264,7 @@ extension CalendarViewController: FSCalendarDelegate,
 		let day = Calendar.current.component(.weekday, from: date) - 1
 		
 		if date > Date() {
-			return .azLightGray
+			return .azLightGray.withAlphaComponent(0.5)
 		}
 		
 		if Calendar.current.shortWeekdaySymbols[day] == "Sun" {
@@ -297,6 +314,30 @@ extension CalendarViewController: FSCalendarDelegate,
 		DispatchQueue.main.async {
 			cell.backImageView.image = nil
 			cell.titleLabel.isHidden = false
+			cell.contentView.subviews.forEach { subview in
+				if subview.tag == 1001 {
+					subview.removeFromSuperview()
+				}
+			}
+		}
+		
+		if Calendar.current.isDateInToday(date) {
+			DispatchQueue.main.async {
+				let squareView = UIView()
+				squareView.backgroundColor = .azDarkGray.withAlphaComponent(0.5)
+				squareView.tag = 1001
+				
+				cell.contentView.addSubview(squareView)
+				squareView.translatesAutoresizingMaskIntoConstraints = false
+				NSLayoutConstraint.activate([
+					squareView.widthAnchor.constraint(equalTo: cell.contentView.widthAnchor,
+																						multiplier: 0.5),
+					squareView.heightAnchor.constraint(equalToConstant: 10),
+					squareView.centerXAnchor.constraint(equalTo: cell.contentView.centerXAnchor),
+					squareView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor,
+																						 constant: -5)
+				])
+			}
 		}
 		
 		viewModel.records.forEach { entity in
@@ -307,6 +348,14 @@ extension CalendarViewController: FSCalendarDelegate,
 					DispatchQueue.main.async {
 						cell.backImageView.image = image
 						cell.titleLabel.isHidden = true
+						
+						if Calendar.current.isDateInToday(date) {
+							cell.contentView.subviews.forEach { subview in
+								if subview.tag == 1001 {
+									subview.removeFromSuperview()
+								}
+							}
+						}
 					}
 				} else {
 					DispatchQueue.main.async {

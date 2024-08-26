@@ -28,12 +28,8 @@ final class EmotionalImagePopupView: BaseView {
 	
 	private let emotionalImagePopupView: UIView = {
 		let view = UIView()
-		view.backgroundColor = .azDarkGray
-		view.layer.cornerRadius = 10
-		view.layer.shadowColor = UIColor.black.cgColor
-		view.layer.shadowOpacity = 0.3
-		view.layer.shadowOffset = CGSize(width: 0, height: 2)
-		view.layer.shadowRadius = 4
+		view.backgroundColor = .azWhite
+		view.layer.cornerRadius = 16
 		return view
 	}()
 	
@@ -98,8 +94,9 @@ final class EmotionalImagePopupView: BaseView {
 	// MARK: - Functions
 	
 	override func addView() {
-		addSubview(dimmingView)
-		addSubview(emotionalImagePopupView)
+		[dimmingView, emotionalImagePopupView].forEach {
+			addSubview($0)
+		}
 		
 		[veryHappyEmotion, happyEmotion, neutralEmotion,
 		 verySadEmotion, sadEmotion, angryEmotion].forEach {
@@ -167,7 +164,7 @@ final class EmotionalImagePopupView: BaseView {
 extension EmotionalImagePopupView {
 	func showPopup() {
 		DispatchQueue.main.async { [weak self] in
-			UIView.animate(withDuration: 0.3) {
+			UIView.animate(withDuration: 0.6) {
 				self?.dimmingView.alpha = 1
 				self?.emotionalImagePopupView.alpha = 1
 			}

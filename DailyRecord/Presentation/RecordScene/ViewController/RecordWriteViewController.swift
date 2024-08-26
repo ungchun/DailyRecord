@@ -172,6 +172,10 @@ final class RecordWriteViewController: BaseViewController {
 		
 		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
 		view.addGestureRecognizer(tapGesture)
+		
+		DispatchQueue.main.async { [weak self] in
+			self?.inputDiaryView.setLineSpacing(lineSpacing: 8)
+		}
 	}
 }
 

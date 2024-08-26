@@ -42,4 +42,9 @@ extension ProfileDIContainer {
 			profileUseCase: ProfileUseCase(profileRepository: ProfileRepository())
 		)
 	}
+	
+	func makeSetDarkModeViewController() -> SetDarkModeViewController {
+		return SetDarkModeViewController()
+	}
+	
 }
