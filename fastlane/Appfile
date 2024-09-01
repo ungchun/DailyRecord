@@ -1,5 +1,5 @@
 app_identifier("ungchun.DailyRecord") # The bundle identifier of your app
-apple_id("leedool3003@hanmail.net") # Your Apple Developer Portal username
+apple_id(ENV["APPLE_ID"]) # Your Apple Developer Portal username
 
 itc_team_id("123515304") # App Store Connect Team ID
 team_id("F92UQYH2RA") # Developer Portal Team ID
