@@ -78,7 +78,7 @@ platform :ios do
   desc "build app and release to App Store."
   lane :release do |options|
     setup_app_store_connect_api_key
-    #sync_code_signing
+    sync_code_signing
     increment_build_number(
       build_number: latest_testflight_build_number + 1
     )
@@ -101,8 +101,9 @@ platform :ios do
       skip_metadata: false,
       submit_for_review: false,
       force: true,
-      automatic_release: false
-      #precheck_include_in_app_purchases: false
+      automatic_release: false,
+      metadata_path: "./metadata",
+      precheck_include_in_app_purchases: false
     )
 
     slack(

@@ -33,7 +33,7 @@ jobs:
         run: bundle install
         
       - name: run fastlane for update to testFlight
-        run: bundle exec fastlane beta --verbose
+        run: bundle exec fastlane release --verbose
         env: 
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           KEYCHAIN_NAME: ${{ secrets.KEYCHAIN_NAME }}
