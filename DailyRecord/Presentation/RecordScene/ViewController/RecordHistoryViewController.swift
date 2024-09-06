@@ -52,7 +52,7 @@ final class RecordHistoryViewController: BaseViewController {
 	private lazy var inputDiaryView: UITextView = {
 		let textView = UITextView()
 		textView.font = UIFont(name: "omyu_pretty", size: 16)
-		textView.textColor = .azLightGray.withAlphaComponent(0.5)
+		textView.textColor = .azWhite
 		textView.backgroundColor = .clear
 		textView.isScrollEnabled = false
 		textView.isEditable = false

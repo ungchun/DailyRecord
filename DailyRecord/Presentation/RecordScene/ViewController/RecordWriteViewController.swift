@@ -61,6 +61,10 @@ final class RecordWriteViewController: BaseViewController {
 		textView.text = "오늘 하루는 어떠셨나요"
 		textView.backgroundColor = .clear
 		textView.isScrollEnabled = false
+		textView.autocapitalizationType = .none
+		textView.spellCheckingType = .no
+		textView.autocorrectionType = .no
+		textView.setLineSpacing(lineSpacing: 8)
 		return textView
 	}()
 	
@@ -153,7 +157,6 @@ final class RecordWriteViewController: BaseViewController {
 		footerView.snp.makeConstraints { make in
 			make.bottom.equalTo(view.snp.bottom).offset(-24)
 			make.left.right.equalToSuperview()
-			make.height.equalTo(30)
 		}
 	}
 	
@@ -182,6 +185,7 @@ final class RecordWriteViewController: BaseViewController {
 																										 action: #selector(showPopupTrigger))
 		todayEmotionImageView.addGestureRecognizer(showPopupTapGesture)
 		
+		footerView.backgroundColor = .azBlack
 		let galleryTapGesture = UITapGestureRecognizer(target: self,
 																									 action: #selector(galleryTrigger))
 		footerView.galleryIcon.addGestureRecognizer(galleryTapGesture)
@@ -194,10 +198,6 @@ final class RecordWriteViewController: BaseViewController {
 		
 		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
 		view.addGestureRecognizer(tapGesture)
-		
-		DispatchQueue.main.async { [weak self] in
-			self?.inputDiaryView.setLineSpacing(lineSpacing: 8)
-		}
 	}
 }
 
@@ -213,7 +213,7 @@ extension RecordWriteViewController: UIGestureRecognizerDelegate {
 			target: self,
 			action: #selector(customBackButtonTapped)
 		)
-		backButton.tintColor = .azLightGray
+		backButton.tintColor = .azWhite
 		navigationItem.leftBarButtonItem = backButton
 	}
 	
@@ -269,6 +269,7 @@ private extension RecordWriteViewController {
 			DispatchQueue.main.async { [weak self] in
 				self?.inputDiaryView.text = self?.viewModel.content
 			}
+			inputDiaryView.textColor = .azWhite
 		}
 		
 		emotionalImageTapTrigger(selectEmotionType: viewModel.emotionType)
@@ -308,7 +309,7 @@ private extension RecordWriteViewController {
 	func adjustFooterViewForKeyboard(show: Bool, keyboardHeight: CGFloat) {
 		footerView.snp.updateConstraints { make in
 			if show {
-				make.bottom.equalTo(view.snp.bottom).offset(-(keyboardHeight+12))
+				make.bottom.equalTo(view.snp.bottom).offset(-keyboardHeight)
 			} else {
 				make.bottom.equalTo(view.snp.bottom).offset(-24)
 			}
@@ -454,7 +455,7 @@ extension RecordWriteViewController: UITextViewDelegate {
 		if textView.text == "오늘 하루는 어떠셨나요" {
 			guard textView.textColor == .azLightGray.withAlphaComponent(0.5) else { return }
 			textView.text = nil
-			textView.textColor = .azLightGray
+			textView.textColor = .azWhite
 		}
 	}
 }
@@ -463,15 +464,18 @@ extension RecordWriteViewController: PHPickerViewControllerDelegate {
 	func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
 		picker.dismiss(animated: true, completion: nil)
 		var selectedImages: [UIImage] = []
-		for result in results {
-			result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, error) in
-				if let image = image as? UIImage {
-					selectedImages.append(image)
-					if results.count == selectedImages.count {
-						DispatchQueue.main.async { [weak self] in
-							self?.attachedImageCollectionView.setImages(selectedImages)
-							self?.attachedImageCollectionView.snp.updateConstraints { make in
-								make.height.equalTo(100)
+		if !results.isEmpty {
+			isChangeContent = true
+			for result in results {
+				result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, error) in
+					if let image = image as? UIImage {
+						selectedImages.append(image)
+						if results.count == selectedImages.count {
+							DispatchQueue.main.async { [weak self] in
+								self?.attachedImageCollectionView.setImages(selectedImages)
+								self?.attachedImageCollectionView.snp.updateConstraints { make in
+									make.height.equalTo(100)
+								}
 							}
 						}
 					}

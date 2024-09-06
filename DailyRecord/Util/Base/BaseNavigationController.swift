@@ -38,6 +38,6 @@ final class BaseNavigationController: UINavigationController {
 		
 		navigationBar.standardAppearance = appearance
 		navigationBar.scrollEdgeAppearance = appearance
-		navigationBar.tintColor = .azLightGray
+		navigationBar.tintColor = .azWhite
 	}
 }
