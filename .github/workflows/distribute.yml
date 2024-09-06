@@ -2,7 +2,7 @@ name: Distribute iOS App
 
 # 특정 branch에 push될 때 액션 실행
 on:
-  push:
+  pull_request:
     branches: [ release ]
     
 # 특정 워크플로우가 특정 브랜치 또는 태그에서 실행 중인 경우, 
