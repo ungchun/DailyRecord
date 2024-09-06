@@ -22,6 +22,7 @@ final class RecordHistoryViewController: BaseViewController {
 	
 	private let scrollView: UIScrollView = {
 		let scrollView = UIScrollView()
+		scrollView.showsVerticalScrollIndicator = false
 		return scrollView
 	}()
 	

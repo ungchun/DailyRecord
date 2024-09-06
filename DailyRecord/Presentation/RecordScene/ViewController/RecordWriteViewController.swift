@@ -155,7 +155,7 @@ final class RecordWriteViewController: BaseViewController {
 		}
 		
 		footerView.snp.makeConstraints { make in
-			make.bottom.equalTo(view.snp.bottom).offset(-24)
+			make.bottom.equalToSuperview()
 			make.left.right.equalToSuperview()
 		}
 	}
@@ -309,9 +309,9 @@ private extension RecordWriteViewController {
 	func adjustFooterViewForKeyboard(show: Bool, keyboardHeight: CGFloat) {
 		footerView.snp.updateConstraints { make in
 			if show {
-				make.bottom.equalTo(view.snp.bottom).offset(-keyboardHeight)
+				make.bottom.equalToSuperview().offset(-(keyboardHeight)+30)
 			} else {
-				make.bottom.equalTo(view.snp.bottom).offset(-24)
+				make.bottom.equalToSuperview()
 			}
 		}
 		
@@ -361,6 +361,7 @@ private extension RecordWriteViewController {
 	}
 	
 	@objc func saveTrigger() {
+		view.endEditing(true)
 		LoadingIndicator.showLoading()
 		viewModel.imageList = attachedImageCollectionView.images
 		Task { [weak self] in
