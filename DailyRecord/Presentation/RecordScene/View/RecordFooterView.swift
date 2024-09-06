@@ -7,6 +7,8 @@
 
 import UIKit
 
+import SnapKit
+
 final class RecordFooterView: BaseView {
 	
 	// MARK: - Views
@@ -22,7 +24,7 @@ final class RecordFooterView: BaseView {
 		view.image = UIImage(systemName: "photo")
 		view.contentMode = .scaleAspectFit
 		view.isUserInteractionEnabled = true
-		view.tintColor = .azLightGray
+		view.tintColor = .azWhite
 		return view
 	}()
 	
@@ -31,7 +33,7 @@ final class RecordFooterView: BaseView {
 		view.image = UIImage(systemName: "checkmark")
 		view.contentMode = .scaleAspectFit
 		view.isUserInteractionEnabled = true
-		view.tintColor = .azLightGray
+		view.tintColor = .azWhite
 		return view
 	}()
 	
@@ -51,15 +53,19 @@ final class RecordFooterView: BaseView {
 		}
 		
 		galleryIcon.snp.makeConstraints { make in
-			make.top.equalTo(divider.snp.bottom).offset(16)
+			make.top.equalTo(divider.snp.bottom).offset(10)
 			make.leading.equalToSuperview().offset(24)
 			make.width.height.equalTo(20)
 		}
 		
 		saveIcon.snp.makeConstraints { make in
-			make.top.equalTo(divider.snp.bottom).offset(16)
+			make.top.equalTo(divider.snp.bottom).offset(10)
 			make.trailing.equalToSuperview().offset(-24)
 			make.width.height.equalTo(20)
+		}
+		
+		self.snp.makeConstraints { make in
+			make.height.equalTo(20 + 10 + 10 + 2 + 30)
 		}
 	}
 	

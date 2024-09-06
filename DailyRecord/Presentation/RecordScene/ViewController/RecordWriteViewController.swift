@@ -19,10 +19,14 @@ final class RecordWriteViewController: BaseViewController {
 	private let viewModel: RecordViewModel
 	private let calendarViewModel: CalendarViewModel
 	
+	private var isChangeContent = false
+	
 	// MARK: - Views
 	
 	private let scrollView: UIScrollView = {
 		let scrollView = UIScrollView()
+		scrollView.translatesAutoresizingMaskIntoConstraints = false
+		scrollView.showsVerticalScrollIndicator = false
 		return scrollView
 	}()
 	
@@ -57,6 +61,10 @@ final class RecordWriteViewController: BaseViewController {
 		textView.text = "오늘 하루는 어떠셨나요"
 		textView.backgroundColor = .clear
 		textView.isScrollEnabled = false
+		textView.autocapitalizationType = .none
+		textView.spellCheckingType = .no
+		textView.autocorrectionType = .no
+		textView.setLineSpacing(lineSpacing: 8)
 		return textView
 	}()
 	
@@ -75,6 +83,8 @@ final class RecordWriteViewController: BaseViewController {
 		self.viewModel = viewModel
 		self.calendarViewModel = calendarViewModel
 		super.init(nibName: nil, bundle: nil)
+		
+		self.navigationController?.isNavigationBarHidden = true
 	}
 	
 	required init?(coder: NSCoder) {
@@ -83,6 +93,16 @@ final class RecordWriteViewController: BaseViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		self.navigationController?.isNavigationBarHidden = false
+		self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
+	}
+	
+	deinit {
+		NotificationCenter.default.removeObserver(self)
 	}
 	
 	// MARK: - Functions
@@ -135,13 +155,18 @@ final class RecordWriteViewController: BaseViewController {
 		}
 		
 		footerView.snp.makeConstraints { make in
-			make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-12)
+			make.bottom.equalToSuperview()
 			make.left.right.equalToSuperview()
-			make.height.equalTo(30)
 		}
 	}
 	
 	override func setupView() {
+		setupKeyboardNotifications()
+		
+		setupCustomBackButton()
+		
+		setupSwipeGesture()
+		
 		fetchEditData()
 		
 		DispatchQueue.main.async { [weak self] in
@@ -160,6 +185,7 @@ final class RecordWriteViewController: BaseViewController {
 																										 action: #selector(showPopupTrigger))
 		todayEmotionImageView.addGestureRecognizer(showPopupTapGesture)
 		
+		footerView.backgroundColor = .azBlack
 		let galleryTapGesture = UITapGestureRecognizer(target: self,
 																									 action: #selector(galleryTrigger))
 		footerView.galleryIcon.addGestureRecognizer(galleryTapGesture)
@@ -172,10 +198,58 @@ final class RecordWriteViewController: BaseViewController {
 		
 		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
 		view.addGestureRecognizer(tapGesture)
-		
-		DispatchQueue.main.async { [weak self] in
-			self?.inputDiaryView.setLineSpacing(lineSpacing: 8)
+	}
+}
+
+extension RecordWriteViewController: UIGestureRecognizerDelegate {
+	private func setupCustomBackButton() {
+		let largeConfig = UIImage.SymbolConfiguration(pointSize: 16,
+																									weight: .bold, scale: .large)
+		let iconImage = UIImage(systemName: "chevron.left",
+														withConfiguration: largeConfig)
+		let backButton = UIBarButtonItem(
+			image: iconImage,
+			style: .plain,
+			target: self,
+			action: #selector(customBackButtonTapped)
+		)
+		backButton.tintColor = .azWhite
+		navigationItem.leftBarButtonItem = backButton
+	}
+	
+	@objc private func customBackButtonTapped() {
+		if isChangeContent {
+			showAlertToConfirmExit()
+		} else {
+			navigationController?.popViewController(animated: true)
 		}
+	}
+	
+	private func setupSwipeGesture() {
+		navigationController?.interactivePopGestureRecognizer?.delegate = self
+	}
+	
+	func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+		if isChangeContent {
+			showAlertToConfirmExit()
+			return false
+		}
+		return true
+	}
+	
+	private func showAlertToConfirmExit() {
+		let alert = UIAlertController(
+			title: "작성을 그만두나요?",
+			message: "변경된 내용이 저장되지 않아요",
+			preferredStyle: .alert
+		)
+		let stayAction = UIAlertAction(title: "계속 작성", style: .default, handler: nil)
+		let exitAction = UIAlertAction(title: "나가기", style: .cancel) {_ in
+			self.navigationController?.popViewController(animated: true)
+		}
+		alert.addAction(stayAction)
+		alert.addAction(exitAction)
+		present(alert, animated: true, completion: nil)
 	}
 }
 
@@ -195,6 +269,7 @@ private extension RecordWriteViewController {
 			DispatchQueue.main.async { [weak self] in
 				self?.inputDiaryView.text = self?.viewModel.content
 			}
+			inputDiaryView.textColor = .azWhite
 		}
 		
 		emotionalImageTapTrigger(selectEmotionType: viewModel.emotionType)
@@ -202,6 +277,54 @@ private extension RecordWriteViewController {
 	
 	func updateImageView() {
 		attachedImageCollectionView.setImages(viewModel.imageList)
+	}
+}
+
+private extension RecordWriteViewController {
+	func setupKeyboardNotifications() {
+		NotificationCenter.default.addObserver(
+			self,
+			selector: #selector(keyboardWillShow),
+			name: UIResponder.keyboardWillShowNotification, object: nil
+		)
+		NotificationCenter.default.addObserver(
+			self,
+			selector: #selector(keyboardWillHide),
+			name: UIResponder.keyboardWillHideNotification, object: nil
+		)
+	}
+	
+	@objc func keyboardWillShow(notification: NSNotification) {
+		if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey]
+				as? NSValue {
+			let keyboardHeight = keyboardFrame.cgRectValue.height
+			adjustFooterViewForKeyboard(show: true, keyboardHeight: keyboardHeight)
+		}
+	}
+	
+	@objc func keyboardWillHide(notification: NSNotification) {
+		adjustFooterViewForKeyboard(show: false, keyboardHeight: 0)
+	}
+	
+	func adjustFooterViewForKeyboard(show: Bool, keyboardHeight: CGFloat) {
+		footerView.snp.updateConstraints { make in
+			if show {
+				make.bottom.equalToSuperview().offset(-(keyboardHeight)+30)
+			} else {
+				make.bottom.equalToSuperview()
+			}
+		}
+		
+		scrollView.contentInset = UIEdgeInsets(
+			top: 0.0,
+			left: 0.0,
+			bottom: keyboardHeight + footerView.frame.size.height,
+			right: 0.0
+		)
+		
+		UIView.animate(withDuration: 0.3) {
+			self.view.layoutIfNeeded()
+		}
 	}
 }
 
@@ -224,6 +347,7 @@ private extension RecordWriteViewController {
 				self?.emotionalImagePopupView.removeFromSuperview()
 			}
 		}
+		isChangeContent = true
 	}
 	
 	@objc func galleryTrigger() {
@@ -237,6 +361,7 @@ private extension RecordWriteViewController {
 	}
 	
 	@objc func saveTrigger() {
+		view.endEditing(true)
 		LoadingIndicator.showLoading()
 		viewModel.imageList = attachedImageCollectionView.images
 		Task { [weak self] in
@@ -324,13 +449,14 @@ extension RecordWriteViewController: EmotionalImagePopupViewDelegate {
 extension RecordWriteViewController: UITextViewDelegate {
 	func textViewDidChange(_ textView: UITextView) {
 		viewModel.content = textView.text
+		isChangeContent = true
 	}
 	
 	func textViewDidBeginEditing(_ textView: UITextView) {
 		if textView.text == "오늘 하루는 어떠셨나요" {
 			guard textView.textColor == .azLightGray.withAlphaComponent(0.5) else { return }
 			textView.text = nil
-			textView.textColor = .azLightGray
+			textView.textColor = .azWhite
 		}
 	}
 }
@@ -339,15 +465,18 @@ extension RecordWriteViewController: PHPickerViewControllerDelegate {
 	func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
 		picker.dismiss(animated: true, completion: nil)
 		var selectedImages: [UIImage] = []
-		for result in results {
-			result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, error) in
-				if let image = image as? UIImage {
-					selectedImages.append(image)
-					if results.count == selectedImages.count {
-						DispatchQueue.main.async { [weak self] in
-							self?.attachedImageCollectionView.setImages(selectedImages)
-							self?.attachedImageCollectionView.snp.updateConstraints { make in
-								make.height.equalTo(100)
+		if !results.isEmpty {
+			isChangeContent = true
+			for result in results {
+				result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, error) in
+					if let image = image as? UIImage {
+						selectedImages.append(image)
+						if results.count == selectedImages.count {
+							DispatchQueue.main.async { [weak self] in
+								self?.attachedImageCollectionView.setImages(selectedImages)
+								self?.attachedImageCollectionView.snp.updateConstraints { make in
+									make.height.equalTo(100)
+								}
 							}
 						}
 					}

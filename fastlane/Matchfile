@@ -1,8 +1,7 @@
-git_url("https://github.com/ungchun/match")
-
+#git_url("https://github.com/ungchun/DailyRecord_match.git")
+git_url("git@github.com:ungchun/DailyRecord_match.git")
 storage_mode("git")
-
-type("appstore") # The default type, can be: appstore, adhoc, enterprise or development
-
+type("appstore") 
 app_identifier(["ungchun.DailyRecord"])
 username("leedool3003@hanmail.net")
+platform("ios")

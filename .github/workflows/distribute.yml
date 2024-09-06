@@ -1,0 +1,45 @@
+name: Distribute iOS App
+
+# 특정 branch에 push될 때 액션 실행
+on:
+  pull_request:
+    branches: [ release ]
+    
+# 특정 워크플로우가 특정 브랜치 또는 태그에서 실행 중인 경우, 
+# 같은 브랜치 또는 태그에서 동일한 워크플로우가 다시 트리거되면 이전에 실행되던 워크플로우를 취소
+# 새로운 워크플로우를 실행
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps: 
+      - uses: actions/checkout@v4
+      
+      # SSH key 설정 (Match 레포지토리와의 연결)
+      - uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+      
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3.3'
+      
+      - name: Install dependencies
+        run: bundle install
+        
+      - name: run fastlane for update to testFlight
+        run: bundle exec fastlane release --verbose
+        env: 
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          KEYCHAIN_NAME: ${{ secrets.KEYCHAIN_NAME }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+          APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+          APP_STORE_CONNECT_API_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENT }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          SLACK_WEBHOOK_URL: ${{ vars.SLACK_WEBHOOK_URL }}
