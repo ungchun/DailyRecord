@@ -19,10 +19,14 @@ final class RecordWriteViewController: BaseViewController {
 	private let viewModel: RecordViewModel
 	private let calendarViewModel: CalendarViewModel
 	
+	private var isChangeContent = false
+	
 	// MARK: - Views
 	
 	private let scrollView: UIScrollView = {
 		let scrollView = UIScrollView()
+		scrollView.translatesAutoresizingMaskIntoConstraints = false
+		scrollView.showsVerticalScrollIndicator = false
 		return scrollView
 	}()
 	
@@ -75,6 +79,8 @@ final class RecordWriteViewController: BaseViewController {
 		self.viewModel = viewModel
 		self.calendarViewModel = calendarViewModel
 		super.init(nibName: nil, bundle: nil)
+		
+		self.navigationController?.isNavigationBarHidden = true
 	}
 	
 	required init?(coder: NSCoder) {
@@ -83,6 +89,16 @@ final class RecordWriteViewController: BaseViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		self.navigationController?.isNavigationBarHidden = false
+		self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
+	}
+	
+	deinit {
+		NotificationCenter.default.removeObserver(self)
 	}
 	
 	// MARK: - Functions
@@ -135,13 +151,19 @@ final class RecordWriteViewController: BaseViewController {
 		}
 		
 		footerView.snp.makeConstraints { make in
-			make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-12)
+			make.bottom.equalTo(view.snp.bottom).offset(-24)
 			make.left.right.equalToSuperview()
 			make.height.equalTo(30)
 		}
 	}
 	
 	override func setupView() {
+		setupKeyboardNotifications()
+		
+		setupCustomBackButton()
+		
+		setupSwipeGesture()
+		
 		fetchEditData()
 		
 		DispatchQueue.main.async { [weak self] in
@@ -179,6 +201,58 @@ final class RecordWriteViewController: BaseViewController {
 	}
 }
 
+extension RecordWriteViewController: UIGestureRecognizerDelegate {
+	private func setupCustomBackButton() {
+		let largeConfig = UIImage.SymbolConfiguration(pointSize: 16,
+																									weight: .bold, scale: .large)
+		let iconImage = UIImage(systemName: "chevron.left",
+														withConfiguration: largeConfig)
+		let backButton = UIBarButtonItem(
+			image: iconImage,
+			style: .plain,
+			target: self,
+			action: #selector(customBackButtonTapped)
+		)
+		backButton.tintColor = .azLightGray
+		navigationItem.leftBarButtonItem = backButton
+	}
+	
+	@objc private func customBackButtonTapped() {
+		if isChangeContent {
+			showAlertToConfirmExit()
+		} else {
+			navigationController?.popViewController(animated: true)
+		}
+	}
+	
+	private func setupSwipeGesture() {
+		navigationController?.interactivePopGestureRecognizer?.delegate = self
+	}
+	
+	func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+		if isChangeContent {
+			showAlertToConfirmExit()
+			return false
+		}
+		return true
+	}
+	
+	private func showAlertToConfirmExit() {
+		let alert = UIAlertController(
+			title: "작성을 그만두나요?",
+			message: "변경된 내용이 저장되지 않아요",
+			preferredStyle: .alert
+		)
+		let stayAction = UIAlertAction(title: "계속 작성", style: .default, handler: nil)
+		let exitAction = UIAlertAction(title: "나가기", style: .cancel) {_ in
+			self.navigationController?.popViewController(animated: true)
+		}
+		alert.addAction(stayAction)
+		alert.addAction(exitAction)
+		present(alert, animated: true, completion: nil)
+	}
+}
+
 private extension RecordWriteViewController {
 	func fetchEditData() {
 		if viewModel.selectData.createTime != 0 {
@@ -206,6 +280,54 @@ private extension RecordWriteViewController {
 }
 
 private extension RecordWriteViewController {
+	func setupKeyboardNotifications() {
+		NotificationCenter.default.addObserver(
+			self,
+			selector: #selector(keyboardWillShow),
+			name: UIResponder.keyboardWillShowNotification, object: nil
+		)
+		NotificationCenter.default.addObserver(
+			self,
+			selector: #selector(keyboardWillHide),
+			name: UIResponder.keyboardWillHideNotification, object: nil
+		)
+	}
+	
+	@objc func keyboardWillShow(notification: NSNotification) {
+		if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey]
+				as? NSValue {
+			let keyboardHeight = keyboardFrame.cgRectValue.height
+			adjustFooterViewForKeyboard(show: true, keyboardHeight: keyboardHeight)
+		}
+	}
+	
+	@objc func keyboardWillHide(notification: NSNotification) {
+		adjustFooterViewForKeyboard(show: false, keyboardHeight: 0)
+	}
+	
+	func adjustFooterViewForKeyboard(show: Bool, keyboardHeight: CGFloat) {
+		footerView.snp.updateConstraints { make in
+			if show {
+				make.bottom.equalTo(view.snp.bottom).offset(-(keyboardHeight+12))
+			} else {
+				make.bottom.equalTo(view.snp.bottom).offset(-24)
+			}
+		}
+		
+		scrollView.contentInset = UIEdgeInsets(
+			top: 0.0,
+			left: 0.0,
+			bottom: keyboardHeight + footerView.frame.size.height,
+			right: 0.0
+		)
+		
+		UIView.animate(withDuration: 0.3) {
+			self.view.layoutIfNeeded()
+		}
+	}
+}
+
+private extension RecordWriteViewController {
 	@objc func showPopupTrigger() {
 		DispatchQueue.main.async { [weak self] in
 			guard let self = self else { return }
@@ -224,6 +346,7 @@ private extension RecordWriteViewController {
 				self?.emotionalImagePopupView.removeFromSuperview()
 			}
 		}
+		isChangeContent = true
 	}
 	
 	@objc func galleryTrigger() {
@@ -324,6 +447,7 @@ extension RecordWriteViewController: EmotionalImagePopupViewDelegate {
 extension RecordWriteViewController: UITextViewDelegate {
 	func textViewDidChange(_ textView: UITextView) {
 		viewModel.content = textView.text
+		isChangeContent = true
 	}
 	
 	func textViewDidBeginEditing(_ textView: UITextView) {

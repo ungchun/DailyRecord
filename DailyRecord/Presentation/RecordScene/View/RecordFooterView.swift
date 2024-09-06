@@ -51,13 +51,13 @@ final class RecordFooterView: BaseView {
 		}
 		
 		galleryIcon.snp.makeConstraints { make in
-			make.top.equalTo(divider.snp.bottom).offset(16)
+			make.top.equalTo(divider.snp.bottom).offset(10)
 			make.leading.equalToSuperview().offset(24)
 			make.width.height.equalTo(20)
 		}
 		
 		saveIcon.snp.makeConstraints { make in
-			make.top.equalTo(divider.snp.bottom).offset(16)
+			make.top.equalTo(divider.snp.bottom).offset(10)
 			make.trailing.equalToSuperview().offset(-24)
 			make.width.height.equalTo(20)
 		}

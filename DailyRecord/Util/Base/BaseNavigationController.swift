@@ -21,9 +21,13 @@ final class BaseNavigationController: UINavigationController {
 		let backButtonAppearance = UIBarButtonItemAppearance(style: .plain)
 		backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.clear]
 		
-		let backButtonImage = UIImage(systemName: "chevron.left")?.withAlignmentRectInsets(
-			UIEdgeInsets(top: 0.0, left: -12.0, bottom: -5.0, right: 0.0)
-		)
+		let largeConfig = UIImage.SymbolConfiguration(pointSize: 16,
+																									weight: .bold, scale: .large)
+		let backButtonImage = UIImage(
+			systemName: "chevron.left",
+			withConfiguration: largeConfig)?.withAlignmentRectInsets(
+				UIEdgeInsets(top: 0.0, left: -9.0, bottom: -5.0, right: 0.0)
+			)
 		
 		let appearance = UINavigationBarAppearance()
 		appearance.configureWithOpaqueBackground()
