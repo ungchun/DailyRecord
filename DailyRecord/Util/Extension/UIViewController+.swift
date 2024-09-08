@@ -19,23 +19,36 @@ extension UIViewController {
 	}
 	
 	func showToast(message : String,
-								 font: UIFont = UIFont(name: "omyu_pretty", size: 12)!) {
-		let toastLabel = UILabel(frame: CGRect(
-			x: self.view.frame.size.width/2 - 75,
-			y: self.view.frame.size.height-100, width: 150, height: 35))
-		toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-		toastLabel.textColor = UIColor.white
-		toastLabel.font = font
-		toastLabel.textAlignment = .center
-		toastLabel.text = message
-		toastLabel.alpha = 1.0
-		toastLabel.layer.cornerRadius = 16
-		toastLabel.clipsToBounds  =  true
-		self.view.addSubview(toastLabel)
-		UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
-			toastLabel.alpha = 0.0
-		}, completion: {(isCompleted) in
-			toastLabel.removeFromSuperview()
-		})
+								 font: UIFont = UIFont(name: "omyu_pretty", size: 16)!) {
+		let scenes = UIApplication.shared.connectedScenes
+		let windowScene = scenes.first as? UIWindowScene
+		if let window = windowScene?.windows.first {
+			let toastLabel = UILabel(frame: CGRect(
+				x: self.view.frame.size.width/2 - 75,
+				y: self.view.frame.size.height-100, width: 150, height: 35))
+			
+			toastLabel.backgroundColor = .azWhite
+			toastLabel.textColor = .azBlack
+			toastLabel.font = font
+			toastLabel.textAlignment = .center
+			toastLabel.text = message
+			toastLabel.alpha = 1.0
+			toastLabel.layer.cornerRadius = 16
+			toastLabel.clipsToBounds = true
+			
+			window.addSubview(toastLabel)
+			
+			UIView.animate(withDuration: 0.3, delay: 0,
+										 options: .curveEaseIn, animations: {
+				toastLabel.alpha = 1.0
+			}, completion: { _ in
+				UIView.animate(withDuration: 1.0, delay: 2.0,
+											 options: .curveEaseInOut, animations: {
+					toastLabel.alpha = 0.0
+				}, completion: { _ in
+					toastLabel.removeFromSuperview()
+				})
+			})
+		}
 	}
 }
