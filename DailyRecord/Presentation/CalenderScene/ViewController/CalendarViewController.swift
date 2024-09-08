@@ -159,11 +159,11 @@ final class CalendarViewController: BaseViewController {
 		if let year = Int(formattedDateString(Date(), format: "yyyy")),
 			 let month = Int(formattedDateString(Date(), format: "M")) {
 			Task { [weak self] in
+				guard let self else { return }
 				do {
-					try await self?.viewModel.fetchMonthRecordTrigger(year: year, month: month) { }
+					try await self.viewModel.fetchMonthRecordTrigger(year: year, month: month) { }
 				} catch {
-					self?.showToast(message: "에러가 발생했어요")
-					self?.coordinator?.popToRoot()
+					handleError(self.coordinator!, "에러가 발생했어요")
 				}
 			}
 		}
@@ -289,12 +289,12 @@ extension CalendarViewController: FSCalendarDelegate,
 		if let year = Int(formattedDateString(currentPage, format: "yyyy")),
 			 let month = Int(formattedDateString(currentPage, format: "M")) {
 			Task { [weak self] in
+				guard let self else { return }
 				do {
 					try await Task.sleep(nanoseconds: 500_000_000)
-					try await self?.viewModel.fetchMonthRecordTrigger(year: year, month: month) { }
+					try await self.viewModel.fetchMonthRecordTrigger(year: year, month: month) { }
 				} catch {
-					self?.showToast(message: "에러가 발생했어요")
-					self?.coordinator?.popToRoot()
+					handleError(self.coordinator!, "에러가 발생했어요")
 				}
 			}
 		}

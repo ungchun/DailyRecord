@@ -12,7 +12,8 @@
 		6508A2212C79C91D005AB6DC /* FullscreenImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6508A2202C79C91D005AB6DC /* FullscreenImageView.swift */; };
 		6508A2232C79D021005AB6DC /* SetDarkModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6508A2222C79D021005AB6DC /* SetDarkModeViewController.swift */; };
 		6508A2252C7CA200005AB6DC /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6508A2242C7CA200005AB6DC /* UITextView+.swift */; };
-		65159CB02C7F430500807BB9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65159CAF2C7F430500807BB9 /* GoogleService-Info.plist */; };
+		6522DE292C8D68C700AB23A5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6522DE282C8D68C700AB23A5 /* GoogleService-Info.plist */; };
+		6522DE2C2C8D84EE00AB23A5 /* AppleSignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6522DE2B2C8D84EE00AB23A5 /* AppleSignInService.swift */; };
 		657DB90E2C5BB5EB008DD96E /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DB90D2C5BB5EB008DD96E /* ProfileViewModel.swift */; };
 		657DB9102C5BB600008DD96E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DB90F2C5BB600008DD96E /* ProfileViewController.swift */; };
 		657DB9122C5BB845008DD96E /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DB9112C5BB845008DD96E /* ProfileCoordinator.swift */; };
@@ -108,7 +109,8 @@
 		6508A2202C79C91D005AB6DC /* FullscreenImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullscreenImageView.swift; sourceTree = "<group>"; };
 		6508A2222C79D021005AB6DC /* SetDarkModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDarkModeViewController.swift; sourceTree = "<group>"; };
 		6508A2242C7CA200005AB6DC /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
-		65159CAF2C7F430500807BB9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6522DE282C8D68C700AB23A5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6522DE2B2C8D84EE00AB23A5 /* AppleSignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInService.swift; sourceTree = "<group>"; };
 		657DB90D2C5BB5EB008DD96E /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		657DB90F2C5BB600008DD96E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		657DB9112C5BB845008DD96E /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
@@ -219,6 +221,14 @@
 				6508A21E2C6DD5DA005AB6DC /* KeyChainAccount.swift */,
 			);
 			path = KeyChain;
+			sourceTree = "<group>";
+		};
+		6522DE2A2C8D84E400AB23A5 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				6522DE2B2C8D84EE00AB23A5 /* AppleSignInService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		657DB90A2C5BB584008DD96E /* ProfileScene */ = {
@@ -405,6 +415,7 @@
 		65CF61332C073D34003E6D75 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				6522DE2A2C8D84E400AB23A5 /* Service */,
 				6599466E2C3839640030598B /* Storage */,
 				659946752C3A68A50030598B /* Repository */,
 				659946682C2FF2140030598B /* Request */,
@@ -439,7 +450,7 @@
 			children = (
 				659946982C49602A0030598B /* Font */,
 				65CF61282C036433003E6D75 /* LaunchScreen.storyboard */,
-				65159CAF2C7F430500807BB9 /* GoogleService-Info.plist */,
+				6522DE282C8D68C700AB23A5 /* GoogleService-Info.plist */,
 				65CF612B2C036433003E6D75 /* Info.plist */,
 				65CF61262C036433003E6D75 /* Assets.xcassets */,
 			);
@@ -654,7 +665,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6599469A2C4961840030598B /* omyu_pretty.ttf in Resources */,
-				65159CB02C7F430500807BB9 /* GoogleService-Info.plist in Resources */,
+				6522DE292C8D68C700AB23A5 /* GoogleService-Info.plist in Resources */,
 				65CF612A2C036433003E6D75 /* LaunchScreen.storyboard in Resources */,
 				65CF61272C036433003E6D75 /* Assets.xcassets in Resources */,
 			);
@@ -725,6 +736,7 @@
 				65CF61772C0B03EA003E6D75 /* Log.swift in Sources */,
 				6508A2232C79D021005AB6DC /* SetDarkModeViewController.swift in Sources */,
 				65CF61C42C243E78003E6D75 /* RecordFooterView.swift in Sources */,
+				6522DE2C2C8D84EE00AB23A5 /* AppleSignInService.swift in Sources */,
 				657DB90E2C5BB5EB008DD96E /* ProfileViewModel.swift in Sources */,
 				6508A2212C79C91D005AB6DC /* FullscreenImageView.swift in Sources */,
 				65CF61CA2C24454E003E6D75 /* AttachedImageCollectionView.swift in Sources */,

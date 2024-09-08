@@ -8,107 +8,68 @@
 import Firebase
 import FirebaseFirestore
 
-final class ProfileRepository: DefaultProfileRepository {
+final class ProfileRepository: NSObject, DefaultProfileRepository {
 	private let db = Firestore.firestore()
+	
+	private let appleSignInService = AppleSignInService.shared
 }
 
 extension ProfileRepository {
 	func createUser(data: [String : Any]) async throws {
 		guard let userID = Auth.auth().currentUser?.uid else { return }
 		let documentRef = db.collection("user")
-		try await withCheckedThrowingContinuation {
-			(continuation: CheckedContinuation<Void, Error>) in
-			documentRef.document(userID).setData(data) { [weak self] error in
-				if let error = error {
-					continuation.resume(throwing: error)
-				} else {
-					Task { [weak self] in
-						guard let self = self else { return }
-						do {
-							try await self.updateUserInfo(updateData: ["uid": userID])
-							try KeyChainManager.shared.create(account: .uid, data: userID)
-							continuation.resume()
-						} catch {
-							continuation.resume(throwing: error)
-						}
-					}
-				}
-			}
-		}
+		try await documentRef.document(userID).setData(data)
+		try await updateUserInfo(updateData: ["uid": userID])
+		try KeyChainManager.shared.create(account: .uid, data: userID)
 	}
 	
 	func getUserInfo() async throws -> UserResponseDTO? {
 		guard let userID = Auth.auth().currentUser?.uid else { return nil }
 		let documentRef = db.collection("user").document(userID)
-		return try await withCheckedThrowingContinuation {
-			(continuation: CheckedContinuation<UserResponseDTO?, Error>) in
-			documentRef.getDocument { (snapshot, error) in
-				if let error = error {
-					continuation.resume(throwing: error)
-				} else {
-					if let data = snapshot?.data() {
-						do {
-							let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
-							let userResponse = try JSONDecoder().decode(UserResponseDTO.self, from: jsonData)
-							continuation.resume(returning: userResponse)
-						} catch {
-							continuation.resume(throwing: error)
-						}
-					} else {
-						continuation.resume(returning: nil)
-					}
-				}
-			}
+		let snapshot = try await documentRef.getDocument()
+		
+		if let data = snapshot.data() {
+			let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
+			return try JSONDecoder().decode(UserResponseDTO.self, from: jsonData)
+		} else {
+			return nil
 		}
 	}
 	
 	func updateUserInfo(updateData: [String: Any]) async throws {
 		guard let userID = Auth.auth().currentUser?.uid else { return }
 		let documentRef = db.collection("user").document(userID)
-		try await withCheckedThrowingContinuation {
-			(continuation: CheckedContinuation<Void, Error>) in
-			documentRef.updateData(updateData) { error in
-				if let error = error {
-					continuation.resume(throwing: error)
-				} else {
-					continuation.resume()
-				}
-			}
-		}
+		try await documentRef.updateData(updateData)
 	}
 	
 	func removeUser() async throws {
-		let idToken = try KeyChainManager.shared.read(account: .idTokenString)
-		let nonce = try KeyChainManager.shared.read(account: .nonce)
-		try await withCheckedThrowingContinuation {
-			(continuation: CheckedContinuation<Void, Error>) in
-			let credential = OAuthProvider.credential(withProviderID: "apple.com",
-																								idToken: idToken,
-																								rawNonce: nonce)
-			Auth.auth().currentUser?.reauthenticate(with: credential) { _,_ in
-				if let user = Auth.auth().currentUser {
-					user.delete { error in
-						if let error = error {
-							continuation.resume(throwing: error)
-						} else {
-							Task {
-								do {
-									try KeyChainManager.shared.delete(account: .uid)
-									try KeyChainManager.shared.delete(account: .idTokenString)
-									try KeyChainManager.shared.delete(account: .nonce)
-									try Auth.auth().signOut()
-									continuation.resume()
-									exit(0)
-								} catch {
-									throw NSError()
-								}
-							}
-						}
-					}
-				} else {
-					Log.debug("로그인 정보가 존재하지 않습니다.")
-				}
-			}
+		do {
+			let credential = try await appleSignInService.startSignInWithAppleFlow()
+			try await reauthenticateAndDeleteUser(with: credential)
+		} catch {
+			throw error
 		}
+	}
+	
+	private func reauthenticateAndDeleteUser(with credential: AuthCredential) async throws {
+		guard let user = Auth.auth().currentUser else {
+			throw NSError()
+		}
+		
+		do {
+			_ = try await user.reauthenticate(with: credential)
+			try await user.delete()
+			try deleteKeychainDataAndSignOut()
+		} catch {
+			throw error
+		}
+	}
+	
+	private func deleteKeychainDataAndSignOut() throws {
+		try KeyChainManager.shared.delete(account: .uid)
+		try KeyChainManager.shared.delete(account: .idTokenString)
+		try KeyChainManager.shared.delete(account: .nonce)
+		try Auth.auth().signOut()
+		exit(0)
 	}
 }

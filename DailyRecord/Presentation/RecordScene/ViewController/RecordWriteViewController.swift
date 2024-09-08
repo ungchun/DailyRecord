@@ -239,7 +239,7 @@ extension RecordWriteViewController: UIGestureRecognizerDelegate {
 	
 	private func showAlertToConfirmExit() {
 		let alert = UIAlertController(
-			title: "작성을 그만두나요?",
+			title: "글쓰기를 중단할까요?",
 			message: "변경된 내용이 저장되지 않아요",
 			preferredStyle: .alert
 		)
@@ -365,33 +365,29 @@ private extension RecordWriteViewController {
 		LoadingIndicator.showLoading()
 		viewModel.imageList = attachedImageCollectionView.images
 		Task { [weak self] in
+			guard let self else { return }
 			do {
-				try await self?.viewModel.createRecordTirgger()
+				try await self.viewModel.createRecordTirgger()
 				
-				if let calendarDate = self?.viewModel.selectData.calendarDate {
-					let date = Date(timeIntervalSince1970:
-														TimeInterval(calendarDate) / 1000)
-					if let dayOfyear = self?.formattedDateString(date, format: "yyyy"),
-						 let dayOfmonth = self?.formattedDateString(date, format: "M") {
-						if let year = Int(dayOfyear),
-							 let month = Int(dayOfmonth) {
-							do {
-								try await self?.calendarViewModel.fetchMonthRecordTrigger(
-									year: year, month: month
-								) { }
-							} catch {
-								self?.showToast(message: "에러가 발생했어요")
-								self?.coordinator?.popToRoot()
-							}
-							LoadingIndicator.hideLoading()
-							self?.showToast(message: "일기를 작성했어요!")
-							self?.coordinator?.popToRoot()
-						}
+				let calendarDate = self.viewModel.selectData.calendarDate
+				let date = Date(timeIntervalSince1970: TimeInterval(calendarDate) / 1000)
+				let dayOfyear = self.formattedDateString(date, format: "yyyy")
+				let dayOfmonth = self.formattedDateString(date, format: "M")
+				
+				if let year = Int(dayOfyear),
+					 let month = Int(dayOfmonth) {
+					do {
+						try await self.calendarViewModel.fetchMonthRecordTrigger(
+							year: year, month: month
+						) { }
+					} catch {
+						handleError(self.coordinator!, "에러가 발생했어요")
 					}
+					LoadingIndicator.hideLoading()
+					handleError(self.coordinator!, "일기를 작성했어요!")
 				}
 			} catch {
-				self?.showToast(message: "에러가 발생했어요")
-				self?.coordinator?.popToRoot()
+				handleError(self.coordinator!, "에러가 발생했어요")
 			}
 		}
 	}
