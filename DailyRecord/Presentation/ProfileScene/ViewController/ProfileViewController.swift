@@ -150,7 +150,7 @@ extension ProfileViewController {
 	private func showRemoveUserAlert() {
 		let alertController = UIAlertController(
 			title: "회원 탈퇴",
-			message: "정말 탈퇴하시겠습니까? 회원 탈퇴 후 복구는 어렵습니다.",
+			message: "정말 탈퇴하시겠습니까? 회원 탈퇴 후 복구는 어렵습니다",
 			preferredStyle: .alert
 		)
 		

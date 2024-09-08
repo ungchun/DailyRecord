@@ -239,7 +239,7 @@ extension RecordWriteViewController: UIGestureRecognizerDelegate {
 	
 	private func showAlertToConfirmExit() {
 		let alert = UIAlertController(
-			title: "작성을 그만두나요?",
+			title: "글쓰기를 중단할까요?",
 			message: "변경된 내용이 저장되지 않아요",
 			preferredStyle: .alert
 		)
