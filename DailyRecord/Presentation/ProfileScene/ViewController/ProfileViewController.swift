@@ -140,15 +140,11 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
 extension ProfileViewController {
 	private func appleLoginTrigger() {
 		Task {
-			do {
-				let credential = try await appleSignInService.startSignInWithAppleFlow()
-				if Auth.auth().currentUser?.isAnonymous == true {
-					try await linkAnonymousAccountWithApple(credential: credential)
-				} else {
-					try await signInWithCredential(credential)
-				}
-			} catch {
-				handleError(self.coordinator!, "Apple 로그인 중 오류가 발생했어요")
+			let credential = try await appleSignInService.startSignInWithAppleFlow()
+			if Auth.auth().currentUser?.isAnonymous == true {
+				try await linkAnonymousAccountWithApple(credential: credential)
+			} else {
+				try await signInWithCredential(credential)
 			}
 		}
 	}
@@ -196,7 +192,7 @@ extension ProfileViewController {
 				}
 			}
 		} catch {
-			handleError(self.coordinator!, "사용자 데이터 생성 중 오류가 발생했습니다.")
+			handleError(self.coordinator!, "사용자 데이터 생성 중 오류가 발생했어요")
 		}
 	}
 	
@@ -207,7 +203,7 @@ extension ProfileViewController {
 	private func showRemoveUserAlert() {
 		let alertController = UIAlertController(
 			title: "회원 탈퇴",
-			message: "정말 탈퇴하시겠습니까? 회원 탈퇴 후 복구는 어렵습니다",
+			message: "정말 탈퇴 하시겠어요? 회원 탈퇴 후 복구는 어려워요",
 			preferredStyle: .alert
 		)
 		
@@ -223,7 +219,7 @@ extension ProfileViewController {
 		}
 		alertController.addAction(cancelAction)
 		
-		let deleteAction = UIAlertAction(title: "취소", style: .cancel) { _ in }
+		let deleteAction = UIAlertAction(title: "취소", style: .default) { _ in }
 		alertController.addAction(deleteAction)
 		
 		present(alertController, animated: true, completion: nil)
