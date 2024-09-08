@@ -8,6 +8,16 @@
 import UIKit
 
 extension UIViewController {
+	func handleError(_ coordinator: any Coordinator,
+									 _ message: String) {
+		DispatchQueue.main.async { [weak self] in
+			guard let self = self else { return }
+			
+			self.showToast(message: message)
+			coordinator.popToRoot()
+		}
+	}
+	
 	func showToast(message : String,
 								 font: UIFont = UIFont(name: "omyu_pretty", size: 12)!) {
 		let toastLabel = UILabel(frame: CGRect(
