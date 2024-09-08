@@ -142,40 +142,61 @@ extension ProfileViewController {
 		Task {
 			do {
 				let credential = try await appleSignInService.startSignInWithAppleFlow()
-				try await signInWithCredential(credential)
-			} catch {
-				await MainActor.run {
-					self.showToast(message: "Apple 로그인 중 오류가 발생했습니다.")
-					self.coordinator?.popToRoot()
+				if Auth.auth().currentUser?.isAnonymous == true {
+					try await linkAnonymousAccountWithApple(credential: credential)
+				} else {
+					try await signInWithCredential(credential)
 				}
+			} catch {
+				handleError(self.coordinator!, "Apple 로그인 중 오류가 발생했어요")
 			}
+		}
+	}
+	
+	private func linkAnonymousAccountWithApple(credential: AuthCredential) async throws {
+		do {
+			let authResult = try await Auth.auth().currentUser?.link(with: credential)
+			try await handleAuthResult(authResult)
+		} catch {
+			handleError(self.coordinator!, "사용자 데이터 생성 중 오류가 발생했어요")
 		}
 	}
 	
 	private func signInWithCredential(_ credential: AuthCredential) async throws {
 		do {
 			let authResult = try await Auth.auth().signIn(with: credential)
-			appleSignInService.handleAuthorizationResult(
-				authResult: authResult, error: nil, completion: {_ in
-					Task {
-						do {
-							try await self.viewModel.createUserTirgger()
-							if let year = Int(self.formattedDateString(Date(), format: "yyyy")),
-								 let month = Int(self.formattedDateString(Date(), format: "M")) {
-								try await self.calendarViewModel.fetchMonthRecordTrigger(
-									year: year, month: month
-								) {
-									self.coordinator?.popToRoot()
-								}
-							}
-						} catch {
-							self.showToast(message: "사용자 데이터 생성 중 오류가 발생했습니다.")
-							self.coordinator?.popToRoot()
-						}
-					}
-				})
+			try await handleAuthResult(authResult)
 		} catch {
-			throw error
+			handleError(self.coordinator!, "사용자 데이터 생성 중 오류가 발생했어요")
+		}
+	}
+	
+	private func handleAuthResult(_ authResult: AuthDataResult?) async throws {
+		appleSignInService.handleAuthorizationResult(
+			authResult: authResult, error: nil
+		) { [weak self] _ in
+			guard let self else { return }
+			Task {
+				do {
+					try await self.createUserAndFetchRecord()
+				} catch {
+					self.handleError(self.coordinator!, "사용자 데이터 생성 중 오류가 발생했어요")
+				}
+			}
+		}
+	}
+	
+	private func createUserAndFetchRecord() async throws {
+		do {
+			try await viewModel.createUserTirgger()
+			if let year = Int(formattedDateString(Date(), format: "yyyy")),
+				 let month = Int(formattedDateString(Date(), format: "M")) {
+				try await calendarViewModel.fetchMonthRecordTrigger(year: year, month: month) {
+					self.coordinator?.popToRoot()
+				}
+			}
+		} catch {
+			handleError(self.coordinator!, "사용자 데이터 생성 중 오류가 발생했습니다.")
 		}
 	}
 	
@@ -192,11 +213,11 @@ extension ProfileViewController {
 		
 		let cancelAction = UIAlertAction(title: "탈퇴하기", style: .destructive) { _ in
 			Task { [weak self] in
+				guard let self else { return }
 				do {
-					try await self?.viewModel.removeUserTrigger()
+					try await self.viewModel.removeUserTrigger()
 				} catch {
-					self?.showToast(message: "에러가 발생했어요")
-					self?.coordinator?.popToRoot()
+					handleError(self.coordinator!, "에러가 발생했어요")
 				}
 			}
 		}
