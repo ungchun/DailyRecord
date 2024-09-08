@@ -23,10 +23,7 @@ extension UIViewController {
 		let scenes = UIApplication.shared.connectedScenes
 		let windowScene = scenes.first as? UIWindowScene
 		if let window = windowScene?.windows.first {
-			let toastLabel = UILabel(frame: CGRect(
-				x: self.view.frame.size.width/2 - 75,
-				y: self.view.frame.size.height-100, width: 150, height: 35))
-			
+			let toastLabel = UILabel()
 			toastLabel.backgroundColor = .azWhite
 			toastLabel.textColor = .azBlack
 			toastLabel.font = font
@@ -35,6 +32,20 @@ extension UIViewController {
 			toastLabel.alpha = 1.0
 			toastLabel.layer.cornerRadius = 16
 			toastLabel.clipsToBounds = true
+			
+			let maxWidth = window.frame.width
+			let maxSize = CGSize(width: maxWidth, height: .greatestFiniteMagnitude)
+			let expectedSize = toastLabel.sizeThatFits(maxSize)
+			
+			let minWidth: CGFloat = 150
+			let labelWidth = max(expectedSize.width + 40, minWidth)
+			
+			let xPos = (window.frame.width - labelWidth) / 2
+			let yPos = window.frame.height - 100
+			toastLabel.frame = CGRect(x: xPos,
+																y: yPos,
+																width: labelWidth,
+																height: expectedSize.height + 20)
 			
 			window.addSubview(toastLabel)
 			
