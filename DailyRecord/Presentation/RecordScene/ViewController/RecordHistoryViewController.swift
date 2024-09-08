@@ -219,31 +219,28 @@ extension RecordHistoryViewController {
 			alert.addAction(UIAlertAction(title: "취소", style: .default) { _ in })
 			alert.addAction(UIAlertAction(title: "삭제", style: .destructive) { _ in
 				Task { [weak self] in
+					guard let self else { return }
 					do {
-						try await self?.viewModel.removeRecordTirgger()
-						if let calendarDate = self?.viewModel.selectData.calendarDate {
-							let date = Date(timeIntervalSince1970:
-																TimeInterval(calendarDate) / 1000)
-							if let dayOfyear = self?.formattedDateString(date, format: "yyyy"),
-								 let dayOfmonth = self?.formattedDateString(date, format: "M") {
-								if let year = Int(dayOfyear),
-									 let month = Int(dayOfmonth) {
-									do {
-										try await self?.calendarViewModel.fetchMonthRecordTrigger(
-											year: year, month: month
-										) { }
-									} catch {
-										self?.showToast(message: "에러가 발생했어요")
-										self?.coordinator?.popToRoot()
-									}
-									self?.showToast(message: "일기를 삭제했어요!")
-									self?.coordinator?.popToRoot()
-								}
+						try await self.viewModel.removeRecordTirgger()
+						
+						let calendarDate = self.viewModel.selectData.calendarDate
+						let date = Date(timeIntervalSince1970: TimeInterval(calendarDate) / 1000)
+						let dayOfyear = self.formattedDateString(date, format: "yyyy")
+						let dayOfmonth = self.formattedDateString(date, format: "M")
+						
+						if let year = Int(dayOfyear),
+							 let month = Int(dayOfmonth) {
+							do {
+								try await self.calendarViewModel.fetchMonthRecordTrigger(
+									year: year, month: month
+								) { }
+							} catch {
+								handleError(self.coordinator!, "에러가 발생했어요")
 							}
+							handleError(self.coordinator!, "일기를 삭제했어요!")
 						}
 					} catch {
-						self?.showToast(message: "에러가 발생했어요")
-						self?.coordinator?.popToRoot()
+						handleError(self.coordinator!, "에러가 발생했어요")
 					}
 				}
 			})

@@ -12,6 +12,7 @@ protocol Coordinator: AnyObject {
 	var DIContainer: DIContainerProtocol { get }
 	
 	func start()
+	func popToRoot()
 }
 
 extension Coordinator {

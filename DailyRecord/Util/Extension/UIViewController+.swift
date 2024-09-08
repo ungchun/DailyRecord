@@ -8,24 +8,58 @@
 import UIKit
 
 extension UIViewController {
+	func handleError(_ coordinator: any Coordinator,
+									 _ message: String) {
+		DispatchQueue.main.async { [weak self] in
+			guard let self = self else { return }
+			
+			self.showToast(message: message)
+			coordinator.popToRoot()
+		}
+	}
+	
 	func showToast(message : String,
-								 font: UIFont = UIFont(name: "omyu_pretty", size: 12)!) {
-		let toastLabel = UILabel(frame: CGRect(
-			x: self.view.frame.size.width/2 - 75,
-			y: self.view.frame.size.height-100, width: 150, height: 35))
-		toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-		toastLabel.textColor = UIColor.white
-		toastLabel.font = font
-		toastLabel.textAlignment = .center
-		toastLabel.text = message
-		toastLabel.alpha = 1.0
-		toastLabel.layer.cornerRadius = 16
-		toastLabel.clipsToBounds  =  true
-		self.view.addSubview(toastLabel)
-		UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
-			toastLabel.alpha = 0.0
-		}, completion: {(isCompleted) in
-			toastLabel.removeFromSuperview()
-		})
+								 font: UIFont = UIFont(name: "omyu_pretty", size: 16)!) {
+		let scenes = UIApplication.shared.connectedScenes
+		let windowScene = scenes.first as? UIWindowScene
+		if let window = windowScene?.windows.first {
+			let toastLabel = UILabel()
+			toastLabel.backgroundColor = .azWhite
+			toastLabel.textColor = .azBlack
+			toastLabel.font = font
+			toastLabel.textAlignment = .center
+			toastLabel.text = message
+			toastLabel.alpha = 1.0
+			toastLabel.layer.cornerRadius = 16
+			toastLabel.clipsToBounds = true
+			
+			let maxWidth = window.frame.width
+			let maxSize = CGSize(width: maxWidth, height: .greatestFiniteMagnitude)
+			let expectedSize = toastLabel.sizeThatFits(maxSize)
+			
+			let minWidth: CGFloat = 150
+			let labelWidth = max(expectedSize.width + 40, minWidth)
+			
+			let xPos = (window.frame.width - labelWidth) / 2
+			let yPos = window.frame.height - 100
+			toastLabel.frame = CGRect(x: xPos,
+																y: yPos,
+																width: labelWidth,
+																height: expectedSize.height + 20)
+			
+			window.addSubview(toastLabel)
+			
+			UIView.animate(withDuration: 0.3, delay: 0,
+										 options: .curveEaseIn, animations: {
+				toastLabel.alpha = 1.0
+			}, completion: { _ in
+				UIView.animate(withDuration: 1.0, delay: 2.0,
+											 options: .curveEaseInOut, animations: {
+					toastLabel.alpha = 0.0
+				}, completion: { _ in
+					toastLabel.removeFromSuperview()
+				})
+			})
+		}
 	}
 }

@@ -24,7 +24,7 @@ enum ProfileCellItem: String, CaseIterable {
 		case .appleLogin:
 			return "apple.logo"
 		case .linkAccount:
-			return "link.circle"
+			return "link"
 		case .darkMode:
 			return "moon"
 		case .deleteAccount:
