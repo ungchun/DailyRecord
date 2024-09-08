@@ -19,8 +19,7 @@ final class ProfileViewController: BaseViewController {
 	
 	private let viewModel: ProfileViewModel
 	private let calendarViewModel: CalendarViewModel
-	
-	private var currentNonce: String = ""
+	private let appleSignInService = AppleSignInService.shared
 	
 	private static let reuseIdentifier: String = "ProfileCell"
 	
@@ -139,8 +138,45 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension ProfileViewController {
-	@objc private func appleLoginTrigger() {
-		startSignInWithAppleFlow()
+	private func appleLoginTrigger() {
+		Task {
+			do {
+				let credential = try await appleSignInService.startSignInWithAppleFlow()
+				try await signInWithCredential(credential)
+			} catch {
+				await MainActor.run {
+					self.showToast(message: "Apple 로그인 중 오류가 발생했습니다.")
+					self.coordinator?.popToRoot()
+				}
+			}
+		}
+	}
+	
+	private func signInWithCredential(_ credential: AuthCredential) async throws {
+		do {
+			let authResult = try await Auth.auth().signIn(with: credential)
+			appleSignInService.handleAuthorizationResult(
+				authResult: authResult, error: nil, completion: {_ in
+					Task {
+						do {
+							try await self.viewModel.createUserTirgger()
+							if let year = Int(self.formattedDateString(Date(), format: "yyyy")),
+								 let month = Int(self.formattedDateString(Date(), format: "M")) {
+								try await self.calendarViewModel.fetchMonthRecordTrigger(
+									year: year, month: month
+								) {
+									self.coordinator?.popToRoot()
+								}
+							}
+						} catch {
+							self.showToast(message: "사용자 데이터 생성 중 오류가 발생했습니다.")
+							self.coordinator?.popToRoot()
+						}
+					}
+				})
+		} catch {
+			throw error
+		}
 	}
 	
 	private func darkModeTrigger() {
@@ -171,164 +207,6 @@ extension ProfileViewController {
 		
 		present(alertController, animated: true, completion: nil)
 	}
-}
-
-extension ProfileViewController: ASAuthorizationControllerDelegate {
-	func startSignInWithAppleFlow() {
-		let nonce = randomNonceString()
-		currentNonce = nonce
-		let appleIDProvider = ASAuthorizationAppleIDProvider()
-		let request = appleIDProvider.createRequest()
-		request.requestedScopes = [.fullName, .email]
-		request.nonce = sha256(nonce)
-		let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-		authorizationController.delegate = self
-		authorizationController.presentationContextProvider = self
-		authorizationController.performRequests()
-	}
-	
-	private func sha256(_ input: String) -> String {
-		let inputData = Data(input.utf8)
-		let hashedData = SHA256.hash(data: inputData)
-		let hashString = hashedData.compactMap {
-			return String(format: "%02x", $0)
-		}.joined()
-		
-		return hashString
-	}
-	
-	private func randomNonceString(length: Int = 32) -> String {
-		precondition(length > 0)
-		let charset: Array<Character> =
-		Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
-		var result = ""
-		var remainingLength = length
-		
-		while remainingLength > 0 {
-			let randoms: [UInt8] = (0 ..< 16).map { _ in
-				var random: UInt8 = 0
-				let errorCode = SecRandomCopyBytes(kSecRandomDefault, 1, &random)
-				if errorCode != errSecSuccess {
-					self.showToast(message: "에러가 발생했어요")
-					self.coordinator?.popToRoot()
-				}
-				return random
-			}
-			
-			randoms.forEach { random in
-				if remainingLength == 0 {
-					return
-				}
-				
-				if random < charset.count {
-					result.append(charset[Int(random)])
-					remainingLength -= 1
-				}
-			}
-		}
-		return result
-	}
-}
-
-extension ProfileViewController {
-	func authorizationController(controller: ASAuthorizationController,
-															 didCompleteWithAuthorization authorization: ASAuthorization) {
-		if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-			let nonce = currentNonce
-			guard let appleIDToken = appleIDCredential.identityToken else {
-				self.showToast(message: "에러가 발생했어요")
-				self.coordinator?.popToRoot()
-				return
-			}
-			guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
-				self.showToast(message: "에러가 발생했어요")
-				self.coordinator?.popToRoot()
-				return
-			}
-			
-			let credential = OAuthProvider.credential(withProviderID: "apple.com",
-																								idToken: idTokenString,
-																								rawNonce: nonce)
-			
-			let appleIDProvider = ASAuthorizationAppleIDProvider()
-			appleIDProvider.getCredentialState(forUserID: appleIDCredential.user) {
-				(credentialState, error) in
-				switch credentialState {
-				case .authorized:
-					Auth.auth().signIn(with: credential) { (authResult, error) in
-						if let error = error {
-							if (error as NSError).code == AuthErrorCode.credentialAlreadyInUse.rawValue {
-								self.showToast(message: "에러가 발생했어요")
-								self.coordinator?.popToRoot()
-							}
-							return
-						} else {
-							if let uid = authResult?.user.uid {
-								do {
-									UserDefaultsSetting.isAnonymously = false
-									try KeyChainManager.shared.create(account: .uid, data: uid)
-									try KeyChainManager.shared.create(account: .idTokenString, data: idTokenString)
-									try KeyChainManager.shared.create(account: .nonce, data: nonce)
-								} catch {
-									self.showToast(message: "에러가 발생했어요")
-									self.coordinator?.popToRoot()
-								}
-								Task {
-									do {
-										try await self.viewModel.createUserTirgger()
-										if let year = Int(self.formattedDateString(Date(), format: "yyyy")),
-											 let month = Int(self.formattedDateString(Date(), format: "M")) {
-											try await self.calendarViewModel.fetchMonthRecordTrigger(
-												year: year, month: month
-											) {
-												self.coordinator?.popToRoot()
-											}
-										}
-									} catch {
-										self.showToast(message: "에러가 발생했어요")
-										self.coordinator?.popToRoot()
-									}
-								}
-							}
-						}
-					}
-				case .revoked:
-					Log.debug("REVOKED")
-				case .notFound:
-					Auth.auth().currentUser?.link(with: credential) { authResult, error in
-						if let error = error {
-							Log.error(error)
-							self.showToast(message: "에러가 발생했어요")
-							self.coordinator?.popToRoot()
-						} else {
-							if let user = authResult?.user {
-								do {
-									UserDefaultsSetting.isAnonymously = false
-									try KeyChainManager.shared.create(account: .uid, data: user.uid)
-									try KeyChainManager.shared.create(account: .idTokenString, data: idTokenString)
-									try KeyChainManager.shared.create(account: .nonce, data: nonce)
-								} catch {
-									self.showToast(message: "에러가 발생했어요")
-									self.coordinator?.popToRoot()
-								}
-								Task {
-									do {
-										try await self.viewModel.createUserTirgger()
-									} catch {
-										Log.error(error)
-										self.showToast(message: "에러가 발생했어요")
-										self.coordinator?.popToRoot()
-									}
-								}
-							}
-						}
-					}
-				default:
-					break
-				}
-			}
-		}
-	}
 	
 	private func formattedDateString(_ date: Date, format: String) -> String {
 		let dateFormatter = DateFormatter()
@@ -336,11 +214,5 @@ extension ProfileViewController {
 		dateFormatter.timeZone = TimeZone(identifier: "KST")
 		dateFormatter.dateFormat = format
 		return dateFormatter.string(from: date)
-	}
-}
-
-extension ProfileViewController : ASAuthorizationControllerPresentationContextProviding {
-	func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-		return self.view.window!
 	}
 }
