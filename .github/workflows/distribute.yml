@@ -2,8 +2,6 @@ name: Distribute iOS App
 
 # 특정 branch에 push될 때 액션 실행
 on:
-  push:
-    branches: [ release ]
   pull_request:
     branches: [ release ]
     
