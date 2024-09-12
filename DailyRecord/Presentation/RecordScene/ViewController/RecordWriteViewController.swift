@@ -20,6 +20,8 @@ final class RecordWriteViewController: BaseViewController {
 	private let calendarViewModel: CalendarViewModel
 	
 	private var isChangeContent = false
+	private var selectedAssetIdentifiers = [String]()
+	private var selections = [String : PHPickerResult]()
 	
 	// MARK: - Views
 	
@@ -351,9 +353,12 @@ private extension RecordWriteViewController {
 	}
 	
 	@objc func galleryTrigger() {
-		var configuration = PHPickerConfiguration()
+		var configuration = PHPickerConfiguration(photoLibrary: .shared())
 		configuration.filter = .images
 		configuration.selectionLimit = 5
+		configuration.selection = .ordered
+		configuration.preselectedAssetIdentifiers = selectedAssetIdentifiers
+		configuration.preferredAssetRepresentationMode = .current
 		
 		let picker = PHPickerViewController(configuration: configuration)
 		picker.delegate = self
@@ -460,20 +465,47 @@ extension RecordWriteViewController: UITextViewDelegate {
 extension RecordWriteViewController: PHPickerViewControllerDelegate {
 	func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
 		picker.dismiss(animated: true, completion: nil)
+		
+		let dispatchGroup = DispatchGroup()
+		
+		var newSelections = [String: PHPickerResult]()
+		for result in results {
+			let identifier = result.assetIdentifier!
+			newSelections[identifier] = selections[identifier] ?? result
+		}
+		
+		selections = newSelections
+		selectedAssetIdentifiers = results.compactMap { $0.assetIdentifier }
+		
+		var imagesDict = [String: UIImage]()
 		var selectedImages: [UIImage] = []
-		if !results.isEmpty {
-			isChangeContent = true
-			for result in results {
-				result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, error) in
+		
+		for (identifier, result) in selections {
+			
+			dispatchGroup.enter()
+			
+			let itemProvider = result.itemProvider
+			if itemProvider.canLoadObject(ofClass: UIImage.self) {
+				itemProvider.loadObject(ofClass: UIImage.self) { image, error in
 					if let image = image as? UIImage {
-						selectedImages.append(image)
-						if results.count == selectedImages.count {
-							DispatchQueue.main.async { [weak self] in
-								self?.attachedImageCollectionView.setImages(selectedImages)
-								self?.attachedImageCollectionView.snp.updateConstraints { make in
-									make.height.equalTo(100)
-								}
-							}
+						imagesDict[identifier] = image
+						dispatchGroup.leave()
+					}
+				}
+			}
+		}
+		
+		dispatchGroup.notify(queue: DispatchQueue.main) { [weak self] in
+			guard let self = self else { return }
+			for identifier in self.selectedAssetIdentifiers {
+				guard let image = imagesDict[identifier] else { return }
+				selectedImages.append(image)
+				
+				if results.count == selectedImages.count {
+					DispatchQueue.main.async { [weak self] in
+						self?.attachedImageCollectionView.setImages(selectedImages)
+						self?.attachedImageCollectionView.snp.updateConstraints { make in
+							make.height.equalTo(100)
 						}
 					}
 				}
