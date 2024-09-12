@@ -94,7 +94,7 @@ platform :ios do
       target: ENV['TARGET_NAME']
     )
 
-    #ENV["FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT"] = "120"
+    ENV["FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT"] = "600"
     upload_to_app_store(
       app_version: app_version,
       skip_screenshots: true,
