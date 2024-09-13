@@ -5,8 +5,6 @@
 //  Created by Kim SungHun on 6/6/24.
 //
 
-// TEST
-
 import UIKit
 import PhotosUI
 
