@@ -18,7 +18,7 @@ final class AttachedImageCollectionView: BaseView {
 	
 	weak var delegate: AttachedImageCollectionViewDelegate?
 	
-	private(set) var images: [UIImage] = []
+	private(set) var images: [(String, UIImage)] = []
 	
 	// MARK: - Views
 	
@@ -66,7 +66,7 @@ final class AttachedImageCollectionView: BaseView {
 }
 
 extension AttachedImageCollectionView {
-	func setImages(_ images: [UIImage]) {
+	func setImages(_ images: [(String, UIImage)]) {
 		DispatchQueue.main.async {
 			self.images = images
 			self.collectionView.reloadData()
@@ -76,6 +76,7 @@ extension AttachedImageCollectionView {
 	@objc private func deleteButtonTapped(_ sender: UIButton) {
 		if let cell = sender.superview as? AttachedImageCollectionViewCell,
 			 let indexPath = self.collectionView.indexPath(for: cell) {
+			let removedIdentifier = images[indexPath.row].0
 			images.remove(at: indexPath.row)
 			DispatchQueue.main.async { [weak self] in
 				self?.collectionView.deleteItems(at: [indexPath])
@@ -83,9 +84,9 @@ extension AttachedImageCollectionView {
 			if images.isEmpty {
 				delegate?.collectionViewZeroHeightTrigger()
 			}
+			(delegate as? RecordWriteViewController)?.removeAssetIdentifier(removedIdentifier)
 		}
-	}
-}
+	}}
 
 extension AttachedImageCollectionView: UICollectionViewDataSource, UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView,
@@ -99,7 +100,7 @@ extension AttachedImageCollectionView: UICollectionViewDataSource, UICollectionV
 			withReuseIdentifier: AttachedImageCollectionViewCell.reuseIdentifier,
 			for: indexPath
 		) as! AttachedImageCollectionViewCell
-		cell.imageView.image = images[indexPath.item]
+		cell.imageView.image = images[indexPath.item].1
 		cell.deleteButton.addTarget(self,
 																action: #selector(deleteButtonTapped(_:)),
 																for: .touchUpInside)
