@@ -167,7 +167,7 @@ final class RecordHistoryViewController: BaseViewController {
 		if !viewModel.selectData.imageListURL.isEmpty {
 			viewModel.setImageData {
 				if !self.viewModel.imageList.isEmpty {
-					self.imageCarouselView.setImages(self.viewModel.imageList)
+					self.imageCarouselView.setImages(self.viewModel.imageList.map{$0.1})
 					DispatchQueue.main.async { [weak self] in
 						self?.imageCarouselView.snp.updateConstraints { make in
 							make.height.equalTo(100)
