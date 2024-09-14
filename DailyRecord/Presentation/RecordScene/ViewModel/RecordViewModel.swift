@@ -19,7 +19,7 @@ final class RecordViewModel: BaseViewModel {
 	var selectData: RecordEntity
 	
 	var content: String = "" // 글 내용
-	var imageList: [UIImage] = [] // 첨부 이미지
+	var imageList: [(String, UIImage)] = [] // 첨부 이미지와 식별자
 	var emotionType: EmotionType = .none
 	
 	private var calendarDate: Int = 0 // 선택 날짜
@@ -45,8 +45,7 @@ extension RecordViewModel {
 		var imageUrls: [String] = []
 		self.calendarDate = selectData.calendarDate
 		
-		// 이미지 리스트를 업로드하고 URL을 배열에 저장
-		for image in self.imageList {
+		for (_, image) in self.imageList {
 			let imageUrl = try await uploadImage(image, userID: userID)
 			imageUrls.append(imageUrl)
 		}
@@ -64,7 +63,8 @@ extension RecordViewModel {
 	}
 	
 	private func uploadImage(_ image: UIImage, userID: String) async throws -> String {
-		let storageRef = Storage.storage().reference().child("record/\(userID)/\(UUID().uuidString).jpg")
+		let storageRef
+		= Storage.storage().reference().child("record/\(userID)/\(UUID().uuidString).jpg")
 		guard let imageData = image.jpegData(compressionQuality: 0.1) else {
 			throw NSError(
 				domain: "ImageConversionError",
@@ -72,8 +72,7 @@ extension RecordViewModel {
 				userInfo: [NSLocalizedDescriptionKey: "Failed to convert image to JPEG data."])
 		}
 		
-		return try await withCheckedThrowingContinuation {
-			(continuation: CheckedContinuation<String, Error>) in
+		return try await withCheckedThrowingContinuation { continuation in
 			storageRef.putData(imageData, metadata: nil) { metadata, error in
 				if let error = error {
 					continuation.resume(throwing: error)
@@ -107,14 +106,15 @@ extension RecordViewModel {
 	func setImageData(completion: @escaping () -> Void) {
 		let urlStrings = selectData.imageListURL
 		let dispatchGroup = DispatchGroup()
-		var loadedImages: [UIImage] = Array(repeating: UIImage(),
-																				count: urlStrings.count)
+		var loadedImages: [(String, UIImage)] = Array(repeating: ("", UIImage()),
+																									count: urlStrings.count)
+		
 		for idx in urlStrings.indices {
 			if let url = URL(string: urlStrings[idx]) {
 				dispatchGroup.enter()
 				loadImage(from: url) { image in
 					if let image = image {
-						loadedImages[idx] = image
+						loadedImages[idx] = (urlStrings[idx], image)
 					}
 					dispatchGroup.leave()
 				}
@@ -127,8 +127,7 @@ extension RecordViewModel {
 		}
 	}
 	
-	private func loadImage(from url: URL,
-												 completion: @escaping (UIImage?) -> Void) {
+	private func loadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
 		URLSession.shared.dataTask(with: url) { data, response, error in
 			if let data = data, error == nil {
 				let image = UIImage(data: data)

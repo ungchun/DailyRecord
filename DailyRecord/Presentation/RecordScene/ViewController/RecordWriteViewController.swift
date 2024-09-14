@@ -420,6 +420,11 @@ extension RecordWriteViewController: AttachedImageCollectionViewDelegate {
 			}
 		}
 	}
+	
+	func removeAssetIdentifier(_ identifier: String) {
+		selectedAssetIdentifiers.removeAll { $0 == identifier }
+		selections.removeValue(forKey: identifier)
+	}
 }
 
 extension RecordWriteViewController: EmotionalImagePopupViewDelegate {
@@ -480,35 +485,34 @@ extension RecordWriteViewController: PHPickerViewControllerDelegate {
 		selectedAssetIdentifiers = results.compactMap { $0.assetIdentifier }
 		
 		var imagesDict = [String: UIImage]()
-		var selectedImages: [UIImage] = []
 		
 		for (identifier, result) in selections {
-			
 			dispatchGroup.enter()
-			
 			let itemProvider = result.itemProvider
 			if itemProvider.canLoadObject(ofClass: UIImage.self) {
 				itemProvider.loadObject(ofClass: UIImage.self) { image, error in
 					if let image = image as? UIImage {
 						imagesDict[identifier] = image
-						dispatchGroup.leave()
 					}
+					dispatchGroup.leave()
 				}
 			}
 		}
 		
-		dispatchGroup.notify(queue: DispatchQueue.main) { [weak self] in
+		dispatchGroup.notify(queue: .main) { [weak self] in
 			guard let self = self else { return }
+			var selectedImages: [(String, UIImage)] = []
 			for identifier in self.selectedAssetIdentifiers {
-				guard let image = imagesDict[identifier] else { return }
-				selectedImages.append(image)
-				
-				if results.count == selectedImages.count {
-					DispatchQueue.main.async { [weak self] in
-						self?.attachedImageCollectionView.setImages(selectedImages)
-						self?.attachedImageCollectionView.snp.updateConstraints { make in
-							make.height.equalTo(100)
-						}
+				if let image = imagesDict[identifier] {
+					selectedImages.append((identifier, image))
+				}
+			}
+			
+			if results.count == selectedImages.count {
+				DispatchQueue.main.async { [weak self] in
+					self?.attachedImageCollectionView.setImages(selectedImages)
+					self?.attachedImageCollectionView.snp.updateConstraints { make in
+						make.height.equalTo(100)
 					}
 				}
 			}

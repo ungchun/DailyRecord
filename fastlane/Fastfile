@@ -71,7 +71,7 @@ platform :ios do
     upload_to_testflight
     slack(
       message: "🎉 Testflight 배포에 성공했습니다!",
-      slack_url: ENV['SLACK_WEBHOOK_URL']
+      slack_url: ENV['SLACK_WEB_URL']
     )
   end
 
@@ -109,7 +109,7 @@ platform :ios do
 
     slack(
       message: "🎉 AppStore 배포에 성공했습니다!",
-      slack_url: ENV['SLACK_WEBHOOK_URL']
+      slack_url: ENV['SLACK_WEB_URL']
     )
   end
 
@@ -117,7 +117,7 @@ platform :ios do
     slack(
       message: "🚨 에러 발생 : #{exception}",
       success: false,
-      slack_url: ENV['SLACK_WEBHOOK_URL']
+      slack_url: ENV['SLACK_WEB_URL']
     )
   end
 end
