@@ -42,20 +42,23 @@ extension RecordViewModel {
 	
 	func createRecordTirgger() async throws {
 		guard let userID = Auth.auth().currentUser?.uid else { return }
-		var imageUrls: [String] = []
+		var createImageListValue: [(String, String)] = []
 		self.calendarDate = selectData.calendarDate
 		
-		for (_, image) in self.imageList {
+		for (identifier, image) in self.imageList {
 			let imageUrl = try await uploadImage(image, userID: userID)
-			imageUrls.append(imageUrl)
+			createImageListValue.append((identifier, imageUrl))
 		}
 		
-		let recordRequest = RecordRequest(user_id: userID,
-																			content: self.content,
-																			emotion_type: emotionType.rawValue,
-																			image_list: imageUrls,
-																			create_time: Int(Date().millisecondsSince1970),
-																			calendar_date: self.calendarDate)
+		let recordRequest = RecordRequest(
+			user_id: userID,
+			content: self.content,
+			emotion_type: emotionType.rawValue,
+			image_list: createImageListValue.map{$0.1},
+			image_identifier: createImageListValue.map{$0.0},
+			create_time: Int(Date().millisecondsSince1970),
+			calendar_date: self.calendarDate
+		)
 		
 		let recordData = try recordRequest.asDictionary()
 		
@@ -105,6 +108,7 @@ extension RecordViewModel {
 	
 	func setImageData(completion: @escaping () -> Void) {
 		let urlStrings = selectData.imageListURL
+		let imageIdentifiers = selectData.imageIdentifiers
 		let dispatchGroup = DispatchGroup()
 		var loadedImages: [(String, UIImage)] = Array(repeating: ("", UIImage()),
 																									count: urlStrings.count)
@@ -114,7 +118,11 @@ extension RecordViewModel {
 				dispatchGroup.enter()
 				loadImage(from: url) { image in
 					if let image = image {
-						loadedImages[idx] = (urlStrings[idx], image)
+						if urlStrings.count == imageIdentifiers.count {
+							loadedImages[idx] = (imageIdentifiers[idx], image)
+						} else {
+							loadedImages[idx] = ("", image)
+						}
 					}
 					dispatchGroup.leave()
 				}
