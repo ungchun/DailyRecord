@@ -12,6 +12,7 @@ struct RecordRequest: Encodable {
 	let content: String
 	let emotion_type: String
 	let image_list: [String]
+	let image_identifier: [String]
 	let create_time: Int
 	let calendar_date: Int
 }

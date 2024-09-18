@@ -5,8 +5,6 @@
 //  Created by Kim SungHun on 6/6/24.
 //
 
-// TEST
-
 import UIKit
 import PhotosUI
 
@@ -279,7 +277,8 @@ private extension RecordWriteViewController {
 		emotionalImageTapTrigger(selectEmotionType: viewModel.emotionType)
 	}
 	
-	func updateImageView() {
+	func updateImageView() {	
+		selectedAssetIdentifiers = viewModel.imageList.map{$0.0}
 		attachedImageCollectionView.setImages(viewModel.imageList)
 	}
 }
@@ -496,6 +495,11 @@ extension RecordWriteViewController: PHPickerViewControllerDelegate {
 					}
 					dispatchGroup.leave()
 				}
+			} else {
+				if let idx = viewModel.imageList.firstIndex(where: {$0.0 == identifier}) {
+					imagesDict[identifier] = viewModel.imageList[idx].1
+				}
+				dispatchGroup.leave()
 			}
 		}
 		

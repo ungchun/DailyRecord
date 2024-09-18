@@ -203,6 +203,7 @@ extension CalendarViewController {
 		}) {
 			selectData = matchedEntity
 		}
+		
 		coordinator?.showRecord(
 			calendarViewModel: viewModel,
 			selectData: selectData
