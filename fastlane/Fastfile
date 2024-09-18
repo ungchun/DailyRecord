@@ -71,7 +71,7 @@ platform :ios do
     upload_to_testflight
     slack(
       message: "🎉 Testflight 배포에 성공했습니다!",
-      slack_url: "https://hooks.slack.com/services/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"
+      slack_url: "https://hooks.slack.com/services/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"
     )
   end
 
@@ -111,7 +111,7 @@ platform :ios do
 
     slack(
       message: "🎉 AppStore 배포에 성공했습니다!",
-      slack_url: "https://hooks.slack.com/services/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"
+      slack_url: "https://hooks.slack.com/services/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"
     )
   end
 
@@ -119,7 +119,7 @@ platform :ios do
     slack(
       message: "🚨 에러 발생 : #{exception}",
       success: false,
-      slack_url: "https://hooks.slack.com/services/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"
+      slack_url: "https://hooks.slack.com/services/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"
     )
   end
 end
