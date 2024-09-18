@@ -1,1 +1,11 @@
 languages(['ko'])
+
+promotional_text({
+  'default'
+  'ko'
+})
+
+release_notes({
+  'default'
+  'ko'
+})
