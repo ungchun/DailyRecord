@@ -67,7 +67,8 @@ struct DailyRecordWidget: Widget {
 					.background()
 			}
 		}
-		.configurationDisplayName("My Widget")
-		.description("This is an example widget.")
+		.configurationDisplayName("투데이 위젯")
+		.description("위젯으로 다온 일기를 한눈에 파악할 수 있어요!")
+		.supportedFamilies([.systemSmall, .systemMedium])
 	}
 }
