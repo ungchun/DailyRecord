@@ -236,10 +236,113 @@ struct WidgetEntryView : View {
 				}
 			}
 		case .systemMedium:
-			EmptyView()
+			let weekdays = ["일", "월", "화", "수", "목", "금", "토"]
+			let weekDates = getWeekDates()
+			let today = Calendar.current.component(.day, from: Date())
+			
+			VStack(spacing: 20) {
+				Text(formatCurrentYearMonth())
+					.font(.custom("omyu_pretty", size: 20))
+					.foregroundColor(.azWhite)
+					.lineLimit(1)
+				
+				HStack(spacing: 0) {
+					ForEach(Array(zip(weekdays, weekDates)), id: \.0) { day, date in
+						let isToday = Int(date) == today
+						let hasEmotion = getEmotionForDate(date: date)
+						
+						VStack(spacing: 20) {
+							Text(day)
+								.font(.custom("omyu_pretty", size: 16))
+								.foregroundColor(.azLightGray)
+								.lineLimit(1)
+							
+							ZStack {
+								if hasEmotion.isEmpty {
+									Text("\(date)")
+										.font(.custom("omyu_pretty", size: 16))
+										.foregroundColor(isToday ? .azWhite : .azLightGray)
+										.lineLimit(1)
+								} else {
+									Image(hasEmotion)
+										.resizable()
+										.scaledToFit()
+										.frame(width: 30, height: 30)
+								}
+								
+								if hasEmotion.isEmpty && isToday {
+									Rectangle()
+										.fill(.azLightGray.opacity(0.5))
+										.frame(width: 30, height: 10)
+										.offset(y: 20)
+								}
+							}
+							.frame(height: 30)
+						}
+						.frame(maxWidth: .infinity)
+					}
+				}
+			}		
 		default:
 			EmptyView()
 		}
+	}
+	
+	private func formatCurrentYearMonth() -> String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.locale = Locale(identifier: "ko_KR")
+		dateFormatter.dateFormat = "yyyy년 M월"
+		return dateFormatter.string(from: entry.date)
+	}
+	
+	private func getWeekDates() -> [String] {
+		let calendar = Calendar.current
+		let weekday = calendar.component(.weekday, from: entry.date)
+		let daysToSubtract = weekday - 1 // 1은 일요일
+		
+		guard let startOfWeek = calendar.date(
+			byAdding: .day, value: -daysToSubtract, to: entry.date
+		) else {
+			return []
+		}
+		
+		return (0...6).map { dayOffset in
+			guard let date = calendar.date(byAdding: .day, value: dayOffset, to: startOfWeek) else {
+				return ""
+			}
+			return String(calendar.component(.day, from: date))
+		}
+	}
+	
+	private func getEmotionForDate(date: String) -> String {
+		guard let day = Int(date),
+					let startOfDay = Calendar.current.date(
+						from: DateComponents(
+							year: Calendar.current.component(.year, from: entry.date),
+							month: Calendar.current.component(.month, from: entry.date),
+							day: day
+						)
+					),
+					let endOfDay = Calendar.current.date(
+						bySettingHour: 23, minute: 59, second: 59, of: startOfDay
+					) else {
+			
+			return ""
+		}
+		
+		let startTimestamp = Int(startOfDay.timeIntervalSince1970 * 1000)
+		let endTimestamp = Int(endOfDay.timeIntervalSince1970 * 1000)
+		
+		for record in entry.weekRecords {
+			if let recordDate = record.calendar_date,
+				 let emotionType = record.emotion_type,
+				 !emotionType.isEmpty,
+				 recordDate >= startTimestamp && recordDate <= endTimestamp {
+				return emotionType
+			}
+		}
+		
+		return ""
 	}
 }
 
