@@ -63,15 +63,12 @@ struct Provider: TimelineProvider {
 		}
 		
 		let startOfDay = calendar.startOfDay(for: startOfWeek)
-		let endOfDay = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: endOfWeek)!
-		
 		let startTimestamp = String(Int(startOfDay.timeIntervalSince1970 * 1000))
 		
 		let dayOfWeekPart = formattedDateString(today, format: "EEEE")
 		let day = formattedDateString(today, format: "dd")
 		
 		if let userID = Auth.auth().currentUser?.uid {
-			
 			Task {
 				do {
 					var entries: [SimpleEntry] = []
@@ -87,8 +84,10 @@ struct Provider: TimelineProvider {
 							currentWeekday: dayOfWeekPart,
 							currentDayOfMonth: day
 						)
+						
 						entries.append(entry)
 					}
+					
 					let timeline = Timeline(entries: entries, policy: .atEnd)
 					completion(timeline)
 				} catch {
@@ -104,15 +103,19 @@ struct Provider: TimelineProvider {
 							currentWeekday: dayOfWeekPart,
 							currentDayOfMonth: day
 						)
+						
 						entries.append(entry)
 					}
+					
 					let timeline = Timeline(entries: entries, policy: .atEnd)
 					completion(timeline)
 				}
 			}
 		}
 	}
-	
+}
+
+private extension Provider {
 	private func formattedDateString(_ date: Date, format: String) -> String {
 		let dateFormatter = DateFormatter()
 		dateFormatter.locale = Locale(identifier: "ko_kr")
@@ -282,28 +285,28 @@ private extension WidgetEntryView {
 			HStack(spacing: 0) {
 				ForEach(Array(zip(weekdays, weekDates)), id: \.0) { day, date in
 					let isToday = Int(date) == today
-					let hasEmotion = getEmotionForDate(date: date)
+					let emotion = getEmotionForDate(date: date)
 					
 					VStack(spacing: 20) {
 						Text(day)
 							.font(.custom("omyu_pretty", size: 16))
-							.foregroundColor(.azLightGray)
+							.foregroundColor(day == "일" ? .azRed : day == "토" ? .azBlue : .azWhite)
 							.lineLimit(1)
 						
 						ZStack {
-							if hasEmotion.isEmpty {
+							if emotion.isEmpty {
 								Text("\(date)")
 									.font(.custom("omyu_pretty", size: 16))
-									.foregroundColor(isToday ? .azWhite : .azLightGray)
+									.foregroundColor(isToday ? .azWhite : .azLightGray.opacity(0.5))
 									.lineLimit(1)
 							} else {
-								Image(hasEmotion)
+								Image(emotion)
 									.resizable()
 									.scaledToFit()
 									.frame(width: 30, height: 30)
 							}
 							
-							if hasEmotion.isEmpty && isToday {
+							if emotion.isEmpty && isToday {
 								Rectangle()
 									.fill(.azLightGray.opacity(0.5))
 									.frame(width: 30, height: 10)

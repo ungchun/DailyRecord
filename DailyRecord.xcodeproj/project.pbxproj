@@ -12,7 +12,10 @@
 		6508A2212C79C91D005AB6DC /* FullscreenImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6508A2202C79C91D005AB6DC /* FullscreenImageView.swift */; };
 		6508A2232C79D021005AB6DC /* SetDarkModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6508A2222C79D021005AB6DC /* SetDarkModeViewController.swift */; };
 		6508A2252C7CA200005AB6DC /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6508A2242C7CA200005AB6DC /* UITextView+.swift */; };
-		651A9F242C9EBB8400B9B1FE /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 651A9F232C9EBB8400B9B1FE /* FSCalendar */; };
+		651A9F252C9EC03C00B9B1FE /* omyu_pretty.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 659946992C4961840030598B /* omyu_pretty.ttf */; };
+		651A9F682C9EE96800B9B1FE /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 651A9F672C9EE96800B9B1FE /* FirebaseAuth */; };
+		651A9F6A2C9EE96800B9B1FE /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 651A9F692C9EE96800B9B1FE /* FirebaseFirestore */; };
+		651A9F6B2C9EEB0E00B9B1FE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6522DE282C8D68C700AB23A5 /* GoogleService-Info.plist */; };
 		6522DE292C8D68C700AB23A5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6522DE282C8D68C700AB23A5 /* GoogleService-Info.plist */; };
 		6522DE2C2C8D84EE00AB23A5 /* AppleSignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6522DE2B2C8D84EE00AB23A5 /* AppleSignInService.swift */; };
 		657DB90E2C5BB5EB008DD96E /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DB90D2C5BB5EB008DD96E /* ProfileViewModel.swift */; };
@@ -135,6 +138,7 @@
 		6508A2202C79C91D005AB6DC /* FullscreenImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullscreenImageView.swift; sourceTree = "<group>"; };
 		6508A2222C79D021005AB6DC /* SetDarkModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDarkModeViewController.swift; sourceTree = "<group>"; };
 		6508A2242C7CA200005AB6DC /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
+		651A9F2A2C9ECFBC00B9B1FE /* WidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetExtension.entitlements; sourceTree = "<group>"; };
 		6522DE282C8D68C700AB23A5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6522DE2B2C8D84EE00AB23A5 /* AppleSignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInService.swift; sourceTree = "<group>"; };
 		657DB90D2C5BB5EB008DD96E /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
@@ -244,7 +248,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				65FA64522C9EAACD001F5002 /* SwiftUI.framework in Frameworks */,
-				651A9F242C9EBB8400B9B1FE /* FSCalendar in Frameworks */,
+				651A9F6A2C9EE96800B9B1FE /* FirebaseFirestore in Frameworks */,
+				651A9F682C9EE96800B9B1FE /* FirebaseAuth in Frameworks */,
 				65FA64502C9EAACD001F5002 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -402,6 +407,7 @@
 		65CF61112C036432003E6D75 = {
 			isa = PBXGroup;
 			children = (
+				651A9F2A2C9ECFBC00B9B1FE /* WidgetExtension.entitlements */,
 				65CF611C2C036432003E6D75 /* DailyRecord */,
 				65FA64532C9EAACD001F5002 /* Widget */,
 				65FA644E2C9EAACD001F5002 /* Frameworks */,
@@ -692,7 +698,8 @@
 			);
 			name = WidgetExtension;
 			packageProductDependencies = (
-				651A9F232C9EBB8400B9B1FE /* FSCalendar */,
+				651A9F672C9EE96800B9B1FE /* FirebaseAuth */,
+				651A9F692C9EE96800B9B1FE /* FirebaseFirestore */,
 			);
 			productName = WidgetExtension;
 			productReference = 65FA644D2C9EAACD001F5002 /* WidgetExtension.appex */;
@@ -756,7 +763,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				651A9F252C9EC03C00B9B1FE /* omyu_pretty.ttf in Resources */,
 				65FA64592C9EAACF001F5002 /* Assets.xcassets in Resources */,
+				651A9F6B2C9EEB0E00B9B1FE /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1090,6 +1099,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = WidgetExtension.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1126,6 +1136,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = WidgetExtension.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1217,10 +1228,15 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		651A9F232C9EBB8400B9B1FE /* FSCalendar */ = {
+		651A9F672C9EE96800B9B1FE /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 65CF618A2C108CBD003E6D75 /* XCRemoteSwiftPackageReference "FSCalendar" */;
-			productName = FSCalendar;
+			package = 65CF61392C0AEDB0003E6D75 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		651A9F692C9EE96800B9B1FE /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 65CF61392C0AEDB0003E6D75 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
 		};
 		659946532C27DD8E0030598B /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
