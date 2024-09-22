@@ -53,14 +53,9 @@ struct Provider: TimelineProvider {
 		let weekday = calendar.component(.weekday, from: today)
 		let daysToSubtract = weekday - 1 // 1은 일요일
 		
-		guard let startOfWeek = calendar.date(byAdding: .day,
-																					value: -daysToSubtract,
-																					to: today),
-					let endOfWeek = calendar.date(byAdding: .day,
-																				value: 6 - daysToSubtract,
-																				to: today) else {
-			return
-		}
+		guard let startOfWeek = calendar.date(
+			byAdding: .day, value: -daysToSubtract, to: today
+		) else { return }
 		
 		let startOfDay = calendar.startOfDay(for: startOfWeek)
 		let startTimestamp = String(Int(startOfDay.timeIntervalSince1970 * 1000))
