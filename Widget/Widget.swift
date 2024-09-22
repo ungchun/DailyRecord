@@ -11,6 +11,8 @@ import SwiftUI
 import Firebase
 import FirebaseFirestore
 
+// MARK: - Response
+
 struct RecordResponseDTO: Decodable {
 	let uid: String?
 	let content: String?
@@ -20,6 +22,8 @@ struct RecordResponseDTO: Decodable {
 	let create_time: Int?
 	let calendar_date: Int?
 }
+
+// MARK: - TimelineProvider
 
 struct Provider: TimelineProvider {
 	func placeholder(in context: Context) -> SimpleEntry {
@@ -49,17 +53,19 @@ struct Provider: TimelineProvider {
 		let weekday = calendar.component(.weekday, from: today)
 		let daysToSubtract = weekday - 1 // 1은 일요일
 		
-		guard let startOfWeek = calendar.date(byAdding: .day, value: -daysToSubtract, to: today),
-					let endOfWeek = calendar.date(byAdding: .day, value: 6 - daysToSubtract, to: today) else {
+		guard let startOfWeek = calendar.date(byAdding: .day,
+																					value: -daysToSubtract,
+																					to: today),
+					let endOfWeek = calendar.date(byAdding: .day,
+																				value: 6 - daysToSubtract,
+																				to: today) else {
 			return
 		}
 		
-		// 시작 날짜를 00:00:00으로, 종료 날짜를 23:59:59로 설정
 		let startOfDay = calendar.startOfDay(for: startOfWeek)
 		let endOfDay = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: endOfWeek)!
 		
 		let startTimestamp = String(Int(startOfDay.timeIntervalSince1970 * 1000))
-		let endTimestamp = String(Int(endOfDay.timeIntervalSince1970 * 1000))
 		
 		let dayOfWeekPart = formattedDateString(today, format: "EEEE")
 		let day = formattedDateString(today, format: "dd")
@@ -71,7 +77,9 @@ struct Provider: TimelineProvider {
 					var entries: [SimpleEntry] = []
 					let weekRecords = try await fetchCurrentWeekRecords(userID: userID)
 					for hoursOffset in 0...1 {
-						let entryDate = Calendar.current.date(byAdding: .hour, value: hoursOffset, to: Date())!
+						let entryDate = Calendar.current.date(byAdding: .hour,
+																									value: hoursOffset,
+																									to: Date())!
 						let entry = SimpleEntry(
 							date: entryDate,
 							weekRecords: weekRecords,
@@ -86,7 +94,9 @@ struct Provider: TimelineProvider {
 				} catch {
 					var entries: [SimpleEntry] = []
 					for hoursOffset in 0...1 {
-						let entryDate = Calendar.current.date(byAdding: .hour, value: hoursOffset, to: Date())!
+						let entryDate = Calendar.current.date(byAdding: .hour,
+																									value: hoursOffset,
+																									to: Date())!
 						let entry = SimpleEntry(
 							date: entryDate,
 							weekRecords: [],
@@ -120,12 +130,15 @@ struct Provider: TimelineProvider {
 		let weekday = calendar.component(.weekday, from: today)
 		let daysToSubtract = weekday - 1 // 1은 일요일
 		
-		guard let startOfWeek = calendar.date(byAdding: .day, value: -daysToSubtract, to: today),
-					let endOfWeek = calendar.date(byAdding: .day, value: 6 - daysToSubtract, to: today) else {
+		guard let startOfWeek = calendar.date(byAdding: .day,
+																					value: -daysToSubtract,
+																					to: today),
+					let endOfWeek = calendar.date(byAdding: .day,
+																				value: 6 - daysToSubtract,
+																				to: today) else {
 			throw NSError()
 		}
 		
-		// 시작 날짜를 00:00:00으로, 종료 날짜를 23:59:59로 설정
 		let startOfDay = calendar.startOfDay(for: startOfWeek)
 		let endOfDay = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: endOfWeek)!
 		
@@ -147,7 +160,8 @@ struct Provider: TimelineProvider {
 						for document in querySnapshot!.documents {
 							let data = document.data()
 							let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
-							let recordResponse = try JSONDecoder().decode(RecordResponseDTO.self, from: jsonData)
+							let recordResponse = try JSONDecoder().decode(RecordResponseDTO.self,
+																														from: jsonData)
 							records.append(recordResponse)
 						}
 						continuation.resume(returning: records)
@@ -160,6 +174,8 @@ struct Provider: TimelineProvider {
 	}
 }
 
+// MARK: - TimelineEntry
+
 struct SimpleEntry: TimelineEntry {
 	let date: Date
 	
@@ -169,6 +185,8 @@ struct SimpleEntry: TimelineEntry {
 	let currentDayOfMonth: String // 현재 일자 (1~31)
 }
 
+// MARK: - WidgetEntryView
+
 struct WidgetEntryView : View {
 	@Environment(\.widgetFamily) private var widgetFamily
 	
@@ -177,125 +195,139 @@ struct WidgetEntryView : View {
 	var body: some View {
 		switch widgetFamily {
 		case .systemSmall:
-			let todayRecord = entry.weekRecords.filter{
-				$0.calendar_date ?? 0 == Int(entry.weekStartDate)
-			}
-			
-			// 비어있거나, 감정표현 X
-			if todayRecord.isEmpty || (todayRecord.first?.emotion_type ?? "").isEmpty {
-				ZStack(alignment: .topLeading) {
-					HStack {
-						Text("\(entry.currentWeekday)")
-							.font(.custom("omyu_pretty", size: 16))
-							.foregroundColor(.azWhite)
-							.lineLimit(1)
-						Spacer()
-					}
-					
-					VStack {
-						Spacer()
-						HStack {
-							Spacer()
-							Text("\(entry.currentDayOfMonth)")
-								.font(.custom("omyu_pretty", size: 40))
-								.foregroundColor(.azWhite)
-								.lineLimit(1)
-							Spacer()
-						}
-						Spacer()
-					}
-				}
-			} else {
-				// 감정표현 O
-				ZStack(alignment: .topLeading) {
-					HStack {
-						VStack(alignment: .leading) {
-							Text("\(entry.currentWeekday)")
-								.font(.custom("omyu_pretty", size: 16))
-								.foregroundColor(.azWhite)
-								.lineLimit(1)
-							Text("\(entry.currentDayOfMonth)")
-								.font(.custom("omyu_pretty", size: 16))
-								.foregroundColor(.azWhite)
-								.lineLimit(1)
-						}
-						Spacer()
-					}
-					
-					VStack {
-						Spacer()
-						HStack {
-							Spacer()
-							Image(entry.weekRecords.first?.emotion_type ?? "")
-								.resizable()
-								.frame(width: 60, height: 60)
-							Spacer()
-						}
-						Spacer()
-					}
-				}
-			}
+			systemSmallView()
 		case .systemMedium:
-			let weekdays = ["일", "월", "화", "수", "목", "금", "토"]
-			let weekDates = getWeekDates()
-			let today = Calendar.current.component(.day, from: Date())
-			
-			VStack(spacing: 20) {
-				Text(formatCurrentYearMonth())
-					.font(.custom("omyu_pretty", size: 20))
-					.foregroundColor(.azWhite)
-					.lineLimit(1)
-				
-				HStack(spacing: 0) {
-					ForEach(Array(zip(weekdays, weekDates)), id: \.0) { day, date in
-						let isToday = Int(date) == today
-						let hasEmotion = getEmotionForDate(date: date)
-						
-						VStack(spacing: 20) {
-							Text(day)
-								.font(.custom("omyu_pretty", size: 16))
-								.foregroundColor(.azLightGray)
-								.lineLimit(1)
-							
-							ZStack {
-								if hasEmotion.isEmpty {
-									Text("\(date)")
-										.font(.custom("omyu_pretty", size: 16))
-										.foregroundColor(isToday ? .azWhite : .azLightGray)
-										.lineLimit(1)
-								} else {
-									Image(hasEmotion)
-										.resizable()
-										.scaledToFit()
-										.frame(width: 30, height: 30)
-								}
-								
-								if hasEmotion.isEmpty && isToday {
-									Rectangle()
-										.fill(.azLightGray.opacity(0.5))
-										.frame(width: 30, height: 10)
-										.offset(y: 20)
-								}
-							}
-							.frame(height: 30)
-						}
-						.frame(maxWidth: .infinity)
-					}
-				}
-			}		
+			systemMediumView()
 		default:
 			EmptyView()
 		}
 	}
+}
+
+private extension WidgetEntryView {
+	@ViewBuilder
+	func systemSmallView() -> some View {
+		let todayRecord = entry.weekRecords.filter{
+			$0.calendar_date ?? 0 == Int(entry.weekStartDate)
+		}
+		
+		// 비어있거나, 감정표현 X
+		if todayRecord.isEmpty || (todayRecord.first?.emotion_type ?? "").isEmpty {
+			ZStack(alignment: .topLeading) {
+				HStack {
+					Text("\(entry.currentWeekday)")
+						.font(.custom("omyu_pretty", size: 16))
+						.foregroundColor(.azWhite)
+						.lineLimit(1)
+					Spacer()
+				}
+				
+				VStack {
+					Spacer()
+					HStack {
+						Spacer()
+						Text("\(entry.currentDayOfMonth)")
+							.font(.custom("omyu_pretty", size: 40))
+							.foregroundColor(.azWhite)
+							.lineLimit(1)
+						Spacer()
+					}
+					Spacer()
+				}
+			}
+		} else {
+			// 감정표현 O
+			ZStack(alignment: .topLeading) {
+				HStack {
+					VStack(alignment: .leading) {
+						Text("\(entry.currentWeekday)")
+							.font(.custom("omyu_pretty", size: 16))
+							.foregroundColor(.azWhite)
+							.lineLimit(1)
+						Text("\(entry.currentDayOfMonth)")
+							.font(.custom("omyu_pretty", size: 16))
+							.foregroundColor(.azWhite)
+							.lineLimit(1)
+					}
+					Spacer()
+				}
+				
+				VStack {
+					Spacer()
+					HStack {
+						Spacer()
+						Image(entry.weekRecords.first?.emotion_type ?? "")
+							.resizable()
+							.frame(width: 60, height: 60)
+						Spacer()
+					}
+					Spacer()
+				}
+			}
+		}
+	}
 	
-	private func formatCurrentYearMonth() -> String {
+	@ViewBuilder
+	func systemMediumView() -> some View {
+		let weekdays = ["일", "월", "화", "수", "목", "금", "토"]
+		let weekDates = getWeekDates()
+		let today = Calendar.current.component(.day, from: Date())
+		
+		VStack(spacing: 20) {
+			Text(formatCurrentYearMonth())
+				.font(.custom("omyu_pretty", size: 20))
+				.foregroundColor(.azWhite)
+				.lineLimit(1)
+			
+			HStack(spacing: 0) {
+				ForEach(Array(zip(weekdays, weekDates)), id: \.0) { day, date in
+					let isToday = Int(date) == today
+					let hasEmotion = getEmotionForDate(date: date)
+					
+					VStack(spacing: 20) {
+						Text(day)
+							.font(.custom("omyu_pretty", size: 16))
+							.foregroundColor(.azLightGray)
+							.lineLimit(1)
+						
+						ZStack {
+							if hasEmotion.isEmpty {
+								Text("\(date)")
+									.font(.custom("omyu_pretty", size: 16))
+									.foregroundColor(isToday ? .azWhite : .azLightGray)
+									.lineLimit(1)
+							} else {
+								Image(hasEmotion)
+									.resizable()
+									.scaledToFit()
+									.frame(width: 30, height: 30)
+							}
+							
+							if hasEmotion.isEmpty && isToday {
+								Rectangle()
+									.fill(.azLightGray.opacity(0.5))
+									.frame(width: 30, height: 10)
+									.offset(y: 20)
+							}
+						}
+						.frame(height: 30)
+					}
+					.frame(maxWidth: .infinity)
+				}
+			}
+		}
+	}
+}
+
+private extension WidgetEntryView {
+	func formatCurrentYearMonth() -> String {
 		let dateFormatter = DateFormatter()
 		dateFormatter.locale = Locale(identifier: "ko_KR")
 		dateFormatter.dateFormat = "yyyy년 M월"
 		return dateFormatter.string(from: entry.date)
 	}
 	
-	private func getWeekDates() -> [String] {
+	func getWeekDates() -> [String] {
 		let calendar = Calendar.current
 		let weekday = calendar.component(.weekday, from: entry.date)
 		let daysToSubtract = weekday - 1 // 1은 일요일
@@ -314,7 +346,7 @@ struct WidgetEntryView : View {
 		}
 	}
 	
-	private func getEmotionForDate(date: String) -> String {
+	func getEmotionForDate(date: String) -> String {
 		guard let day = Int(date),
 					let startOfDay = Calendar.current.date(
 						from: DateComponents(
@@ -345,6 +377,8 @@ struct WidgetEntryView : View {
 		return ""
 	}
 }
+
+// MARK: - Widget
 
 struct DailyRecordWidget: Widget {
 	let kind: String = "Widget"
