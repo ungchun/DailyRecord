@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import WidgetKit
 import PhotosUI
 
 import SnapKit
@@ -389,6 +390,8 @@ private extension RecordWriteViewController {
 					} catch {
 						handleError(self.coordinator!, "에러가 발생했어요")
 					}
+					
+					WidgetCenter.shared.reloadAllTimelines()
 					LoadingIndicator.hideLoading()
 					handleError(self.coordinator!, "일기를 작성했어요!")
 				}
