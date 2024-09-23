@@ -27,22 +27,60 @@ struct RecordResponseDTO: Decodable {
 
 struct Provider: TimelineProvider {
 	func placeholder(in context: Context) -> SimpleEntry {
-		SimpleEntry(
+		let calendar = Calendar.current
+		let today = Date()
+		let weekday = calendar.component(.weekday, from: today)
+		let daysToSubtract = weekday - 1 // 1은 일요일
+		
+		let startOfWeek = calendar.date(
+			byAdding: .day, value: -daysToSubtract, to: today
+		)
+		
+		let startOfDay = calendar.startOfDay(for: startOfWeek ?? Date())
+		let startTimestamp = String(Int(startOfDay.timeIntervalSince1970 * 1000))
+		
+		let todayStartOfDay = calendar.startOfDay(for: today)
+		let todayStartTimestamp = String(Int(todayStartOfDay.timeIntervalSince1970 * 1000))
+		
+		let dayOfWeekPart = formattedDateString(today, format: "EEEE")
+		let day = formattedDateString(today, format: "dd")
+		
+		return SimpleEntry(
 			date: Date(),
 			weekRecords: [],
-			weekStartDate: "",
-			currentWeekday: "",
-			currentDayOfMonth: ""
+			weekStartDate: startTimestamp,
+			todayStartDate: todayStartTimestamp,
+			currentWeekday: dayOfWeekPart,
+			currentDayOfMonth: day
 		)
 	}
 	
 	func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
+		let calendar = Calendar.current
+		let today = Date()
+		let weekday = calendar.component(.weekday, from: today)
+		let daysToSubtract = weekday - 1 // 1은 일요일
+		
+		let startOfWeek = calendar.date(
+			byAdding: .day, value: -daysToSubtract, to: today
+		)
+		
+		let startOfDay = calendar.startOfDay(for: startOfWeek ?? Date())
+		let startTimestamp = String(Int(startOfDay.timeIntervalSince1970 * 1000))
+		
+		let todayStartOfDay = calendar.startOfDay(for: today)
+		let todayStartTimestamp = String(Int(todayStartOfDay.timeIntervalSince1970 * 1000))
+		
+		let dayOfWeekPart = formattedDateString(today, format: "EEEE")
+		let day = formattedDateString(today, format: "dd")
+		
 		let entry = SimpleEntry(
 			date: Date(),
 			weekRecords: [],
-			weekStartDate: "",
-			currentWeekday: "",
-			currentDayOfMonth: ""
+			weekStartDate: startTimestamp,
+			todayStartDate: todayStartTimestamp,
+			currentWeekday: dayOfWeekPart,
+			currentDayOfMonth: day
 		)
 		completion(entry)
 	}
@@ -60,6 +98,9 @@ struct Provider: TimelineProvider {
 		let startOfDay = calendar.startOfDay(for: startOfWeek)
 		let startTimestamp = String(Int(startOfDay.timeIntervalSince1970 * 1000))
 		
+		let todayStartOfDay = calendar.startOfDay(for: today)
+		let todayStartTimestamp = String(Int(todayStartOfDay.timeIntervalSince1970 * 1000))
+		
 		let dayOfWeekPart = formattedDateString(today, format: "EEEE")
 		let day = formattedDateString(today, format: "dd")
 		
@@ -76,6 +117,7 @@ struct Provider: TimelineProvider {
 							date: entryDate,
 							weekRecords: weekRecords,
 							weekStartDate: startTimestamp,
+							todayStartDate: todayStartTimestamp,
 							currentWeekday: dayOfWeekPart,
 							currentDayOfMonth: day
 						)
@@ -95,6 +137,7 @@ struct Provider: TimelineProvider {
 							date: entryDate,
 							weekRecords: [],
 							weekStartDate: startTimestamp,
+							todayStartDate: todayStartTimestamp,
 							currentWeekday: dayOfWeekPart,
 							currentDayOfMonth: day
 						)
@@ -179,6 +222,7 @@ struct SimpleEntry: TimelineEntry {
 	
 	let weekRecords: [RecordResponseDTO]
 	let weekStartDate: String  // 주의 시작 날짜 (일요일)
+	let todayStartDate: String  // 오늘 날짜
 	let currentWeekday: String // 현재 요일 (예: "일", "월", "화" 등)
 	let currentDayOfMonth: String // 현재 일자 (1~31)
 }
@@ -206,7 +250,7 @@ private extension WidgetEntryView {
 	@ViewBuilder
 	func systemSmallView() -> some View {
 		let todayRecord = entry.weekRecords.filter{
-			$0.calendar_date ?? 0 == Int(entry.weekStartDate)
+			$0.calendar_date ?? 0 == Int(entry.todayStartDate)
 		}
 		
 		// 비어있거나, 감정표현 X
@@ -254,7 +298,7 @@ private extension WidgetEntryView {
 					Spacer()
 					HStack {
 						Spacer()
-						Image(entry.weekRecords.first?.emotion_type ?? "")
+						Image(todayRecord.first?.emotion_type ?? "")
 							.resizable()
 							.frame(width: 60, height: 60)
 						Spacer()
@@ -303,9 +347,9 @@ private extension WidgetEntryView {
 							
 							if emotion.isEmpty && isToday {
 								Rectangle()
-									.fill(.azLightGray.opacity(0.5))
+									.fill(.azDarkGray.opacity(0.5))
 									.frame(width: 30, height: 10)
-									.offset(y: 20)
+									.offset(y: 8)
 							}
 						}
 						.frame(height: 30)
