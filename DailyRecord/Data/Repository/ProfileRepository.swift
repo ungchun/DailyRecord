@@ -21,6 +21,7 @@ extension ProfileRepository {
 		try await documentRef.document(userID).setData(data)
 		try await updateUserInfo(updateData: ["uid": userID])
 		try KeyChainManager.shared.create(account: .uid, data: userID)
+		UserDefaultsSetting.uid = userID
 	}
 	
 	func getUserInfo() async throws -> UserResponseDTO? {

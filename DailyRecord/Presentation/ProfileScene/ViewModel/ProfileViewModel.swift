@@ -73,6 +73,7 @@ extension ProfileViewModel {
 			try await profileUseCase.createUser(data: userData)
 		} else {
 			try KeyChainManager.shared.create(account: .uid, data: userID)
+			UserDefaultsSetting.uid = userID
 		}
 	}
 	

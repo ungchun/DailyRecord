@@ -104,50 +104,51 @@ struct Provider: TimelineProvider {
 		let dayOfWeekPart = formattedDateString(today, format: "EEEE")
 		let day = formattedDateString(today, format: "dd")
 		
-		if let userID = Auth.auth().currentUser?.uid {
-			Task {
-				do {
-					var entries: [SimpleEntry] = []
-					let weekRecords = try await fetchCurrentWeekRecords(userID: userID)
-					for hoursOffset in 0...1 {
-						let entryDate = Calendar.current.date(byAdding: .hour,
-																									value: hoursOffset,
-																									to: Date())!
-						let entry = SimpleEntry(
-							date: entryDate,
-							weekRecords: weekRecords,
-							weekStartDate: startTimestamp,
-							todayStartDate: todayStartTimestamp,
-							currentWeekday: dayOfWeekPart,
-							currentDayOfMonth: day
-						)
-						
-						entries.append(entry)
-					}
+		let userDefaults = UserDefaults(suiteName: "group.ungchun.DailyRecord")
+		let userID = userDefaults?.string(forKey: "uid") ?? ""
+		
+		Task {
+			do {
+				var entries: [SimpleEntry] = []
+				let weekRecords = try await fetchCurrentWeekRecords(userID: userID)
+				for hoursOffset in 0...1 {
+					let entryDate = Calendar.current.date(byAdding: .hour,
+																								value: hoursOffset,
+																								to: Date())!
+					let entry = SimpleEntry(
+						date: entryDate,
+						weekRecords: weekRecords,
+						weekStartDate: startTimestamp,
+						todayStartDate: todayStartTimestamp,
+						currentWeekday: dayOfWeekPart,
+						currentDayOfMonth: day
+					)
 					
-					let timeline = Timeline(entries: entries, policy: .atEnd)
-					completion(timeline)
-				} catch {
-					var entries: [SimpleEntry] = []
-					for hoursOffset in 0...1 {
-						let entryDate = Calendar.current.date(byAdding: .hour,
-																									value: hoursOffset,
-																									to: Date())!
-						let entry = SimpleEntry(
-							date: entryDate,
-							weekRecords: [],
-							weekStartDate: startTimestamp,
-							todayStartDate: todayStartTimestamp,
-							currentWeekday: dayOfWeekPart,
-							currentDayOfMonth: day
-						)
-						
-						entries.append(entry)
-					}
-					
-					let timeline = Timeline(entries: entries, policy: .atEnd)
-					completion(timeline)
+					entries.append(entry)
 				}
+				
+				let timeline = Timeline(entries: entries, policy: .atEnd)
+				completion(timeline)
+			} catch {
+				var entries: [SimpleEntry] = []
+				for hoursOffset in 0...1 {
+					let entryDate = Calendar.current.date(byAdding: .hour,
+																								value: hoursOffset,
+																								to: Date())!
+					let entry = SimpleEntry(
+						date: entryDate,
+						weekRecords: [],
+						weekStartDate: startTimestamp,
+						todayStartDate: todayStartTimestamp,
+						currentWeekday: dayOfWeekPart,
+						currentDayOfMonth: day
+					)
+					
+					entries.append(entry)
+				}
+				
+				let timeline = Timeline(entries: entries, policy: .atEnd)
+				completion(timeline)
 			}
 		}
 	}
@@ -336,7 +337,11 @@ private extension WidgetEntryView {
 							if emotion.isEmpty {
 								Text("\(date)")
 									.font(.custom("omyu_pretty", size: 16))
-									.foregroundColor(isToday ? .azWhite : .azLightGray.opacity(0.5))
+									.foregroundColor(isToday
+																	 ? .azWhite
+																	 : Int(date) ?? Int.max < today
+																	 ? .azWhite
+																	 : .azLightGray.opacity(0.5))
 									.lineLimit(1)
 							} else {
 								Image(emotion)
