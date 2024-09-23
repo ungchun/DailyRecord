@@ -8,6 +8,7 @@
 import AuthenticationServices
 import CryptoKit
 import UIKit
+import WidgetKit
 
 import FirebaseAuth
 
@@ -154,7 +155,15 @@ extension ProfileViewController {
 			let authResult = try await Auth.auth().currentUser?.link(with: credential)
 			try await handleAuthResult(authResult)
 		} catch {
-			handleError(self.coordinator!, "사용자 데이터 생성 중 오류가 발생했어요")
+			/// https://github.com/firebase/firebase-ios-sdk/issues/12146
+			let authError = error as? AuthErrorCode
+			if let newCredential = authError?.userInfo[AuthErrorUserInfoUpdatedCredentialKey]
+					as? AuthCredential {
+				let authResult = try await Auth.auth().signIn(with: newCredential)
+				try await handleAuthResult(authResult)
+			} else {
+				handleError(self.coordinator!, "사용자 데이터 생성 중 오류가 발생했어요")
+			}
 		}
 	}
 	
@@ -188,6 +197,8 @@ extension ProfileViewController {
 			if let year = Int(formattedDateString(Date(), format: "yyyy")),
 				 let month = Int(formattedDateString(Date(), format: "M")) {
 				try await calendarViewModel.fetchMonthRecordTrigger(year: year, month: month) {
+					WidgetCenter.shared.reloadAllTimelines()
+					
 					self.coordinator?.popToRoot()
 				}
 			}

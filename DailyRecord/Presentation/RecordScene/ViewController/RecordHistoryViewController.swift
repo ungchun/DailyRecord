@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import WidgetKit
 
 import SnapKit
 
@@ -237,6 +238,8 @@ extension RecordHistoryViewController {
 							} catch {
 								handleError(self.coordinator!, "에러가 발생했어요")
 							}
+							
+							WidgetCenter.shared.reloadAllTimelines()
 							handleError(self.coordinator!, "일기를 삭제했어요!")
 						}
 					} catch {

@@ -70,6 +70,7 @@ final class CalendarViewController: BaseViewController {
 		
 		calendar.appearance.headerMinimumDissolvedAlpha = 0.0
 		calendar.appearance.headerTitleColor = .clear
+		calendar.appearance.weekdayFont = UIFont(name: "omyu_pretty", size: 14)
 		calendar.appearance.weekdayTextColor = .azLightGray
 		calendar.appearance.todayColor = .azDarkGray
 		calendar.appearance.selectionColor = .clear
@@ -230,6 +231,7 @@ extension CalendarViewController: FSCalendarDelegate,
 		calendar.snp.updateConstraints { (make) in
 			make.height.equalTo(bounds.height)
 		}
+		
 		self.view.layoutIfNeeded()
 	}
 	
@@ -252,6 +254,7 @@ extension CalendarViewController: FSCalendarDelegate,
 		}) {
 			selectData = matchedEntity
 		}
+		
 		coordinator?.showRecord(
 			calendarViewModel: viewModel,
 			selectData: selectData

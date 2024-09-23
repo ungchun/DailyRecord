@@ -8,7 +8,6 @@
 import UIKit
 
 import Firebase
-import KakaoSDKCommon
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,8 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		_ application: UIApplication,
 		didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
 	) -> Bool {
-		// TODO: 카카오 로그인 추가할 때 URL Types - URL Schemes + 아래 appKey에 네이티브 키 값 세팅
-		// KakaoSDK.initSDK(appKey: "")
 		
 		FirebaseApp.configure()
 		return true
