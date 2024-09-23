@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import WidgetKit
 
 import FirebaseAuth
 
@@ -17,6 +18,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 						 willConnectTo session: UISceneSession,
 						 options connectionOptions: UIScene.ConnectionOptions) {
 		checkForUpdate()
+		
+		WidgetCenter.shared.reloadAllTimelines()
 		
 		if let windowScene = scene as? UIWindowScene {
 			if Auth.auth().currentUser == nil {
