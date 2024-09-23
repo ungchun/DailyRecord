@@ -199,6 +199,8 @@ extension ProfileViewController {
 				try await calendarViewModel.fetchMonthRecordTrigger(year: year, month: month) {
 					WidgetCenter.shared.reloadAllTimelines()
 					
+					self.handleError(self.coordinator!, "애플 로그인 연동 성공")
+					
 					self.coordinator?.popToRoot()
 				}
 			}
