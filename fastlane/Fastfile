@@ -55,8 +55,10 @@ platform :ios do
 
   desc "build app and upload to testflight"
   lane :beta do
-    setup_app_store_connect_api_key
+    # setup_app_store_connect_api_key
+    match(type: "appstore")
     sync_code_signing
+
     increment_build_number(
         build_number: latest_testflight_build_number + 1
     )
