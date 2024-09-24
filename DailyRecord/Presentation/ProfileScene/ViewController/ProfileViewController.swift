@@ -98,8 +98,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
 		)
 		
 		let items: [ProfileCellItem] = UserDefaultsSetting.isAnonymously
-		? [.linkAccount, .darkMode, .deleteAccount]
-		: [.appleLogin, .darkMode, .deleteAccount]
+		? [.appleLogin, .darkMode, .deleteAccount]
+		: [.appleLoginComplete, .darkMode, .deleteAccount]
 		
 		let item = items[indexPath.row]
 		
@@ -120,13 +120,13 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
 		tableView.deselectRow(at: indexPath, animated: true)
 		
 		let items: [ProfileCellItem] = UserDefaultsSetting.isAnonymously
-		? [.linkAccount, .darkMode, .deleteAccount]
-		: [.appleLogin, .darkMode, .deleteAccount]
+		? [.appleLogin, .darkMode, .deleteAccount]
+		: [.appleLoginComplete, .darkMode, .deleteAccount]
 		
 		let selectedItem = items[indexPath.row]
 		
 		switch selectedItem {
-		case .linkAccount:
+		case .appleLogin:
 			appleLoginTrigger()
 		case .darkMode:
 			darkModeTrigger()

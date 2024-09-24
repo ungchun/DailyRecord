@@ -14,17 +14,17 @@ enum LoginPlatForm: String {
 }
 
 enum ProfileCellItem: String, CaseIterable {
+	case appleLoginComplete = "애플 로그인 연동 완료"
 	case appleLogin = "애플 로그인 연동"
-	case linkAccount = "계정 연동"
 	case darkMode = "다크 모드"
 	case deleteAccount = "회원 탈퇴"
 	
 	var iconName: String {
 		switch self {
+		case .appleLoginComplete:
+			return "apple.logo"
 		case .appleLogin:
 			return "apple.logo"
-		case .linkAccount:
-			return "link"
 		case .darkMode:
 			return "moon"
 		case .deleteAccount:
