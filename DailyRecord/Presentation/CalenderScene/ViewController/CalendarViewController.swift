@@ -328,7 +328,7 @@ extension CalendarViewController: FSCalendarDelegate,
 		if Calendar.current.isDateInToday(date) {
 			DispatchQueue.main.async {
 				let squareView = UIView()
-				squareView.backgroundColor = .azDarkGray.withAlphaComponent(0.5)
+				squareView.backgroundColor = .azLightGray.withAlphaComponent(0.2)
 				squareView.tag = 1001
 				
 				cell.contentView.addSubview(squareView)

@@ -352,7 +352,7 @@ private extension WidgetEntryView {
 							
 							if emotion.isEmpty && isToday {
 								Rectangle()
-									.fill(.azDarkGray.opacity(0.5))
+									.fill(.azLightGray.opacity(0.2))
 									.frame(width: 30, height: 10)
 									.offset(y: 8)
 							}
