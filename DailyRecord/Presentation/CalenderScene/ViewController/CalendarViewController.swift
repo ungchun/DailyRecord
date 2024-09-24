@@ -188,9 +188,9 @@ extension CalendarViewController {
 	@objc private func todayWriteTrigger() {
 		let nowDate = Calendar.current.startOfDay(for: Date())
 		let day = Calendar.current.component(.weekday, from: nowDate) - 1
-		if Calendar.current.shortWeekdaySymbols[day] == "Sun" {
+		if Calendar.current.shortWeekdaySymbols[day] == "일" {
 			calendarView.appearance.titleSelectionColor = .azRed
-		} else if Calendar.current.shortWeekdaySymbols[day] == "Sat" {
+		} else if Calendar.current.shortWeekdaySymbols[day] == "토" {
 			calendarView.appearance.titleSelectionColor = .azBlue
 		} else {
 			calendarView.appearance.titleSelectionColor = .azWhite
@@ -238,9 +238,9 @@ extension CalendarViewController: FSCalendarDelegate,
 	func calendar(_ calendar: FSCalendar, didSelect date: Date,
 								at monthPosition: FSCalendarMonthPosition) {
 		let day = Calendar.current.component(.weekday, from: date) - 1
-		if Calendar.current.shortWeekdaySymbols[day] == "Sun" {
+		if Calendar.current.shortWeekdaySymbols[day] == "일" {
 			calendar.appearance.titleSelectionColor = .azRed
-		} else if Calendar.current.shortWeekdaySymbols[day] == "Sat" {
+		} else if Calendar.current.shortWeekdaySymbols[day] == "토" {
 			calendar.appearance.titleSelectionColor = .azBlue
 		} else {
 			calendar.appearance.titleSelectionColor = .azWhite
@@ -271,9 +271,9 @@ extension CalendarViewController: FSCalendarDelegate,
 			return .azLightGray.withAlphaComponent(0.5)
 		}
 		
-		if Calendar.current.shortWeekdaySymbols[day] == "Sun" {
+		if Calendar.current.shortWeekdaySymbols[day] == "일" {
 			return .azRed
-		} else if Calendar.current.shortWeekdaySymbols[day] == "Sat" {
+		} else if Calendar.current.shortWeekdaySymbols[day] == "토" {
 			return .azBlue
 		} else {
 			return .azWhite
