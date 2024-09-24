@@ -282,7 +282,7 @@ private extension WidgetEntryView {
 			// 감정표현 O
 			ZStack(alignment: .topLeading) {
 				HStack {
-					VStack(alignment: .leading) {
+					VStack(alignment: .leading, spacing: 4) {
 						Text("\(entry.currentWeekday)")
 							.font(.custom("omyu_pretty", size: 16))
 							.foregroundColor(.azWhite)
