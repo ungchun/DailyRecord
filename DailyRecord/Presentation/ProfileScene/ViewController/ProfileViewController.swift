@@ -91,7 +91,8 @@ final class ProfileViewController: BaseViewController {
 
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return viewModel.profileCellItems.count - 2
+    return isAnonymously
+    ? viewModel.profileCellItems.count - 2 : viewModel.profileCellItems.count - 1
   }
   
   func tableView(_ tableView: UITableView,
@@ -103,7 +104,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     let items: [ProfileCellItem] = isAnonymously
     ? [.appleLogin, .darkMode]
-    : [.darkMode, .deleteAccount]
+    : [.appleLoginComplete, .darkMode, .deleteAccount]
     
     let item = items[indexPath.row]
     
@@ -125,7 +126,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     let items: [ProfileCellItem] = isAnonymously
     ? [.appleLogin, .darkMode]
-    : [.darkMode, .deleteAccount]
+    : [.appleLoginComplete, .darkMode, .deleteAccount]
     
     let selectedItem = items[indexPath.row]
     
@@ -230,10 +231,11 @@ extension ProfileViewController {
         do {
           try await self.viewModel.removeUserTrigger()
         } catch {
-          handleError(self.coordinator!, "에러가 발생했어요")
+          // 에러 발생
         }
       }
     }
+    
     alertController.addAction(cancelAction)
     
     let deleteAction = UIAlertAction(title: "취소", style: .default) { _ in }
