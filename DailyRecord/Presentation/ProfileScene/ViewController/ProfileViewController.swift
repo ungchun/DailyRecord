@@ -146,11 +146,15 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
 extension ProfileViewController {
   private func appleLoginTrigger() {
     Task {
-      let credential = try await appleSignInService.startSignInWithAppleFlow()
-      if Auth.auth().currentUser?.isAnonymous == true {
-        try await linkAnonymousAccountWithApple(credential: credential)
-      } else {
-        try await signInWithCredential(credential)
+      do {
+        let credential = try await appleSignInService.startSignInWithAppleFlow()
+        if Auth.auth().currentUser?.isAnonymous == true {
+          try await linkAnonymousAccountWithApple(credential: credential)
+        } else {
+          try await signInWithCredential(credential)
+        }
+      } catch {
+        handleError(self.coordinator!, "애플 로그인 에러 발생")
       }
     }
   }
