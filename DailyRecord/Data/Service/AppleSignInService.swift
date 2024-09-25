@@ -61,7 +61,6 @@ extension AppleSignInService {
 		}
 		
 		do {
-			UserDefaultsSetting.isAnonymously = false
 			UserDefaultsSetting.uid = uid
 			try KeyChainManager.shared.create(account: .uid, data: uid)
 			try KeyChainManager.shared.create(account: .idTokenString, data: idTokenString)

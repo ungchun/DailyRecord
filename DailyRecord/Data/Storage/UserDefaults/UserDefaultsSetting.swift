@@ -8,9 +8,6 @@
 import Foundation
 
 enum UserDefaultsSetting {
-	@UserDefaultsWrapper(key: "isAnonymously", defaultValue: false)
-	static var isAnonymously
-	
 	@UserDefaultsWrapper(key: "displayMode", defaultValue: DisplayMode.system.rawValue)
 	static var displayMode
 	
