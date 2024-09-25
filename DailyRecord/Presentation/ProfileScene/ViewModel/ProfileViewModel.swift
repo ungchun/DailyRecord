@@ -18,13 +18,13 @@ enum ProfileCellItem: String, CaseIterable {
 	case appleLogin = "애플 로그인 연동"
 	case darkMode = "다크 모드"
 	case deleteAccount = "회원 탈퇴"
-	
+  
 	var iconName: String {
 		switch self {
 		case .appleLoginComplete:
-			return "apple.logo"
+      return "appleid_button"
 		case .appleLogin:
-			return "apple.logo"
+			return "appleid_button"
 		case .darkMode:
 			return "moon"
 		case .deleteAccount:

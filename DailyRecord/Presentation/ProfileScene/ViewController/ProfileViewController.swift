@@ -112,8 +112,13 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     cell.textLabel?.font = UIFont(name: "omyu_pretty", size: 16)
     cell.textLabel?.textColor = item == .deleteAccount ? .red : .azWhite
     
-    let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .default)
-    cell.imageView?.image = UIImage(systemName: item.iconName, withConfiguration: config)
+    
+    if item == .appleLoginComplete || item == .appleLogin {
+      cell.imageView?.image = UIImage(named: item.iconName)
+    } else {
+      let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .default)
+      cell.imageView?.image = UIImage(systemName: item.iconName, withConfiguration: config)
+    }
     cell.imageView?.tintColor = item == .deleteAccount ? .red : .azWhite
     
     cell.selectionStyle = .none
