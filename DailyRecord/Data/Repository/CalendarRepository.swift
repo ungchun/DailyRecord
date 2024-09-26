@@ -5,74 +5,58 @@
 //  Created by Kim SungHun on 7/13/24.
 //
 
-import Firebase
-import FirebaseFirestore
+import CoreData
 
 final class CalendarRepository: DefaultCalendarRepository {
-	private let db = Firestore.firestore()
+  private let coreDataManager = CoreDataManager.shared
 }
 
 extension CalendarRepository {
-	func readMonthRecord(year: Int, month: Int) async throws -> [RecordResponseDTO] {
-		guard let userID = Auth.auth().currentUser?.uid else {
-			throw NSError(domain: "AuthError",
-										code: 1001,
-										userInfo: [NSLocalizedDescriptionKey: "User not authenticated"])
-		}
-		
-		let db = Firestore.firestore()
-		
-		// 월의 시작과 끝을 설정
-		var components = DateComponents()
-		components.year = year
-		components.month = month
-		components.day = 1
-		let calendar = Calendar.current
-		
-		guard let startOfMonth = calendar.date(from: components) else {
-			throw NSError(domain: "DateError",
-										code: 1002,
-										userInfo: [NSLocalizedDescriptionKey: "Invalid start of month date"])
-		}
-		
-		components.month = month + 1
-		components.day = 0
-		guard let endOfMonth = calendar.date(from: components) else {
-			throw NSError(domain: "DateError",
-										code: 1003,
-										userInfo: [NSLocalizedDescriptionKey: "Invalid end of month date"])
-		}
-		
-		let startTimestamp = Int(startOfMonth.timeIntervalSince1970 * 1000)
-		let endTimestamp = Int(endOfMonth.timeIntervalSince1970 * 1000)
-		
-		let documentRef = db.collection("user").document(userID).collection("record")
-		
-		let query = documentRef
-			.whereField("calendar_date", isGreaterThanOrEqualTo: startTimestamp)
-			.whereField("calendar_date", isLessThanOrEqualTo: endTimestamp)
-		
-		return try await withCheckedThrowingContinuation { continuation in
-			query.getDocuments { (querySnapshot, error) in
-				if let error = error {
-					continuation.resume(throwing: error)
-				} else {
-					do {
-						var records: [RecordResponseDTO] = []
-						for document in querySnapshot!.documents {
-							let data = document.data()
-							let jsonData = try JSONSerialization.data(withJSONObject: data,
-																												options: [])
-							let recordResponse = try JSONDecoder().decode(RecordResponseDTO.self,
-																														from: jsonData)
-							records.append(recordResponse)
-						}
-						continuation.resume(returning: records)
-					} catch {
-						continuation.resume(throwing: error)
-					}
-				}
-			}
-		}
-	}
+  func readMonthRecord(year: Int, month: Int) throws -> [RecordEntity] {
+    let context = coreDataManager.context
+    
+    // 월의 시작과 끝을 설정
+    var components = DateComponents()
+    components.year = year
+    components.month = month
+    components.day = 1
+    let calendar = Calendar.current
+    
+    guard let startOfMonth = calendar.date(from: components) else {
+      throw NSError()
+    }
+    
+    components.month = month + 1
+    components.day = 0
+    
+    guard let endOfMonth = calendar.date(from: components) else {
+      throw NSError()
+    }
+    
+    let startTimestamp = Int64(startOfMonth.timeIntervalSince1970 * 1000)
+    let endTimestamp = Int64(endOfMonth.timeIntervalSince1970 * 1000) + 86399999
+    
+    let fetchRequest: NSFetchRequest<Record> = Record.fetchRequest()
+    fetchRequest.predicate = NSPredicate(
+      format: "calendar_date > 0 AND calendar_date >= %lld AND calendar_date <= %lld",
+      startTimestamp, endTimestamp
+    )
+    fetchRequest.sortDescriptors = [NSSortDescriptor(key: "calendar_date", ascending: true)]
+    
+    do {
+      let records = try context.fetch(fetchRequest)
+      return records.compactMap { record in
+        return RecordEntity(
+          content: record.content ?? "",
+          emotionType: record.emotion_type ?? "",
+          imageList: record.image_list as? [Data] ?? [],
+          imageIdentifier: record.image_identifier as? [String] ?? [],
+          createTime: Int(record.create_time),
+          calendarDate: Int(record.calendar_date)
+        )
+      }
+    } catch {
+      throw error
+    }
+  }
 }
