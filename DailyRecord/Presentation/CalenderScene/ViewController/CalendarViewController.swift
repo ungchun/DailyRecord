@@ -57,7 +57,8 @@ final class CalendarViewController: BaseViewController {
   
   private lazy var calendarView: FSCalendar = {
     let calendar = FSCalendar()
-    calendar.register(CalendarCell.self, forCellReuseIdentifier: CalendarCell.description())
+    calendar.register(CalendarCell.self,
+                      forCellReuseIdentifier: CalendarCell.description())
     calendar.dataSource = self
     calendar.delegate = self
     
@@ -146,13 +147,17 @@ final class CalendarViewController: BaseViewController {
   override func setupView() {
     bindViewModel()
     
-    settingButton.addTarget(self,
-                            action: #selector(showProfileTrigger),
-                            for: .touchUpInside)
+    settingButton.addTarget(
+      self,
+      action: #selector(showProfileTrigger),
+      for: .touchUpInside
+    )
     
-    writeButton.addTarget(self,
-                          action: #selector(todayWriteTrigger),
-                          for: .touchUpInside)
+    writeButton.addTarget(
+      self,
+      action: #selector(todayWriteTrigger),
+      for: .touchUpInside
+    )
     
     DispatchQueue.main.async { [weak self] in
       self?.view.backgroundColor = .azBlack
@@ -163,7 +168,9 @@ final class CalendarViewController: BaseViewController {
       Task { [weak self] in
         guard let self else { return }
         do {
-          try await self.viewModel.fetchMonthRecordTrigger(year: year, month: month) { }
+          try await self.viewModel.fetchMonthRecordTrigger(
+            year: year, month: month
+          ) { }
         } catch {
           handleError(self.coordinator!, "에러가 발생했어요")
         }
@@ -248,17 +255,14 @@ extension CalendarViewController: FSCalendarDelegate,
     }
     
     var selectData = RecordEntity(calendarDate: Int(date.millisecondsSince1970))
-    Log.debug("AZHY CHECK 1", selectData)
+    
     if let matchedEntity = viewModel.records.first(where: { entity in
       let seconds = TimeInterval(entity.calendarDate) / 1000
       let responseDate = Date(timeIntervalSince1970: seconds)
       return date == responseDate
     }) {
       selectData = matchedEntity
-      Log.debug("AZHY CHECK 2", selectData)
     }
-    
-    Log.debug("AZHY CHECK 3", selectData)
     
     coordinator?.showRecord(
       calendarViewModel: viewModel,
@@ -293,7 +297,9 @@ extension CalendarViewController: FSCalendarDelegate,
   func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
     let currentPage = calendar.currentPage
     DispatchQueue.main.async { [weak self] in
-      self?.calendarHeaderView.text = self?.formattedDateString(currentPage, format: "M월")
+      self?.calendarHeaderView.text = self?.formattedDateString(
+        currentPage, format: "M월"
+      )
     }
     if let year = Int(formattedDateString(currentPage, format: "yyyy")),
        let month = Int(formattedDateString(currentPage, format: "M")) {
@@ -301,7 +307,9 @@ extension CalendarViewController: FSCalendarDelegate,
         guard let self else { return }
         do {
           try await Task.sleep(nanoseconds: 500_000_000)
-          try await self.viewModel.fetchMonthRecordTrigger(year: year, month: month) { }
+          try await self.viewModel.fetchMonthRecordTrigger(
+            year: year, month: month
+          ) { }
         } catch {
           handleError(self.coordinator!, "에러가 발생했어요")
         }
