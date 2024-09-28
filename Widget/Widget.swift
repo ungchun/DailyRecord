@@ -318,8 +318,6 @@ private extension WidgetEntryView {
                   .font(.custom("omyu_pretty", size: 16))
                   .foregroundColor(isToday
                                    ? .azWhite
-                                   : Int(date) ?? Int.max < today
-                                   ? .azWhite
                                    : .azLightGray.opacity(0.5))
                   .lineLimit(1)
               } else {
