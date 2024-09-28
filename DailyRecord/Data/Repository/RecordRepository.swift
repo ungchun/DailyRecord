@@ -5,47 +5,55 @@
 //  Created by Kim SungHun on 7/7/24.
 //
 
-import Firebase
-import FirebaseFirestore
+import CoreData
 
 final class RecordRepository: DefaultRecordRepository {
-	private let db = Firestore.firestore()
+  private let coreDataManager = CoreDataManager.shared
 }
 
 extension RecordRepository {
-	func createRecord(data: [String : Any]) async throws {
-		guard let userID = Auth.auth().currentUser?.uid else { return }
-		if let recordSelectDate = data["calendar_date"] {
-			let recordSelectDateString = String(describing: recordSelectDate)
-			let documentRef = db.collection("user")
-				.document(userID).collection("record").document(recordSelectDateString)
-			try await withCheckedThrowingContinuation {
-				(continuation: CheckedContinuation<Void, Error>) in
-				documentRef.setData(data) { error in
-					if let error = error {
-						continuation.resume(throwing: error)
-					} else {
-						continuation.resume()
-					}
-				}
-			}
-		}
-	}
-	
-	func removeRecord(docID: String) async throws {
-		guard let userID = Auth.auth().currentUser?.uid else { return }
-		let documentRef = db.collection("user").document(userID)
-			.collection("record").document(docID)
-		
-		try await withCheckedThrowingContinuation {
-			(continuation: CheckedContinuation<Void, Error>) in
-			documentRef.delete { error in
-				if let error = error {
-					continuation.resume(throwing: error)
-				} else {
-					continuation.resume()
-				}
-			}
-		}
-	}
+  func createRecord(data: RecordEntity) async throws {
+    if let entity = coreDataManager.recordEntity {
+      let managedObject = NSManagedObject(
+        entity: entity,
+        insertInto: coreDataManager.context
+      )
+      managedObject.setValue(data.content, forKey: "content")
+      managedObject.setValue(data.emotionType, forKey: "emotion_type")
+      managedObject.setValue(data.imageList, forKey: "image_list")
+      managedObject.setValue(data.imageIdentifier, forKey: "image_identifier")
+      managedObject.setValue(data.createTime, forKey: "create_time")
+      managedObject.setValue(data.calendarDate, forKey: "calendar_date")
+    }
+    
+    try? coreDataManager.context.save()
+  }
+  
+  func updateRecord(data: RecordEntity) async throws {
+    let request = Record.fetchRequest()
+    
+    guard let records = try? coreDataManager.context.fetch(request) else { return }
+    if let targetRecord = records.filter({$0.calendar_date == data.calendarDate}).first {
+      targetRecord.content = data.content
+      targetRecord.emotion_type = data.emotionType
+      targetRecord.image_list = data.imageList as NSObject
+      targetRecord.image_identifier = data.imageIdentifier as NSObject
+      targetRecord.create_time = Int64(data.createTime)
+      targetRecord.calendar_date = Int64(data.calendarDate)
+    }
+    
+    try? coreDataManager.context.save()
+  }
+  
+  func removeRecord(calendarDate: Int) async throws {
+    let request = Record.fetchRequest()
+    
+    guard let records = try? coreDataManager.context.fetch(request) else { return }
+    
+    if let targetRecord = records.filter({ $0.calendar_date == calendarDate }).first {
+      coreDataManager.context.delete(targetRecord)
+    }
+    
+    try? coreDataManager.context.save()
+  }
 }

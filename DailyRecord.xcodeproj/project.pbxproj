@@ -17,15 +17,17 @@
 		651A9F6A2C9EE96800B9B1FE /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 651A9F692C9EE96800B9B1FE /* FirebaseFirestore */; };
 		651A9F6B2C9EEB0E00B9B1FE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6522DE282C8D68C700AB23A5 /* GoogleService-Info.plist */; };
 		6522DE292C8D68C700AB23A5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6522DE282C8D68C700AB23A5 /* GoogleService-Info.plist */; };
-		6522DE2C2C8D84EE00AB23A5 /* AppleSignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6522DE2B2C8D84EE00AB23A5 /* AppleSignInService.swift */; };
+		65600E6A2CA5715F0093D20B /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 65600E682CA5715F0093D20B /* CoreData.xcdatamodeld */; };
+		65600E6D2CA7A1D20093D20B /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65600E6C2CA7A1D20093D20B /* CoreDataManager.swift */; };
+		65600E6E2CA7CA320093D20B /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 65600E682CA5715F0093D20B /* CoreData.xcdatamodeld */; };
+		65600E6F2CA7CA410093D20B /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65600E6C2CA7A1D20093D20B /* CoreDataManager.swift */; };
+		65600E712CA7CF720093D20B /* RecordEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946832C3AB97A0030598B /* RecordEntity.swift */; };
+		65600E752CA81A8E0093D20B /* SetiCloudSyncViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65600E742CA81A8E0093D20B /* SetiCloudSyncViewController.swift */; };
 		657DB90E2C5BB5EB008DD96E /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DB90D2C5BB5EB008DD96E /* ProfileViewModel.swift */; };
 		657DB9102C5BB600008DD96E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DB90F2C5BB600008DD96E /* ProfileViewController.swift */; };
 		657DB9122C5BB845008DD96E /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DB9112C5BB845008DD96E /* ProfileCoordinator.swift */; };
 		657DB9142C5BB871008DD96E /* ProfileDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DB9132C5BB871008DD96E /* ProfileDIContainer.swift */; };
 		659946542C27DD8E0030598B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 659946532C27DD8E0030598B /* SnapKit */; };
-		659946632C2FE4BE0030598B /* UserResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946622C2FE4BE0030598B /* UserResponseDTO.swift */; };
-		659946662C2FE79F0030598B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946652C2FE79F0030598B /* User.swift */; };
-		6599466A2C3024A60030598B /* UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946692C3024A60030598B /* UserRequest.swift */; };
 		6599466D2C3024F40030598B /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6599466C2C3024F40030598B /* Encodable+.swift */; };
 		659946712C38397F0030598B /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946702C38397F0030598B /* UserDefaultsWrapper.swift */; };
 		659946732C3839860030598B /* UserDefaultsSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946722C3839860030598B /* UserDefaultsSetting.swift */; };
@@ -35,13 +37,11 @@
 		6599467E2C3A8B060030598B /* RecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6599467D2C3A8B060030598B /* RecordRepository.swift */; };
 		659946802C3A8B1D0030598B /* DefaultRecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6599467F2C3A8B1D0030598B /* DefaultRecordRepository.swift */; };
 		659946822C3A8B410030598B /* RecordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946812C3A8B410030598B /* RecordUseCase.swift */; };
-		659946842C3AB97A0030598B /* RecordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946832C3AB97A0030598B /* RecordRequest.swift */; };
-		659946862C3AB9880030598B /* RecordResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946852C3AB9880030598B /* RecordResponseDTO.swift */; };
+		659946842C3AB97A0030598B /* RecordEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946832C3AB97A0030598B /* RecordEntity.swift */; };
 		659946882C4249690030598B /* CalendarRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946872C4249690030598B /* CalendarRepository.swift */; };
 		6599468E2C4249DB0030598B /* DefaultCalendarRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6599468D2C4249DB0030598B /* DefaultCalendarRepository.swift */; };
 		659946902C4249E30030598B /* CalendarUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6599468F2C4249E30030598B /* CalendarUseCase.swift */; };
 		659946922C424C660030598B /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946912C424C660030598B /* Date+.swift */; };
-		659946942C43EB1B0030598B /* RecordEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946932C43EB1B0030598B /* RecordEntity.swift */; };
 		659946972C43F1980030598B /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946962C43F1980030598B /* Type.swift */; };
 		6599469A2C4961840030598B /* omyu_pretty.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 659946992C4961840030598B /* omyu_pretty.ttf */; };
 		659946AC2C4BD8C70030598B /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946AB2C4BD8C70030598B /* UIImage+.swift */; };
@@ -140,14 +140,13 @@
 		6508A2242C7CA200005AB6DC /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
 		651A9F2A2C9ECFBC00B9B1FE /* WidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetExtension.entitlements; sourceTree = "<group>"; };
 		6522DE282C8D68C700AB23A5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		6522DE2B2C8D84EE00AB23A5 /* AppleSignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInService.swift; sourceTree = "<group>"; };
+		65600E692CA5715F0093D20B /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
+		65600E6C2CA7A1D20093D20B /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		65600E742CA81A8E0093D20B /* SetiCloudSyncViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetiCloudSyncViewController.swift; sourceTree = "<group>"; };
 		657DB90D2C5BB5EB008DD96E /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		657DB90F2C5BB600008DD96E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		657DB9112C5BB845008DD96E /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		657DB9132C5BB871008DD96E /* ProfileDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDIContainer.swift; sourceTree = "<group>"; };
-		659946622C2FE4BE0030598B /* UserResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponseDTO.swift; sourceTree = "<group>"; };
-		659946652C2FE79F0030598B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		659946692C3024A60030598B /* UserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequest.swift; sourceTree = "<group>"; };
 		6599466C2C3024F40030598B /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
 		659946702C38397F0030598B /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
 		659946722C3839860030598B /* UserDefaultsSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsSetting.swift; sourceTree = "<group>"; };
@@ -157,13 +156,11 @@
 		6599467D2C3A8B060030598B /* RecordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRepository.swift; sourceTree = "<group>"; };
 		6599467F2C3A8B1D0030598B /* DefaultRecordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRecordRepository.swift; sourceTree = "<group>"; };
 		659946812C3A8B410030598B /* RecordUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordUseCase.swift; sourceTree = "<group>"; };
-		659946832C3AB97A0030598B /* RecordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRequest.swift; sourceTree = "<group>"; };
-		659946852C3AB9880030598B /* RecordResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordResponseDTO.swift; sourceTree = "<group>"; };
+		659946832C3AB97A0030598B /* RecordEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordEntity.swift; sourceTree = "<group>"; };
 		659946872C4249690030598B /* CalendarRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRepository.swift; sourceTree = "<group>"; };
 		6599468D2C4249DB0030598B /* DefaultCalendarRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCalendarRepository.swift; sourceTree = "<group>"; };
 		6599468F2C4249E30030598B /* CalendarUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarUseCase.swift; sourceTree = "<group>"; };
 		659946912C424C660030598B /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
-		659946932C43EB1B0030598B /* RecordEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordEntity.swift; sourceTree = "<group>"; };
 		659946962C43F1980030598B /* Type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Type.swift; sourceTree = "<group>"; };
 		659946992C4961840030598B /* omyu_pretty.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = omyu_pretty.ttf; sourceTree = "<group>"; };
 		659946AB2C4BD8C70030598B /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
@@ -266,12 +263,12 @@
 			path = KeyChain;
 			sourceTree = "<group>";
 		};
-		6522DE2A2C8D84E400AB23A5 /* Service */ = {
+		65600E6B2CA7A1C60093D20B /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				6522DE2B2C8D84EE00AB23A5 /* AppleSignInService.swift */,
+				65600E6C2CA7A1D20093D20B /* CoreDataManager.swift */,
 			);
-			path = Service;
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		657DB90A2C5BB584008DD96E /* ProfileScene */ = {
@@ -296,6 +293,7 @@
 			children = (
 				657DB90F2C5BB600008DD96E /* ProfileViewController.swift */,
 				6508A2222C79D021005AB6DC /* SetDarkModeViewController.swift */,
+				65600E742CA81A8E0093D20B /* SetiCloudSyncViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -303,8 +301,7 @@
 		659946642C2FE79A0030598B /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				659946652C2FE79F0030598B /* User.swift */,
-				659946932C43EB1B0030598B /* RecordEntity.swift */,
+				659946832C3AB97A0030598B /* RecordEntity.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -312,8 +309,6 @@
 		659946672C2FE7A50030598B /* Response */ = {
 			isa = PBXGroup;
 			children = (
-				659946622C2FE4BE0030598B /* UserResponseDTO.swift */,
-				659946852C3AB9880030598B /* RecordResponseDTO.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -321,8 +316,6 @@
 		659946682C2FF2140030598B /* Request */ = {
 			isa = PBXGroup;
 			children = (
-				659946692C3024A60030598B /* UserRequest.swift */,
-				659946832C3AB97A0030598B /* RecordRequest.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -342,6 +335,7 @@
 		6599466E2C3839640030598B /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				65600E682CA5715F0093D20B /* CoreData.xcdatamodeld */,
 				6508A21B2C6DD59E005AB6DC /* KeyChain */,
 				6599466F2C3839740030598B /* UserDefaults */,
 			);
@@ -462,7 +456,7 @@
 		65CF61332C073D34003E6D75 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				6522DE2A2C8D84E400AB23A5 /* Service */,
+				65600E6B2CA7A1C60093D20B /* Manager */,
 				6599466E2C3839640030598B /* Storage */,
 				659946752C3A68A50030598B /* Repository */,
 				659946682C2FF2140030598B /* Request */,
@@ -802,14 +796,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				659946B02C4BECC00030598B /* LoadingIndicator.swift in Sources */,
-				659946662C2FE79F0030598B /* User.swift in Sources */,
 				6599467C2C3A6A3D0030598B /* DefaultProfileRepository.swift in Sources */,
 				659946772C3A68E50030598B /* ProfileUseCase.swift in Sources */,
 				65CF619E2C158B71003E6D75 /* BaseViewController.swift in Sources */,
-				6599466A2C3024A60030598B /* UserRequest.swift in Sources */,
+				65600E752CA81A8E0093D20B /* SetiCloudSyncViewController.swift in Sources */,
 				659946712C38397F0030598B /* UserDefaultsWrapper.swift in Sources */,
 				6508A21D2C6DD5AC005AB6DC /* KeyChainManager.swift in Sources */,
-				659946942C43EB1B0030598B /* RecordEntity.swift in Sources */,
 				65CF61812C0C5F44003E6D75 /* CalendarDIContainer.swift in Sources */,
 				657DB9122C5BB845008DD96E /* ProfileCoordinator.swift in Sources */,
 				6599468E2C4249DB0030598B /* DefaultCalendarRepository.swift in Sources */,
@@ -820,6 +812,7 @@
 				65CF61C62C243EDD003E6D75 /* BaseView.swift in Sources */,
 				659946792C3A69400030598B /* ProfileRepository.swift in Sources */,
 				659946922C424C660030598B /* Date+.swift in Sources */,
+				65600E6A2CA5715F0093D20B /* CoreData.xcdatamodeld in Sources */,
 				65CF61A02C158B77003E6D75 /* BaseViewModel.swift in Sources */,
 				65CF61892C0C6092003E6D75 /* CalendarViewModel.swift in Sources */,
 				659946802C3A8B1D0030598B /* DefaultRecordRepository.swift in Sources */,
@@ -830,21 +823,19 @@
 				65CF61C82C24425A003E6D75 /* EmotionalImagePopupView.swift in Sources */,
 				65CF61992C117061003E6D75 /* RecordDIContainer.swift in Sources */,
 				65CF61C22C1D6039003E6D75 /* RecordViewModel.swift in Sources */,
-				659946632C2FE4BE0030598B /* UserResponseDTO.swift in Sources */,
 				65CF61772C0B03EA003E6D75 /* Log.swift in Sources */,
 				6508A2232C79D021005AB6DC /* SetDarkModeViewController.swift in Sources */,
 				65CF61C42C243E78003E6D75 /* RecordFooterView.swift in Sources */,
-				6522DE2C2C8D84EE00AB23A5 /* AppleSignInService.swift in Sources */,
 				657DB90E2C5BB5EB008DD96E /* ProfileViewModel.swift in Sources */,
 				6508A2212C79C91D005AB6DC /* FullscreenImageView.swift in Sources */,
 				65CF61CA2C24454E003E6D75 /* AttachedImageCollectionView.swift in Sources */,
 				6599467E2C3A8B060030598B /* RecordRepository.swift in Sources */,
-				659946862C3AB9880030598B /* RecordResponseDTO.swift in Sources */,
 				65CF61842C0C6053003E6D75 /* CalendarViewController.swift in Sources */,
-				659946842C3AB97A0030598B /* RecordRequest.swift in Sources */,
+				659946842C3AB97A0030598B /* RecordEntity.swift in Sources */,
 				659946972C43F1980030598B /* Type.swift in Sources */,
 				659946902C4249E30030598B /* CalendarUseCase.swift in Sources */,
 				657DB9142C5BB871008DD96E /* ProfileDIContainer.swift in Sources */,
+				65600E6D2CA7A1D20093D20B /* CoreDataManager.swift in Sources */,
 				659946B42C4FD4AB0030598B /* RecordHistoryViewController.swift in Sources */,
 				659946822C3A8B410030598B /* RecordUseCase.swift in Sources */,
 				65CF617D2C0C5EEC003E6D75 /* DIContainer.swift in Sources */,
@@ -863,8 +854,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65600E712CA7CF720093D20B /* RecordEntity.swift in Sources */,
 				65FA64552C9EAACD001F5002 /* WidgetBundle.swift in Sources */,
 				65FA64572C9EAACD001F5002 /* Widget.swift in Sources */,
+				65600E6F2CA7CA410093D20B /* CoreDataManager.swift in Sources */,
+				65600E6E2CA7CA320093D20B /* CoreData.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1389,6 +1383,19 @@
 			productName = FSCalendar;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		65600E682CA5715F0093D20B /* CoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				65600E692CA5715F0093D20B /* CoreData.xcdatamodel */,
+			);
+			currentVersion = 65600E692CA5715F0093D20B /* CoreData.xcdatamodel */;
+			path = CoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 65CF61122C036432003E6D75 /* Project object */;
 }
