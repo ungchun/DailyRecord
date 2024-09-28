@@ -12,8 +12,8 @@ final class CoreDataManager {
   
   private init() {}
   
-  lazy var persistentContainer: NSPersistentContainer = {
-    let container = NSPersistentContainer(name: "CoreData")
+  lazy var persistentContainer: NSPersistentCloudKitContainer = {
+    let container = NSPersistentCloudKitContainer(name: "CoreData")
     
     let storeURL = FileManager.default.containerURL(
       forSecurityApplicationGroupIdentifier: "group.ungchun.DailyRecord"
@@ -22,18 +22,27 @@ final class CoreDataManager {
     if let storeURL = storeURL {
       let storeDescription = NSPersistentStoreDescription(url: storeURL)
       container.persistentStoreDescriptions = [storeDescription]
+      storeDescription.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(
+        containerIdentifier: "iCloud.DailyRecord.Containers"
+      )
     }
+    
+    container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+    container.viewContext.automaticallyMergesChangesFromParent = true
     
     container.loadPersistentStores { (storeDescription, error) in
       if let error = error as NSError? {
-        fatalError("Unresolved error \(error), \(error.userInfo)")
+        fatalError()
       }
     }
+    
     return container
   }()
   
   var context: NSManagedObjectContext {
-    return persistentContainer.viewContext
+    let context = persistentContainer.viewContext
+    context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+    return context
   }
   
   var recordEntity: NSEntityDescription? {
