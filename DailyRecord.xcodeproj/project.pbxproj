@@ -19,6 +19,9 @@
 		6522DE292C8D68C700AB23A5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6522DE282C8D68C700AB23A5 /* GoogleService-Info.plist */; };
 		65600E6A2CA5715F0093D20B /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 65600E682CA5715F0093D20B /* CoreData.xcdatamodeld */; };
 		65600E6D2CA7A1D20093D20B /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65600E6C2CA7A1D20093D20B /* CoreDataManager.swift */; };
+		65600E6E2CA7CA320093D20B /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 65600E682CA5715F0093D20B /* CoreData.xcdatamodeld */; };
+		65600E6F2CA7CA410093D20B /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65600E6C2CA7A1D20093D20B /* CoreDataManager.swift */; };
+		65600E712CA7CF720093D20B /* RecordEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946832C3AB97A0030598B /* RecordEntity.swift */; };
 		657DB90E2C5BB5EB008DD96E /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DB90D2C5BB5EB008DD96E /* ProfileViewModel.swift */; };
 		657DB9102C5BB600008DD96E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DB90F2C5BB600008DD96E /* ProfileViewController.swift */; };
 		657DB9122C5BB845008DD96E /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DB9112C5BB845008DD96E /* ProfileCoordinator.swift */; };
@@ -847,8 +850,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65600E712CA7CF720093D20B /* RecordEntity.swift in Sources */,
 				65FA64552C9EAACD001F5002 /* WidgetBundle.swift in Sources */,
 				65FA64572C9EAACD001F5002 /* Widget.swift in Sources */,
+				65600E6F2CA7CA410093D20B /* CoreDataManager.swift in Sources */,
+				65600E6E2CA7CA320093D20B /* CoreData.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
