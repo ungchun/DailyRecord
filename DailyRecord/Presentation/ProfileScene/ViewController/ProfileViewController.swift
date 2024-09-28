@@ -120,7 +120,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     switch selectedItem {
     case .iCloud:
-      showiCloudAlert()
+      iCloudTrigger()
     case .darkMode:
       darkModeTrigger()
     }
@@ -128,17 +128,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension ProfileViewController {
-  private func showiCloudAlert() {
-    let alertController = UIAlertController(
-      title: "iCloud 동기화",
-      message: "iCloud 동기화 기능이 개발중에 있어요",
-      preferredStyle: .alert
-    )
-    
-    let deleteAction = UIAlertAction(title: "확인", style: .default) { _ in }
-    alertController.addAction(deleteAction)
-    
-    present(alertController, animated: true, completion: nil)
+  private func iCloudTrigger() {
+    coordinator?.showSetiCloud()
   }
   
   private func darkModeTrigger() {

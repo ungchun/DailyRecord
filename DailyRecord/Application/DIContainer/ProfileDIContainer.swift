@@ -43,8 +43,11 @@ extension ProfileDIContainer {
 		)
 	}
 	
+  func makeSetiCloudSyncViewController() -> SetiCloudSyncViewController {
+    return SetiCloudSyncViewController()
+  }
+  
 	func makeSetDarkModeViewController() -> SetDarkModeViewController {
 		return SetDarkModeViewController()
 	}
-	
 }

@@ -27,6 +27,13 @@ extension ProfileCoordinator {
 																								 animated: true)
 	}
 	
+  func showSetiCloud() {
+    let setiCloudSyncViewController = DIContainer.makeSetiCloudSyncViewController()
+    setiCloudSyncViewController.coordinator = self
+    self.navigationController.pushViewController(setiCloudSyncViewController,
+                                                 animated: true)
+  }
+  
 	func showSetDarkmode() {
 		let setDarkModeViewController = DIContainer.makeSetDarkModeViewController()
 		setDarkModeViewController.coordinator = self
