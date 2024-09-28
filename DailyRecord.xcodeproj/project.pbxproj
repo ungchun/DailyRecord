@@ -306,20 +306,6 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
-		659946672C2FE7A50030598B /* Response */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Response;
-			sourceTree = "<group>";
-		};
-		659946682C2FF2140030598B /* Request */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Request;
-			sourceTree = "<group>";
-		};
 		6599466B2C3024D70030598B /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -459,8 +445,6 @@
 				65600E6B2CA7A1C60093D20B /* Manager */,
 				6599466E2C3839640030598B /* Storage */,
 				659946752C3A68A50030598B /* Repository */,
-				659946682C2FF2140030598B /* Request */,
-				659946672C2FE7A50030598B /* Response */,
 			);
 			path = Data;
 			sourceTree = "<group>";
