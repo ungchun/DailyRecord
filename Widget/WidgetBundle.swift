@@ -8,17 +8,13 @@
 import WidgetKit
 import SwiftUI
 
-import Firebase
-
 @main
 struct DailyRecordWidgetBundle: WidgetBundle {
-	
-	init() {
-		FirebaseApp.configure()
-		try? Auth.auth().useUserAccessGroup("group.ungchun.DailyRecord")
-	}
-	
-	var body: some Widget {
-		DailyRecordWidget()
-	}
+  init() {
+    
+  }
+  
+  var body: some Widget {
+    DailyRecordWidget()
+  }
 }
