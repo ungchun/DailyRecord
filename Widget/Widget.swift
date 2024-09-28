@@ -90,13 +90,10 @@ struct Provider: TimelineProvider {
     let dayOfWeekPart = formattedDateString(today, format: "EEEE")
     let day = formattedDateString(today, format: "dd")
     
-    let userDefaults = UserDefaults(suiteName: "group.ungchun.DailyRecord")
-    let userID = userDefaults?.string(forKey: "uid") ?? ""
-    
     Task {
       do {
         var entries: [SimpleEntry] = []
-        let weekRecords = try await fetchCurrentWeekRecords(userID: userID)
+        let weekRecords = try await fetchCurrentWeekRecords()
         for hoursOffset in 0...1 {
           let entryDate = Calendar.current.date(byAdding: .hour,
                                                 value: hoursOffset,
@@ -149,9 +146,8 @@ private extension Provider {
     return dateFormatter.string(from: date)
   }
   
-  private func fetchCurrentWeekRecords(userID: String) async throws -> [RecordEntity] {
+  private func fetchCurrentWeekRecords() async throws -> [RecordEntity] {
     let context = CoreDataManager.shared.context
-    // let db = Firestore.firestore()
     let calendar = Calendar.current
     
     // 현재 날짜의 주의 시작(일요일)과 끝(토요일) 계산

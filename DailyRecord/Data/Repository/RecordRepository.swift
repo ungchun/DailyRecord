@@ -26,7 +26,7 @@ extension RecordRepository {
       managedObject.setValue(data.calendarDate, forKey: "calendar_date")
     }
     
-    try coreDataManager.context.save()
+    try? coreDataManager.context.save()
   }
   
   func updateRecord(data: RecordEntity) async throws {

@@ -42,10 +42,25 @@ extension CalendarViewModel {
         year: year, month: month
       )
       
+      let uniqueRecords = self.removeDuplicatesAndSort(records: response)
+      
       await MainActor.run {
-        self.records = response
+        self.records = uniqueRecords
         completion()
       }
+    }
+  }
+  
+  private func removeDuplicatesAndSort(records: [RecordEntity]) -> [RecordEntity] {
+    let groupedRecords = Dictionary(grouping: records) { record -> Date in
+      let seconds = TimeInterval(record.calendarDate) / 1000
+      return Date(timeIntervalSince1970: seconds)
+    }
+    
+    let uniqueRecords = groupedRecords.values.compactMap { $0.first }
+    
+    return uniqueRecords.sorted { (record1, record2) -> Bool in
+      return record1.calendarDate < record2.calendarDate
     }
   }
 }
