@@ -8,8 +8,6 @@
 import UIKit
 import WidgetKit
 
-import FirebaseAuth
-
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   var window: UIWindow?
   
@@ -21,18 +19,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     WidgetCenter.shared.reloadAllTimelines()
     
     if let windowScene = scene as? UIWindowScene {
-      if Auth.auth().currentUser == nil {
-        self.signInAnonymously(windowScene)
-      } else {
-        checkUserAgainstDatabase { [weak self] success, error in
-          if success {
-            self?.signInUser(windowScene)
-          } else {
-            /// 이미 탈퇴한 유저
-            self?.signInAnonymously(windowScene)
-          }
-        }
-      }
+      var calendarDIContainer: CalendarDIContainer?
+      var calendarCoordinator: CalendarCoordinator?
+      let window = UIWindow(windowScene: windowScene)
+      self.window = window
+      
+      self.initDisplayMode(window)
+      
+      let navigationController = BaseNavigationController()
+      self.window?.rootViewController = navigationController
+      
+      calendarDIContainer = CalendarDIContainer(navigationController: navigationController)
+      calendarCoordinator = calendarDIContainer?.makeCalendarCoordinator()
+      calendarCoordinator?.start()
+      
+      self.window?.makeKeyAndVisible()
     }
   }
   
@@ -62,84 +63,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 }
 
 private extension SceneDelegate {
-  func signInAnonymously(_ windowScene: UIWindowScene) {
-    Auth.auth().signInAnonymously { authResult, error in
-      if let error = error {
-        Log.error(error)
-        return
-      }
-      
-      if let user = authResult?.user {
-        do {
-          try KeyChainManager.shared.create(account: .uid, data: user.uid)
-          UserDefaultsSetting.uid = user.uid
-          
-          var calendarDIContainer: CalendarDIContainer?
-          var calendarCoordinator: CalendarCoordinator?
-          let window = UIWindow(windowScene: windowScene)
-          self.window = window
-          
-          self.initDisplayMode(window)
-          
-          let navigationController = BaseNavigationController()
-          self.window?.rootViewController = navigationController
-          
-          calendarDIContainer = CalendarDIContainer(
-            navigationController: navigationController
-          )
-          calendarCoordinator = calendarDIContainer?.makeCalendarCoordinator()
-          calendarCoordinator?.start()
-          
-          self.window?.makeKeyAndVisible()
-        } catch {
-          Log.error(error)
-          exit(0)
-        }
-      }
-    }
-  }
-  
-  func signInUser(_ windowScene: UIWindowScene) {
-    if UserDefaultsSetting.uid.isEmpty {
-      do {
-        UserDefaultsSetting.uid = try KeyChainManager.shared.read(account: .uid)
-      } catch {
-        Log.error(error)
-      }
-    }
-    
-    var calendarDIContainer: CalendarDIContainer?
-    var calendarCoordinator: CalendarCoordinator?
-    let window = UIWindow(windowScene: windowScene)
-    self.window = window
-    
-    self.initDisplayMode(window)
-    
-    let navigationController = BaseNavigationController()
-    self.window?.rootViewController = navigationController
-    
-    calendarDIContainer = CalendarDIContainer(navigationController: navigationController)
-    calendarCoordinator = calendarDIContainer?.makeCalendarCoordinator()
-    calendarCoordinator?.start()
-    
-    self.window?.makeKeyAndVisible()
-  }
-}
-
-private extension SceneDelegate {
-  func checkUserAgainstDatabase(completion: @escaping (_ success: Bool,
-                                                       _ error: NSError?) -> Void) {
-    guard let currentUser = Auth.auth().currentUser else { return }
-    currentUser.getIDTokenForcingRefresh(true, completion:  { (idToken, error) in
-      if let error = error {
-        completion(false, error as NSError?)
-        print(error.localizedDescription)
-      } else {
-        completion(true, nil)
-      }
-    })
-  }
-  
   func initDisplayMode(_ window: UIWindow) {
     if UserDefaultsSetting.currentDisplayMode == .system {
       window.overrideUserInterfaceStyle = .unspecified
