@@ -8,6 +8,7 @@
 import Foundation
 
 protocol DefaultRecordRepository {
-	func createRecord(data: [String : Any]) async throws
-	func removeRecord(docID: String) async throws
+  func createRecord(data: RecordEntity) async throws
+  func updateRecord(data: RecordEntity) async throws
+  func removeRecord(calendarDate: Int) async throws
 }
