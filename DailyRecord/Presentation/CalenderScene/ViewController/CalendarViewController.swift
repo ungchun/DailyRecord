@@ -233,7 +233,16 @@ extension CalendarViewController {
 /// Shortcut "오늘 일기 작성"으로 접근 시
 extension CalendarViewController: CalendarViewControllerDelegate {
   func shortcutShowTodayRecordTrigger() {
-    let selectData = RecordEntity(calendarDate: Int(Date().millisecondsSince1970))
+    let nowDate = Calendar.current.startOfDay(for: Date())
+    var selectData = RecordEntity(calendarDate: Int(nowDate.millisecondsSince1970))
+    
+    if let matchedEntity = viewModel.records.first(where: { entity in
+      let seconds = TimeInterval(entity.calendarDate) / 1000
+      let responseDate = Date(timeIntervalSince1970: seconds)
+      return nowDate == responseDate
+    }) {
+      selectData = matchedEntity
+    }
     
     coordinator?.showRecord(
       calendarViewModel: viewModel,

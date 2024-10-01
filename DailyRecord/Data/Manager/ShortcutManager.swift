@@ -22,7 +22,7 @@ final class ShortcutManager {
 final class ShortcutsProvider: AppShortcutsProvider {
   static var appShortcuts: [AppShortcut] {
     AppShortcut(intent: OpenAppIntent(),
-                phrases: ["오늘 일기 쓰기"],
+                phrases: ["오늘 일기 쓰기 \(.applicationName)"],
                 shortTitle: "오늘 일기 쓰기",
                 systemImageName: "pencil.circle")
   }
