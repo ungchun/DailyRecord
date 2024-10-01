@@ -17,6 +17,8 @@
 		651A9F6A2C9EE96800B9B1FE /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 651A9F692C9EE96800B9B1FE /* FirebaseFirestore */; };
 		651A9F6B2C9EEB0E00B9B1FE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6522DE282C8D68C700AB23A5 /* GoogleService-Info.plist */; };
 		6522DE292C8D68C700AB23A5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6522DE282C8D68C700AB23A5 /* GoogleService-Info.plist */; };
+		655BE3372CAC07B40006BC34 /* ShortcutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655BE3362CAC07B40006BC34 /* ShortcutManager.swift */; };
+		655BE3382CAC07B40006BC34 /* ShortcutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655BE3362CAC07B40006BC34 /* ShortcutManager.swift */; };
 		65600E6A2CA5715F0093D20B /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 65600E682CA5715F0093D20B /* CoreData.xcdatamodeld */; };
 		65600E6D2CA7A1D20093D20B /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65600E6C2CA7A1D20093D20B /* CoreDataManager.swift */; };
 		65600E6E2CA7CA320093D20B /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 65600E682CA5715F0093D20B /* CoreData.xcdatamodeld */; };
@@ -140,6 +142,7 @@
 		6508A2242C7CA200005AB6DC /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
 		651A9F2A2C9ECFBC00B9B1FE /* WidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetExtension.entitlements; sourceTree = "<group>"; };
 		6522DE282C8D68C700AB23A5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		655BE3362CAC07B40006BC34 /* ShortcutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutManager.swift; sourceTree = "<group>"; };
 		65600E692CA5715F0093D20B /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		65600E6C2CA7A1D20093D20B /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		65600E742CA81A8E0093D20B /* SetiCloudSyncViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetiCloudSyncViewController.swift; sourceTree = "<group>"; };
@@ -267,6 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				65600E6C2CA7A1D20093D20B /* CoreDataManager.swift */,
+				655BE3362CAC07B40006BC34 /* ShortcutManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -786,6 +790,7 @@
 				65600E752CA81A8E0093D20B /* SetiCloudSyncViewController.swift in Sources */,
 				659946712C38397F0030598B /* UserDefaultsWrapper.swift in Sources */,
 				6508A21D2C6DD5AC005AB6DC /* KeyChainManager.swift in Sources */,
+				655BE3382CAC07B40006BC34 /* ShortcutManager.swift in Sources */,
 				65CF61812C0C5F44003E6D75 /* CalendarDIContainer.swift in Sources */,
 				657DB9122C5BB845008DD96E /* ProfileCoordinator.swift in Sources */,
 				6599468E2C4249DB0030598B /* DefaultCalendarRepository.swift in Sources */,
@@ -839,6 +844,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				65600E712CA7CF720093D20B /* RecordEntity.swift in Sources */,
+				655BE3372CAC07B40006BC34 /* ShortcutManager.swift in Sources */,
 				65FA64552C9EAACD001F5002 /* WidgetBundle.swift in Sources */,
 				65FA64572C9EAACD001F5002 /* Widget.swift in Sources */,
 				65600E6F2CA7CA410093D20B /* CoreDataManager.swift in Sources */,
@@ -1015,7 +1021,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ungchun.DailyRecord;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1057,7 +1063,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ungchun.DailyRecord;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
