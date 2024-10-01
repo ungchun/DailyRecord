@@ -41,7 +41,6 @@ final class CoreDataManager {
   
   var context: NSManagedObjectContext {
     let context = persistentContainer.viewContext
-    context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
     return context
   }
   

@@ -293,7 +293,7 @@ private extension WidgetEntryView {
   func systemMediumView() -> some View {
     let weekdays = ["일", "월", "화", "수", "목", "금", "토"]
     let weekDates = getWeekDates()
-    let today = Calendar.current.component(.day, from: Date())
+    let today = Calendar.current.startOfDay(for: Date())
     
     VStack(spacing: 20) {
       Text(formatCurrentYearMonth())
@@ -302,9 +302,9 @@ private extension WidgetEntryView {
         .lineLimit(1)
       
       HStack(spacing: 0) {
-        ForEach(Array(zip(weekdays, weekDates)), id: \.0) { day, date in
-          let isToday = Int(date) == today
-          let emotion = getEmotionForDate(date: date)
+        ForEach(Array(zip(weekdays, weekDates)), id: \.0) { day, dateInfo in
+          let isToday = Calendar.current.isDate(dateInfo.date, inSameDayAs: today)
+          let emotion = getEmotionForDate(date: dateInfo.date)
           
           VStack(spacing: 20) {
             Text(day)
@@ -314,7 +314,7 @@ private extension WidgetEntryView {
             
             ZStack {
               if emotion.isEmpty {
-                Text("\(date)")
+                Text(dateInfo.day)
                   .font(.custom("omyu_pretty", size: 16))
                   .foregroundColor(isToday
                                    ? .azWhite
@@ -351,7 +351,7 @@ private extension WidgetEntryView {
     return dateFormatter.string(from: entry.date)
   }
   
-  func getWeekDates() -> [String] {
+  func getWeekDates() -> [(day: String, date: Date)] {
     let calendar = Calendar.current
     let weekday = calendar.component(.weekday, from: entry.date)
     let daysToSubtract = weekday - 1 // 1은 일요일
@@ -362,27 +362,21 @@ private extension WidgetEntryView {
       return []
     }
     
-    return (0...6).map { dayOffset in
+    return (0...6).compactMap { dayOffset in
       guard let date = calendar.date(byAdding: .day, value: dayOffset, to: startOfWeek) else {
-        return ""
+        return nil
       }
-      return String(calendar.component(.day, from: date))
+      let day = String(calendar.component(.day, from: date))
+      return (day: day, date: date)
     }
   }
   
-  func getEmotionForDate(date: String) -> String {
-    guard let day = Int(date),
-          let startOfDay = Calendar.current.date(
-            from: DateComponents(
-              year: Calendar.current.component(.year, from: entry.date),
-              month: Calendar.current.component(.month, from: entry.date),
-              day: day
-            )
-          ),
-          let endOfDay = Calendar.current.date(
-            bySettingHour: 23, minute: 59, second: 59, of: startOfDay
+  func getEmotionForDate(date: Date) -> String {
+    let calendar = Calendar.current
+    guard let startOfDay = calendar.startOfDay(for: date) as Date?,
+          let endOfDay = calendar.date(
+            bySettingHour: 23, minute: 59, second: 59, of: date
           ) else {
-      
       return ""
     }
     
