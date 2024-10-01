@@ -145,6 +145,8 @@ final class CalendarViewController: BaseViewController {
   }
   
   override func setupView() {
+    ShortcutManager.shared.delegate = self
+    
     bindViewModel()
     
     settingButton.addTarget(
@@ -225,6 +227,18 @@ extension CalendarViewController {
     dateFormatter.timeZone = TimeZone(identifier: "KST")
     dateFormatter.dateFormat = format
     return dateFormatter.string(from: date)
+  }
+}
+
+/// Shortcut "오늘 일기 작성"으로 접근 시
+extension CalendarViewController: CalendarViewControllerDelegate {
+  func shortcutShowTodayRecordTrigger() {
+    let selectData = RecordEntity(calendarDate: Int(Date().millisecondsSince1970))
+    
+    coordinator?.showRecord(
+      calendarViewModel: viewModel,
+      selectData: selectData
+    )
   }
 }
 
