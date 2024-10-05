@@ -29,6 +29,7 @@ final class SetDarkModeViewController: BaseViewController {
 	
 	private let systemModeButton: UIButton = {
 		let button = UIButton()
+    button.isUserInteractionEnabled = false
 		let config = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .default)
 		button.setImage(UIImage(systemName: "circle", withConfiguration: config), for: .normal)
 		button.setImage(UIImage(systemName: "checkmark.circle.fill", withConfiguration: config),
@@ -55,6 +56,7 @@ final class SetDarkModeViewController: BaseViewController {
 	
 	private let lightModeButton: UIButton = {
 		let button = UIButton()
+    button.isUserInteractionEnabled = false
 		let config = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .default)
 		button.setImage(UIImage(systemName: "circle", withConfiguration: config), for: .normal)
 		button.setImage(UIImage(systemName: "checkmark.circle.fill", withConfiguration: config),
@@ -81,6 +83,7 @@ final class SetDarkModeViewController: BaseViewController {
 	
 	private let darkModeButton: UIButton = {
 		let button = UIButton()
+    button.isUserInteractionEnabled = false
 		let config = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .default)
 		button.setImage(UIImage(systemName: "circle", withConfiguration: config), for: .normal)
 		button.setImage(UIImage(systemName: "checkmark.circle.fill", withConfiguration: config),
