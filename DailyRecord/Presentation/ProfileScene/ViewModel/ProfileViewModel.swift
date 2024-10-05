@@ -10,6 +10,7 @@ import Foundation
 enum ProfileCellItem: String, CaseIterable {
   case iCloud = "iCloud 동기화"
   case darkMode = "다크 모드"
+  case appRating = "앱 평가하기"
   
   var iconName: String {
     switch self {
@@ -17,6 +18,8 @@ enum ProfileCellItem: String, CaseIterable {
       return "icloud"
     case .darkMode:
       return "moon"
+    case .appRating:
+      return "star"
     }
   }
 }

@@ -7,6 +7,7 @@
 
 import AuthenticationServices
 import CryptoKit
+import StoreKit
 import UIKit
 import WidgetKit
 
@@ -19,26 +20,32 @@ final class ProfileViewController: BaseViewController {
   private let viewModel: ProfileViewModel
   private let calendarViewModel: CalendarViewModel
   
-  private static let reuseIdentifier: String = "ProfileCell"
+  private let appStoreID = "6664067346"
   
   // MARK: - Views
   
-  private let tableView: UITableView = {
-    let tableView = UITableView()
-    tableView.translatesAutoresizingMaskIntoConstraints = false
-    tableView.register(
-      UITableViewCell.self,
-      forCellReuseIdentifier: ProfileViewController.reuseIdentifier
-    )
-    return tableView
+  private let stackView: UIStackView = {
+    let stackView = UIStackView()
+    stackView.axis = .vertical
+    stackView.spacing = 20
+    stackView.translatesAutoresizingMaskIntoConstraints = false
+    return stackView
   }()
+  
+  private let divider: UIView = {
+    let view = UIView()
+    view.backgroundColor = .azWhite.withAlphaComponent(0.3)
+    view.translatesAutoresizingMaskIntoConstraints = false
+    return view
+  }()
+  
+  private lazy var iCloudButton: UIButton = self.createButton(for: .iCloud)
+  private lazy var darkModeButton: UIButton = self.createButton(for: .darkMode)
+  private lazy var appRatingButton: UIButton = self.createButton(for: .appRating)
   
   // MARK: - Init
   
-  init(
-    viewModel: ProfileViewModel,
-    calendarViewModel: CalendarViewModel
-  ) {
+  init(viewModel: ProfileViewModel, calendarViewModel: CalendarViewModel) {
     self.viewModel = viewModel
     self.calendarViewModel = calendarViewModel
     super.init(nibName: nil, bundle: nil)
@@ -57,72 +64,66 @@ final class ProfileViewController: BaseViewController {
   // MARK: - Functions
   
   override func addView() {
-    [tableView].forEach {
-      view.addSubview($0)
+    view.addSubview(stackView)
+    
+    [iCloudButton, darkModeButton, divider, appRatingButton].forEach {
+      stackView.addArrangedSubview($0)
     }
   }
   
   override func setLayout() {
-    tableView.snp.makeConstraints { make in
-      make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-      make.leading.equalToSuperview()
-      make.trailing.equalToSuperview()
-      make.bottom.equalToSuperview()
+    stackView.snp.makeConstraints { make in
+      make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+      make.leading.equalToSuperview().offset(20)
+      make.trailing.equalToSuperview().offset(-20)
+    }
+    
+    divider.snp.makeConstraints { make in
+      make.height.equalTo(1)
     }
   }
   
   override func setupView() {
     view.backgroundColor = .azBlack
-    
-    tableView.dataSource = self
-    tableView.delegate = self
-    tableView.backgroundColor = .azBlack
-    tableView.separatorStyle = .none
-    tableView.isScrollEnabled = false
-  }
-}
-
-extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return viewModel.profileCellItems.count
   }
   
-  func tableView(_ tableView: UITableView,
-                 cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(
-      withIdentifier: ProfileViewController.reuseIdentifier,
-      for: indexPath
-    )
+  private func createButton(for item: ProfileCellItem) -> UIButton {
+    var configuration = UIButton.Configuration.plain()
+    configuration.title = item.rawValue
+    configuration.titleTextAttributesTransformer
+    = UIConfigurationTextAttributesTransformer { incoming in
+      var outgoing = incoming
+      outgoing.font = UIFont(name: "omyu_pretty", size: 16)
+      return outgoing
+    }
     
-    let items: [ProfileCellItem] = [.iCloud, .darkMode]
-    
-    let item = items[indexPath.row]
-    
-    cell.textLabel?.text = item.rawValue
-    cell.textLabel?.font = UIFont(name: "omyu_pretty", size: 16)
-    cell.textLabel?.textColor = .azWhite
+    configuration.baseForegroundColor = .azWhite
     
     let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .default)
-    cell.imageView?.image = UIImage(systemName: item.iconName, withConfiguration: config)
-    cell.imageView?.tintColor = .azWhite
+    configuration.image = UIImage(
+      systemName: item.iconName,
+      withConfiguration: config
+    )?.withRenderingMode(.alwaysTemplate)
+    configuration.imagePadding = 10
+    configuration.imagePlacement = .leading
+    configuration.contentInsets = NSDirectionalEdgeInsets(
+      top: 0, leading: 0, bottom: 0, trailing: 0
+    )
     
-    cell.selectionStyle = .none
-    cell.backgroundColor = .azBlack
-    return cell
+    let button = UIButton(configuration: configuration)
+    button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+    button.contentHorizontalAlignment = .leading
+    
+    return button
   }
   
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    tableView.deselectRow(at: indexPath, animated: true)
-    
-    let items: [ProfileCellItem] = [.iCloud, .darkMode]
-    
-    let selectedItem = items[indexPath.row]
-    
-    switch selectedItem {
-    case .iCloud:
+  @objc private func buttonTapped(_ sender: UIButton) {
+    if sender == iCloudButton {
       iCloudTrigger()
-    case .darkMode:
+    } else if sender == darkModeButton {
       darkModeTrigger()
+    } else if sender == appRatingButton {
+      openAppStore()
     }
   }
 }
@@ -134,5 +135,12 @@ extension ProfileViewController {
   
   private func darkModeTrigger() {
     coordinator?.showSetDarkmode()
+  }
+  
+  private func openAppStore() {
+    let urlStr = "https://itunes.apple.com/app/id\(appStoreID)?action=write-review"
+    if let url = URL(string: urlStr), UIApplication.shared.canOpenURL(url) {
+      UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
   }
 }
