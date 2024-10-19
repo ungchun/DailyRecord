@@ -49,9 +49,9 @@ final class CalendarViewController: BaseViewController {
   
   private lazy var calendarHeaderView: UILabel = {
     let label = UILabel()
-    label.font = UIFont(name: "omyu_pretty", size: 40)
+    label.font = UIFont(name: "omyu_pretty", size: 25)
     label.textColor = .azWhite
-    label.text = formattedDateString(Date(), format: "M월")
+    label.text = formattedDateString(Date(), format: "YYYY년 M월")
     return label
   }()
   
@@ -77,6 +77,7 @@ final class CalendarViewController: BaseViewController {
     calendar.appearance.todayColor = .azDarkGray
     calendar.appearance.selectionColor = .clear
     calendar.appearance.titleFont = UIFont(name: "omyu_pretty", size: 12)
+    
     return calendar
   }()
   
@@ -121,13 +122,13 @@ final class CalendarViewController: BaseViewController {
   override func setLayout() {
     calendarHeaderView.snp.makeConstraints { make in
       make.leading.equalToSuperview().inset(16)
-      make.bottom.equalTo(calendarView.snp.top).inset(20)
+      make.bottom.equalTo(calendarView.snp.top)
     }
     
     calendarView.snp.makeConstraints { make in
-      make.center.equalToSuperview()
-      make.height.equalTo(296)
-      make.width.equalTo(356)
+      make.centerX.equalToSuperview()
+      make.centerY.equalToSuperview()
+      make.height.equalTo(UIScreen.main.bounds.height / 2.5)
       make.leading.equalToSuperview().inset(16)
       make.trailing.equalToSuperview().inset(16)
     }
@@ -321,7 +322,7 @@ extension CalendarViewController: FSCalendarDelegate,
     let currentPage = calendar.currentPage
     DispatchQueue.main.async { [weak self] in
       self?.calendarHeaderView.text = self?.formattedDateString(
-        currentPage, format: "M월"
+        currentPage, format: "YYYY년 M월"
       )
     }
     if let year = Int(formattedDateString(currentPage, format: "yyyy")),
@@ -374,8 +375,8 @@ extension CalendarViewController: FSCalendarDelegate,
                                             multiplier: 0.5),
           squareView.heightAnchor.constraint(equalToConstant: 10),
           squareView.centerXAnchor.constraint(equalTo: cell.contentView.centerXAnchor),
-          squareView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor,
-                                             constant: -5)
+          squareView.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor,
+                                              constant: 10)
         ])
       }
     }
