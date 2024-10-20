@@ -45,7 +45,10 @@ final class ProfileViewController: BaseViewController {
   
   // MARK: - Init
   
-  init(viewModel: ProfileViewModel, calendarViewModel: CalendarViewModel) {
+  init(
+    viewModel: ProfileViewModel,
+    calendarViewModel: CalendarViewModel
+  ) {
     self.viewModel = viewModel
     self.calendarViewModel = calendarViewModel
     super.init(nibName: nil, bundle: nil)

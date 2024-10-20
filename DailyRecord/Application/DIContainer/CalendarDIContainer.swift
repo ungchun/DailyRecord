@@ -57,4 +57,12 @@ extension CalendarDIContainer {
 			calendarViewModel: calendarViewModel
 		)
 	}
+  
+  // MARK: - Chart
+  
+  func makeChartDIContainer() -> ChartDIContainer {
+    return ChartDIContainer(
+      navigationController: navigationController
+    )
+  }
 }

@@ -177,6 +177,12 @@ final class CalendarViewController: BaseViewController {
       for: .touchUpInside
     )
     
+    chartButton.addTarget(
+      self,
+      action: #selector(showChartTrigger),
+      for: .touchUpInside
+    )
+    
     DispatchQueue.main.async { [weak self] in
       self?.view.backgroundColor = .azBlack
     }
@@ -235,6 +241,10 @@ extension CalendarViewController {
       calendarViewModel: viewModel,
       selectData: selectData
     )
+  }
+  
+  @objc private func showChartTrigger() {
+    coordinator?.showChart()
   }
   
   private func formattedDateString(_ date: Date, format: String) -> String {
@@ -340,6 +350,7 @@ extension CalendarViewController: FSCalendarDelegate,
         currentPage, format: "YYYY년 M월"
       )
     }
+    
     if let year = Int(formattedDateString(currentPage, format: "yyyy")),
        let month = Int(formattedDateString(currentPage, format: "M")) {
       Task { [weak self] in
