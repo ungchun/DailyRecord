@@ -26,10 +26,20 @@ final class CalendarViewController: BaseViewController {
   
   private let settingButton: UIButton = {
     let button = UIButton(type: .system)
-    let pencilImage = UIImage(systemName: "gearshape.fill")?.resizeImage(
+    let image = UIImage(systemName: "gearshape.fill")?.resizeImage(
       to: CGSize(width: 24,height: 24)
     )
-    button.setImage(pencilImage, for: .normal)
+    button.setImage(image, for: .normal)
+    button.tintColor = .azWhite
+    return button
+  }()
+  
+  private let chartButton: UIButton = {
+    let button = UIButton(type: .system)
+    let image = UIImage(systemName: "chart.bar.fill")?.resizeImage(
+      to: CGSize(width: 24,height: 24)
+    )
+    button.setImage(image, for: .normal)
     button.tintColor = .azWhite
     return button
   }()
@@ -114,7 +124,7 @@ final class CalendarViewController: BaseViewController {
   
   override func addView() {
     [calendarHeaderView, calendarView,
-     writeButton, settingButton].forEach {
+     writeButton, settingButton, chartButton].forEach {
       view.addSubview($0)
     }
   }
@@ -135,12 +145,17 @@ final class CalendarViewController: BaseViewController {
     
     writeButton.snp.makeConstraints { make in
       make.width.height.equalTo(60)
-      make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-20)
+      make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-20)
       make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
     }
     
     settingButton.snp.makeConstraints { make in
-      make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-20)
+      make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
+      make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+    }
+    
+    chartButton.snp.makeConstraints { make in
+      make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-20)
       make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
     }
   }

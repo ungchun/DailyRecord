@@ -120,13 +120,13 @@ final class RecordHistoryViewController: BaseViewController {
     
     imageCarouselView.snp.makeConstraints { make in
       make.top.equalTo(createDateView.snp.bottom).offset(20)
-      make.left.right.equalToSuperview().inset(20)
+      make.leading.trailing.equalToSuperview().inset(20)
       make.height.equalTo(0)
     }
     
     inputDiaryView.snp.makeConstraints { make in
       make.top.equalTo(imageCarouselView.snp.bottom).offset(20)
-      make.left.right.equalToSuperview().inset(20)
+      make.leading.trailing.equalToSuperview().inset(20)
       make.bottom.equalToSuperview()
     }
   }

@@ -146,20 +146,20 @@ final class RecordWriteViewController: BaseViewController {
     
     attachedImageCollectionView.snp.makeConstraints { make in
       make.top.equalTo(todayDateView.snp.bottom).offset(20)
-      make.left.right.equalToSuperview().inset(20)
+      make.leading.trailing.equalToSuperview().inset(20)
       make.height.equalTo(viewModel.selectData.imageList.isEmpty
                           ? 0 : 100)
     }
     
     inputDiaryView.snp.makeConstraints { make in
       make.top.equalTo(self.attachedImageCollectionView.snp.bottom).offset(20)
-      make.left.right.equalToSuperview().inset(20)
+      make.leading.trailing.equalToSuperview().inset(20)
       make.bottom.equalToSuperview()
     }
     
     footerView.snp.makeConstraints { make in
       make.bottom.equalToSuperview()
-      make.left.right.equalToSuperview()
+      make.leading.trailing.equalToSuperview()
     }
   }
   
