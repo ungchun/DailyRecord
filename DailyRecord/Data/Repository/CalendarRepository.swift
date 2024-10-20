@@ -49,8 +49,8 @@ extension CalendarRepository {
         return RecordEntity(
           content: record.content ?? "",
           emotionType: record.emotion_type ?? "",
-          imageList: record.image_list as? [Data] ?? [],
-          imageIdentifier: record.image_identifier as? [String] ?? [],
+          imageList: record.image_list ?? [],
+          imageIdentifier: record.image_identifier ?? [],
           createTime: Int(record.create_time),
           calendarDate: Int(record.calendar_date)
         )

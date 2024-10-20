@@ -36,8 +36,8 @@ extension RecordRepository {
     if let targetRecord = records.filter({$0.calendar_date == data.calendarDate}).first {
       targetRecord.content = data.content
       targetRecord.emotion_type = data.emotionType
-      targetRecord.image_list = data.imageList as NSObject
-      targetRecord.image_identifier = data.imageIdentifier as NSObject
+      targetRecord.image_list = data.imageList 
+      targetRecord.image_identifier = data.imageIdentifier
       targetRecord.create_time = Int64(data.createTime)
       targetRecord.calendar_date = Int64(data.calendarDate)
     }
