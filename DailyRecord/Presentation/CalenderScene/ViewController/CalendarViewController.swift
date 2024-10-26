@@ -123,13 +123,8 @@ final class CalendarViewController: BaseViewController {
   // MARK: - Functions
   
   override func addView() {
-//    [calendarHeaderView, calendarView,
-//     writeButton, settingButton, chartButton].forEach {
-//      view.addSubview($0)
-//    }
-    
     [calendarHeaderView, calendarView,
-     writeButton, settingButton].forEach {
+     writeButton, settingButton, chartButton].forEach {
       view.addSubview($0)
     }
   }
@@ -159,10 +154,10 @@ final class CalendarViewController: BaseViewController {
       make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
     }
     
-//    chartButton.snp.makeConstraints { make in
-//      make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-20)
-//      make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
-//    }
+    chartButton.snp.makeConstraints { make in
+      make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-20)
+      make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+    }
   }
   
   override func setupView() {

@@ -22,35 +22,43 @@ final class ChartViewController: BaseViewController {
   
   // MARK: - Views
   
-  private let demoTopView: UIView = {
-    let view = UIView()
-    view.backgroundColor = .blue
-    return view
-  }()
-  
   private let monthLabel: UILabel = {
     let label = UILabel()
-    label.textColor = .white
+    label.font = UIFont(name: "omyu_pretty", size: 25)
+    label.textColor = .azWhite
     label.textAlignment = .center
-    label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
     return label
   }()
   
   private let leftButton: UIButton = {
     let button = UIButton(type: .system)
-    let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .regular)
+    let config = UIImage.SymbolConfiguration(pointSize: 12, weight: .bold)
     let image = UIImage(systemName: "chevron.left", withConfiguration: config)
-    button.setImage(image, for: .normal)
-    button.tintColor = .white
+    
+    var configuration = UIButton.Configuration.plain()
+    configuration.image = image
+    configuration.contentInsets = NSDirectionalEdgeInsets(
+      top: 10, leading: 10, bottom: 10, trailing: 10
+    )
+    button.configuration = configuration
+    
+    button.tintColor = .azLightGray
     return button
   }()
   
   private let rightButton: UIButton = {
     let button = UIButton(type: .system)
-    let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .regular)
+    let config = UIImage.SymbolConfiguration(pointSize: 12, weight: .bold)
     let image = UIImage(systemName: "chevron.right", withConfiguration: config)
-    button.setImage(image, for: .normal)
-    button.tintColor = .white
+    
+    var configuration = UIButton.Configuration.plain()
+    configuration.image = image
+    configuration.contentInsets = NSDirectionalEdgeInsets(
+      top: 10, leading: 10, bottom: 10, trailing: 10
+    )
+    button.configuration = configuration
+    
+    button.tintColor = .azLightGray
     return button
   }()
   
@@ -85,40 +93,33 @@ final class ChartViewController: BaseViewController {
   // MARK: - Functions
   
   override func addView() {
-    [demoTopView, scrollView].forEach {
+    [leftButton, monthLabel, rightButton, scrollView].forEach {
       view.addSubview($0)
     }
     
     scrollView.addSubview(contentView)
-    
-    [monthLabel, leftButton, rightButton].forEach {
-      demoTopView.addSubview($0)
-    }
   }
   
   override func setLayout() {
-    demoTopView.snp.makeConstraints { make in
-      make.top.leading.trailing.equalToSuperview()
-      make.height.equalTo(300)
-    }
-    
     monthLabel.snp.makeConstraints { make in
-      make.center.equalToSuperview()
+      make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+      make.centerX.equalToSuperview()
     }
     
     leftButton.snp.makeConstraints { make in
-      make.leading.equalToSuperview().offset(20)
+      make.trailing.equalTo(monthLabel.snp.leading).offset(-16)
       make.centerY.equalTo(monthLabel)
+      make.width.height.equalTo(44)
     }
     
     rightButton.snp.makeConstraints { make in
-      make.trailing.equalToSuperview().offset(-20)
+      make.leading.equalTo(monthLabel.snp.trailing).offset(16)
       make.centerY.equalTo(monthLabel)
+      make.width.height.equalTo(44)
     }
-    
     scrollView.snp.makeConstraints { make in
-      make.top.equalTo(demoTopView.snp.bottom)
-      make.leading.trailing.bottom.equalToSuperview()
+      make.top.equalTo(monthLabel.snp.bottom).offset(20)
+      make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
     }
     
     contentView.snp.makeConstraints { make in
@@ -146,6 +147,8 @@ private extension ChartViewController {
     dateFormatter.dateFormat = "yyyy년 MM월"
     monthLabel.text = dateFormatter.string(from: currentDate)
     
+    updateButtonState()
+    
     if let year = Int(formattedDateString(currentDate, format: "yyyy")),
        let month = Int(formattedDateString(currentDate, format: "M")) {
       Task { [weak self] in
@@ -165,6 +168,14 @@ private extension ChartViewController {
         }
       }
     }
+  }
+  
+  func updateButtonState() {
+    guard let nextDate = Calendar.current.date(
+      byAdding: .month, value: 1, to: currentDate
+    ) else { return }
+    
+    rightButton.isHidden = nextDate > Date()
   }
   
   func updateEmotionCounts() {
@@ -193,53 +204,80 @@ private extension ChartViewController {
     contentView.subviews.forEach { $0.removeFromSuperview() }
     
     var previousView: UIView?
+    let maxCount = emotionCounts.values.max() ?? 1
+    let progressBarWidth = UIScreen.main.bounds.width * 0.55
     
-    for (emotionType, count) in emotionCounts.sorted(by: { $0.key < $1.key }) {
+    let sortedEmotions = emotionCounts.sorted { $0.value > $1.value }
+    
+    for (emotionType, count) in sortedEmotions {
       let containerView = UIView()
       contentView.addSubview(containerView)
       
       let stackView = UIStackView()
       stackView.axis = .horizontal
       stackView.alignment = .center
-      stackView.spacing = 10
+      stackView.spacing = 20
       containerView.addSubview(stackView)
       
       if let image = UIImage(named: emotionType) {
         let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit
         imageView.snp.makeConstraints { make in
-          make.width.height.equalTo(30)
+          make.width.height.equalTo(40)
         }
         stackView.addArrangedSubview(imageView)
       }
       
+      let progressContainer = UIView()
+      progressContainer.backgroundColor = .azBlack
+      progressContainer.layer.cornerRadius = 5
+      stackView.addArrangedSubview(progressContainer)
+      
+      let progressView = UIView()
+      progressView.backgroundColor = getColorForEmotionType(emotionType)
+      progressView.layer.cornerRadius = 5
+      progressContainer.addSubview(progressView)
+      
       let countLabel = UILabel()
       countLabel.text = "\(count)"
-      countLabel.textColor = .white
-      countLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+      countLabel.textColor = .azWhite
+      countLabel.font = UIFont(name: "omyu_pretty", size: 20)
       stackView.addArrangedSubview(countLabel)
       
       containerView.snp.makeConstraints { make in
-        make.centerX.equalToSuperview()
+        make.leading.trailing.equalToSuperview()
         if let previousView = previousView {
-          make.top.equalTo(previousView.snp.bottom).offset(40)
+          make.top.equalTo(previousView.snp.bottom).offset(20)
         } else {
           make.top.equalToSuperview().offset(20)
         }
-        if emotionType == emotionCounts.keys.sorted().last {
-          make.bottom.equalToSuperview().offset(-40)
+        if emotionType == sortedEmotions.last?.key {
+          make.bottom.equalToSuperview().offset(-20)
         }
+        make.height.equalTo(44)
       }
       
       stackView.snp.makeConstraints { make in
-        make.centerX.equalToSuperview()
-        make.centerY.equalToSuperview()
+        make.center.equalToSuperview()
+      }
+      
+      progressContainer.snp.makeConstraints { make in
+        make.height.equalTo(10)
+        make.width.equalTo(progressBarWidth)
+      }
+      
+      let progressWidth = (CGFloat(count) / CGFloat(maxCount)) * progressBarWidth
+      progressView.snp.makeConstraints { make in
+        make.leading.top.bottom.equalToSuperview()
+        make.width.equalTo(progressWidth)
       }
       
       previousView = containerView
     }
   }
-  
+}
+
+private extension ChartViewController {
   @objc func previousMonth() {
     currentDate = Calendar.current.date(
       byAdding: .month, value: -1, to: currentDate
@@ -251,9 +289,15 @@ private extension ChartViewController {
   }
   
   @objc func nextMonth() {
-    currentDate = Calendar.current.date(
-      byAdding: .month, value: 1, to: currentDate
-    ) ?? currentDate
+    guard let nextDate = Calendar.current.date(
+      byAdding: .month,
+      value: 1,
+      to: currentDate
+    ), nextDate <= Date() else {
+      return
+    }
+    
+    currentDate = nextDate
     
     DispatchQueue.main.async { [weak self] in
       self?.updateMonthLabel()
@@ -262,6 +306,25 @@ private extension ChartViewController {
 }
 
 private extension ChartViewController {
+  func getColorForEmotionType(_ type: String) -> UIColor {
+    switch type {
+    case "sad":
+      return .sad
+    case "very_sad":
+      return .verySad
+    case "angry":
+      return .angry
+    case "neutral":
+      return .neutral
+    case "happy":
+      return .happy
+    case "very_happy":
+      return .veryHappy
+    default:
+      return .systemGray
+    }
+  }
+  
   func formattedDateString(_ date: Date, format: String) -> String {
     let dateFormatter = DateFormatter()
     dateFormatter.locale = Locale(identifier: "ko_kr")
