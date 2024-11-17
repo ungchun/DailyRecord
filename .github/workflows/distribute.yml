@@ -1,13 +1,11 @@
 name: Distribute iOS App
 
-# 특정 branch에 push될 때 액션 실행
 on:
   pull_request:
-    branches: [ release ]
-    
-# 특정 워크플로우가 특정 브랜치 또는 태그에서 실행 중인 경우, 
-# 같은 브랜치 또는 태그에서 동일한 워크플로우가 다시 트리거되면 이전에 실행되던 워크플로우를 취소
-# 새로운 워크플로우를 실행
+    branches:
+      - release
+      - develop
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -31,9 +29,15 @@ jobs:
       
       - name: Install dependencies
         run: bundle install
-        
-      - name: run fastlane for update to testFlight
-        run: bundle exec fastlane release --verbose
+
+      # PR 브랜치에 따라 다른 Fastlane 실행
+      - name: Run Fastlane
+        run: |
+          if [[ "${{ github.event.pull_request.base.ref }}" == "release" ]]; then
+            bundle exec fastlane release --verbose
+          elif [[ "${{ github.event.pull_request.base.ref }}" == "develop" ]]; then
+            bundle exec fastlane beta --verbose
+          fi
         env: 
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           KEYCHAIN_NAME: ${{ secrets.KEYCHAIN_NAME }}
