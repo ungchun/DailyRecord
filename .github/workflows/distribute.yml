@@ -31,7 +31,7 @@ jobs:
         run: bundle install
 
       - name: Create GoogleService-Info.plist
-        run: echo ${{ secrets.GOOGLE_SERVICE_INFO }} | base64 --decode > ./GoogleService-Info.plist
+        run: echo ${{ secrets.GOOGLE_SERVICE_INFO }} | base64 --decode > /Users/runner/work/DailyRecord/DailyRecord/DailyRecord/Resource/GoogleService-Info.plist
 
       # PR 브랜치에 따라 다른 Fastlane 실행
       - name: Run Fastlane
