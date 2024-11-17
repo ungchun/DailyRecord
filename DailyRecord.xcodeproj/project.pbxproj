@@ -15,8 +15,6 @@
 		651A9F252C9EC03C00B9B1FE /* omyu_pretty.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 659946992C4961840030598B /* omyu_pretty.ttf */; };
 		651A9F682C9EE96800B9B1FE /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 651A9F672C9EE96800B9B1FE /* FirebaseAuth */; };
 		651A9F6A2C9EE96800B9B1FE /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 651A9F692C9EE96800B9B1FE /* FirebaseFirestore */; };
-		651A9F6B2C9EEB0E00B9B1FE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6522DE282C8D68C700AB23A5 /* GoogleService-Info.plist */; };
-		6522DE292C8D68C700AB23A5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6522DE282C8D68C700AB23A5 /* GoogleService-Info.plist */; };
 		655BE3372CAC07B40006BC34 /* ShortcutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655BE3362CAC07B40006BC34 /* ShortcutManager.swift */; };
 		655BE3382CAC07B40006BC34 /* ShortcutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655BE3362CAC07B40006BC34 /* ShortcutManager.swift */; };
 		655BE3CA2CC4BFE80006BC34 /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655BE3C92CC4BFE80006BC34 /* ChartViewController.swift */; };
@@ -112,6 +110,7 @@
 		65FA64572C9EAACD001F5002 /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FA64562C9EAACD001F5002 /* Widget.swift */; };
 		65FA64592C9EAACF001F5002 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65FA64582C9EAACF001F5002 /* Assets.xcassets */; };
 		65FA645D2C9EAACF001F5002 /* WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 65FA644D2C9EAACD001F5002 /* WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		65FE89342CE9F6AF004C373B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65FE89332CE9F6AF004C373B /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,7 +144,6 @@
 		6508A2222C79D021005AB6DC /* SetDarkModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDarkModeViewController.swift; sourceTree = "<group>"; };
 		6508A2242C7CA200005AB6DC /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
 		651A9F2A2C9ECFBC00B9B1FE /* WidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetExtension.entitlements; sourceTree = "<group>"; };
-		6522DE282C8D68C700AB23A5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		655BE3362CAC07B40006BC34 /* ShortcutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutManager.swift; sourceTree = "<group>"; };
 		655BE3C92CC4BFE80006BC34 /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
 		655BE3CB2CC4C49A0006BC34 /* ChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewModel.swift; sourceTree = "<group>"; };
@@ -211,6 +209,7 @@
 		65FA64562C9EAACD001F5002 /* Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget.swift; sourceTree = "<group>"; };
 		65FA64582C9EAACF001F5002 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65FA645A2C9EAACF001F5002 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		65FE89332CE9F6AF004C373B /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -513,7 +512,7 @@
 			children = (
 				659946982C49602A0030598B /* Font */,
 				65CF61282C036433003E6D75 /* LaunchScreen.storyboard */,
-				6522DE282C8D68C700AB23A5 /* GoogleService-Info.plist */,
+				65FE89332CE9F6AF004C373B /* GoogleService-Info.plist */,
 				65CF612B2C036433003E6D75 /* Info.plist */,
 				65CF61262C036433003E6D75 /* Assets.xcassets */,
 			);
@@ -771,7 +770,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6599469A2C4961840030598B /* omyu_pretty.ttf in Resources */,
-				6522DE292C8D68C700AB23A5 /* GoogleService-Info.plist in Resources */,
+				65FE89342CE9F6AF004C373B /* GoogleService-Info.plist in Resources */,
 				65CF612A2C036433003E6D75 /* LaunchScreen.storyboard in Resources */,
 				65CF61272C036433003E6D75 /* Assets.xcassets in Resources */,
 			);
@@ -783,7 +782,6 @@
 			files = (
 				651A9F252C9EC03C00B9B1FE /* omyu_pretty.ttf in Resources */,
 				65FA64592C9EAACF001F5002 /* Assets.xcassets in Resources */,
-				651A9F6B2C9EEB0E00B9B1FE /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1042,7 +1040,7 @@
 				CODE_SIGN_ENTITLEMENTS = DailyRecord/DailyRecord.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 45;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = F92UQYH2RA;
@@ -1061,7 +1059,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.4;
+				MARKETING_VERSION = 1.1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = ungchun.DailyRecord;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1085,7 +1083,7 @@
 				CODE_SIGN_ENTITLEMENTS = DailyRecord/DailyRecord.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 45;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = F92UQYH2RA;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -1103,7 +1101,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.4;
+				MARKETING_VERSION = 1.1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = ungchun.DailyRecord;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
