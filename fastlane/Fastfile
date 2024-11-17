@@ -55,8 +55,8 @@ platform :ios do
 
   desc "build app and upload to testflight"
   lane :beta do
-    # setup_app_store_connect_api_key
-    match(type: "appstore")
+    # match(type: "appstore")
+    setup_app_store_connect_api_key
     sync_code_signing
 
     increment_build_number(
@@ -79,8 +79,8 @@ platform :ios do
 
   desc "build app and release to App Store."
   lane :release do |options|
-    # setup_app_store_connect_api_key
-    match(type: "appstore")
+    # match(type: "appstore")
+    setup_app_store_connect_api_key
     sync_code_signing
 
     increment_build_number(
