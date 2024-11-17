@@ -71,10 +71,10 @@ platform :ios do
     #ENV["FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT"] = "120"
 
     upload_to_testflight
-    slack(
-      message: "🎉 Testflight 배포에 성공했습니다!",
-      slack_url: "https://hooks.slack.com/services/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"
-    )
+    #slack(
+    #  message: "🎉 Testflight 배포에 성공했습니다!",
+    #  slack_url: "https://hooks.slack.com/services/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"
+    #)
   end
 
   desc "build app and release to App Store."
@@ -111,17 +111,17 @@ platform :ios do
       precheck_include_in_app_purchases: false
     )
 
-    slack(
-      message: "🎉 AppStore 배포에 성공했습니다!",
-      slack_url: "https://hooks.slack.com/services/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"
-    )
+    #slack(
+    #  message: "🎉 AppStore 배포에 성공했습니다!",
+    #  slack_url: "https://hooks.slack.com/services/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"
+    #)
   end
 
   error do |lane, exception, options|
-    slack(
-      message: "🚨 에러 발생 : #{exception}",
-      success: false,
-      slack_url: "https://hooks.slack.com/services/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"
-    )
+    #slack(
+    #  message: "🚨 에러 발생 : #{exception}",
+    #  success: false,
+    #  slack_url: "https://hooks.slack.com/services/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"
+    #)
   end
 end
