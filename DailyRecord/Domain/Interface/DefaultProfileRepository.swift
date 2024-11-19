@@ -8,8 +8,5 @@
 import Foundation
 
 protocol DefaultProfileRepository {
-	func createUser(data: [String : Any]) async throws
-	func getUserInfo() async throws -> UserResponseDTO?
-	func updateUserInfo(updateData: [String: Any]) async throws
-	func removeUser() async throws
+  
 }

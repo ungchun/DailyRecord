@@ -2,26 +2,34 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Localization native development region</key>
-	<string>korea</string>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
+  <key>CFBundleIcons</key>
+  <dict>
+      <key>CFBundlePrimaryIcon</key>
+      <dict>
+          <key>NSAppIconActionTintColorName</key>
+          <string>azBlack</string>
+          <key>NSAppIconComplementingColorNames</key>
+          <array>
+            <string>azWhite</string>
+            <string>azWhite</string>
+          </array>
+      </dict>
+  </dict>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>kakao</string>
-			</array>
+			<array/>
 		</dict>
 	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>kakaokompassauth</string>
-		<string>kakaolink</string>
-	</array>
+	<array/>
+	<key>Localization native development region</key>
+	<string>korea</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>omyu_pretty.ttf</string>
@@ -43,5 +51,9 @@
 			</array>
 		</dict>
 	</dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 </dict>
 </plist>

@@ -111,7 +111,7 @@ final class EmotionalImagePopupView: BaseView {
 		
 		veryHappyEmotion.snp.makeConstraints { make in
 			make.top.equalToSuperview().offset(20)
-			make.left.equalToSuperview().offset(20)
+			make.leading.equalToSuperview().offset(20)
 			make.width.height.equalTo(60)
 		}
 		
@@ -123,13 +123,13 @@ final class EmotionalImagePopupView: BaseView {
 		
 		neutralEmotion.snp.makeConstraints { make in
 			make.top.equalToSuperview().offset(20)
-			make.right.equalToSuperview().offset(-20)
+      make.trailing.equalToSuperview().offset(-20)
 			make.width.height.equalTo(60)
 		}
 		
 		verySadEmotion.snp.makeConstraints { make in
 			make.top.equalTo(happyEmotion.snp.bottom).offset(20)
-			make.left.equalToSuperview().offset(20)
+			make.leading.equalToSuperview().offset(20)
 			make.width.height.equalTo(60)
 		}
 		
@@ -141,7 +141,7 @@ final class EmotionalImagePopupView: BaseView {
 		
 		angryEmotion.snp.makeConstraints { make in
 			make.top.equalTo(neutralEmotion.snp.bottom).offset(20)
-			make.right.equalToSuperview().offset(-20)
+			make.trailing.equalToSuperview().offset(-20)
 			make.width.height.equalTo(60)
 		}
 		

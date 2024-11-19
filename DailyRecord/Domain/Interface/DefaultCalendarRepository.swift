@@ -8,5 +8,5 @@
 import Foundation
 
 protocol DefaultCalendarRepository {
-	func readMonthRecord(year: Int, month: Int) async throws -> [RecordResponseDTO]
+  func readMonthRecord(year: Int, month: Int) async throws -> [RecordEntity]
 }

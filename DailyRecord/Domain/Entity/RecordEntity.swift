@@ -1,31 +1,33 @@
 //
-//  RecordEntity.swift
+//  RecordRequest.swift
 //  DailyRecord
 //
-//  Created by Kim SungHun on 7/14/24.
+//  Created by Kim SungHun on 7/7/24.
 //
 
 import Foundation
 
 struct RecordEntity {
-	let uid: String
-	let content: String
-	let emotionType: EmotionType
-	let imageListURL: [String]
-	let createTime: Int
-	let calendarDate: Int
-	
-	init(uid: String = "",
-			 content: String = "",
-			 emotionType: EmotionType = .none,
-			 imageListURL: [String] = [],
-			 createTime: Int = 0,
-			 calendarDate: Int = 0) {
-		self.uid = uid
-		self.content = content
-		self.emotionType = emotionType
-		self.imageListURL = imageListURL
-		self.createTime = createTime
-		self.calendarDate = calendarDate
-	}
+  let content: String
+  let emotionType: String
+  let imageList: [Data]
+  let imageIdentifier: [String]
+  let createTime: Int
+  let calendarDate: Int
+  
+  init(
+    content: String = "",
+    emotionType: String = "",
+    imageList: [Data] = [],
+    imageIdentifier: [String] = [],
+    createTime: Int = 0,
+    calendarDate: Int = 0
+  ) {
+    self.content = content
+    self.emotionType = emotionType
+    self.imageList = imageList
+    self.imageIdentifier = imageIdentifier
+    self.createTime = createTime
+    self.calendarDate = calendarDate
+  }
 }

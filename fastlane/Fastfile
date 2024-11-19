@@ -11,7 +11,7 @@ platform :ios do
     setup_ci
     set_keychain 
     match_provisioning_profiles
-   # xcode_select("/Applications/Xcode_15.3.app")
+    # xcode_select("/Applications/Xcode_15.3.app")
   end
 
   private_lane :set_keychain do
@@ -55,11 +55,16 @@ platform :ios do
 
   desc "build app and upload to testflight"
   lane :beta do
+    # match(type: "appstore")
+
     setup_app_store_connect_api_key
+
     sync_code_signing
+
     increment_build_number(
         build_number: latest_testflight_build_number + 1
     )
+
     build_app(
       configuration: "Debug",
       export_method: "app-store",
@@ -69,19 +74,26 @@ platform :ios do
     #ENV["FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT"] = "120"
 
     upload_to_testflight
+
     slack(
       message: "🎉 Testflight 배포에 성공했습니다!",
-      slack_url: "https://hooks.slack.com/services/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"
+      slack_url: ENV["SLACK_WEBHOOK_URL"]
     )
   end
 
   desc "build app and release to App Store."
   lane :release do |options|
+    # match(type: "appstore")
+
     setup_app_store_connect_api_key
+
     sync_code_signing
+
     increment_build_number(
       build_number: latest_testflight_build_number + 1
     )
+
+    ENV["FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT"] = "120"
 
     build_app(
       configuration: "Release",
@@ -94,21 +106,20 @@ platform :ios do
       target: ENV['TARGET_NAME']
     )
 
-    #ENV["FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT"] = "120"
     upload_to_app_store(
       app_version: app_version,
       skip_screenshots: true,
       skip_metadata: false,
+      metadata_path: "../metadata",
       submit_for_review: true,
       force: true,
       automatic_release: false,
-      #metadata_path: "./metadata",
       precheck_include_in_app_purchases: false
     )
 
     slack(
       message: "🎉 AppStore 배포에 성공했습니다!",
-      slack_url: "https://hooks.slack.com/services/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"
+      slack_url: ENV["SLACK_WEBHOOK_URL"]
     )
   end
 
@@ -116,7 +127,7 @@ platform :ios do
     slack(
       message: "🚨 에러 발생 : #{exception}",
       success: false,
-      slack_url: "https://hooks.slack.com/services/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"
+      slack_url: ENV["SLACK_WEBHOOK_URL"]
     )
   end
 end
