@@ -113,7 +113,7 @@ platform :ios do
       metadata_path: "./metadata",
       submit_for_review: true,
       force: true,
-      automatic_release: false,
+      automatic_release: true,
       precheck_include_in_app_purchases: false
     )
 
