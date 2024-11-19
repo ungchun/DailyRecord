@@ -110,10 +110,10 @@ platform :ios do
       app_version: app_version,
       skip_screenshots: true,
       skip_metadata: false,
-      metadata_path: "./fastlane/metadata",
+      metadata_path: "../metadata",
       submit_for_review: true,
       force: true,
-      automatic_release: true,
+      automatic_release: false,
       precheck_include_in_app_purchases: false
     )
 
