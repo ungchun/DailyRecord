@@ -22,6 +22,16 @@ final class ChartViewController: BaseViewController {
   
   // MARK: - Views
   
+  private let noEmotionLabel: UILabel = {
+    let label = UILabel()
+    label.font = UIFont(name: "omyu_pretty", size: 20)
+    label.textColor = .azLightGray
+    label.text = "비어있어요"
+    label.textAlignment = .center
+    label.isHidden = true
+    return label
+  }()
+  
   private let monthLabel: UILabel = {
     let label = UILabel()
     label.font = UIFont(name: "omyu_pretty", size: 25)
@@ -93,7 +103,7 @@ final class ChartViewController: BaseViewController {
   // MARK: - Functions
   
   override func addView() {
-    [leftButton, monthLabel, rightButton, scrollView].forEach {
+    [leftButton, monthLabel, rightButton, scrollView, noEmotionLabel].forEach {
       view.addSubview($0)
     }
     
@@ -117,6 +127,12 @@ final class ChartViewController: BaseViewController {
       make.centerY.equalTo(monthLabel)
       make.width.height.equalTo(44)
     }
+    
+    noEmotionLabel.snp.makeConstraints { make in
+      make.centerX.equalToSuperview()
+      make.top.equalTo(monthLabel.snp.bottom).offset(50)
+    }
+    
     scrollView.snp.makeConstraints { make in
       make.top.equalTo(monthLabel.snp.bottom).offset(20)
       make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
@@ -203,76 +219,82 @@ private extension ChartViewController {
   func updateEmotionViews() {
     contentView.subviews.forEach { $0.removeFromSuperview() }
     
-    var previousView: UIView?
-    let maxCount = emotionCounts.values.max() ?? 1
-    let progressBarWidth = UIScreen.main.bounds.width * 0.55
-    
-    let sortedEmotions = emotionCounts.sorted { $0.value > $1.value }
-    
-    for (emotionType, count) in sortedEmotions {
-      let containerView = UIView()
-      contentView.addSubview(containerView)
+    if emotionCounts.isEmpty {
+      noEmotionLabel.isHidden = false
+    } else {
+      noEmotionLabel.isHidden = true
       
-      let stackView = UIStackView()
-      stackView.axis = .horizontal
-      stackView.alignment = .center
-      stackView.spacing = 20
-      containerView.addSubview(stackView)
+      var previousView: UIView?
+      let maxCount = emotionCounts.values.max() ?? 1
+      let progressBarWidth = UIScreen.main.bounds.width * 0.55
       
-      if let image = UIImage(named: emotionType) {
-        let imageView = UIImageView(image: image)
-        imageView.contentMode = .scaleAspectFit
-        imageView.snp.makeConstraints { make in
-          make.width.height.equalTo(40)
+      let sortedEmotions = emotionCounts.sorted { $0.value > $1.value }
+      
+      for (emotionType, count) in sortedEmotions {
+        let containerView = UIView()
+        contentView.addSubview(containerView)
+        
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.spacing = 20
+        containerView.addSubview(stackView)
+        
+        if let image = UIImage(named: emotionType) {
+          let imageView = UIImageView(image: image)
+          imageView.contentMode = .scaleAspectFit
+          imageView.snp.makeConstraints { make in
+            make.width.height.equalTo(40)
+          }
+          stackView.addArrangedSubview(imageView)
         }
-        stackView.addArrangedSubview(imageView)
-      }
-      
-      let progressContainer = UIView()
-      progressContainer.backgroundColor = .azBlack
-      progressContainer.layer.cornerRadius = 5
-      stackView.addArrangedSubview(progressContainer)
-      
-      let progressView = UIView()
-      progressView.backgroundColor = getColorForEmotionType(emotionType)
-      progressView.layer.cornerRadius = 5
-      progressContainer.addSubview(progressView)
-      
-      let countLabel = UILabel()
-      countLabel.text = "\(count)"
-      countLabel.textColor = .azWhite
-      countLabel.font = UIFont(name: "omyu_pretty", size: 20)
-      stackView.addArrangedSubview(countLabel)
-      
-      containerView.snp.makeConstraints { make in
-        make.leading.trailing.equalToSuperview()
-        if let previousView = previousView {
-          make.top.equalTo(previousView.snp.bottom).offset(20)
-        } else {
-          make.top.equalToSuperview().offset(20)
+        
+        let progressContainer = UIView()
+        progressContainer.backgroundColor = .azBlack
+        progressContainer.layer.cornerRadius = 5
+        stackView.addArrangedSubview(progressContainer)
+        
+        let progressView = UIView()
+        progressView.backgroundColor = getColorForEmotionType(emotionType)
+        progressView.layer.cornerRadius = 5
+        progressContainer.addSubview(progressView)
+        
+        let countLabel = UILabel()
+        countLabel.text = "\(count)"
+        countLabel.textColor = .azWhite
+        countLabel.font = UIFont(name: "omyu_pretty", size: 20)
+        stackView.addArrangedSubview(countLabel)
+        
+        containerView.snp.makeConstraints { make in
+          make.leading.trailing.equalToSuperview()
+          if let previousView = previousView {
+            make.top.equalTo(previousView.snp.bottom).offset(20)
+          } else {
+            make.top.equalToSuperview().offset(20)
+          }
+          if emotionType == sortedEmotions.last?.key {
+            make.bottom.equalToSuperview().offset(-20)
+          }
+          make.height.equalTo(44)
         }
-        if emotionType == sortedEmotions.last?.key {
-          make.bottom.equalToSuperview().offset(-20)
+        
+        stackView.snp.makeConstraints { make in
+          make.center.equalToSuperview()
         }
-        make.height.equalTo(44)
+        
+        progressContainer.snp.makeConstraints { make in
+          make.height.equalTo(10)
+          make.width.equalTo(progressBarWidth)
+        }
+        
+        let progressWidth = (CGFloat(count) / CGFloat(maxCount)) * progressBarWidth
+        progressView.snp.makeConstraints { make in
+          make.leading.top.bottom.equalToSuperview()
+          make.width.equalTo(progressWidth)
+        }
+        
+        previousView = containerView
       }
-      
-      stackView.snp.makeConstraints { make in
-        make.center.equalToSuperview()
-      }
-      
-      progressContainer.snp.makeConstraints { make in
-        make.height.equalTo(10)
-        make.width.equalTo(progressBarWidth)
-      }
-      
-      let progressWidth = (CGFloat(count) / CGFloat(maxCount)) * progressBarWidth
-      progressView.snp.makeConstraints { make in
-        make.leading.top.bottom.equalToSuperview()
-        make.width.equalTo(progressWidth)
-      }
-      
-      previousView = containerView
     }
   }
 }
