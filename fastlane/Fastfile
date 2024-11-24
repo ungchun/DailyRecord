@@ -109,7 +109,7 @@ platform :ios do
     upload_to_app_store(
       app_version: app_version,
       submit_for_review: true,  # 심사 제출 설정
-      metadata_path: "../metadata",
+      # metadata_path: "../metadata",
       automatic_release: false,  # 자동 배포 설정
       phased_release: true,  # 점진적 배포 설정
       force: true,  # 사용자 입력을 요구하는 프롬프트와 경고 메시지를 자동으로 승인
@@ -118,7 +118,6 @@ platform :ios do
       skip_screenshots: true,  # 스크린샷 업로드 건너뜀
       skip_metadata: false # 메타데이터 업로드 건너뜀
     )
-
 
     slack(
       message: "🎉 AppStore 배포에 성공했습니다!",
