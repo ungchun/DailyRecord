@@ -106,19 +106,23 @@ platform :ios do
       target: ENV['TARGET_NAME']
     )
 
-    upload_to_app_store(
-      app_version: app_version,
-      submit_for_review: true,  # 심사 제출 설정
-      metadata_path: "../metadata",
-      automatic_release: false,  # 자동 배포 설정
-      phased_release: true,  # 점진적 배포 설정
-      force: true,  # 사용자 입력을 요구하는 프롬프트와 경고 메시지를 자동으로 승인
-      precheck_include_in_app_purchases: false,  # App Store Connect API Key 인증 방식 사용 시 precheck가 인앱결제를 확인할 수 없으므로 false
-      skip_binary_upload: true,  # 새로운 빌드 업로드를 건너뜀(TestFlight에 빌드가 추가적으로 업로드 되지 않음)
-      skip_screenshots: true,  # 스크린샷 업로드 건너뜀
-      skip_metadata: false # 메타데이터 업로드 건너뜀
+    upload_to_testflight(
+      build_number: app_version
     )
 
+    upload_to_app_store(
+      app_version: app_version,
+      submit_for_review: true,
+      automatic_release: false,
+      release_notes: {
+        'ko' => "■ 앱 안정화 및 서비스 개선"
+      },
+      force: true,
+      precheck_include_in_app_purchases: false,
+      skip_binary_upload: true,
+      skip_screenshots: true,
+      skip_metadata: false
+    )
 
     slack(
       message: "🎉 AppStore 배포에 성공했습니다!",
