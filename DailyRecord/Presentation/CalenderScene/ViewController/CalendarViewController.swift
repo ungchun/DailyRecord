@@ -267,7 +267,7 @@ extension CalendarViewController {
   }
   
   @objc private func showDrawerTrigger() {
-    coordinator?.showDrawer()
+    coordinator?.showDrawer(currentDate: viewModel.currentDate)
   }
   
   private func formattedDateString(_ date: Date, format: String) -> String {

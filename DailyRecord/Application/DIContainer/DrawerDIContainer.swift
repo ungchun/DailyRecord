@@ -9,11 +9,14 @@ import UIKit
 
 final class DrawerDIContainer: DIContainer {
   private let navigationController: UINavigationController
+  private let currentDate: Date
   
   init(
-    navigationController: UINavigationController
+    navigationController: UINavigationController,
+    currentDate: Date
   ) {
     self.navigationController = navigationController
+    self.currentDate = currentDate
   }
 }
 
@@ -36,7 +39,7 @@ extension DrawerDIContainer {
   
   private func makeDrawerViewModel() -> DrawerViewModel {
     return DrawerViewModel(
-      
+      currentDate: currentDate
     )
   }
 }

@@ -60,8 +60,12 @@ extension CalendarCoordinator {
     chartCoordinator.start()
   }
   
-  func showDrawer() {
-    let drawerDIContainer = DIContainer.makeDrawerDIContainer()
+  func showDrawer(
+    currentDate: Date
+  ) {
+    let drawerDIContainer = DIContainer.makeDrawerDIContainer(
+      currentDate: currentDate
+    )
     let drawerCoordinator = drawerDIContainer.makeDrawerCoordinator()
     drawerCoordinator.start()
   }

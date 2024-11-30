@@ -73,9 +73,12 @@ extension CalendarDIContainer {
   
   // MARK: - Drawer
   
-  func makeDrawerDIContainer() -> DrawerDIContainer {
+  func makeDrawerDIContainer(
+    currentDate: Date
+  ) -> DrawerDIContainer {
     return DrawerDIContainer(
-      navigationController: navigationController
+      navigationController: navigationController,
+      currentDate: currentDate
     )
   }
 }
