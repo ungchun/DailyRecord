@@ -26,9 +26,8 @@ final class CalendarViewController: BaseViewController {
   
   private let settingButton: UIButton = {
     let button = UIButton(type: .system)
-    let image = UIImage(systemName: "gearshape.fill")?.resizeImage(
-      to: CGSize(width: 24,height: 24)
-    )
+    let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .regular)
+    let image = UIImage(systemName: "gearshape.fill", withConfiguration: config)
     button.setImage(image, for: .normal)
     button.tintColor = .azWhite
     return button
@@ -36,9 +35,17 @@ final class CalendarViewController: BaseViewController {
   
   private let chartButton: UIButton = {
     let button = UIButton(type: .system)
-    let image = UIImage(systemName: "chart.bar.fill")?.resizeImage(
-      to: CGSize(width: 24,height: 24)
-    )
+    let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .regular)
+    let image = UIImage(systemName: "chart.bar.fill", withConfiguration: config)
+    button.setImage(image, for: .normal)
+    button.tintColor = .azWhite
+    return button
+  }()
+  
+  private let drawerButton: UIButton = {
+    let button = UIButton(type: .system)
+    let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .regular)
+    let image = UIImage(systemName: "rectangle.split.1x2.fill", withConfiguration: config)
     button.setImage(image, for: .normal)
     button.tintColor = .azWhite
     return button
@@ -124,7 +131,8 @@ final class CalendarViewController: BaseViewController {
   
   override func addView() {
     [calendarHeaderView, calendarView,
-     writeButton, settingButton, chartButton].forEach {
+     writeButton, settingButton,
+     chartButton, drawerButton].forEach {
       view.addSubview($0)
     }
   }
@@ -155,6 +163,11 @@ final class CalendarViewController: BaseViewController {
     }
     
     chartButton.snp.makeConstraints { make in
+      make.trailing.equalTo(drawerButton.snp.leading).offset(-16)
+      make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+    }
+    
+    drawerButton.snp.makeConstraints { make in
       make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-20)
       make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
     }
@@ -180,6 +193,12 @@ final class CalendarViewController: BaseViewController {
     chartButton.addTarget(
       self,
       action: #selector(showChartTrigger),
+      for: .touchUpInside
+    )
+    
+    drawerButton.addTarget(
+      self,
+      action: #selector(showDrawerTrigger),
       for: .touchUpInside
     )
     
@@ -245,6 +264,10 @@ extension CalendarViewController {
   
   @objc private func showChartTrigger() {
     coordinator?.showChart()
+  }
+  
+  @objc private func showDrawerTrigger() {
+    coordinator?.showDrawer()
   }
   
   private func formattedDateString(_ date: Date, format: String) -> String {

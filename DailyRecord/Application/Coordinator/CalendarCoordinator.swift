@@ -54,6 +54,12 @@ extension CalendarCoordinator {
     chartCoordinator.start()
   }
   
+  func showDrawer() {
+    let drawerDIContainer = DIContainer.makeDrawerDIContainer()
+    let drawerCoordinator = drawerDIContainer.makeDrawerCoordinator()
+    drawerCoordinator.start()
+  }
+  
   func dismiss() {
     navigationController.popViewController(animated: true)
   }
