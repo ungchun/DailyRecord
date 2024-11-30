@@ -163,12 +163,12 @@ private extension ChartViewController {
     updateButtonState()
     
     if let year = Int(
-      formattedDateString(
+      DateFormatter.formattedString(
         viewModel.currentDate,
         format: "yyyy"
       )
     ), let month = Int(
-      formattedDateString(
+      DateFormatter.formattedString(
         viewModel.currentDate,
         format: "M"
       )
@@ -358,13 +358,5 @@ private extension ChartViewController {
     default:
       return .systemGray
     }
-  }
-  
-  func formattedDateString(_ date: Date, format: String) -> String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.locale = Locale(identifier: "ko_kr")
-    dateFormatter.timeZone = TimeZone(identifier: "KST")
-    dateFormatter.dateFormat = format
-    return dateFormatter.string(from: date)
   }
 }

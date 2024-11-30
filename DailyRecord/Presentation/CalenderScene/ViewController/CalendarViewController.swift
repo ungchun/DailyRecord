@@ -68,7 +68,7 @@ final class CalendarViewController: BaseViewController {
     let label = UILabel()
     label.font = UIFont(name: "omyu_pretty", size: 25)
     label.textColor = .azWhite
-    label.text = formattedDateString(Date(), format: "YYYY년 M월")
+    label.text = DateFormatter.formattedString(Date(), format: "YYYY년 M월")
     return label
   }()
   
@@ -206,8 +206,8 @@ final class CalendarViewController: BaseViewController {
       self?.view.backgroundColor = .azBlack
     }
     
-    if let year = Int(formattedDateString(Date(), format: "yyyy")),
-       let month = Int(formattedDateString(Date(), format: "M")) {
+    if let year = Int(DateFormatter.formattedString(Date(), format: "yyyy")),
+       let month = Int(DateFormatter.formattedString(Date(), format: "M")) {
       Task { [weak self] in
         guard let self else { return }
         do {
@@ -268,14 +268,6 @@ extension CalendarViewController {
   
   @objc private func showDrawerTrigger() {
     coordinator?.showDrawer(currentDate: viewModel.currentDate)
-  }
-  
-  private func formattedDateString(_ date: Date, format: String) -> String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.locale = Locale(identifier: "ko_kr")
-    dateFormatter.timeZone = TimeZone(identifier: "KST")
-    dateFormatter.dateFormat = format
-    return dateFormatter.string(from: date)
   }
 }
 
@@ -377,13 +369,13 @@ extension CalendarViewController: FSCalendarDelegate,
     viewModel.updateCurrentDate(currentPage)
     
     DispatchQueue.main.async { [weak self] in
-      self?.calendarHeaderView.text = self?.formattedDateString(
+      self?.calendarHeaderView.text = DateFormatter.formattedString(
         currentPage, format: "YYYY년 M월"
       )
     }
     
-    if let year = Int(formattedDateString(currentPage, format: "yyyy")),
-       let month = Int(formattedDateString(currentPage, format: "M")) {
+    if let year = Int(DateFormatter.formattedString(currentPage, format: "yyyy")),
+       let month = Int(DateFormatter.formattedString(currentPage, format: "M")) {
       Task { [weak self] in
         guard let self else { return }
         do {

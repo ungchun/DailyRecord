@@ -172,10 +172,11 @@ final class RecordWriteViewController: BaseViewController {
       self?.view.backgroundColor = .azBlack
     }
     
-    let date = Date(timeIntervalSince1970:
-                      TimeInterval(viewModel.selectData.calendarDate) / 1000)
-    let datePart = formattedDateString(date, format: "yyyy.MM.dd")
-    let dayOfWeekPart = formattedDateString(date, format: "EEEE")
+    let date = Date(
+      timeIntervalSince1970: TimeInterval(viewModel.selectData.calendarDate) / 1000
+    )
+    let datePart = DateFormatter.formattedString(date, format: "yyyy.MM.dd")
+    let dayOfWeekPart = DateFormatter.formattedString(date, format: "EEEE")
     DispatchQueue.main.async { [weak self] in
       self?.todayDateView.text = "\(datePart)\n\(dayOfWeekPart)"
     }
@@ -376,8 +377,8 @@ private extension RecordWriteViewController {
         
         let calendarDate = self.viewModel.selectData.calendarDate
         let date = Date(timeIntervalSince1970: TimeInterval(calendarDate) / 1000)
-        let dayOfyear = self.formattedDateString(date, format: "yyyy")
-        let dayOfmonth = self.formattedDateString(date, format: "M")
+        let dayOfyear = DateFormatter.formattedString(date, format: "yyyy")
+        let dayOfmonth = DateFormatter.formattedString(date, format: "M")
         
         if let year = Int(dayOfyear),
            let month = Int(dayOfmonth) {
@@ -397,14 +398,6 @@ private extension RecordWriteViewController {
         handleError(self.coordinator!, "에러가 발생했어요")
       }
     }
-  }
-  
-  private func formattedDateString(_ date: Date, format: String) -> String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.locale = Locale(identifier: "ko_kr")
-    dateFormatter.timeZone = TimeZone(identifier: "KST")
-    dateFormatter.dateFormat = format
-    return dateFormatter.string(from: date)
   }
   
   @objc func dismissKeyboard() {
