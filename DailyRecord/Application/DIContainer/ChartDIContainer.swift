@@ -19,7 +19,7 @@ final class ChartDIContainer: DIContainer {
 
 extension ChartDIContainer {
   
-  // MARK: - Profile
+  // MARK: - Chart
   
   func makeChartCoordinator() -> ChartCoordinator {
     return ChartCoordinator(DIContainer: self,
