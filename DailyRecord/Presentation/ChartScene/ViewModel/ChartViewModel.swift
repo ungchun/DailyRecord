@@ -13,10 +13,12 @@ final class ChartViewModel: BaseViewModel {
   
   private let calendarUseCase: DefaultCalendarUseCase
   
-  @Published var records: [RecordEntity] = []
+  private(set) var records: [RecordEntity] = []
+  private(set) var currentDate: Date = Date()
+  private(set) var emotionCounts: [String: Int] = [:]
   
   // MARK: - Init
- 
+  
   init(
     calendarUseCase: DefaultCalendarUseCase
   ) {
@@ -24,10 +26,23 @@ final class ChartViewModel: BaseViewModel {
   }
 }
 
+// MARK: - Functions
+
 extension ChartViewModel {
+  func updateCurrentDate(_ currentDate: Date) {
+    self.currentDate = currentDate
+  }
   
-  // MARK: - Functions
+  func incrementEmotionCount(_ emotionType: String) {
+    self.emotionCounts[emotionType, default: 0] += 1
+  }
   
+  func removeEmotionCounts() {
+    self.emotionCounts.removeAll()
+  }
+}
+
+extension ChartViewModel {
   func fetchMonthRecordTrigger(
     year: Int,
     month: Int,
