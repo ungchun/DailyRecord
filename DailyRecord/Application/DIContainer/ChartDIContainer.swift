@@ -9,11 +9,14 @@ import UIKit
 
 final class ChartDIContainer: DIContainer {
   private let navigationController: UINavigationController
+  private let currentDate: Date
   
   init(
-    navigationController: UINavigationController
+    navigationController: UINavigationController,
+    currentDate: Date
   ) {
     self.navigationController = navigationController
+    self.currentDate = currentDate
   }
 }
 
@@ -22,19 +25,25 @@ extension ChartDIContainer {
   // MARK: - Chart
   
   func makeChartCoordinator() -> ChartCoordinator {
-    return ChartCoordinator(DIContainer: self,
-                              navigationController: navigationController)
-  }
-  
-  func makeChartViewController() -> ChartViewController {
-    return ChartViewController(
-      viewModel: makeChartViewModel()
+    return ChartCoordinator(
+      DIContainer: self,
+      navigationController: navigationController,
+      currentDate: currentDate
     )
   }
   
-  private func makeChartViewModel() -> ChartViewModel {
+  func makeChartViewController(currentDate: Date) -> ChartViewController {
+    return ChartViewController(
+      viewModel: makeChartViewModel(currentDate: currentDate)
+    )
+  }
+  
+  private func makeChartViewModel(currentDate: Date) -> ChartViewModel {
     return ChartViewModel(
-      calendarUseCase: CalendarUseCase(calendarRepository: CalendarRepository())
+      calendarUseCase: CalendarUseCase(
+        calendarRepository: CalendarRepository()
+      ),
+      currentDate: currentDate
     )
   }
 }

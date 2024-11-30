@@ -15,6 +15,8 @@ final class CalendarViewModel: BaseViewModel {
   private let coreDataManager: CoreDataManager = CoreDataManager.shared
   private let calendarUseCase: DefaultCalendarUseCase
   
+  private(set) var currentDate: Date = Date()
+  
   @Published var records: [RecordEntity] = []
   
   // MARK: - Init
@@ -26,10 +28,15 @@ final class CalendarViewModel: BaseViewModel {
   }
 }
 
+// MARK: - Functions
+
 extension CalendarViewModel {
-  
-  // MARK: - Functions
-  
+  func updateCurrentDate(_ currentDate: Date) {
+    self.currentDate = currentDate
+  }
+}
+
+extension CalendarViewModel {
   func fetchMonthRecordTrigger(
     year: Int,
     month: Int,

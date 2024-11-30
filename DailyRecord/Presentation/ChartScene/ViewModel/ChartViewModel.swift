@@ -14,15 +14,17 @@ final class ChartViewModel: BaseViewModel {
   private let calendarUseCase: DefaultCalendarUseCase
   
   private(set) var records: [RecordEntity] = []
-  private(set) var currentDate: Date = Date()
   private(set) var emotionCounts: [String: Int] = [:]
+  private(set) var currentDate: Date
   
   // MARK: - Init
   
   init(
-    calendarUseCase: DefaultCalendarUseCase
+    calendarUseCase: DefaultCalendarUseCase,
+    currentDate: Date
   ) {
     self.calendarUseCase = calendarUseCase
+    self.currentDate = currentDate
   }
 }
 
@@ -56,8 +58,6 @@ extension ChartViewModel {
       )
       
       let uniqueRecords = self.removeDuplicatesAndSort(records: response)
-      
-      Log.debug("AZHY uniqueRecords", uniqueRecords)
       
       await MainActor.run {
         self.records = uniqueRecords

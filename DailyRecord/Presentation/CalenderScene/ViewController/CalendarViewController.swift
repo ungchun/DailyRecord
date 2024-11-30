@@ -263,7 +263,7 @@ extension CalendarViewController {
   }
   
   @objc private func showChartTrigger() {
-    coordinator?.showChart()
+    coordinator?.showChart(currentDate: viewModel.currentDate)
   }
   
   @objc private func showDrawerTrigger() {
@@ -315,8 +315,11 @@ extension CalendarViewController: FSCalendarDelegate,
     self.view.layoutIfNeeded()
   }
   
-  func calendar(_ calendar: FSCalendar, didSelect date: Date,
-                at monthPosition: FSCalendarMonthPosition) {
+  func calendar(
+    _ calendar: FSCalendar,
+    didSelect date: Date,
+    at monthPosition: FSCalendarMonthPosition
+  ) {
     let day = Calendar.current.component(.weekday, from: date) - 1
     if Calendar.current.shortWeekdaySymbols[day] == "일" {
       calendar.appearance.titleSelectionColor = .azRed
@@ -343,9 +346,11 @@ extension CalendarViewController: FSCalendarDelegate,
   }
   
   // 일요일에 해당되는 모든 날짜의 색상 red로 변경
-  func calendar(_ calendar: FSCalendar,
-                appearance: FSCalendarAppearance,
-                titleDefaultColorFor date: Date) -> UIColor? {
+  func calendar(
+    _ calendar: FSCalendar,
+    appearance: FSCalendarAppearance,
+    titleDefaultColorFor date: Date
+  ) -> UIColor? {
     let day = Calendar.current.component(.weekday, from: date) - 1
     
     if date > Date() {
@@ -368,6 +373,9 @@ extension CalendarViewController: FSCalendarDelegate,
   
   func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
     let currentPage = calendar.currentPage
+    
+    viewModel.updateCurrentDate(currentPage)
+    
     DispatchQueue.main.async { [weak self] in
       self?.calendarHeaderView.text = self?.formattedDateString(
         currentPage, format: "YYYY년 M월"

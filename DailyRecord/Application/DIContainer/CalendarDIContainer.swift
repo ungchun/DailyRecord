@@ -20,8 +20,10 @@ extension CalendarDIContainer {
   // MARK: - Calendar
   
   func makeCalendarCoordinator() -> CalendarCoordinator {
-    return CalendarCoordinator(DIContainer: self,
-                               navigationController: navigationController)
+    return CalendarCoordinator(
+      DIContainer: self,
+      navigationController: navigationController
+    )
   }
   
   func makeCalendarViewController() -> CalendarViewController {
@@ -60,9 +62,12 @@ extension CalendarDIContainer {
   
   // MARK: - Chart
   
-  func makeChartDIContainer() -> ChartDIContainer {
+  func makeChartDIContainer(
+    currentDate: Date
+  ) -> ChartDIContainer {
     return ChartDIContainer(
-      navigationController: navigationController
+      navigationController: navigationController,
+      currentDate: currentDate
     )
   }
   
