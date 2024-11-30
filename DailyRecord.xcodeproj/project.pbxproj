@@ -431,8 +431,8 @@
 		65A41AFB2CFAE3F6005EBFDD /* DrawerScene */ = {
 			isa = PBXGroup;
 			children = (
-				65A41AFD2CFAE468005EBFDD /* ViewModel */,
 				65A41AFC2CFAE461005EBFDD /* ViewController */,
+				65A41AFD2CFAE468005EBFDD /* ViewModel */,
 			);
 			path = DrawerScene;
 			sourceTree = "<group>";
