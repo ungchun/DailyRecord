@@ -12,8 +12,10 @@ final class DrawerCoordinator: Coordinator {
   
   let DIContainer: DrawerDIContainer
   
-  init(DIContainer: DrawerDIContainer,
-       navigationController: UINavigationController) {
+  init(
+    DIContainer: DrawerDIContainer,
+    navigationController: UINavigationController
+  ) {
     self.DIContainer = DIContainer
     self.navigationController = navigationController
   }
@@ -23,8 +25,10 @@ extension DrawerCoordinator {
   func start() {
     let drawerViewController = DIContainer.makeDrawerViewController()
     drawerViewController.coordinator = self
-    self.navigationController.pushViewController(drawerViewController,
-                                                 animated: true)
+    self.navigationController.pushViewController(
+      drawerViewController,
+      animated: true
+    )
   }
   
   func popToRoot() {

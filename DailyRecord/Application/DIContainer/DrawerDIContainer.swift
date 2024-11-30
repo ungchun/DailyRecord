@@ -22,8 +22,10 @@ extension DrawerDIContainer {
   // MARK: - Drawer
   
   func makeDrawerCoordinator() -> DrawerCoordinator {
-    return DrawerCoordinator(DIContainer: self,
-                             navigationController: navigationController)
+    return DrawerCoordinator(
+      DIContainer: self,
+      navigationController: navigationController
+    )
   }
   
   func makeDrawerViewController() -> DrawerViewController {
