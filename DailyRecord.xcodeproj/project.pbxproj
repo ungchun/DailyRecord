@@ -27,6 +27,7 @@
 		65600E6F2CA7CA410093D20B /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65600E6C2CA7A1D20093D20B /* CoreDataManager.swift */; };
 		65600E712CA7CF720093D20B /* RecordEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946832C3AB97A0030598B /* RecordEntity.swift */; };
 		65600E752CA81A8E0093D20B /* SetiCloudSyncViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65600E742CA81A8E0093D20B /* SetiCloudSyncViewController.swift */; };
+		656A5AE52CFC600700AF2AF4 /* DrawerRecordItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656A5AE42CFC600700AF2AF4 /* DrawerRecordItemView.swift */; };
 		657DB90E2C5BB5EB008DD96E /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DB90D2C5BB5EB008DD96E /* ProfileViewModel.swift */; };
 		657DB9102C5BB600008DD96E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DB90F2C5BB600008DD96E /* ProfileViewController.swift */; };
 		657DB9122C5BB845008DD96E /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DB9112C5BB845008DD96E /* ProfileCoordinator.swift */; };
@@ -157,6 +158,7 @@
 		65600E692CA5715F0093D20B /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		65600E6C2CA7A1D20093D20B /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		65600E742CA81A8E0093D20B /* SetiCloudSyncViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetiCloudSyncViewController.swift; sourceTree = "<group>"; };
+		656A5AE42CFC600700AF2AF4 /* DrawerRecordItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerRecordItemView.swift; sourceTree = "<group>"; };
 		657DB90D2C5BB5EB008DD96E /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		657DB90F2C5BB600008DD96E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		657DB9112C5BB845008DD96E /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
@@ -317,6 +319,14 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
+		656A5AE32CFC5FC300AF2AF4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				656A5AE42CFC600700AF2AF4 /* DrawerRecordItemView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		657DB90A2C5BB584008DD96E /* ProfileScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -434,6 +444,7 @@
 		65A41AFB2CFAE3F6005EBFDD /* DrawerScene */ = {
 			isa = PBXGroup;
 			children = (
+				656A5AE32CFC5FC300AF2AF4 /* View */,
 				65A41AFC2CFAE461005EBFDD /* ViewController */,
 				65A41AFD2CFAE468005EBFDD /* ViewModel */,
 			);
@@ -912,6 +923,7 @@
 				65CF61972C116E87003E6D75 /* RecordWriteViewController.swift in Sources */,
 				659946B22C4D1AF10030598B /* BaseNavigationController.swift in Sources */,
 				659946BB2C564FCF0030598B /* UIViewController+.swift in Sources */,
+				656A5AE52CFC600700AF2AF4 /* DrawerRecordItemView.swift in Sources */,
 				659946732C3839860030598B /* UserDefaultsSetting.swift in Sources */,
 				65CF617F2C0C5F20003E6D75 /* CalendarCoordinator.swift in Sources */,
 				65CF61202C036432003E6D75 /* SceneDelegate.swift in Sources */,
