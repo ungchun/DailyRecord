@@ -31,6 +31,18 @@ extension DrawerCoordinator {
     )
   }
   
+  func showRecord(
+    calendarViewModel: CalendarViewModel,
+    selectData: RecordEntity
+  ) {
+    let recordDIContainer = DIContainer.makeRecordDIContainer(
+      calendarViewModel: calendarViewModel,
+      selectData: selectData
+    )
+    let recordCoordinator = recordDIContainer.makeRecordCoordinator()
+    recordCoordinator.start()
+  }
+  
   func popToRoot() {
     navigationController.popToRootViewController(animated: true)
   }

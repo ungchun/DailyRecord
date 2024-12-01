@@ -61,9 +61,11 @@ extension CalendarCoordinator {
   }
   
   func showDrawer(
+    calendarViewModel: CalendarViewModel,
     currentDate: Date
   ) {
     let drawerDIContainer = DIContainer.makeDrawerDIContainer(
+      calendarViewModel: calendarViewModel,
       currentDate: currentDate
     )
     let drawerCoordinator = drawerDIContainer.makeDrawerCoordinator()
