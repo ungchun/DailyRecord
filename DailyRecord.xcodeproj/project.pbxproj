@@ -27,6 +27,7 @@
 		65600E6F2CA7CA410093D20B /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65600E6C2CA7A1D20093D20B /* CoreDataManager.swift */; };
 		65600E712CA7CF720093D20B /* RecordEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946832C3AB97A0030598B /* RecordEntity.swift */; };
 		65600E752CA81A8E0093D20B /* SetiCloudSyncViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65600E742CA81A8E0093D20B /* SetiCloudSyncViewController.swift */; };
+		656A5AE52CFC600700AF2AF4 /* DrawerRecordItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656A5AE42CFC600700AF2AF4 /* DrawerRecordItemView.swift */; };
 		657DB90E2C5BB5EB008DD96E /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DB90D2C5BB5EB008DD96E /* ProfileViewModel.swift */; };
 		657DB9102C5BB600008DD96E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DB90F2C5BB600008DD96E /* ProfileViewController.swift */; };
 		657DB9122C5BB845008DD96E /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DB9112C5BB845008DD96E /* ProfileCoordinator.swift */; };
@@ -54,6 +55,11 @@
 		659946B42C4FD4AB0030598B /* RecordHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946B32C4FD4AB0030598B /* RecordHistoryViewController.swift */; };
 		659946B62C54E13B0030598B /* ImageCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946B52C54E13B0030598B /* ImageCarouselView.swift */; };
 		659946BB2C564FCF0030598B /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659946BA2C564FCF0030598B /* UIViewController+.swift */; };
+		65A41AFF2CFAE47E005EBFDD /* DrawerDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A41AFE2CFAE47E005EBFDD /* DrawerDIContainer.swift */; };
+		65A41B012CFAE488005EBFDD /* DrawerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A41B002CFAE488005EBFDD /* DrawerCoordinator.swift */; };
+		65A41B032CFAE4FA005EBFDD /* DrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A41B022CFAE4FA005EBFDD /* DrawerViewController.swift */; };
+		65A41B052CFAE500005EBFDD /* DrawerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A41B042CFAE500005EBFDD /* DrawerViewModel.swift */; };
+		65A41B072CFB4C81005EBFDD /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A41B062CFB4C81005EBFDD /* DateFormatter+.swift */; };
 		65CF611E2C036432003E6D75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF611D2C036432003E6D75 /* AppDelegate.swift */; };
 		65CF61202C036432003E6D75 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF611F2C036432003E6D75 /* SceneDelegate.swift */; };
 		65CF61272C036433003E6D75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65CF61262C036433003E6D75 /* Assets.xcassets */; };
@@ -152,6 +158,7 @@
 		65600E692CA5715F0093D20B /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		65600E6C2CA7A1D20093D20B /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		65600E742CA81A8E0093D20B /* SetiCloudSyncViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetiCloudSyncViewController.swift; sourceTree = "<group>"; };
+		656A5AE42CFC600700AF2AF4 /* DrawerRecordItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerRecordItemView.swift; sourceTree = "<group>"; };
 		657DB90D2C5BB5EB008DD96E /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		657DB90F2C5BB600008DD96E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		657DB9112C5BB845008DD96E /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
@@ -178,6 +185,11 @@
 		659946B32C4FD4AB0030598B /* RecordHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordHistoryViewController.swift; sourceTree = "<group>"; };
 		659946B52C54E13B0030598B /* ImageCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCarouselView.swift; sourceTree = "<group>"; };
 		659946BA2C564FCF0030598B /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
+		65A41AFE2CFAE47E005EBFDD /* DrawerDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerDIContainer.swift; sourceTree = "<group>"; };
+		65A41B002CFAE488005EBFDD /* DrawerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerCoordinator.swift; sourceTree = "<group>"; };
+		65A41B022CFAE4FA005EBFDD /* DrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerViewController.swift; sourceTree = "<group>"; };
+		65A41B042CFAE500005EBFDD /* DrawerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerViewModel.swift; sourceTree = "<group>"; };
+		65A41B062CFB4C81005EBFDD /* DateFormatter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+.swift"; sourceTree = "<group>"; };
 		65CF611A2C036432003E6D75 /* DailyRecord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyRecord.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65CF611D2C036432003E6D75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65CF611F2C036432003E6D75 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -307,6 +319,14 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
+		656A5AE32CFC5FC300AF2AF4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				656A5AE42CFC600700AF2AF4 /* DrawerRecordItemView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		657DB90A2C5BB584008DD96E /* ProfileScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -350,6 +370,7 @@
 				659946AB2C4BD8C70030598B /* UIImage+.swift */,
 				659946BA2C564FCF0030598B /* UIViewController+.swift */,
 				6508A2242C7CA200005AB6DC /* UITextView+.swift */,
+				65A41B062CFB4C81005EBFDD /* DateFormatter+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -420,6 +441,32 @@
 			path = Font;
 			sourceTree = "<group>";
 		};
+		65A41AFB2CFAE3F6005EBFDD /* DrawerScene */ = {
+			isa = PBXGroup;
+			children = (
+				656A5AE32CFC5FC300AF2AF4 /* View */,
+				65A41AFC2CFAE461005EBFDD /* ViewController */,
+				65A41AFD2CFAE468005EBFDD /* ViewModel */,
+			);
+			path = DrawerScene;
+			sourceTree = "<group>";
+		};
+		65A41AFC2CFAE461005EBFDD /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				65A41B022CFAE4FA005EBFDD /* DrawerViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		65A41AFD2CFAE468005EBFDD /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				65A41B042CFAE500005EBFDD /* DrawerViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		65CF61112C036432003E6D75 = {
 			isa = PBXGroup;
 			children = (
@@ -488,6 +535,7 @@
 		65CF61342C073D44003E6D75 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				65A41AFB2CFAE3F6005EBFDD /* DrawerScene */,
 				655BE3C62CC4BFAD0006BC34 /* ChartScene */,
 				65CF61822C0C6030003E6D75 /* CalenderScene */,
 				65CF61922C116DB6003E6D75 /* RecordScene */,
@@ -535,6 +583,7 @@
 				65CF619A2C11706A003E6D75 /* RecordCoordinator.swift */,
 				657DB9112C5BB845008DD96E /* ProfileCoordinator.swift */,
 				655BE3CD2CC4C4FE0006BC34 /* ChartCoordinator.swift */,
+				65A41B002CFAE488005EBFDD /* DrawerCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -547,6 +596,7 @@
 				65CF61982C117061003E6D75 /* RecordDIContainer.swift */,
 				657DB9132C5BB871008DD96E /* ProfileDIContainer.swift */,
 				655BE3CF2CC4C5890006BC34 /* ChartDIContainer.swift */,
+				65A41AFE2CFAE47E005EBFDD /* DrawerDIContainer.swift */,
 			);
 			path = DIContainer;
 			sourceTree = "<group>";
@@ -834,6 +884,8 @@
 				6508A21F2C6DD5DA005AB6DC /* KeyChainAccount.swift in Sources */,
 				655BE3CE2CC4C4FE0006BC34 /* ChartCoordinator.swift in Sources */,
 				65CF619B2C11706A003E6D75 /* RecordCoordinator.swift in Sources */,
+				65A41B032CFAE4FA005EBFDD /* DrawerViewController.swift in Sources */,
+				65A41B072CFB4C81005EBFDD /* DateFormatter+.swift in Sources */,
 				65CF61C62C243EDD003E6D75 /* BaseView.swift in Sources */,
 				659946792C3A69400030598B /* ProfileRepository.swift in Sources */,
 				655BE3D02CC4C5890006BC34 /* ChartDIContainer.swift in Sources */,
@@ -859,21 +911,25 @@
 				6599467E2C3A8B060030598B /* RecordRepository.swift in Sources */,
 				65CF61842C0C6053003E6D75 /* CalendarViewController.swift in Sources */,
 				659946842C3AB97A0030598B /* RecordEntity.swift in Sources */,
+				65A41B012CFAE488005EBFDD /* DrawerCoordinator.swift in Sources */,
 				659946972C43F1980030598B /* Type.swift in Sources */,
 				659946902C4249E30030598B /* CalendarUseCase.swift in Sources */,
 				657DB9142C5BB871008DD96E /* ProfileDIContainer.swift in Sources */,
 				65600E6D2CA7A1D20093D20B /* CoreDataManager.swift in Sources */,
+				65A41B052CFAE500005EBFDD /* DrawerViewModel.swift in Sources */,
 				659946B42C4FD4AB0030598B /* RecordHistoryViewController.swift in Sources */,
 				659946822C3A8B410030598B /* RecordUseCase.swift in Sources */,
 				65CF617D2C0C5EEC003E6D75 /* DIContainer.swift in Sources */,
 				65CF61972C116E87003E6D75 /* RecordWriteViewController.swift in Sources */,
 				659946B22C4D1AF10030598B /* BaseNavigationController.swift in Sources */,
 				659946BB2C564FCF0030598B /* UIViewController+.swift in Sources */,
+				656A5AE52CFC600700AF2AF4 /* DrawerRecordItemView.swift in Sources */,
 				659946732C3839860030598B /* UserDefaultsSetting.swift in Sources */,
 				65CF617F2C0C5F20003E6D75 /* CalendarCoordinator.swift in Sources */,
 				65CF61202C036432003E6D75 /* SceneDelegate.swift in Sources */,
 				659946AC2C4BD8C70030598B /* UIImage+.swift in Sources */,
 				6599466D2C3024F40030598B /* Encodable+.swift in Sources */,
+				65A41AFF2CFAE47E005EBFDD /* DrawerDIContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1059,7 +1115,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.8;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ungchun.DailyRecord;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1101,7 +1157,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.8;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ungchun.DailyRecord;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
