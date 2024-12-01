@@ -20,10 +20,6 @@ final class RecordWriteViewController: BaseViewController {
   private let viewModel: RecordViewModel
   private let calendarViewModel: CalendarViewModel
   
-  private var isChangeContent = false
-  private var selectedAssetIdentifiers = [String]()
-  private var selections = [String : PHPickerResult]()
-  
   // MARK: - Views
   
   private let scrollView: UIScrollView = {
@@ -176,10 +172,11 @@ final class RecordWriteViewController: BaseViewController {
       self?.view.backgroundColor = .azBlack
     }
     
-    let date = Date(timeIntervalSince1970:
-                      TimeInterval(viewModel.selectData.calendarDate) / 1000)
-    let datePart = formattedDateString(date, format: "yyyy.MM.dd")
-    let dayOfWeekPart = formattedDateString(date, format: "EEEE")
+    let date = Date(
+      timeIntervalSince1970: TimeInterval(viewModel.selectData.calendarDate) / 1000
+    )
+    let datePart = DateFormatter.formattedString(date, format: "yyyy.MM.dd")
+    let dayOfWeekPart = DateFormatter.formattedString(date, format: "EEEE")
     DispatchQueue.main.async { [weak self] in
       self?.todayDateView.text = "\(datePart)\n\(dayOfWeekPart)"
     }
@@ -221,7 +218,7 @@ extension RecordWriteViewController: UIGestureRecognizerDelegate {
   }
   
   @objc private func customBackButtonTapped() {
-    if isChangeContent {
+    if viewModel.isChangeContent {
       showAlertToConfirmExit()
     } else {
       navigationController?.popViewController(animated: true)
@@ -233,7 +230,7 @@ extension RecordWriteViewController: UIGestureRecognizerDelegate {
   }
   
   func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-    if isChangeContent {
+    if viewModel.isChangeContent {
       showAlertToConfirmExit()
       return false
     }
@@ -279,7 +276,7 @@ private extension RecordWriteViewController {
   }
   
   func updateImageView() {
-    selectedAssetIdentifiers = viewModel.imageList.map{$0.0}
+    viewModel.updateSelectedAssetIdentifiers(viewModel.imageList.map{$0.0})
     attachedImageCollectionView.setImages(viewModel.imageList)
   }
 }
@@ -351,7 +348,7 @@ private extension RecordWriteViewController {
         self?.emotionalImagePopupView.removeFromSuperview()
       }
     }
-    isChangeContent = true
+    viewModel.updateIsChangeContent(true)
   }
   
   @objc func galleryTrigger() {
@@ -359,7 +356,7 @@ private extension RecordWriteViewController {
     configuration.filter = .images
     configuration.selectionLimit = 5
     configuration.selection = .ordered
-    configuration.preselectedAssetIdentifiers = selectedAssetIdentifiers
+    configuration.preselectedAssetIdentifiers = viewModel.selectedAssetIdentifiers
     configuration.preferredAssetRepresentationMode = .current
     
     let picker = PHPickerViewController(configuration: configuration)
@@ -370,7 +367,8 @@ private extension RecordWriteViewController {
   @objc func saveTrigger() {
     view.endEditing(true)
     LoadingIndicator.showLoading()
-    viewModel.imageList = attachedImageCollectionView.images
+    
+    viewModel.updateImageList(attachedImageCollectionView.images)
     
     Task { [weak self] in
       guard let self else { return }
@@ -379,8 +377,8 @@ private extension RecordWriteViewController {
         
         let calendarDate = self.viewModel.selectData.calendarDate
         let date = Date(timeIntervalSince1970: TimeInterval(calendarDate) / 1000)
-        let dayOfyear = self.formattedDateString(date, format: "yyyy")
-        let dayOfmonth = self.formattedDateString(date, format: "M")
+        let dayOfyear = DateFormatter.formattedString(date, format: "yyyy")
+        let dayOfmonth = DateFormatter.formattedString(date, format: "M")
         
         if let year = Int(dayOfyear),
            let month = Int(dayOfmonth) {
@@ -402,14 +400,6 @@ private extension RecordWriteViewController {
     }
   }
   
-  private func formattedDateString(_ date: Date, format: String) -> String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.locale = Locale(identifier: "ko_kr")
-    dateFormatter.timeZone = TimeZone(identifier: "KST")
-    dateFormatter.dateFormat = format
-    return dateFormatter.string(from: date)
-  }
-  
   @objc func dismissKeyboard() {
     view.endEditing(true)
   }
@@ -425,8 +415,7 @@ extension RecordWriteViewController: AttachedImageCollectionViewDelegate {
   }
   
   func removeAssetIdentifier(_ identifier: String) {
-    selectedAssetIdentifiers.removeAll { $0 == identifier }
-    selections.removeValue(forKey: identifier)
+    viewModel.removeAssetIdentifier(identifier)
   }
 }
 
@@ -435,7 +424,7 @@ extension RecordWriteViewController: EmotionalImagePopupViewDelegate {
     if let image = UIImage(named: selectEmotionType.rawValue) {
       closePopupTrigger()
       
-      viewModel.emotionType = selectEmotionType
+      viewModel.updateEmotionType(selectEmotionType)
       
       DispatchQueue.main.async { [weak self] in
         self?.todayEmotionImageView.backgroundColor = .clear
@@ -459,8 +448,8 @@ extension RecordWriteViewController: EmotionalImagePopupViewDelegate {
 
 extension RecordWriteViewController: UITextViewDelegate {
   func textViewDidChange(_ textView: UITextView) {
-    viewModel.content = textView.text
-    isChangeContent = true
+    viewModel.updateContent(textView.text)
+    viewModel.updateIsChangeContent(true)
   }
   
   func textViewDidBeginEditing(_ textView: UITextView) {
@@ -473,7 +462,10 @@ extension RecordWriteViewController: UITextViewDelegate {
 }
 
 extension RecordWriteViewController: PHPickerViewControllerDelegate {
-  func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+  func picker(
+    _ picker: PHPickerViewController,
+    didFinishPicking results: [PHPickerResult]
+  ) {
     picker.dismiss(animated: true, completion: nil)
     
     let dispatchGroup = DispatchGroup()
@@ -481,15 +473,15 @@ extension RecordWriteViewController: PHPickerViewControllerDelegate {
     var newSelections = [String: PHPickerResult]()
     for result in results {
       let identifier = result.assetIdentifier!
-      newSelections[identifier] = selections[identifier] ?? result
+      newSelections[identifier] = viewModel.selections[identifier] ?? result
     }
     
-    selections = newSelections
-    selectedAssetIdentifiers = results.compactMap { $0.assetIdentifier }
+    viewModel.updateSelections(newSelections)
+    viewModel.updateSelectedAssetIdentifiers(results.compactMap { $0.assetIdentifier })
     
     var imagesDict = [String: UIImage]()
     
-    for (identifier, result) in selections {
+    for (identifier, result) in viewModel.selections {
       dispatchGroup.enter()
       let itemProvider = result.itemProvider
       if itemProvider.canLoadObject(ofClass: UIImage.self) {
@@ -510,7 +502,7 @@ extension RecordWriteViewController: PHPickerViewControllerDelegate {
     dispatchGroup.notify(queue: .main) { [weak self] in
       guard let self = self else { return }
       var selectedImages: [(String, UIImage)] = []
-      for identifier in self.selectedAssetIdentifiers {
+      for identifier in self.viewModel.selectedAssetIdentifiers {
         if let image = imagesDict[identifier] {
           selectedImages.append((identifier, image))
         }

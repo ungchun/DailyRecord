@@ -12,8 +12,10 @@ final class CalendarCoordinator: Coordinator {
   
   let DIContainer: CalendarDIContainer
   
-  init(DIContainer: CalendarDIContainer,
-       navigationController: UINavigationController) {
+  init(
+    DIContainer: CalendarDIContainer,
+    navigationController: UINavigationController
+  ) {
     self.DIContainer = DIContainer
     self.navigationController = navigationController
   }
@@ -48,10 +50,26 @@ extension CalendarCoordinator {
     profleCoordinator.start()
   }
   
-  func showChart() {
-    let chartDIContainer = DIContainer.makeChartDIContainer()
+  func showChart(
+    currentDate: Date
+  ) {
+    let chartDIContainer = DIContainer.makeChartDIContainer(
+      currentDate: currentDate
+    )
     let chartCoordinator = chartDIContainer.makeChartCoordinator()
     chartCoordinator.start()
+  }
+  
+  func showDrawer(
+    calendarViewModel: CalendarViewModel,
+    currentDate: Date
+  ) {
+    let drawerDIContainer = DIContainer.makeDrawerDIContainer(
+      calendarViewModel: calendarViewModel,
+      currentDate: currentDate
+    )
+    let drawerCoordinator = drawerDIContainer.makeDrawerCoordinator()
+    drawerCoordinator.start()
   }
   
   func dismiss() {

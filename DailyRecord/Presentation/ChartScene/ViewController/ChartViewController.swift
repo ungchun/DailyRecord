@@ -17,9 +17,6 @@ final class ChartViewController: BaseViewController {
   
   private let viewModel: ChartViewModel
   
-  private var currentDate: Date = Date()
-  private var emotionCounts: [String: Int] = [:]
-  
   // MARK: - Views
   
   private let noEmotionLabel: UILabel = {
@@ -161,12 +158,21 @@ private extension ChartViewController {
   func updateMonthLabel() {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy년 MM월"
-    monthLabel.text = dateFormatter.string(from: currentDate)
+    monthLabel.text = dateFormatter.string(from: viewModel.currentDate)
     
     updateButtonState()
     
-    if let year = Int(formattedDateString(currentDate, format: "yyyy")),
-       let month = Int(formattedDateString(currentDate, format: "M")) {
+    if let year = Int(
+      DateFormatter.formattedString(
+        viewModel.currentDate,
+        format: "yyyy"
+      )
+    ), let month = Int(
+      DateFormatter.formattedString(
+        viewModel.currentDate,
+        format: "M"
+      )
+    ) {
       Task { [weak self] in
         guard let self else { return }
         do {
@@ -188,17 +194,20 @@ private extension ChartViewController {
   
   func updateButtonState() {
     guard let nextDate = Calendar.current.date(
-      byAdding: .month, value: 1, to: currentDate
+      byAdding: .month, value: 1, to: viewModel.currentDate
     ) else { return }
     
     rightButton.isHidden = nextDate > Date()
   }
   
   func updateEmotionCounts() {
-    emotionCounts.removeAll()
+    viewModel.removeEmotionCounts()
     
     let calendar = Calendar.current
-    let components = calendar.dateComponents([.year, .month], from: currentDate)
+    let components = calendar.dateComponents(
+      [.year, .month],
+      from: viewModel.currentDate
+    )
     let startOfMonth = calendar.date(from: components)!
     let endOfMonth = calendar.date(
       byAdding: DateComponents(
@@ -209,9 +218,11 @@ private extension ChartViewController {
     )!
     
     for record in viewModel.records {
-      let recordDate = Date(timeIntervalSince1970: TimeInterval(record.calendarDate / 1000))
+      let recordDate = Date(timeIntervalSince1970: TimeInterval(
+        record.calendarDate / 1000)
+      )
       if recordDate >= startOfMonth && recordDate <= endOfMonth {
-        emotionCounts[record.emotionType, default: 0] += 1
+        viewModel.incrementEmotionCount(record.emotionType)
       }
     }
   }
@@ -219,81 +230,83 @@ private extension ChartViewController {
   func updateEmotionViews() {
     contentView.subviews.forEach { $0.removeFromSuperview() }
     
-    if emotionCounts.isEmpty {
+    if viewModel.emotionCounts.isEmpty {
       noEmotionLabel.isHidden = false
     } else {
       noEmotionLabel.isHidden = true
       
       var previousView: UIView?
-      let maxCount = emotionCounts.values.max() ?? 1
+      let maxCount = viewModel.emotionCounts.values.max() ?? 1
       let progressBarWidth = UIScreen.main.bounds.width * 0.55
       
-      let sortedEmotions = emotionCounts.sorted { $0.value > $1.value }
+      let sortedEmotions = viewModel.emotionCounts.sorted { $0.value > $1.value }
       
       for (emotionType, count) in sortedEmotions {
-        let containerView = UIView()
-        contentView.addSubview(containerView)
-        
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.alignment = .center
-        stackView.spacing = 20
-        containerView.addSubview(stackView)
-        
-        if let image = UIImage(named: emotionType) {
-          let imageView = UIImageView(image: image)
-          imageView.contentMode = .scaleAspectFit
-          imageView.snp.makeConstraints { make in
-            make.width.height.equalTo(40)
+        if emotionType != "none" {
+          let containerView = UIView()
+          contentView.addSubview(containerView)
+          
+          let stackView = UIStackView()
+          stackView.axis = .horizontal
+          stackView.alignment = .center
+          stackView.spacing = 20
+          containerView.addSubview(stackView)
+          
+          if let image = UIImage(named: emotionType) {
+            let imageView = UIImageView(image: image)
+            imageView.contentMode = .scaleAspectFit
+            imageView.snp.makeConstraints { make in
+              make.width.height.equalTo(40)
+            }
+            stackView.addArrangedSubview(imageView)
           }
-          stackView.addArrangedSubview(imageView)
-        }
-        
-        let progressContainer = UIView()
-        progressContainer.backgroundColor = .azBlack
-        progressContainer.layer.cornerRadius = 5
-        stackView.addArrangedSubview(progressContainer)
-        
-        let progressView = UIView()
-        progressView.backgroundColor = getColorForEmotionType(emotionType)
-        progressView.layer.cornerRadius = 5
-        progressContainer.addSubview(progressView)
-        
-        let countLabel = UILabel()
-        countLabel.text = "\(count)"
-        countLabel.textColor = .azWhite
-        countLabel.font = UIFont(name: "omyu_pretty", size: 20)
-        stackView.addArrangedSubview(countLabel)
-        
-        containerView.snp.makeConstraints { make in
-          make.leading.trailing.equalToSuperview()
-          if let previousView = previousView {
-            make.top.equalTo(previousView.snp.bottom).offset(20)
-          } else {
-            make.top.equalToSuperview().offset(20)
+          
+          let progressContainer = UIView()
+          progressContainer.backgroundColor = .azBlack
+          progressContainer.layer.cornerRadius = 5
+          stackView.addArrangedSubview(progressContainer)
+          
+          let progressView = UIView()
+          progressView.backgroundColor = getColorForEmotionType(emotionType)
+          progressView.layer.cornerRadius = 5
+          progressContainer.addSubview(progressView)
+          
+          let countLabel = UILabel()
+          countLabel.text = "\(count)"
+          countLabel.textColor = .azWhite
+          countLabel.font = UIFont(name: "omyu_pretty", size: 20)
+          stackView.addArrangedSubview(countLabel)
+          
+          containerView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            if let previousView = previousView {
+              make.top.equalTo(previousView.snp.bottom).offset(20)
+            } else {
+              make.top.equalToSuperview().offset(20)
+            }
+            if emotionType == sortedEmotions.last?.key {
+              make.bottom.equalToSuperview().offset(-20)
+            }
+            make.height.equalTo(44)
           }
-          if emotionType == sortedEmotions.last?.key {
-            make.bottom.equalToSuperview().offset(-20)
+          
+          stackView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
           }
-          make.height.equalTo(44)
+          
+          progressContainer.snp.makeConstraints { make in
+            make.height.equalTo(10)
+            make.width.equalTo(progressBarWidth)
+          }
+          
+          let progressWidth = (CGFloat(count) / CGFloat(maxCount)) * progressBarWidth
+          progressView.snp.makeConstraints { make in
+            make.leading.top.bottom.equalToSuperview()
+            make.width.equalTo(progressWidth)
+          }
+          
+          previousView = containerView
         }
-        
-        stackView.snp.makeConstraints { make in
-          make.center.equalToSuperview()
-        }
-        
-        progressContainer.snp.makeConstraints { make in
-          make.height.equalTo(10)
-          make.width.equalTo(progressBarWidth)
-        }
-        
-        let progressWidth = (CGFloat(count) / CGFloat(maxCount)) * progressBarWidth
-        progressView.snp.makeConstraints { make in
-          make.leading.top.bottom.equalToSuperview()
-          make.width.equalTo(progressWidth)
-        }
-        
-        previousView = containerView
       }
     }
   }
@@ -301,9 +314,11 @@ private extension ChartViewController {
 
 private extension ChartViewController {
   @objc func previousMonth() {
-    currentDate = Calendar.current.date(
-      byAdding: .month, value: -1, to: currentDate
-    ) ?? currentDate
+    viewModel.updateCurrentDate(
+      Calendar.current.date(
+        byAdding: .month, value: -1, to: viewModel.currentDate
+      ) ?? viewModel.currentDate
+    )
     
     DispatchQueue.main.async { [weak self] in
       self?.updateMonthLabel()
@@ -314,12 +329,12 @@ private extension ChartViewController {
     guard let nextDate = Calendar.current.date(
       byAdding: .month,
       value: 1,
-      to: currentDate
+      to: viewModel.currentDate
     ), nextDate <= Date() else {
       return
     }
     
-    currentDate = nextDate
+    viewModel.updateCurrentDate(nextDate)
     
     DispatchQueue.main.async { [weak self] in
       self?.updateMonthLabel()
@@ -345,13 +360,5 @@ private extension ChartViewController {
     default:
       return .systemGray
     }
-  }
-  
-  func formattedDateString(_ date: Date, format: String) -> String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.locale = Locale(identifier: "ko_kr")
-    dateFormatter.timeZone = TimeZone(identifier: "KST")
-    dateFormatter.dateFormat = format
-    return dateFormatter.string(from: date)
   }
 }

@@ -1,20 +1,19 @@
 //
-//  ChartViewModel.swift
+//  DrawerViewModel.swift
 //  DailyRecord
 //
-//  Created by Kim SungHun on 10/20/24.
+//  Created by Kim SungHun on 11/30/24.
 //
 
 import Foundation
 
-final class ChartViewModel: BaseViewModel {
+final class DrawerViewModel: BaseViewModel {
   
   // MARK: - Properties
   
   private let calendarUseCase: DefaultCalendarUseCase
   
   private(set) var records: [RecordEntity] = []
-  private(set) var emotionCounts: [String: Int] = [:]
   private(set) var currentDate: Date
   
   // MARK: - Init
@@ -30,21 +29,13 @@ final class ChartViewModel: BaseViewModel {
 
 // MARK: - Functions
 
-extension ChartViewModel {
+extension DrawerViewModel {
   func updateCurrentDate(_ currentDate: Date) {
     self.currentDate = currentDate
   }
-  
-  func incrementEmotionCount(_ emotionType: String) {
-    self.emotionCounts[emotionType, default: 0] += 1
-  }
-  
-  func removeEmotionCounts() {
-    self.emotionCounts.removeAll()
-  }
 }
 
-extension ChartViewModel {
+extension DrawerViewModel {
   func fetchMonthRecordTrigger(
     year: Int,
     month: Int,

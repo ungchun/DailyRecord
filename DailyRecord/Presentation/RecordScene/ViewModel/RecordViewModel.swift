@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import PhotosUI
 
 final class RecordViewModel: BaseViewModel {
   
@@ -15,11 +16,13 @@ final class RecordViewModel: BaseViewModel {
   private let coreDataManager: CoreDataManager = CoreDataManager.shared
   private let recordUseCase: DefaultRecordUseCase
   
-  var selectData: RecordEntity
-  
-  var content: String = "" // 글 내용
-  var imageList: [(String, UIImage)] = [] // 첨부 이미지와 식별자
-  var emotionType: EmotionType = .none
+  private(set) var selectData: RecordEntity
+  private(set) var content: String = "" // 글 내용
+  private(set) var imageList: [(String, UIImage)] = [] // 첨부 이미지와 식별자
+  private(set) var emotionType: EmotionType = .none
+  private(set) var isChangeContent: Bool = false
+  private(set) var selectedAssetIdentifiers: [String] = [String]()
+  private(set) var selections: [String : PHPickerResult] = [String : PHPickerResult]()
   
   private var calendarDate: Int = 0 // 선택 날짜
   private var createTime: Int = 0 // 생성(수정) 시간
@@ -37,10 +40,45 @@ final class RecordViewModel: BaseViewModel {
   }
 }
 
+// MARK: - Functions
+
 extension RecordViewModel {
+  func updateContent(_ content: String) {
+    self.content = content
+  }
   
-  // MARK: - Functions
+  func updateImageList(_ imageList: [(String, UIImage)]) {
+    self.imageList = imageList
+  }
   
+  func updateEmotionType(_ emotionType: EmotionType) {
+    self.emotionType = emotionType
+  }
+  
+  func updateIsChangeContent(_ isChangeContent: Bool) {
+    self.isChangeContent = isChangeContent
+  }
+  
+  func updateSelectedAssetIdentifiers(_ selectedAssetIdentifiers: [String]) {
+    self.selectedAssetIdentifiers = selectedAssetIdentifiers
+  }
+  
+  func updateSelections(_ selections: [String: PHPickerResult]) {
+    self.selections = selections
+  }
+  
+  func removeAssetIdentifier(_ identifier: String) {
+    var updatedIdentifiers = selectedAssetIdentifiers
+    updatedIdentifiers.removeAll { $0 == identifier }
+    updateSelectedAssetIdentifiers(updatedIdentifiers)
+    
+    var updatedSelections = selections
+    updatedSelections.removeValue(forKey: identifier)
+    updateSelections(updatedSelections)
+  }
+}
+
+extension RecordViewModel {
   func createRecordTirgger() async throws {
     self.calendarDate = selectData.calendarDate
     var createImageListValue: [(String, Data)] = []

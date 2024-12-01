@@ -26,9 +26,8 @@ final class CalendarViewController: BaseViewController {
   
   private let settingButton: UIButton = {
     let button = UIButton(type: .system)
-    let image = UIImage(systemName: "gearshape.fill")?.resizeImage(
-      to: CGSize(width: 24,height: 24)
-    )
+    let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .regular)
+    let image = UIImage(systemName: "gearshape.fill", withConfiguration: config)
     button.setImage(image, for: .normal)
     button.tintColor = .azWhite
     return button
@@ -36,9 +35,17 @@ final class CalendarViewController: BaseViewController {
   
   private let chartButton: UIButton = {
     let button = UIButton(type: .system)
-    let image = UIImage(systemName: "chart.bar.fill")?.resizeImage(
-      to: CGSize(width: 24,height: 24)
-    )
+    let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .regular)
+    let image = UIImage(systemName: "chart.bar.fill", withConfiguration: config)
+    button.setImage(image, for: .normal)
+    button.tintColor = .azWhite
+    return button
+  }()
+  
+  private let drawerButton: UIButton = {
+    let button = UIButton(type: .system)
+    let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .regular)
+    let image = UIImage(systemName: "rectangle.split.1x2.fill", withConfiguration: config)
     button.setImage(image, for: .normal)
     button.tintColor = .azWhite
     return button
@@ -61,7 +68,7 @@ final class CalendarViewController: BaseViewController {
     let label = UILabel()
     label.font = UIFont(name: "omyu_pretty", size: 25)
     label.textColor = .azWhite
-    label.text = formattedDateString(Date(), format: "YYYY년 M월")
+    label.text = DateFormatter.formattedString(Date(), format: "YYYY년 M월")
     return label
   }()
   
@@ -124,7 +131,8 @@ final class CalendarViewController: BaseViewController {
   
   override func addView() {
     [calendarHeaderView, calendarView,
-     writeButton, settingButton, chartButton].forEach {
+     writeButton, settingButton,
+     chartButton, drawerButton].forEach {
       view.addSubview($0)
     }
   }
@@ -155,6 +163,11 @@ final class CalendarViewController: BaseViewController {
     }
     
     chartButton.snp.makeConstraints { make in
+      make.trailing.equalTo(drawerButton.snp.leading).offset(-16)
+      make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+    }
+    
+    drawerButton.snp.makeConstraints { make in
       make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-20)
       make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
     }
@@ -183,12 +196,18 @@ final class CalendarViewController: BaseViewController {
       for: .touchUpInside
     )
     
+    drawerButton.addTarget(
+      self,
+      action: #selector(showDrawerTrigger),
+      for: .touchUpInside
+    )
+    
     DispatchQueue.main.async { [weak self] in
       self?.view.backgroundColor = .azBlack
     }
     
-    if let year = Int(formattedDateString(Date(), format: "yyyy")),
-       let month = Int(formattedDateString(Date(), format: "M")) {
+    if let year = Int(DateFormatter.formattedString(Date(), format: "yyyy")),
+       let month = Int(DateFormatter.formattedString(Date(), format: "M")) {
       Task { [weak self] in
         guard let self else { return }
         do {
@@ -244,15 +263,14 @@ extension CalendarViewController {
   }
   
   @objc private func showChartTrigger() {
-    coordinator?.showChart()
+    coordinator?.showChart(currentDate: viewModel.currentDate)
   }
   
-  private func formattedDateString(_ date: Date, format: String) -> String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.locale = Locale(identifier: "ko_kr")
-    dateFormatter.timeZone = TimeZone(identifier: "KST")
-    dateFormatter.dateFormat = format
-    return dateFormatter.string(from: date)
+  @objc private func showDrawerTrigger() {
+    coordinator?.showDrawer(
+      calendarViewModel: viewModel,
+      currentDate: viewModel.currentDate
+    )
   }
 }
 
@@ -292,8 +310,11 @@ extension CalendarViewController: FSCalendarDelegate,
     self.view.layoutIfNeeded()
   }
   
-  func calendar(_ calendar: FSCalendar, didSelect date: Date,
-                at monthPosition: FSCalendarMonthPosition) {
+  func calendar(
+    _ calendar: FSCalendar,
+    didSelect date: Date,
+    at monthPosition: FSCalendarMonthPosition
+  ) {
     let day = Calendar.current.component(.weekday, from: date) - 1
     if Calendar.current.shortWeekdaySymbols[day] == "일" {
       calendar.appearance.titleSelectionColor = .azRed
@@ -320,9 +341,11 @@ extension CalendarViewController: FSCalendarDelegate,
   }
   
   // 일요일에 해당되는 모든 날짜의 색상 red로 변경
-  func calendar(_ calendar: FSCalendar,
-                appearance: FSCalendarAppearance,
-                titleDefaultColorFor date: Date) -> UIColor? {
+  func calendar(
+    _ calendar: FSCalendar,
+    appearance: FSCalendarAppearance,
+    titleDefaultColorFor date: Date
+  ) -> UIColor? {
     let day = Calendar.current.component(.weekday, from: date) - 1
     
     if date > Date() {
@@ -345,14 +368,17 @@ extension CalendarViewController: FSCalendarDelegate,
   
   func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
     let currentPage = calendar.currentPage
+    
+    viewModel.updateCurrentDate(currentPage)
+    
     DispatchQueue.main.async { [weak self] in
-      self?.calendarHeaderView.text = self?.formattedDateString(
+      self?.calendarHeaderView.text = DateFormatter.formattedString(
         currentPage, format: "YYYY년 M월"
       )
     }
     
-    if let year = Int(formattedDateString(currentPage, format: "yyyy")),
-       let month = Int(formattedDateString(currentPage, format: "M")) {
+    if let year = Int(DateFormatter.formattedString(currentPage, format: "yyyy")),
+       let month = Int(DateFormatter.formattedString(currentPage, format: "M")) {
       Task { [weak self] in
         guard let self else { return }
         do {
