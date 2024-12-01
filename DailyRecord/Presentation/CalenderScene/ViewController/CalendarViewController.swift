@@ -267,7 +267,10 @@ extension CalendarViewController {
   }
   
   @objc private func showDrawerTrigger() {
-    coordinator?.showDrawer(currentDate: viewModel.currentDate)
+    coordinator?.showDrawer(
+      calendarViewModel: viewModel,
+      currentDate: viewModel.currentDate
+    )
   }
 }
 
