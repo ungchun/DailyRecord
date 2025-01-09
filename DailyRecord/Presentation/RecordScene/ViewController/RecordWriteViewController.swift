@@ -180,7 +180,7 @@ final class RecordWriteViewController: BaseViewController {
     }
     
     let showPopupTapGesture = UITapGestureRecognizer(target: self,
-                                                     action: #selector(showPopupTrigger))
+                                                     action: #selector(showBottomSheetTrigger))
     todayEmotionImageView.addGestureRecognizer(showPopupTapGesture)
     
     footerView.backgroundColor = .azBlack
@@ -192,7 +192,6 @@ final class RecordWriteViewController: BaseViewController {
     footerView.saveIcon.addGestureRecognizer(saveTapGesture)
     
     attachedImageCollectionView.delegate = self
-    // emotionalImagePopupView.delegate = self
     
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
     view.addGestureRecognizer(tapGesture)
@@ -328,7 +327,7 @@ private extension RecordWriteViewController {
 }
 
 private extension RecordWriteViewController {
-  @objc func showPopupTrigger() {
+  @objc func showBottomSheetTrigger() {
     let bottomSheetVC = EmotionalBottomSheetViewController()
     bottomSheetVC.delegate = self
     
@@ -411,7 +410,6 @@ extension RecordWriteViewController: AttachedImageCollectionViewDelegate {
 extension RecordWriteViewController: EmotionalBottomSheetViewViewDelegate {
   func emotionalImageTapTrigger(selectEmotionType: EmotionType) {
     if let image = UIImage(named: selectEmotionType.rawValue) {
-      
       viewModel.updateEmotionType(selectEmotionType)
       
       DispatchQueue.main.async { [weak self] in
