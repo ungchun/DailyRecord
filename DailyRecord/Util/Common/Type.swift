@@ -10,19 +10,25 @@ import Foundation
 // MARK: - 감정표현 타입
 
 enum EmotionType: String {
-	case none
-	case very_happy
-	case happy
-	case very_sad
-	case sad
-	case neutral
-	case angry
+  case none
+  case very_happy
+  case happy
+  case very_sad
+  case sad
+  case neutral
+  case angry
+  case embarrassed
+  case hurt
+  case lovely
+  case sleepy
+  case surprised
+  case tired
 }
 
 // MARK: - 디스플레이 모드
 
 enum DisplayMode: String {
-	case system = "system"
-	case light = "light"
-	case dark = "dark"
+  case system = "system"
+  case light = "light"
+  case dark = "dark"
 }

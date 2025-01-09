@@ -108,7 +108,7 @@
 		65CF61C22C1D6039003E6D75 /* RecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61C12C1D6039003E6D75 /* RecordViewModel.swift */; };
 		65CF61C42C243E78003E6D75 /* RecordFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61C32C243E78003E6D75 /* RecordFooterView.swift */; };
 		65CF61C62C243EDD003E6D75 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61C52C243EDD003E6D75 /* BaseView.swift */; };
-		65CF61C82C24425A003E6D75 /* EmotionalImagePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61C72C24425A003E6D75 /* EmotionalImagePopupView.swift */; };
+		65CF61C82C24425A003E6D75 /* EmotionalBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61C72C24425A003E6D75 /* EmotionalBottomSheetView.swift */; };
 		65CF61CA2C24454E003E6D75 /* AttachedImageCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CF61C92C24454E003E6D75 /* AttachedImageCollectionView.swift */; };
 		65FA64502C9EAACD001F5002 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FA644F2C9EAACD001F5002 /* WidgetKit.framework */; };
 		65FA64522C9EAACD001F5002 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FA64512C9EAACD001F5002 /* SwiftUI.framework */; };
@@ -211,7 +211,7 @@
 		65CF61C12C1D6039003E6D75 /* RecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewModel.swift; sourceTree = "<group>"; };
 		65CF61C32C243E78003E6D75 /* RecordFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordFooterView.swift; sourceTree = "<group>"; };
 		65CF61C52C243EDD003E6D75 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
-		65CF61C72C24425A003E6D75 /* EmotionalImagePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionalImagePopupView.swift; sourceTree = "<group>"; };
+		65CF61C72C24425A003E6D75 /* EmotionalBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionalBottomSheetView.swift; sourceTree = "<group>"; };
 		65CF61C92C24454E003E6D75 /* AttachedImageCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachedImageCollectionView.swift; sourceTree = "<group>"; };
 		65CF61D42C27CEC6003E6D75 /* DailyRecord.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DailyRecord.entitlements; sourceTree = "<group>"; };
 		65FA644D2C9EAACD001F5002 /* WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -640,7 +640,7 @@
 			isa = PBXGroup;
 			children = (
 				65CF61C32C243E78003E6D75 /* RecordFooterView.swift */,
-				65CF61C72C24425A003E6D75 /* EmotionalImagePopupView.swift */,
+				65CF61C72C24425A003E6D75 /* EmotionalBottomSheetView.swift */,
 				65CF61C92C24454E003E6D75 /* AttachedImageCollectionView.swift */,
 				659946B52C54E13B0030598B /* ImageCarouselView.swift */,
 				6508A2202C79C91D005AB6DC /* FullscreenImageView.swift */,
@@ -898,7 +898,7 @@
 				65CF617B2C0C5ED7003E6D75 /* Coordinator.swift in Sources */,
 				659946B62C54E13B0030598B /* ImageCarouselView.swift in Sources */,
 				659946882C4249690030598B /* CalendarRepository.swift in Sources */,
-				65CF61C82C24425A003E6D75 /* EmotionalImagePopupView.swift in Sources */,
+				65CF61C82C24425A003E6D75 /* EmotionalBottomSheetView.swift in Sources */,
 				65CF61992C117061003E6D75 /* RecordDIContainer.swift in Sources */,
 				65CF61C22C1D6039003E6D75 /* RecordViewModel.swift in Sources */,
 				65CF61772C0B03EA003E6D75 /* Log.swift in Sources */,
@@ -1115,7 +1115,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ungchun.DailyRecord;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1157,7 +1157,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ungchun.DailyRecord;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

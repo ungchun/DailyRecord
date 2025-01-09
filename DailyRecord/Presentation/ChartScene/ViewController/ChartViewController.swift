@@ -357,6 +357,18 @@ private extension ChartViewController {
       return .happy
     case "very_happy":
       return .veryHappy
+    case "embarrassed":
+      return .embarrassed
+    case "hurt":
+      return .hurt
+    case "lovely":
+      return .lovely
+    case "sleepy":
+      return .sleepy
+    case "surprised":
+      return .surprised
+    case "tired":
+      return .tired
     default:
       return .systemGray
     }
