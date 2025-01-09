@@ -21,9 +21,20 @@ final class EmotionalBottomSheetViewController: BaseViewController {
   
   // MARK: - Views
   
-  private let containerView: UIView = {
+  private let topSpacerView: UIView = {
     let view = UIView()
     view.backgroundColor = .azBlack
+    return view
+  }()
+  
+  private let scrollView: UIScrollView = {
+    let scrollView = UIScrollView()
+    scrollView.showsVerticalScrollIndicator = false
+    return scrollView
+  }()
+  
+  private let contentView: UIView = {
+    let view = UIView()
     return view
   }()
   
@@ -132,24 +143,37 @@ final class EmotionalBottomSheetViewController: BaseViewController {
   // MARK: - Functions
   
   override func addView() {
-    view.addSubview(containerView)
+    view.addSubview(topSpacerView)
+    view.addSubview(scrollView)
+    scrollView.addSubview(contentView)
     
     [veryHappyEmotion, happyEmotion, lovelyEmotion,
      surprisedEmotion, neutralEmotion, embarrassedEmotion,
      hurtEmotion, sleepyEmotion, tiredEmotion,
      angryEmotion, verySadEmotion, sadEmotion].forEach {
-      containerView.addSubview($0)
+      contentView.addSubview($0)
     }
   }
   
   override func setLayout() {
-    containerView.snp.makeConstraints { make in
-      make.edges.equalToSuperview()
+    topSpacerView.snp.makeConstraints { make in
+      make.top.leading.trailing.equalToSuperview()
+      make.height.equalTo(20)
+    }
+    
+    scrollView.snp.makeConstraints { make in
+      make.top.equalTo(topSpacerView.snp.bottom)
+      make.leading.trailing.bottom.equalToSuperview()
+    }
+    
+    contentView.snp.makeConstraints { make in
+      make.edges.equalTo(scrollView.contentLayoutGuide)
+      make.width.equalTo(scrollView.frameLayoutGuide)
     }
     
     // 1 ROW
     veryHappyEmotion.snp.makeConstraints { make in
-      make.top.equalToSuperview().offset(60)
+      make.top.equalToSuperview().offset(40)
       make.width.height.equalTo(70)
       make.centerX.equalTo(view.snp.leading).offset(view.bounds.width / 4.5)
     }
@@ -221,7 +245,7 @@ final class EmotionalBottomSheetViewController: BaseViewController {
       make.top.equalTo(angryEmotion)
       make.width.height.equalTo(70)
       make.centerX.equalTo(lovelyEmotion)
-      make.bottom.lessThanOrEqualTo(containerView.snp.bottom).offset(-20)
+      make.bottom.equalToSuperview().offset(-20)
     }
   }
   
@@ -229,7 +253,7 @@ final class EmotionalBottomSheetViewController: BaseViewController {
     view.backgroundColor = .azBlack
     
     if let sheet = sheetPresentationController {
-      sheet.detents = [.medium(), .large()]
+      sheet.detents = [.medium()]
       sheet.preferredCornerRadius = 24
     }
     
