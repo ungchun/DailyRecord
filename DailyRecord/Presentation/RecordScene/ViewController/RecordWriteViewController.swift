@@ -71,8 +71,6 @@ final class RecordWriteViewController: BaseViewController {
   
   private let footerView = RecordFooterView()
   
-  private let emotionalImagePopupView = EmotionalImagePopupView()
-  
   // MARK: - Life Cycle
   
   init(
@@ -182,7 +180,7 @@ final class RecordWriteViewController: BaseViewController {
     }
     
     let showPopupTapGesture = UITapGestureRecognizer(target: self,
-                                                     action: #selector(showPopupTrigger))
+                                                     action: #selector(showBottomSheetTrigger))
     todayEmotionImageView.addGestureRecognizer(showPopupTapGesture)
     
     footerView.backgroundColor = .azBlack
@@ -194,7 +192,6 @@ final class RecordWriteViewController: BaseViewController {
     footerView.saveIcon.addGestureRecognizer(saveTapGesture)
     
     attachedImageCollectionView.delegate = self
-    emotionalImagePopupView.delegate = self
     
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
     view.addGestureRecognizer(tapGesture)
@@ -330,24 +327,15 @@ private extension RecordWriteViewController {
 }
 
 private extension RecordWriteViewController {
-  @objc func showPopupTrigger() {
-    DispatchQueue.main.async { [weak self] in
-      guard let self = self else { return }
-      self.emotionalImagePopupView.frame = self.view.bounds
-    }
-    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(closePopupTrigger))
-    emotionalImagePopupView.dimmingView.addGestureRecognizer(tapGesture)
+  @objc func showBottomSheetTrigger() {
+    let bottomSheetVC = EmotionalBottomSheetViewController()
+    bottomSheetVC.delegate = self
     
-    view.addSubview(emotionalImagePopupView)
-    emotionalImagePopupView.showPopup()
-  }
-  
-  @objc func closePopupTrigger() {
-    DispatchQueue.main.async { [weak self] in
-      self?.emotionalImagePopupView.hidePopup { [weak self] in
-        self?.emotionalImagePopupView.removeFromSuperview()
-      }
+    if let sheet = bottomSheetVC.sheetPresentationController {
+      sheet.prefersGrabberVisible = true
     }
+    
+    present(bottomSheetVC, animated: true)
     viewModel.updateIsChangeContent(true)
   }
   
@@ -419,11 +407,9 @@ extension RecordWriteViewController: AttachedImageCollectionViewDelegate {
   }
 }
 
-extension RecordWriteViewController: EmotionalImagePopupViewDelegate {
+extension RecordWriteViewController: EmotionalBottomSheetViewViewDelegate {
   func emotionalImageTapTrigger(selectEmotionType: EmotionType) {
     if let image = UIImage(named: selectEmotionType.rawValue) {
-      closePopupTrigger()
-      
       viewModel.updateEmotionType(selectEmotionType)
       
       DispatchQueue.main.async { [weak self] in
