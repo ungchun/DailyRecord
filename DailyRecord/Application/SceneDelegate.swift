@@ -120,7 +120,7 @@ private extension SceneDelegate {
   func showUpdateAlert() {
     let alert = UIAlertController(
       title: "업데이트 알림",
-      message: "더 나은 서비스를 위해 다온을 업데이트 해주세요!",
+      message: "더 나은 서비스를 위해 업데이트 해주세요!",
       preferredStyle: .alert
     )
     alert.addAction(UIAlertAction(title: "업데이트", style: .default, handler: { _ in

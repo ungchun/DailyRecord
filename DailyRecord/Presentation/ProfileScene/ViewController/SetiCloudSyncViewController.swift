@@ -18,7 +18,7 @@ final class SetiCloudSyncViewController: BaseViewController {
   
   private let descriptionLabel: UILabel = {
     let label = UILabel()
-    label.text = "다온은 iCloud에 자동으로 백업/저장 할 수 있어요"
+    label.text = "다온일기는 iCloud에 자동으로 백업/저장 할 수 있어요"
     label.numberOfLines = 0
     label.font = UIFont(name: "omyu_pretty", size: 18)
     label.textColor = .azWhite
@@ -42,7 +42,7 @@ final class SetiCloudSyncViewController: BaseViewController {
   
   private let syncMethodDescriptionLabel: UILabel = {
     let label = UILabel()
-    label.text = "설정 > Apple 계정 > iCloud > 다온 토글 on"
+    label.text = "설정 > Apple 계정 > iCloud > 다온일기 토글 on"
     label.font = UIFont(name: "omyu_pretty", size: 16)
     label.textColor = .azWhite
     label.numberOfLines = 0
