@@ -50,6 +50,16 @@ extension CalendarCoordinator {
     profleCoordinator.start()
   }
   
+  func showSearch(
+    calendarViewModel: CalendarViewModel
+  ) {
+    let searchDIContainer = DIContainer.makeSearchDIContainer(
+      calendarViewModel: calendarViewModel
+    )
+    let searchCoordinator = searchDIContainer.makeSearchCoordinator()
+    searchCoordinator.start()
+  }
+  
   func showChart(
     currentDate: Date
   ) {

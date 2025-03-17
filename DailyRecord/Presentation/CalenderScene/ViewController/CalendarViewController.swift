@@ -33,6 +33,15 @@ final class CalendarViewController: BaseViewController {
     return button
   }()
   
+  private let searchButton: UIButton = {
+    let button = UIButton(type: .system)
+    let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .regular)
+    let image = UIImage(systemName: "magnifyingglass", withConfiguration: config)
+    button.setImage(image, for: .normal)
+    button.tintColor = .azWhite
+    return button
+  }()
+  
   private let chartButton: UIButton = {
     let button = UIButton(type: .system)
     let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .regular)
@@ -132,7 +141,7 @@ final class CalendarViewController: BaseViewController {
   override func addView() {
     [calendarHeaderView, calendarView,
      writeButton, settingButton,
-     chartButton, drawerButton].forEach {
+     searchButton, chartButton, drawerButton].forEach {
       view.addSubview($0)
     }
   }
@@ -162,6 +171,11 @@ final class CalendarViewController: BaseViewController {
       make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
     }
     
+    searchButton.snp.makeConstraints { make in
+      make.trailing.equalTo(chartButton.snp.leading).offset(-16)
+      make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+    }
+    
     chartButton.snp.makeConstraints { make in
       make.trailing.equalTo(drawerButton.snp.leading).offset(-16)
       make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
@@ -181,6 +195,12 @@ final class CalendarViewController: BaseViewController {
     settingButton.addTarget(
       self,
       action: #selector(showProfileTrigger),
+      for: .touchUpInside
+    )
+    
+    searchButton.addTarget(
+      self,
+      action: #selector(showSearchTrigger),
       for: .touchUpInside
     )
     
@@ -230,6 +250,10 @@ extension CalendarViewController {
         self?.calendarView.reloadData()
       }
       .store(in: &cancellables)
+  }
+  
+  @objc private func showSearchTrigger() {
+    coordinator?.showSearch(calendarViewModel: viewModel)
   }
   
   @objc private func showProfileTrigger() {

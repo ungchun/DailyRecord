@@ -49,6 +49,17 @@ extension CalendarDIContainer {
     )
   }
   
+  // MARK: - Search
+  
+  func makeSearchDIContainer(
+    calendarViewModel: CalendarViewModel
+  ) -> SearchDIContainer {
+    return SearchDIContainer(
+      navigationController: navigationController,
+      calendarViewModel: calendarViewModel
+    )
+  }
+  
   // MARK: - Profile
   
   func makeProfileDIContainer(
