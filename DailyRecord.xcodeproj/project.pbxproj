@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		650403642D87E3C20028D6C8 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650403632D87E3C20028D6C8 /* SearchViewModel.swift */; };
+		650403662D87E3CB0028D6C8 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650403652D87E3CB0028D6C8 /* SearchViewController.swift */; };
+		650403682D87ECF40028D6C8 /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650403672D87ECF40028D6C8 /* SearchCoordinator.swift */; };
+		6504036A2D87ED320028D6C8 /* SearchDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650403692D87ED320028D6C8 /* SearchDIContainer.swift */; };
+		6504036D2D87FEC90028D6C8 /* SearchRecordItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6504036C2D87FEC90028D6C8 /* SearchRecordItemView.swift */; };
+		6504036F2D880E750028D6C8 /* SearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6504036E2D880E750028D6C8 /* SearchUseCase.swift */; };
+		650403712D880E890028D6C8 /* DefaultSearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650403702D880E890028D6C8 /* DefaultSearchRepository.swift */; };
+		650403732D880EB00028D6C8 /* SearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650403722D880EB00028D6C8 /* SearchRepository.swift */; };
 		6508A21D2C6DD5AC005AB6DC /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6508A21C2C6DD5AC005AB6DC /* KeyChainManager.swift */; };
 		6508A21F2C6DD5DA005AB6DC /* KeyChainAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6508A21E2C6DD5DA005AB6DC /* KeyChainAccount.swift */; };
 		6508A2212C79C91D005AB6DC /* FullscreenImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6508A2202C79C91D005AB6DC /* FullscreenImageView.swift */; };
@@ -144,6 +152,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		650403632D87E3C20028D6C8 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		650403652D87E3CB0028D6C8 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		650403672D87ECF40028D6C8 /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
+		650403692D87ED320028D6C8 /* SearchDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDIContainer.swift; sourceTree = "<group>"; };
+		6504036C2D87FEC90028D6C8 /* SearchRecordItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecordItemView.swift; sourceTree = "<group>"; };
+		6504036E2D880E750028D6C8 /* SearchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUseCase.swift; sourceTree = "<group>"; };
+		650403702D880E890028D6C8 /* DefaultSearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSearchRepository.swift; sourceTree = "<group>"; };
+		650403722D880EB00028D6C8 /* SearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepository.swift; sourceTree = "<group>"; };
 		6508A21C2C6DD5AC005AB6DC /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
 		6508A21E2C6DD5DA005AB6DC /* KeyChainAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainAccount.swift; sourceTree = "<group>"; };
 		6508A2202C79C91D005AB6DC /* FullscreenImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullscreenImageView.swift; sourceTree = "<group>"; };
@@ -276,6 +292,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		650403602D87E3860028D6C8 /* SearchScene */ = {
+			isa = PBXGroup;
+			children = (
+				6504036B2D87FEBC0028D6C8 /* View */,
+				650403622D87E3AE0028D6C8 /* ViewModel */,
+				650403612D87E39F0028D6C8 /* ViewController */,
+			);
+			path = SearchScene;
+			sourceTree = "<group>";
+		};
+		650403612D87E39F0028D6C8 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				650403652D87E3CB0028D6C8 /* SearchViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		650403622D87E3AE0028D6C8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				650403632D87E3C20028D6C8 /* SearchViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		6504036B2D87FEBC0028D6C8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6504036C2D87FEC90028D6C8 /* SearchRecordItemView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		6508A21B2C6DD59E005AB6DC /* KeyChain */ = {
 			isa = PBXGroup;
 			children = (
@@ -400,6 +450,7 @@
 				659946762C3A68E50030598B /* ProfileUseCase.swift */,
 				659946812C3A8B410030598B /* RecordUseCase.swift */,
 				6599468F2C4249E30030598B /* CalendarUseCase.swift */,
+				6504036E2D880E750028D6C8 /* SearchUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -410,6 +461,7 @@
 				659946782C3A69400030598B /* ProfileRepository.swift */,
 				6599467D2C3A8B060030598B /* RecordRepository.swift */,
 				659946872C4249690030598B /* CalendarRepository.swift */,
+				650403722D880EB00028D6C8 /* SearchRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -420,6 +472,7 @@
 				6599467B2C3A6A3D0030598B /* DefaultProfileRepository.swift */,
 				6599467F2C3A8B1D0030598B /* DefaultRecordRepository.swift */,
 				6599468D2C4249DB0030598B /* DefaultCalendarRepository.swift */,
+				650403702D880E890028D6C8 /* DefaultSearchRepository.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -535,6 +588,7 @@
 		65CF61342C073D44003E6D75 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				650403602D87E3860028D6C8 /* SearchScene */,
 				65A41AFB2CFAE3F6005EBFDD /* DrawerScene */,
 				655BE3C62CC4BFAD0006BC34 /* ChartScene */,
 				65CF61822C0C6030003E6D75 /* CalenderScene */,
@@ -584,6 +638,7 @@
 				657DB9112C5BB845008DD96E /* ProfileCoordinator.swift */,
 				655BE3CD2CC4C4FE0006BC34 /* ChartCoordinator.swift */,
 				65A41B002CFAE488005EBFDD /* DrawerCoordinator.swift */,
+				650403672D87ECF40028D6C8 /* SearchCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -597,6 +652,7 @@
 				657DB9132C5BB871008DD96E /* ProfileDIContainer.swift */,
 				655BE3CF2CC4C5890006BC34 /* ChartDIContainer.swift */,
 				65A41AFE2CFAE47E005EBFDD /* DrawerDIContainer.swift */,
+				650403692D87ED320028D6C8 /* SearchDIContainer.swift */,
 			);
 			path = DIContainer;
 			sourceTree = "<group>";
@@ -881,10 +937,13 @@
 				6599468E2C4249DB0030598B /* DefaultCalendarRepository.swift in Sources */,
 				657DB9102C5BB600008DD96E /* ProfileViewController.swift in Sources */,
 				6508A2252C7CA200005AB6DC /* UITextView+.swift in Sources */,
+				6504036F2D880E750028D6C8 /* SearchUseCase.swift in Sources */,
 				6508A21F2C6DD5DA005AB6DC /* KeyChainAccount.swift in Sources */,
 				655BE3CE2CC4C4FE0006BC34 /* ChartCoordinator.swift in Sources */,
+				6504036D2D87FEC90028D6C8 /* SearchRecordItemView.swift in Sources */,
 				65CF619B2C11706A003E6D75 /* RecordCoordinator.swift in Sources */,
 				65A41B032CFAE4FA005EBFDD /* DrawerViewController.swift in Sources */,
+				650403642D87E3C20028D6C8 /* SearchViewModel.swift in Sources */,
 				65A41B072CFB4C81005EBFDD /* DateFormatter+.swift in Sources */,
 				65CF61C62C243EDD003E6D75 /* BaseView.swift in Sources */,
 				659946792C3A69400030598B /* ProfileRepository.swift in Sources */,
@@ -895,6 +954,7 @@
 				65CF61892C0C6092003E6D75 /* CalendarViewModel.swift in Sources */,
 				659946802C3A8B1D0030598B /* DefaultRecordRepository.swift in Sources */,
 				65CF611E2C036432003E6D75 /* AppDelegate.swift in Sources */,
+				650403732D880EB00028D6C8 /* SearchRepository.swift in Sources */,
 				65CF617B2C0C5ED7003E6D75 /* Coordinator.swift in Sources */,
 				659946B62C54E13B0030598B /* ImageCarouselView.swift in Sources */,
 				659946882C4249690030598B /* CalendarRepository.swift in Sources */,
@@ -912,10 +972,12 @@
 				65CF61842C0C6053003E6D75 /* CalendarViewController.swift in Sources */,
 				659946842C3AB97A0030598B /* RecordEntity.swift in Sources */,
 				65A41B012CFAE488005EBFDD /* DrawerCoordinator.swift in Sources */,
+				650403682D87ECF40028D6C8 /* SearchCoordinator.swift in Sources */,
 				659946972C43F1980030598B /* Type.swift in Sources */,
 				659946902C4249E30030598B /* CalendarUseCase.swift in Sources */,
 				657DB9142C5BB871008DD96E /* ProfileDIContainer.swift in Sources */,
 				65600E6D2CA7A1D20093D20B /* CoreDataManager.swift in Sources */,
+				6504036A2D87ED320028D6C8 /* SearchDIContainer.swift in Sources */,
 				65A41B052CFAE500005EBFDD /* DrawerViewModel.swift in Sources */,
 				659946B42C4FD4AB0030598B /* RecordHistoryViewController.swift in Sources */,
 				659946822C3A8B410030598B /* RecordUseCase.swift in Sources */,
@@ -923,9 +985,11 @@
 				65CF61972C116E87003E6D75 /* RecordWriteViewController.swift in Sources */,
 				659946B22C4D1AF10030598B /* BaseNavigationController.swift in Sources */,
 				659946BB2C564FCF0030598B /* UIViewController+.swift in Sources */,
+				650403712D880E890028D6C8 /* DefaultSearchRepository.swift in Sources */,
 				656A5AE52CFC600700AF2AF4 /* DrawerRecordItemView.swift in Sources */,
 				659946732C3839860030598B /* UserDefaultsSetting.swift in Sources */,
 				65CF617F2C0C5F20003E6D75 /* CalendarCoordinator.swift in Sources */,
+				650403662D87E3CB0028D6C8 /* SearchViewController.swift in Sources */,
 				65CF61202C036432003E6D75 /* SceneDelegate.swift in Sources */,
 				659946AC2C4BD8C70030598B /* UIImage+.swift in Sources */,
 				6599466D2C3024F40030598B /* Encodable+.swift in Sources */,
