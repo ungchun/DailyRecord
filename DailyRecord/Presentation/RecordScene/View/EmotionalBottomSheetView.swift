@@ -19,12 +19,57 @@ final class EmotionalBottomSheetViewController: BaseViewController {
   
   weak var delegate: EmotionalBottomSheetViewViewDelegate?
   
+  private var currentTab: TabType = .mood {
+    didSet {
+      updateTabContent()
+    }
+  }
+  
+  private enum TabType {
+    case mood
+    case daily
+  }
+  
   // MARK: - Views
   
   private let topSpacerView: UIView = {
     let view = UIView()
     view.backgroundColor = .azBlack
     return view
+  }()
+  
+  private let tabBarView: UIView = {
+    let view = UIView()
+    view.backgroundColor = .azBlack
+    return view
+  }()
+  
+  private let tabStackView: UIStackView = {
+    let stackView = UIStackView()
+    stackView.axis = .horizontal
+    stackView.spacing = 24
+    stackView.distribution = .fillEqually
+    stackView.backgroundColor = .azBlack
+    return stackView
+  }()
+  
+  private let moodTabButton: UIButton = {
+    let button = UIButton()
+    button.setTitle("기분", for: .normal)
+    button.titleLabel?.font = UIFont(name: "omyu_pretty", size: 20)
+    button.setTitleColor(.azLightGray, for: .selected)
+    button.setTitleColor(.azLightGray.withAlphaComponent(0.5), for: .normal)
+    button.isSelected = true
+    return button
+  }()
+  
+  private let dailyTabButton: UIButton = {
+    let button = UIButton()
+    button.setTitle("일상", for: .normal)
+    button.titleLabel?.font = UIFont(name: "omyu_pretty", size: 20)
+    button.setTitleColor(.azLightGray, for: .selected)
+    button.setTitleColor(.azLightGray.withAlphaComponent(0.5), for: .normal)
+    return button
   }()
   
   private let scrollView: UIScrollView = {
@@ -35,6 +80,17 @@ final class EmotionalBottomSheetViewController: BaseViewController {
   
   private let contentView: UIView = {
     let view = UIView()
+    return view
+  }()
+  
+  private let moodContentView: UIView = {
+    let view = UIView()
+    return view
+  }()
+  
+  private let dailyContentView: UIView = {
+    let view = UIView()
+    view.isHidden = true
     return view
   }()
   
@@ -144,14 +200,20 @@ final class EmotionalBottomSheetViewController: BaseViewController {
   
   override func addView() {
     view.addSubview(topSpacerView)
+    view.addSubview(tabBarView)
+    tabBarView.addSubview(tabStackView)
+    tabStackView.addArrangedSubview(moodTabButton)
+    tabStackView.addArrangedSubview(dailyTabButton)
     view.addSubview(scrollView)
     scrollView.addSubview(contentView)
+    contentView.addSubview(moodContentView)
+    contentView.addSubview(dailyContentView)
     
     [veryHappyEmotion, happyEmotion, lovelyEmotion,
      surprisedEmotion, neutralEmotion, embarrassedEmotion,
      hurtEmotion, sleepyEmotion, tiredEmotion,
      angryEmotion, verySadEmotion, sadEmotion].forEach {
-      contentView.addSubview($0)
+      moodContentView.addSubview($0)
     }
   }
   
@@ -161,8 +223,19 @@ final class EmotionalBottomSheetViewController: BaseViewController {
       make.height.equalTo(20)
     }
     
-    scrollView.snp.makeConstraints { make in
+    tabBarView.snp.makeConstraints { make in
       make.top.equalTo(topSpacerView.snp.bottom)
+      make.leading.trailing.equalToSuperview()
+      make.height.equalTo(44)
+    }
+    
+    tabStackView.snp.makeConstraints { make in
+      make.center.equalToSuperview()
+      make.height.equalToSuperview()
+    }
+    
+    scrollView.snp.makeConstraints { make in
+      make.top.equalTo(tabBarView.snp.bottom)
       make.leading.trailing.bottom.equalToSuperview()
     }
     
@@ -171,9 +244,17 @@ final class EmotionalBottomSheetViewController: BaseViewController {
       make.width.equalTo(scrollView.frameLayoutGuide)
     }
     
+    moodContentView.snp.makeConstraints { make in
+      make.edges.equalToSuperview()
+    }
+    
+    dailyContentView.snp.makeConstraints { make in
+      make.edges.equalToSuperview()
+    }
+    
     // 1 ROW
     veryHappyEmotion.snp.makeConstraints { make in
-      make.top.equalToSuperview().offset(40)
+      make.top.equalToSuperview().offset(20)
       make.width.height.equalTo(70)
       make.centerX.equalTo(view.snp.leading).offset(view.bounds.width / 4.5)
     }
@@ -262,7 +343,36 @@ final class EmotionalBottomSheetViewController: BaseViewController {
 }
 
 private extension EmotionalBottomSheetViewController {
+  @objc func moodTabTapped() {
+    currentTab = .mood
+    updateTabBarUI()
+  }
+  
+  @objc func dailyTabTapped() {
+    currentTab = .daily
+    updateTabBarUI()
+  }
+  
+  func updateTabBarUI() {
+    moodTabButton.isSelected = currentTab == .mood
+    dailyTabButton.isSelected = currentTab == .daily
+  }
+  
+  func updateTabContent() {
+    switch currentTab {
+    case .mood:
+      moodContentView.isHidden = false
+      dailyContentView.isHidden = true
+    case .daily:
+      moodContentView.isHidden = true
+      dailyContentView.isHidden = false
+    }
+  }
+  
   func addTapGestures() {
+    moodTabButton.addTarget(self, action: #selector(moodTabTapped), for: .touchUpInside)
+    dailyTabButton.addTarget(self, action: #selector(dailyTabTapped), for: .touchUpInside)
+    
     let veryHappyTapGesture = UITapGestureRecognizer(
       target: self,
       action: #selector(imageTapped(_:))
