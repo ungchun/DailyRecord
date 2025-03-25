@@ -72,25 +72,172 @@ final class EmotionalBottomSheetViewController: BaseViewController {
     return button
   }()
   
-  private let scrollView: UIScrollView = {
+  private let moodContentView: UIScrollView = {
     let scrollView = UIScrollView()
     scrollView.showsVerticalScrollIndicator = false
+    scrollView.contentInsetAdjustmentBehavior = .never
     return scrollView
   }()
   
-  private let contentView: UIView = {
+  private let dailyContentView: UIScrollView = {
+    let scrollView = UIScrollView()
+    scrollView.showsVerticalScrollIndicator = false
+    scrollView.contentInsetAdjustmentBehavior = .never
+    scrollView.isHidden = true
+    return scrollView
+  }()
+  
+  private let moodContentContainer: UIView = {
     let view = UIView()
     return view
   }()
   
-  private let moodContentView: UIView = {
+  private let dailyContentContainer: UIView = {
     let view = UIView()
     return view
   }()
   
-  private let dailyContentView: UIView = {
-    let view = UIView()
-    view.isHidden = true
+  private let coffeeImage: UIImageView = {
+    let view = UIImageView()
+    view.image = UIImage(named: "coffee")
+    view.sizeToFit()
+    view.isUserInteractionEnabled = true
+    return view
+  }()
+  
+  private let foodImage: UIImageView = {
+    let view = UIImageView()
+    view.image = UIImage(named: "food")
+    view.sizeToFit()
+    view.isUserInteractionEnabled = true
+    return view
+  }()
+  
+  private let mourningImage: UIImageView = {
+    let view = UIImageView()
+    view.image = UIImage(named: "mourning")
+    view.sizeToFit()
+    view.isUserInteractionEnabled = true
+    return view
+  }()
+  
+  private let sportsImage: UIImageView = {
+    let view = UIImageView()
+    view.image = UIImage(named: "sports")
+    view.sizeToFit()
+    view.isUserInteractionEnabled = true
+    return view
+  }()
+  
+  private let loveImage: UIImageView = {
+    let view = UIImageView()
+    view.image = UIImage(named: "love")
+    view.sizeToFit()
+    view.isUserInteractionEnabled = true
+    return view
+  }()
+  
+  private let cultureImage: UIImageView = {
+    let view = UIImageView()
+    view.image = UIImage(named: "culture")
+    view.sizeToFit()
+    view.isUserInteractionEnabled = true
+    return view
+  }()
+  
+  private let picnicImage: UIImageView = {
+    let view = UIImageView()
+    view.image = UIImage(named: "picnic")
+    view.sizeToFit()
+    view.isUserInteractionEnabled = true
+    return view
+  }()
+  
+  private let musicImage: UIImageView = {
+    let view = UIImageView()
+    view.image = UIImage(named: "music")
+    view.sizeToFit()
+    view.isUserInteractionEnabled = true
+    return view
+  }()
+  
+  private let moneyImage: UIImageView = {
+    let view = UIImageView()
+    view.image = UIImage(named: "money")
+    view.sizeToFit()
+    view.isUserInteractionEnabled = true
+    return view
+  }()
+  
+  private let hospitalImage: UIImageView = {
+    let view = UIImageView()
+    view.image = UIImage(named: "hospital")
+    view.sizeToFit()
+    view.isUserInteractionEnabled = true
+    return view
+  }()
+  
+  private let sleepImage: UIImageView = {
+    let view = UIImageView()
+    view.image = UIImage(named: "sleep")
+    view.sizeToFit()
+    view.isUserInteractionEnabled = true
+    return view
+  }()
+  
+  private let bombImage: UIImageView = {
+    let view = UIImageView()
+    view.image = UIImage(named: "bomb")
+    view.sizeToFit()
+    view.isUserInteractionEnabled = true
+    return view
+  }()
+  
+  private let studyingImage: UIImageView = {
+    let view = UIImageView()
+    view.image = UIImage(named: "studying")
+    view.sizeToFit()
+    view.isUserInteractionEnabled = true
+    return view
+  }()
+  
+  private let alcoholImage: UIImageView = {
+    let view = UIImageView()
+    view.image = UIImage(named: "alcohol")
+    view.sizeToFit()
+    view.isUserInteractionEnabled = true
+    return view
+  }()
+  
+  private let bookImage: UIImageView = {
+    let view = UIImageView()
+    view.image = UIImage(named: "book")
+    view.sizeToFit()
+    view.isUserInteractionEnabled = true
+    return view
+  }()
+  
+  private let showerImage: UIImageView = {
+    let view = UIImageView()
+    view.image = UIImage(named: "shower")
+    view.sizeToFit()
+    view.isUserInteractionEnabled = true
+    return view
+  }()
+  
+  private let cleaningImage: UIImageView = {
+    let view = UIImageView()
+    view.image = UIImage(named: "cleaning")
+    view.sizeToFit()
+    view.isUserInteractionEnabled = true
+    return view
+  }()
+  
+  private let shoppingImage: UIImageView = {
+    let view = UIImageView()
+    view.image = UIImage(named: "shopping")
+    view.sizeToFit()
+    view.isUserInteractionEnabled = true
     return view
   }()
   
@@ -204,16 +351,25 @@ final class EmotionalBottomSheetViewController: BaseViewController {
     tabBarView.addSubview(tabStackView)
     tabStackView.addArrangedSubview(moodTabButton)
     tabStackView.addArrangedSubview(dailyTabButton)
-    view.addSubview(scrollView)
-    scrollView.addSubview(contentView)
-    contentView.addSubview(moodContentView)
-    contentView.addSubview(dailyContentView)
+    view.addSubview(moodContentView)
+    view.addSubview(dailyContentView)
+    
+    moodContentView.addSubview(moodContentContainer)
+    dailyContentView.addSubview(dailyContentContainer)
     
     [veryHappyEmotion, happyEmotion, lovelyEmotion,
      surprisedEmotion, neutralEmotion, embarrassedEmotion,
      hurtEmotion, sleepyEmotion, tiredEmotion,
      angryEmotion, verySadEmotion, sadEmotion].forEach {
-      moodContentView.addSubview($0)
+      moodContentContainer.addSubview($0)
+    }
+    
+    [shoppingImage, coffeeImage, foodImage,
+     cultureImage, sleepImage, alcoholImage,
+     hospitalImage, musicImage, loveImage,
+     studyingImage, cleaningImage, moneyImage,
+     showerImage, bookImage, bombImage].forEach {
+      dailyContentContainer.addSubview($0)
     }
   }
   
@@ -234,22 +390,24 @@ final class EmotionalBottomSheetViewController: BaseViewController {
       make.height.equalToSuperview()
     }
     
-    scrollView.snp.makeConstraints { make in
+    moodContentView.snp.makeConstraints { make in
       make.top.equalTo(tabBarView.snp.bottom)
       make.leading.trailing.bottom.equalToSuperview()
     }
     
-    contentView.snp.makeConstraints { make in
-      make.edges.equalTo(scrollView.contentLayoutGuide)
-      make.width.equalTo(scrollView.frameLayoutGuide)
-    }
-    
-    moodContentView.snp.makeConstraints { make in
+    moodContentContainer.snp.makeConstraints { make in
       make.edges.equalToSuperview()
+      make.width.equalToSuperview()
     }
     
     dailyContentView.snp.makeConstraints { make in
+      make.top.equalTo(tabBarView.snp.bottom)
+      make.leading.trailing.bottom.equalToSuperview()
+    }
+    
+    dailyContentContainer.snp.makeConstraints { make in
       make.edges.equalToSuperview()
+      make.width.equalToSuperview()
     }
     
     // 1 ROW
@@ -328,6 +486,102 @@ final class EmotionalBottomSheetViewController: BaseViewController {
       make.centerX.equalTo(lovelyEmotion)
       make.bottom.equalToSuperview().offset(-20)
     }
+    
+    // 1 ROW
+    shoppingImage.snp.makeConstraints { make in
+      make.top.equalToSuperview().offset(20)
+      make.width.height.equalTo(70)
+      make.centerX.equalTo(view.snp.leading).offset(view.bounds.width / 4.5)
+    }
+    
+    coffeeImage.snp.makeConstraints { make in
+      make.top.equalTo(shoppingImage)
+      make.width.height.equalTo(70)
+      make.centerX.equalToSuperview()
+    }
+    
+    foodImage.snp.makeConstraints { make in
+      make.top.equalTo(shoppingImage)
+      make.width.height.equalTo(70)
+      make.centerX.equalTo(view.snp.trailing).offset(-(view.bounds.width / 4.5))
+    }
+    
+    // 2 ROW
+    cultureImage.snp.makeConstraints { make in
+      make.top.equalTo(shoppingImage.snp.bottom).offset(20)
+      make.width.height.equalTo(70)
+      make.centerX.equalTo(shoppingImage)
+    }
+    
+    sleepImage.snp.makeConstraints { make in
+      make.top.equalTo(cultureImage)
+      make.width.height.equalTo(70)
+      make.centerX.equalTo(coffeeImage)
+    }
+    
+    alcoholImage.snp.makeConstraints { make in
+      make.top.equalTo(cultureImage)
+      make.width.height.equalTo(70)
+      make.centerX.equalTo(foodImage)
+    }
+    
+    // 3 ROW
+    hospitalImage.snp.makeConstraints { make in
+      make.top.equalTo(cultureImage.snp.bottom).offset(20)
+      make.width.height.equalTo(70)
+      make.centerX.equalTo(shoppingImage)
+    }
+    
+    musicImage.snp.makeConstraints { make in
+      make.top.equalTo(hospitalImage)
+      make.width.height.equalTo(70)
+      make.centerX.equalTo(coffeeImage)
+    }
+    
+    loveImage.snp.makeConstraints { make in
+      make.top.equalTo(hospitalImage)
+      make.width.height.equalTo(70)
+      make.centerX.equalTo(foodImage)
+    }
+    
+    // 4 ROW
+    studyingImage.snp.makeConstraints { make in
+      make.top.equalTo(hospitalImage.snp.bottom).offset(20)
+      make.width.height.equalTo(70)
+      make.centerX.equalTo(shoppingImage)
+    }
+    
+    cleaningImage.snp.makeConstraints { make in
+      make.top.equalTo(studyingImage)
+      make.width.height.equalTo(70)
+      make.centerX.equalTo(coffeeImage)
+    }
+    
+    moneyImage.snp.makeConstraints { make in
+      make.top.equalTo(studyingImage)
+      make.width.height.equalTo(70)
+      make.centerX.equalTo(foodImage)
+    }
+    
+    // 5 ROW
+    showerImage.snp.makeConstraints { make in
+      make.top.equalTo(studyingImage.snp.bottom).offset(20)
+      make.width.height.equalTo(70)
+      make.centerX.equalTo(shoppingImage)
+    }
+    
+    bookImage.snp.makeConstraints { make in
+      make.top.equalTo(showerImage)
+      make.width.height.equalTo(70)
+      make.centerX.equalTo(coffeeImage)
+    }
+    
+    bombImage.snp.makeConstraints { make in
+      make.top.equalTo(showerImage)
+      make.width.height.equalTo(70)
+      make.centerX.equalTo(foodImage)
+      make.bottom.equalToSuperview().offset(-20)
+    }
   }
   
   override func setupView() {
@@ -373,6 +627,7 @@ private extension EmotionalBottomSheetViewController {
     moodTabButton.addTarget(self, action: #selector(moodTabTapped), for: .touchUpInside)
     dailyTabButton.addTarget(self, action: #selector(dailyTabTapped), for: .touchUpInside)
     
+    // Mood tab gestures
     let veryHappyTapGesture = UITapGestureRecognizer(
       target: self,
       action: #selector(imageTapped(_:))
@@ -456,6 +711,112 @@ private extension EmotionalBottomSheetViewController {
     )
     tiredEmotion.addGestureRecognizer(tiredTapGesture)
     tiredEmotion.tag = 12
+    
+    // Daily tab gestures
+    let shoppingTapGesture = UITapGestureRecognizer(
+      target: self,
+      action: #selector(dailyImageTapped(_:))
+    )
+    shoppingImage.addGestureRecognizer(shoppingTapGesture)
+    shoppingImage.tag = 1
+    
+    let coffeeTapGesture = UITapGestureRecognizer(
+      target: self,
+      action: #selector(dailyImageTapped(_:))
+    )
+    coffeeImage.addGestureRecognizer(coffeeTapGesture)
+    coffeeImage.tag = 2
+    
+    let foodTapGesture = UITapGestureRecognizer(
+      target: self,
+      action: #selector(dailyImageTapped(_:))
+    )
+    foodImage.addGestureRecognizer(foodTapGesture)
+    foodImage.tag = 3
+    
+    let cultureTapGesture = UITapGestureRecognizer(
+      target: self,
+      action: #selector(dailyImageTapped(_:))
+    )
+    cultureImage.addGestureRecognizer(cultureTapGesture)
+    cultureImage.tag = 4
+    
+    let sleepTapGesture = UITapGestureRecognizer(
+      target: self,
+      action: #selector(dailyImageTapped(_:))
+    )
+    sleepImage.addGestureRecognizer(sleepTapGesture)
+    sleepImage.tag = 5
+    
+    let alcoholTapGesture = UITapGestureRecognizer(
+      target: self,
+      action: #selector(dailyImageTapped(_:))
+    )
+    alcoholImage.addGestureRecognizer(alcoholTapGesture)
+    alcoholImage.tag = 6
+    
+    let hospitalTapGesture = UITapGestureRecognizer(
+      target: self,
+      action: #selector(dailyImageTapped(_:))
+    )
+    hospitalImage.addGestureRecognizer(hospitalTapGesture)
+    hospitalImage.tag = 7
+    
+    let musicTapGesture = UITapGestureRecognizer(
+      target: self,
+      action: #selector(dailyImageTapped(_:))
+    )
+    musicImage.addGestureRecognizer(musicTapGesture)
+    musicImage.tag = 8
+    
+    let loveTapGesture = UITapGestureRecognizer(
+      target: self,
+      action: #selector(dailyImageTapped(_:))
+    )
+    loveImage.addGestureRecognizer(loveTapGesture)
+    loveImage.tag = 9
+    
+    let studyingTapGesture = UITapGestureRecognizer(
+      target: self,
+      action: #selector(dailyImageTapped(_:))
+    )
+    studyingImage.addGestureRecognizer(studyingTapGesture)
+    studyingImage.tag = 10
+    
+    let cleaningTapGesture = UITapGestureRecognizer(
+      target: self,
+      action: #selector(dailyImageTapped(_:))
+    )
+    cleaningImage.addGestureRecognizer(cleaningTapGesture)
+    cleaningImage.tag = 11
+    
+    let moneyTapGesture = UITapGestureRecognizer(
+      target: self,
+      action: #selector(dailyImageTapped(_:))
+    )
+    moneyImage.addGestureRecognizer(moneyTapGesture)
+    moneyImage.tag = 12
+    
+    let showerTapGesture = UITapGestureRecognizer(
+      target: self,
+      action: #selector(dailyImageTapped(_:))
+    )
+    showerImage.addGestureRecognizer(showerTapGesture)
+    showerImage.tag = 13
+    
+    let bookTapGesture = UITapGestureRecognizer(
+      target: self,
+      action: #selector(dailyImageTapped(_:))
+    )
+    bookImage.addGestureRecognizer(bookTapGesture)
+    bookImage.tag = 14
+    
+    let bombTapGesture = UITapGestureRecognizer(
+      target: self,
+      action: #selector(dailyImageTapped(_:))
+    )
+    bombImage.addGestureRecognizer(bombTapGesture)
+    bombImage.tag = 15
   }
   
   @objc func imageTapped(_ sender: UITapGestureRecognizer) {
@@ -486,6 +847,46 @@ private extension EmotionalBottomSheetViewController {
       delegate?.emotionalImageTapTrigger(selectEmotionType: .surprised)
     case 12:
       delegate?.emotionalImageTapTrigger(selectEmotionType: .tired)
+    default:
+      break
+    }
+    dismiss(animated: true)
+  }
+  
+  @objc func dailyImageTapped(_ sender: UITapGestureRecognizer) {
+    guard let tappedView = sender.view else { return }
+    
+    switch tappedView.tag {
+    case 1:
+      delegate?.emotionalImageTapTrigger(selectEmotionType: .shopping)
+    case 2:
+      delegate?.emotionalImageTapTrigger(selectEmotionType: .coffee)
+    case 3:
+      delegate?.emotionalImageTapTrigger(selectEmotionType: .food)
+    case 4:
+      delegate?.emotionalImageTapTrigger(selectEmotionType: .culture)
+    case 5:
+      delegate?.emotionalImageTapTrigger(selectEmotionType: .sleep)
+    case 6:
+      delegate?.emotionalImageTapTrigger(selectEmotionType: .alcohol)
+    case 7:
+      delegate?.emotionalImageTapTrigger(selectEmotionType: .hospital)
+    case 8:
+      delegate?.emotionalImageTapTrigger(selectEmotionType: .music)
+    case 9:
+      delegate?.emotionalImageTapTrigger(selectEmotionType: .love)
+    case 10:
+      delegate?.emotionalImageTapTrigger(selectEmotionType: .studying)
+    case 11:
+      delegate?.emotionalImageTapTrigger(selectEmotionType: .cleaning)
+    case 12:
+      delegate?.emotionalImageTapTrigger(selectEmotionType: .money)
+    case 13:
+      delegate?.emotionalImageTapTrigger(selectEmotionType: .shower)
+    case 14:
+      delegate?.emotionalImageTapTrigger(selectEmotionType: .book)
+    case 15:
+      delegate?.emotionalImageTapTrigger(selectEmotionType: .bomb)
     default:
       break
     }

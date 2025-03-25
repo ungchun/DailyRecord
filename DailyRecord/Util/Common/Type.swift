@@ -11,6 +11,8 @@ import Foundation
 
 enum EmotionType: String {
   case none
+  
+  // Mood Types
   case very_happy
   case happy
   case very_sad
@@ -23,6 +25,23 @@ enum EmotionType: String {
   case sleepy
   case surprised
   case tired
+  
+  // Daily Types
+  case shopping
+  case coffee
+  case food
+  case culture
+  case sleep
+  case alcohol
+  case hospital
+  case music
+  case love
+  case studying
+  case cleaning
+  case money
+  case shower
+  case book
+  case bomb
 }
 
 // MARK: - 디스플레이 모드
