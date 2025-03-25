@@ -2,6 +2,10 @@
 
 GoogleService-Info.plist
 
+buildServer.json
+
+.cursor/
+
 # Xcode
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
