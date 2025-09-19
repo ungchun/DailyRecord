@@ -81,6 +81,23 @@ final class CalendarViewController: BaseViewController {
     return label
   }()
   
+  private let arrowContainerView: UIView = {
+    let view = UIView()
+    view.backgroundColor = .clear
+    view.isUserInteractionEnabled = true
+    return view
+  }()
+  
+  private let arrowImageView: UIImageView = {
+    let imageView = UIImageView()
+    let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold)
+    let image = UIImage(systemName: "chevron.right", withConfiguration: config)
+    imageView.image = image
+    imageView.tintColor = .azLightGray.withAlphaComponent(0.5)
+    imageView.contentMode = .scaleAspectFit
+    return imageView
+  }()
+  
   private lazy var calendarView: FSCalendar = {
     let calendar = FSCalendar()
     calendar.register(CalendarCell.self,
@@ -139,17 +156,31 @@ final class CalendarViewController: BaseViewController {
   // MARK: - Functions
   
   override func addView() {
-    [calendarHeaderView, calendarView,
+    [calendarHeaderView, arrowContainerView, calendarView,
      writeButton, settingButton,
      searchButton, chartButton, drawerButton].forEach {
       view.addSubview($0)
     }
+    
+    arrowContainerView.addSubview(arrowImageView)
   }
   
   override func setLayout() {
     calendarHeaderView.snp.makeConstraints { make in
       make.leading.equalToSuperview().inset(16)
       make.bottom.equalTo(calendarView.snp.top)
+    }
+    
+    arrowContainerView.snp.makeConstraints { make in
+      make.leading.equalTo(calendarHeaderView.snp.trailing).offset(4)
+      make.centerY.equalTo(calendarHeaderView)
+      make.width.height.equalTo(44)
+    }
+    
+    arrowImageView.snp.makeConstraints { make in
+      make.leading.equalToSuperview()
+      make.centerY.equalToSuperview()
+      make.width.height.equalTo(16)
     }
     
     calendarView.snp.makeConstraints { make in
@@ -221,6 +252,9 @@ final class CalendarViewController: BaseViewController {
       action: #selector(showDrawerTrigger),
       for: .touchUpInside
     )
+    
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(arrowImageViewTapped))
+    arrowContainerView.addGestureRecognizer(tapGesture)
     
     DispatchQueue.main.async { [weak self] in
       self?.view.backgroundColor = .azBlack
@@ -296,6 +330,224 @@ extension CalendarViewController {
       currentDate: viewModel.currentDate
     )
   }
+  
+  @objc private func arrowImageViewTapped() {
+    let overlayView = UIView()
+    overlayView.backgroundColor = .black.withAlphaComponent(0.5)
+    overlayView.alpha = 0
+    overlayView.tag = 1000
+    
+    let squareView = UIView()
+    squareView.backgroundColor = .azBlack
+    squareView.layer.cornerRadius = 16
+    squareView.alpha = 0
+    squareView.tag = 1001
+    
+    view.addSubview(overlayView)
+    overlayView.snp.makeConstraints { make in
+      make.edges.equalToSuperview()
+    }
+    
+    view.addSubview(squareView)
+    squareView.snp.makeConstraints { make in
+      make.centerY.equalToSuperview()
+      make.leading.equalToSuperview().offset(32)
+      make.trailing.equalToSuperview().offset(-32)
+      make.height.equalTo(220)
+    }
+    
+    setupYearMonthPicker(in: squareView)
+    
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissOverlay))
+    overlayView.addGestureRecognizer(tapGesture)
+    
+    UIView.animate(withDuration: 0.3) {
+      overlayView.alpha = 1
+      squareView.alpha = 1
+    }
+  }
+  
+  @objc private func dismissOverlay() {
+    view.subviews.forEach { subview in
+      if subview.tag == 1000 || subview.tag == 1001 {
+        UIView.animate(withDuration: 0.3, animations: {
+          subview.alpha = 0
+        }) { _ in
+          subview.removeFromSuperview()
+        }
+      }
+    }
+  }
+  
+  private func setupYearMonthPicker(in containerView: UIView) {
+    let currentDate = viewModel.currentDate
+    let currentYear = Calendar.current.component(.year, from: currentDate)
+    
+    let yearHeaderView = UIView()
+    yearHeaderView.tag = 2000
+    containerView.addSubview(yearHeaderView)
+    
+    let prevYearButton = UIButton(type: .system)
+    let prevConfig = UIImage.SymbolConfiguration(pointSize: 12, weight: .semibold)
+    let prevImage = UIImage(systemName: "chevron.left", withConfiguration: prevConfig)
+    prevYearButton.setImage(prevImage, for: .normal)
+    prevYearButton.tintColor = .azWhite
+    prevYearButton.tag = 2001
+    prevYearButton.addTarget(self, action: #selector(prevYearTapped), for: .touchUpInside)
+    
+    let yearLabel = UILabel()
+    yearLabel.text = "\(currentYear)년"
+    yearLabel.font = UIFont(name: "omyu_pretty", size: 20)
+    yearLabel.textColor = .azWhite
+    yearLabel.textAlignment = .center
+    yearLabel.tag = 2002
+    
+    let nextYearButton = UIButton(type: .system)
+    let nextConfig = UIImage.SymbolConfiguration(pointSize: 12, weight: .semibold)
+    let nextImage = UIImage(systemName: "chevron.right", withConfiguration: nextConfig)
+    nextYearButton.setImage(nextImage, for: .normal)
+    nextYearButton.tintColor = .azWhite
+    nextYearButton.tag = 2003
+    nextYearButton.addTarget(self, action: #selector(nextYearTapped), for: .touchUpInside)
+    
+    [prevYearButton, yearLabel, nextYearButton].forEach {
+      yearHeaderView.addSubview($0)
+    }
+    
+    yearHeaderView.snp.makeConstraints { make in
+      make.top.equalToSuperview().offset(16)
+      make.leading.trailing.equalToSuperview()
+      make.height.equalTo(32)
+    }
+    
+    prevYearButton.snp.makeConstraints { make in
+      make.leading.equalToSuperview().offset(20)
+      make.centerY.equalToSuperview()
+      make.width.height.equalTo(44)
+    }
+    
+    yearLabel.snp.makeConstraints { make in
+      make.center.equalToSuperview()
+    }
+    
+    nextYearButton.snp.makeConstraints { make in
+      make.trailing.equalToSuperview().offset(-20)
+      make.centerY.equalToSuperview()
+      make.width.height.equalTo(44)
+    }
+    
+    let monthGridView = UIView()
+    monthGridView.tag = 2004
+    containerView.addSubview(monthGridView)
+    
+    monthGridView.snp.makeConstraints { make in
+      make.top.equalTo(yearHeaderView.snp.bottom).offset(16)
+      make.leading.trailing.equalToSuperview().inset(20)
+      make.bottom.equalToSuperview().offset(-16)
+    }
+    
+    setupMonthGrid(in: monthGridView, for: currentYear)
+  }
+  
+  private func setupMonthGrid(in containerView: UIView, for year: Int) {
+    containerView.subviews.forEach { $0.removeFromSuperview() }
+    
+    let months = (1...12).map { $0 }
+    let currentDate = viewModel.currentDate
+    let currentYear = Calendar.current.component(.year, from: currentDate)
+    let currentMonth = Calendar.current.component(.month, from: currentDate)
+    
+    for (index, month) in months.enumerated() {
+      let button = UIButton(type: .system)
+      button.setTitle("\(month)", for: .normal)
+      button.titleLabel?.font = UIFont(name: "omyu_pretty", size: 16)
+      button.backgroundColor = (year == currentYear && month == currentMonth)
+      ? .azLightGray.withAlphaComponent(0.1) : .clear
+      button.tintColor = .azWhite
+      button.layer.cornerRadius = 16
+      button.tag = 3000 + month
+      button.addTarget(self, action: #selector(monthButtonTapped(_:)), for: .touchUpInside)
+      
+      containerView.addSubview(button)
+      
+      let row = index / 4
+      let col = index % 4
+      
+      button.snp.makeConstraints { make in
+        make.height.equalTo(containerView.snp.height).dividedBy(3).offset(-5)
+        
+        if col == 0 {
+          make.leading.equalToSuperview()
+        } else {
+          let previousButton = containerView.subviews[index - 1]
+          make.leading.equalTo(previousButton.snp.trailing).offset(6)
+        }
+        
+        if col == 3 {
+          make.trailing.equalToSuperview()
+        }
+        
+        if row == 0 {
+          make.top.equalToSuperview()
+        } else {
+          let buttonAbove = containerView.subviews[index - 4]
+          make.top.equalTo(buttonAbove.snp.bottom).offset(8)
+        }
+        
+        make.width.equalTo(containerView.snp.width).dividedBy(4).offset(-5)
+      }
+    }
+  }
+  
+  @objc private func prevYearTapped() {
+    guard let squareView = view.subviews.first(where: { $0.tag == 1001 }),
+          let yearLabel = squareView.subviews.first(
+            where: { $0.tag == 2000 }
+          )?.subviews.first(where: { $0.tag == 2002 }) as? UILabel,
+          let monthGridView = squareView.subviews.first(where: { $0.tag == 2004 })
+    else { return }
+    
+    let currentYearText = yearLabel.text?.replacingOccurrences(of: "년", with: "") ?? ""
+    if let currentYear = Int(currentYearText) {
+      let newYear = currentYear - 1
+      yearLabel.text = "\(newYear)년"
+      setupMonthGrid(in: monthGridView, for: newYear)
+    }
+  }
+  
+  @objc private func nextYearTapped() {
+    guard let squareView = view.subviews.first(where: { $0.tag == 1001 }),
+          let yearLabel = squareView.subviews.first(
+            where: { $0.tag == 2000 }
+          )?.subviews.first(where: { $0.tag == 2002 }) as? UILabel,
+          let monthGridView = squareView.subviews.first(where: { $0.tag == 2004 })
+    else { return }
+    
+    let currentYearText = yearLabel.text?.replacingOccurrences(of: "년", with: "") ?? ""
+    if let currentYear = Int(currentYearText) {
+      let newYear = currentYear + 1
+      yearLabel.text = "\(newYear)년"
+      setupMonthGrid(in: monthGridView, for: newYear)
+    }
+  }
+  
+  @objc private func monthButtonTapped(_ sender: UIButton) {
+    guard let squareView = view.subviews.first(where: { $0.tag == 1001 }),
+          let yearLabel = squareView.subviews.first(
+            where: { $0.tag == 2000 }
+          )?.subviews.first(where: { $0.tag == 2002 }) as? UILabel else { return }
+    
+    let month = sender.tag - 3000
+    let yearText = yearLabel.text?.replacingOccurrences(of: "년", with: "") ?? ""
+    
+    if let year = Int(yearText) {
+      let dateComponents = DateComponents(year: year, month: month, day: 1)
+      if let targetDate = Calendar.current.date(from: dateComponents) {
+        calendarView.setCurrentPage(targetDate, animated: true)
+        dismissOverlay()
+      }
+    }
+  }
 }
 
 /// Shortcut "오늘 일기 작성"으로 접근 시
@@ -339,6 +591,12 @@ extension CalendarViewController: FSCalendarDelegate,
     didSelect date: Date,
     at monthPosition: FSCalendarMonthPosition
   ) {
+    // 미래 날짜는 선택 불가
+    if date > Date() {
+      calendar.deselect(date)
+      return
+    }
+    
     let day = Calendar.current.component(.weekday, from: date) - 1
     if Calendar.current.shortWeekdaySymbols[day] == "일" {
       calendar.appearance.titleSelectionColor = .azRed
@@ -385,10 +643,6 @@ extension CalendarViewController: FSCalendarDelegate,
     }
   }
   
-  // 오늘 이후의 날짜는 선택이 불가능하다
-  func maximumDate(for calendar: FSCalendar) -> Date {
-    return Date()
-  }
   
   func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
     let currentPage = calendar.currentPage
