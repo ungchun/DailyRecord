@@ -73,6 +73,23 @@ final class CalendarViewController: BaseViewController {
     return button
   }()
   
+  private let todayButton: UIButton = {
+    let button = UIButton(type: .system)
+    var config = UIButton.Configuration.filled()
+    config.title = "오늘"
+    config.baseForegroundColor = .azWhite
+    config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
+      var outgoing = incoming
+      outgoing.font = UIFont(name: "omyu_pretty", size: 16)
+      return outgoing
+    }
+    config.background.backgroundColor = .azLightGray.withAlphaComponent(0.05)
+    config.background.cornerRadius = 16
+    config.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16)
+    button.configuration = config
+    return button
+  }()
+  
   private lazy var calendarHeaderView: UILabel = {
     let label = UILabel()
     label.font = UIFont(name: "omyu_pretty", size: 25)
@@ -157,7 +174,7 @@ final class CalendarViewController: BaseViewController {
   
   override func addView() {
     [calendarHeaderView, arrowContainerView, calendarView,
-     writeButton, settingButton,
+     writeButton, todayButton, settingButton,
      searchButton, chartButton, drawerButton].forEach {
       view.addSubview($0)
     }
@@ -195,6 +212,11 @@ final class CalendarViewController: BaseViewController {
       make.width.height.equalTo(60)
       make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-20)
       make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-60)
+    }
+    
+    todayButton.snp.makeConstraints { make in
+      make.centerX.equalToSuperview()
+      make.centerY.equalTo(writeButton)
     }
     
     settingButton.snp.makeConstraints { make in
@@ -241,6 +263,12 @@ final class CalendarViewController: BaseViewController {
       for: .touchUpInside
     )
     
+    todayButton.addTarget(
+      self,
+      action: #selector(todayButtonTapped),
+      for: .touchUpInside
+    )
+    
     chartButton.addTarget(
       self,
       action: #selector(showChartTrigger),
@@ -258,6 +286,7 @@ final class CalendarViewController: BaseViewController {
     
     DispatchQueue.main.async { [weak self] in
       self?.view.backgroundColor = .azBlack
+      self?.updateTodayButtonVisibility(for: Date())
     }
     
     if let year = Int(DateFormatter.formattedString(Date(), format: "yyyy")),
@@ -329,6 +358,25 @@ extension CalendarViewController {
       calendarViewModel: viewModel,
       currentDate: viewModel.currentDate
     )
+  }
+  
+  @objc private func todayButtonTapped() {
+    let today = Date()
+    calendarView.setCurrentPage(today, animated: false)
+  }
+  
+  private func updateTodayButtonVisibility(for currentPage: Date) {
+    let today = Date()
+    let calendar = Calendar.current
+    
+    let currentYear = calendar.component(.year, from: currentPage)
+    let currentMonth = calendar.component(.month, from: currentPage)
+    let todayYear = calendar.component(.year, from: today)
+    let todayMonth = calendar.component(.month, from: today)
+    
+    let isCurrentMonth = (currentYear == todayYear && currentMonth == todayMonth)
+    
+    self.todayButton.alpha = isCurrentMonth ? 0 : 1
   }
   
   @objc private func arrowImageViewTapped() {
@@ -462,7 +510,7 @@ extension CalendarViewController {
       button.setTitle("\(month)", for: .normal)
       button.titleLabel?.font = UIFont(name: "omyu_pretty", size: 16)
       button.backgroundColor = (year == currentYear && month == currentMonth)
-      ? .azLightGray.withAlphaComponent(0.1) : .clear
+      ? .azLightGray.withAlphaComponent(0.05) : .clear
       button.tintColor = .azWhite
       button.layer.cornerRadius = 16
       button.tag = 3000 + month
@@ -543,7 +591,7 @@ extension CalendarViewController {
     if let year = Int(yearText) {
       let dateComponents = DateComponents(year: year, month: month, day: 1)
       if let targetDate = Calendar.current.date(from: dateComponents) {
-        calendarView.setCurrentPage(targetDate, animated: true)
+        calendarView.setCurrentPage(targetDate, animated: false)
         dismissOverlay()
       }
     }
@@ -643,7 +691,6 @@ extension CalendarViewController: FSCalendarDelegate,
     }
   }
   
-  
   func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
     let currentPage = calendar.currentPage
     
@@ -653,6 +700,7 @@ extension CalendarViewController: FSCalendarDelegate,
       self?.calendarHeaderView.text = DateFormatter.formattedString(
         currentPage, format: "YYYY년 M월"
       )
+      self?.updateTodayButtonVisibility(for: currentPage)
     }
     
     if let year = Int(DateFormatter.formattedString(currentPage, format: "yyyy")),
