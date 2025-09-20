@@ -15,7 +15,7 @@ final class RecordFooterView: BaseView {
   
   private let divider: UIView = {
     let view = UIView()
-    view.backgroundColor = .azDarkGray
+    view.backgroundColor = .azLightGray.withAlphaComponent(0.05)
     return view
   }()
   
@@ -49,7 +49,7 @@ final class RecordFooterView: BaseView {
     divider.snp.makeConstraints { make in
       make.top.equalToSuperview()
       make.leading.trailing.equalToSuperview()
-      make.height.equalTo(2)
+      make.height.equalTo(1)
     }
     
     galleryIcon.snp.makeConstraints { make in
