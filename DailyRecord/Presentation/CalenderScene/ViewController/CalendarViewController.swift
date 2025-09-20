@@ -96,7 +96,7 @@ final class CalendarViewController: BaseViewController {
     view.isUserInteractionEnabled = true
     return view
   }()
-
+  
   private lazy var calendarHeaderView: UILabel = {
     let label = UILabel()
     label.font = UIFont(name: "omyu_pretty", size: 25)
@@ -185,11 +185,11 @@ final class CalendarViewController: BaseViewController {
      searchButton, chartButton, drawerButton].forEach {
       view.addSubview($0)
     }
-
+    
     [calendarHeaderView, arrowContainerView].forEach {
       headerContainerView.addSubview($0)
     }
-
+    
     arrowContainerView.addSubview(arrowImageView)
   }
   
@@ -199,11 +199,11 @@ final class CalendarViewController: BaseViewController {
       make.bottom.equalTo(calendarView.snp.top)
       make.trailing.lessThanOrEqualToSuperview().inset(16)
     }
-
+    
     calendarHeaderView.snp.makeConstraints { make in
       make.leading.top.bottom.equalToSuperview()
     }
-
+    
     arrowContainerView.snp.makeConstraints { make in
       make.leading.equalTo(calendarHeaderView.snp.trailing).offset(4)
       make.top.bottom.equalToSuperview()
@@ -351,14 +351,12 @@ extension CalendarViewController {
       calendarView.appearance.titleSelectionColor = .azWhite
     }
     
-    var selectData = RecordEntity(calendarDate: Int(nowDate.millisecondsSince1970))
-    if let matchedEntity = viewModel.records.first(where: { entity in
-      let seconds = TimeInterval(entity.calendarDate) / 1000
-      let responseDate = Date(timeIntervalSince1970: seconds)
-      return nowDate == responseDate
-    }) {
-      selectData = matchedEntity
-    }
+    // 캘린더를 오늘 날짜로 이동
+    let today = Date()
+    calendarView.setCurrentPage(today, animated: false)
+    
+    let selectData = viewModel.todayRecord
+    ?? RecordEntity(calendarDate: Int(nowDate.millisecondsSince1970))
     
     coordinator?.showRecord(
       calendarViewModel: viewModel,
