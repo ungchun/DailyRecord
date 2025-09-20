@@ -189,9 +189,9 @@ final class RecordHistoryViewController: BaseViewController {
 extension RecordHistoryViewController {
   private func setupNavigationBar() {
     let largeConfig = UIImage.SymbolConfiguration(pointSize: 16,
-                                                  weight: .bold, scale: .large)
+                                                  weight: .medium, scale: .large)
     let iconImage = UIImage(systemName: "ellipsis",
-                            withConfiguration: largeConfig)?.rotated(by: 90)
+                            withConfiguration: largeConfig)
     let editButtonItem = UIBarButtonItem(
       image: iconImage,
       primaryAction: nil,
