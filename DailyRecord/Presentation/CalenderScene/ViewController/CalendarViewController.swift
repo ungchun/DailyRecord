@@ -90,6 +90,13 @@ final class CalendarViewController: BaseViewController {
     return button
   }()
   
+  private let headerContainerView: UIView = {
+    let view = UIView()
+    view.backgroundColor = .clear
+    view.isUserInteractionEnabled = true
+    return view
+  }()
+
   private lazy var calendarHeaderView: UILabel = {
     let label = UILabel()
     label.font = UIFont(name: "omyu_pretty", size: 25)
@@ -173,25 +180,35 @@ final class CalendarViewController: BaseViewController {
   // MARK: - Functions
   
   override func addView() {
-    [calendarHeaderView, arrowContainerView, calendarView,
+    [headerContainerView, calendarView,
      writeButton, todayButton, settingButton,
      searchButton, chartButton, drawerButton].forEach {
       view.addSubview($0)
     }
-    
+
+    [calendarHeaderView, arrowContainerView].forEach {
+      headerContainerView.addSubview($0)
+    }
+
     arrowContainerView.addSubview(arrowImageView)
   }
   
   override func setLayout() {
-    calendarHeaderView.snp.makeConstraints { make in
+    headerContainerView.snp.makeConstraints { make in
       make.leading.equalToSuperview().inset(16)
       make.bottom.equalTo(calendarView.snp.top)
+      make.trailing.lessThanOrEqualToSuperview().inset(16)
     }
-    
+
+    calendarHeaderView.snp.makeConstraints { make in
+      make.leading.top.bottom.equalToSuperview()
+    }
+
     arrowContainerView.snp.makeConstraints { make in
       make.leading.equalTo(calendarHeaderView.snp.trailing).offset(4)
-      make.centerY.equalTo(calendarHeaderView)
-      make.width.height.equalTo(44)
+      make.top.bottom.equalToSuperview()
+      make.width.equalTo(44)
+      make.trailing.equalToSuperview()
     }
     
     arrowImageView.snp.makeConstraints { make in
@@ -281,8 +298,8 @@ final class CalendarViewController: BaseViewController {
       for: .touchUpInside
     )
     
-    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(arrowImageViewTapped))
-    arrowContainerView.addGestureRecognizer(tapGesture)
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(headerTapped))
+    headerContainerView.addGestureRecognizer(tapGesture)
     
     DispatchQueue.main.async { [weak self] in
       self?.view.backgroundColor = .azBlack
@@ -379,7 +396,7 @@ extension CalendarViewController {
     self.todayButton.alpha = isCurrentMonth ? 0 : 1
   }
   
-  @objc private func arrowImageViewTapped() {
+  @objc private func headerTapped() {
     let overlayView = UIView()
     overlayView.backgroundColor = .black.withAlphaComponent(0.5)
     overlayView.alpha = 0
