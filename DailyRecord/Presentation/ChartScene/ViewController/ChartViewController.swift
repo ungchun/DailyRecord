@@ -23,7 +23,7 @@ final class ChartViewController: BaseViewController {
     let label = UILabel()
     label.font = UIFont(name: "omyu_pretty", size: 20)
     label.textColor = .azLightGray
-    label.text = "비어있어요"
+    label.text = L10n.Common.empty
     label.textAlignment = .center
     label.isHidden = true
     return label
@@ -156,10 +156,8 @@ private extension ChartViewController {
   }
   
   func updateMonthLabel() {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "yyyy년 MM월"
-    monthLabel.text = dateFormatter.string(from: viewModel.currentDate)
-    
+    monthLabel.text = DateFormatter.localizedYearMonth(viewModel.currentDate)
+
     updateButtonState()
     
     if let year = Int(
@@ -186,7 +184,7 @@ private extension ChartViewController {
             }
           }
         } catch {
-          handleError(self.coordinator!, "에러가 발생했어요")
+          handleError(self.coordinator!, L10n.Common.error)
         }
       }
     }

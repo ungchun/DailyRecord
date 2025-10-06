@@ -1,0 +1,65 @@
+// Date Format
+"date.year_month" = "%@ %@";
+
+// Search
+"search.placeholder" = "Search diary";
+"search.no_results" = "No results found";
+
+// Profile
+"profile.icloud_sync" = "iCloud Sync";
+"profile.dark_mode" = "Dark Mode";
+"profile.language" = "Language";
+"profile.rate_app" = "Rate App";
+
+// iCloud
+"icloud.description" = "Daon can automatically backup/save to iCloud";
+"icloud.sync_method" = "Sync Method";
+"icloud.sync_instruction" = "Settings > Apple Account > iCloud > Toggle on";
+"icloud.storage_warning" = "Please note that syncing will not work if your iCloud storage is full";
+
+// Dark Mode
+"darkmode.system_setting" = "System Setting";
+"darkmode.light_mode" = "Light Mode";
+"darkmode.dark_mode" = "Dark Mode";
+
+// Common Messages
+"common.empty" = "Empty";
+"common.error" = "An error occurred";
+"common.no_diary" = "No diary entries";
+"common.diary_saved" = "Diary saved!";
+"common.diary_deleted" = "Diary deleted!";
+
+// Record
+"record.how_was_your_day" = "How was your day today?";
+
+// Widget
+"widget.today_widget" = "Today Widget";
+"widget.description" = "Check your diary at a glance with the widget!";
+
+// Weekday
+"weekday.monday" = "Mon";
+"weekday.tuesday" = "Tue";
+"weekday.wednesday" = "Wed";
+"weekday.thursday" = "Thu";
+"weekday.friday" = "Fri";
+"weekday.saturday" = "Sat";
+"weekday.sunday" = "Sun";
+
+// Calendar
+"calendar.today" = "Today";
+
+// Mood
+"mood.title" = "Mood";
+
+// Daily
+"daily.title" = "Daily";
+
+// Actions
+"action.edit" = "Edit";
+"action.delete" = "Delete";
+"action.cancel" = "Cancel";
+"action.confirm_delete" = "Delete";
+
+// Alert
+"alert.delete_diary_title" = "Delete Diary";
+"alert.delete_diary_message" = "Are you sure you want to delete this diary?";

@@ -20,6 +20,13 @@
 		6508A2212C79C91D005AB6DC /* FullscreenImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6508A2202C79C91D005AB6DC /* FullscreenImageView.swift */; };
 		6508A2232C79D021005AB6DC /* SetDarkModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6508A2222C79D021005AB6DC /* SetDarkModeViewController.swift */; };
 		6508A2252C7CA200005AB6DC /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6508A2242C7CA200005AB6DC /* UITextView+.swift */; };
+		651206492E9390D90048D52B /* Strings+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651206482E9390D90048D52B /* Strings+Generated.swift */; };
+		6512064A2E93C2200048D52B /* Strings+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651206482E9390D90048D52B /* Strings+Generated.swift */; };
+		6512064B2E93C27A0048D52B /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A41B062CFB4C81005EBFDD /* DateFormatter+.swift */; };
+		651206612E93E43B0048D52B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6512065F2E93E43B0048D52B /* Localizable.strings */; };
+		651206622E93E43B0048D52B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6512065F2E93E43B0048D52B /* Localizable.strings */; };
+		651206652E93E4440048D52B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 651206632E93E4440048D52B /* InfoPlist.strings */; };
+		651206662E93E4440048D52B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 651206632E93E4440048D52B /* InfoPlist.strings */; };
 		651A9F252C9EC03C00B9B1FE /* omyu_pretty.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 659946992C4961840030598B /* omyu_pretty.ttf */; };
 		651A9F682C9EE96800B9B1FE /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 651A9F672C9EE96800B9B1FE /* FirebaseAuth */; };
 		651A9F6A2C9EE96800B9B1FE /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 651A9F692C9EE96800B9B1FE /* FirebaseFirestore */; };
@@ -165,6 +172,11 @@
 		6508A2202C79C91D005AB6DC /* FullscreenImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullscreenImageView.swift; sourceTree = "<group>"; };
 		6508A2222C79D021005AB6DC /* SetDarkModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDarkModeViewController.swift; sourceTree = "<group>"; };
 		6508A2242C7CA200005AB6DC /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
+		651206482E9390D90048D52B /* Strings+Generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Strings+Generated.swift"; sourceTree = "<group>"; };
+		651206602E93E43B0048D52B /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		651206642E93E4440048D52B /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		651206672E93E44D0048D52B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		651206682E93E4560048D52B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		651A9F2A2C9ECFBC00B9B1FE /* WidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetExtension.entitlements; sourceTree = "<group>"; };
 		655BE3362CAC07B40006BC34 /* ShortcutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutManager.swift; sourceTree = "<group>"; };
 		655BE3C92CC4BFE80006BC34 /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
@@ -617,6 +629,9 @@
 				65FE89332CE9F6AF004C373B /* GoogleService-Info.plist */,
 				65CF612B2C036433003E6D75 /* Info.plist */,
 				65CF61262C036433003E6D75 /* Assets.xcassets */,
+				651206482E9390D90048D52B /* Strings+Generated.swift */,
+				651206632E93E4440048D52B /* InfoPlist.strings */,
+				6512065F2E93E43B0048D52B /* Localizable.strings */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -759,6 +774,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 65CF612E2C036433003E6D75 /* Build configuration list for PBXNativeTarget "DailyRecord" */;
 			buildPhases = (
+				651206452E938CED0048D52B /* Run Script */,
 				65CF61162C036432003E6D75 /* Sources */,
 				65CF61172C036432003E6D75 /* Frameworks */,
 				65CF61182C036432003E6D75 /* Resources */,
@@ -848,11 +864,12 @@
 			};
 			buildConfigurationList = 65CF61152C036432003E6D75 /* Build configuration list for PBXProject "DailyRecord" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = ko;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				ko,
 				Base,
+				en,
 			);
 			mainGroup = 65CF61112C036432003E6D75;
 			packageReferences = (
@@ -876,8 +893,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6599469A2C4961840030598B /* omyu_pretty.ttf in Resources */,
+				651206612E93E43B0048D52B /* Localizable.strings in Resources */,
 				65FE89342CE9F6AF004C373B /* GoogleService-Info.plist in Resources */,
 				65CF612A2C036433003E6D75 /* LaunchScreen.storyboard in Resources */,
+				651206662E93E4440048D52B /* InfoPlist.strings in Resources */,
 				65CF61272C036433003E6D75 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -887,6 +906,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				651A9F252C9EC03C00B9B1FE /* omyu_pretty.ttf in Resources */,
+				651206622E93E43B0048D52B /* Localizable.strings in Resources */,
+				651206652E93E4440048D52B /* InfoPlist.strings in Resources */,
 				65FA64592C9EAACF001F5002 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -894,6 +915,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		651206452E938CED0048D52B /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "  if which swiftgen >/dev/null; then\n    swiftgen config run --config \"${SRCROOT}/swiftgen.yml\"\n  else\n    echo \"warning: SwiftGen not installed\"\n  fi\n";
+		};
 		65CF61722C0AEED0003E6D75 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -961,6 +1000,7 @@
 				65CF61C82C24425A003E6D75 /* EmotionalBottomSheetView.swift in Sources */,
 				65CF61992C117061003E6D75 /* RecordDIContainer.swift in Sources */,
 				65CF61C22C1D6039003E6D75 /* RecordViewModel.swift in Sources */,
+				651206492E9390D90048D52B /* Strings+Generated.swift in Sources */,
 				65CF61772C0B03EA003E6D75 /* Log.swift in Sources */,
 				6508A2232C79D021005AB6DC /* SetDarkModeViewController.swift in Sources */,
 				65CF61C42C243E78003E6D75 /* RecordFooterView.swift in Sources */,
@@ -1005,6 +1045,8 @@
 				655BE3372CAC07B40006BC34 /* ShortcutManager.swift in Sources */,
 				65FA64552C9EAACD001F5002 /* WidgetBundle.swift in Sources */,
 				65FA64572C9EAACD001F5002 /* Widget.swift in Sources */,
+				6512064B2E93C27A0048D52B /* DateFormatter+.swift in Sources */,
+				6512064A2E93C2200048D52B /* Strings+Generated.swift in Sources */,
 				65600E6F2CA7CA410093D20B /* CoreDataManager.swift in Sources */,
 				65600E6E2CA7CA320093D20B /* CoreData.xcdatamodeld in Sources */,
 			);
@@ -1021,6 +1063,24 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		6512065F2E93E43B0048D52B /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				651206682E93E4560048D52B /* en */,
+				651206602E93E43B0048D52B /* ko */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		651206632E93E4440048D52B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				651206672E93E44D0048D52B /* en */,
+				651206642E93E4440048D52B /* ko */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		65CF61282C036433003E6D75 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1037,6 +1097,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -1101,6 +1162,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -1169,6 +1231,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DailyRecord/Resource/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "다온일기";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_NSCameraUsageDescription = "카메라를 사용하기 위해 권한이 필요합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "사진을 첨부하기 위해 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1209,6 +1272,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DailyRecord/Resource/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "다온일기";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_NSCameraUsageDescription = "카메라를 사용하기 위해 권한이 필요합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "사진을 첨부하기 위해 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

@@ -55,7 +55,7 @@ final class EmotionalBottomSheetViewController: BaseViewController {
   
   private let moodTabButton: UIButton = {
     let button = UIButton()
-    button.setTitle("기분", for: .normal)
+    button.setTitle(L10n.Mood.title, for: .normal)
     button.titleLabel?.font = UIFont(name: "omyu_pretty", size: 20)
     button.setTitleColor(.azLightGray, for: .selected)
     button.setTitleColor(.azLightGray.withAlphaComponent(0.5), for: .normal)
@@ -65,7 +65,7 @@ final class EmotionalBottomSheetViewController: BaseViewController {
   
   private let dailyTabButton: UIButton = {
     let button = UIButton()
-    button.setTitle("일상", for: .normal)
+    button.setTitle(L10n.Daily.title, for: .normal)
     button.titleLabel?.font = UIFont(name: "omyu_pretty", size: 20)
     button.setTitleColor(.azLightGray, for: .selected)
     button.setTitleColor(.azLightGray.withAlphaComponent(0.5), for: .normal)

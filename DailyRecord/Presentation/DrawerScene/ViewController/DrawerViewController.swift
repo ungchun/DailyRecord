@@ -24,7 +24,7 @@ final class DrawerViewController: BaseViewController {
     let label = UILabel()
     label.font = UIFont(name: "omyu_pretty", size: 20)
     label.textColor = .azLightGray
-    label.text = "작성된 일기가 없어요"
+    label.text = L10n.Common.noDiary
     label.textAlignment = .center
     label.isHidden = true
     return label
@@ -192,10 +192,8 @@ private extension DrawerViewController {
   }
   
   func updateMonthLabel() {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "yyyy년 MM월"
-    monthLabel.text = dateFormatter.string(from: viewModel.currentDate)
-    
+    monthLabel.text = DateFormatter.localizedYearMonth(viewModel.currentDate)
+
     updateButtonState()
     
     if let year = Int(
@@ -221,7 +219,7 @@ private extension DrawerViewController {
             }
           }
         } catch {
-          handleError(self.coordinator!, "에러가 발생했어요")
+          handleError(self.coordinator!, L10n.Common.error)
         }
       }
     }

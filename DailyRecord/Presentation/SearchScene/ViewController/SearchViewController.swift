@@ -23,7 +23,7 @@ final class SearchViewController: BaseViewController {
   
   private let searchBar: UISearchBar = {
     let searchBar = UISearchBar()
-    searchBar.placeholder = "일기 검색"
+    searchBar.placeholder = L10n.Search.placeholder
     searchBar.searchBarStyle = .minimal
     searchBar.tintColor = .azWhite
     
@@ -44,7 +44,7 @@ final class SearchViewController: BaseViewController {
   
   private let emptyResultLabel: UILabel = {
     let label = UILabel()
-    label.text = "검색 결과가 없어요"
+    label.text = L10n.Search.noResults
     label.font = UIFont(name: "omyu_pretty", size: 18)
     label.textColor = .azLightGray
     label.textAlignment = .center

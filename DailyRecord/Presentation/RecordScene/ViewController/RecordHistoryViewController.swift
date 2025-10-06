@@ -208,18 +208,21 @@ extension RecordHistoryViewController {
   }
   
   private var menuItems: [UIAction] {
-    return [UIAction(title: "수정하기",
+    return [UIAction(title: L10n.Action.edit,
                      image: UIImage(systemName: "pencil"),
                      handler: { _ in
       self.coordinator?.showWriteViewController(self.viewModel)}),
-            UIAction(title: "삭제하기",
+            UIAction(title: L10n.Action.delete,
                      image: UIImage(systemName: "trash"),
                      attributes: .destructive,
                      handler: { _ in
-      let alert = UIAlertController (title: "일기 삭제", message:
-                                      "정말로 일기를 삭제할까요?", preferredStyle: .alert)
-      alert.addAction(UIAlertAction(title: "취소", style: .default) { _ in })
-      alert.addAction(UIAlertAction(title: "삭제", style: .destructive) { _ in
+      let alert = UIAlertController (
+        title: L10n.Alert.deleteDiaryTitle,
+        message: L10n.Alert.deleteDiaryMessage,
+        preferredStyle: .alert
+      )
+      alert.addAction(UIAlertAction(title: L10n.Action.cancel, style: .default) { _ in })
+      alert.addAction(UIAlertAction(title: L10n.Action.confirmDelete, style: .destructive) { _ in
         Task { [weak self] in
           guard let self else { return }
           do {
@@ -237,14 +240,14 @@ extension RecordHistoryViewController {
                   year: year, month: month
                 ) { }
               } catch {
-                handleError(self.coordinator!, "에러가 발생했어요")
+                handleError(self.coordinator!, L10n.Common.error)
               }
               
               WidgetCenter.shared.reloadAllTimelines()
-              handleError(self.coordinator!, "일기를 삭제했어요!")
+              handleError(self.coordinator!, L10n.Common.diaryDeleted)
             }
           } catch {
-            handleError(self.coordinator!, "에러가 발생했어요")
+            handleError(self.coordinator!, L10n.Common.error)
           }
         }
       })

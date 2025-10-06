@@ -57,7 +57,7 @@ final class RecordWriteViewController: BaseViewController {
     textView.delegate = self
     textView.font = UIFont(name: "omyu_pretty", size: 16)
     textView.textColor = .azLightGray.withAlphaComponent(0.5)
-    textView.text = "오늘 하루는 어떠셨나요"
+    textView.text = L10n.Record.howWasYourDay
     textView.backgroundColor = .clear
     textView.isScrollEnabled = false
     textView.autocapitalizationType = .none
@@ -375,15 +375,15 @@ private extension RecordWriteViewController {
               year: year, month: month
             ) { }
           } catch {
-            handleError(self.coordinator!, "에러가 발생했어요")
+            handleError(self.coordinator!, L10n.Common.error)
           }
           
           WidgetCenter.shared.reloadAllTimelines()
           LoadingIndicator.hideLoading()
-          handleError(self.coordinator!, "일기를 작성했어요!")
+          handleError(self.coordinator!, L10n.Common.diarySaved)
         }
       } catch {
-        handleError(self.coordinator!, "에러가 발생했어요")
+        handleError(self.coordinator!, L10n.Common.error)
       }
     }
   }
@@ -439,7 +439,7 @@ extension RecordWriteViewController: UITextViewDelegate {
   }
   
   func textViewDidBeginEditing(_ textView: UITextView) {
-    if textView.text == "오늘 하루는 어떠셨나요" {
+    if textView.text == L10n.Record.howWasYourDay {
       guard textView.textColor == .azLightGray.withAlphaComponent(0.5) else { return }
       textView.text = nil
       textView.textColor = .azWhite

@@ -76,7 +76,7 @@ final class CalendarViewController: BaseViewController {
   private let todayButton: UIButton = {
     let button = UIButton(type: .system)
     var config = UIButton.Configuration.filled()
-    config.title = "오늘"
+    config.title = L10n.Calendar.today
     config.baseForegroundColor = .azWhite
     config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
       var outgoing = incoming
@@ -101,7 +101,7 @@ final class CalendarViewController: BaseViewController {
     let label = UILabel()
     label.font = UIFont(name: "omyu_pretty", size: 25)
     label.textColor = .azWhite
-    label.text = DateFormatter.formattedString(Date(), format: "YYYY년 M월")
+    label.text = DateFormatter.localizedYearMonth(Date())
     return label
   }()
   
@@ -315,7 +315,7 @@ final class CalendarViewController: BaseViewController {
             year: year, month: month
           ) { }
         } catch {
-          handleError(self.coordinator!, "에러가 발생했어요")
+          handleError(self.coordinator!, L10n.Common.error)
         }
       }
     }
@@ -459,7 +459,8 @@ extension CalendarViewController {
     prevYearButton.addTarget(self, action: #selector(prevYearTapped), for: .touchUpInside)
     
     let yearLabel = UILabel()
-    yearLabel.text = "\(currentYear)년"
+    let isKorean = Locale.current.language.languageCode?.identifier == "ko"
+    yearLabel.text = isKorean ? "\(currentYear)년" : "\(currentYear)"
     yearLabel.font = UIFont(name: "omyu_pretty", size: 20)
     yearLabel.textColor = .azWhite
     yearLabel.textAlignment = .center
@@ -567,15 +568,17 @@ extension CalendarViewController {
           let yearLabel = squareView.subviews.first(
             where: { $0.tag == 2000 }
           )?.subviews.first(where: { $0.tag == 2002 }) as? UILabel,
-          let monthGridView = squareView.subviews.first(where: { $0.tag == 2004 })
+          let monthGridView = squareView.subviews.first(where: { $0.tag == 2004 }),
+          let currentYearText = yearLabel.text?.components(
+            separatedBy: CharacterSet.decimalDigits.inverted
+          ).joined(),
+          let currentYear = Int(currentYearText)
     else { return }
     
-    let currentYearText = yearLabel.text?.replacingOccurrences(of: "년", with: "") ?? ""
-    if let currentYear = Int(currentYearText) {
-      let newYear = currentYear - 1
-      yearLabel.text = "\(newYear)년"
-      setupMonthGrid(in: monthGridView, for: newYear)
-    }
+    let isKorean = Locale.current.language.languageCode?.identifier == "ko"
+    let newYear = currentYear - 1
+    yearLabel.text = isKorean ? "\(newYear)년" : "\(newYear)"
+    setupMonthGrid(in: monthGridView, for: newYear)
   }
   
   @objc private func nextYearTapped() {
@@ -583,32 +586,33 @@ extension CalendarViewController {
           let yearLabel = squareView.subviews.first(
             where: { $0.tag == 2000 }
           )?.subviews.first(where: { $0.tag == 2002 }) as? UILabel,
-          let monthGridView = squareView.subviews.first(where: { $0.tag == 2004 })
+          let monthGridView = squareView.subviews.first(where: { $0.tag == 2004 }),
+          let currentYearText = yearLabel.text?.components(
+            separatedBy: CharacterSet.decimalDigits.inverted
+          ).joined(),
+          let currentYear = Int(currentYearText)
     else { return }
     
-    let currentYearText = yearLabel.text?.replacingOccurrences(of: "년", with: "") ?? ""
-    if let currentYear = Int(currentYearText) {
-      let newYear = currentYear + 1
-      yearLabel.text = "\(newYear)년"
-      setupMonthGrid(in: monthGridView, for: newYear)
-    }
+    let isKorean = Locale.current.language.languageCode?.identifier == "ko"
+    let newYear = currentYear + 1
+    yearLabel.text = isKorean ? "\(newYear)년" : "\(newYear)"
+    setupMonthGrid(in: monthGridView, for: newYear)
   }
   
   @objc private func monthButtonTapped(_ sender: UIButton) {
     guard let squareView = view.subviews.first(where: { $0.tag == 1001 }),
           let yearLabel = squareView.subviews.first(
             where: { $0.tag == 2000 }
-          )?.subviews.first(where: { $0.tag == 2002 }) as? UILabel else { return }
-    
+          )?.subviews.first(where: { $0.tag == 2002 }) as? UILabel,
+          let yearText = yearLabel.text?.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(),
+          let year = Int(yearText)
+    else { return }
+
     let month = sender.tag - 3000
-    let yearText = yearLabel.text?.replacingOccurrences(of: "년", with: "") ?? ""
-    
-    if let year = Int(yearText) {
-      let dateComponents = DateComponents(year: year, month: month, day: 1)
-      if let targetDate = Calendar.current.date(from: dateComponents) {
-        calendarView.setCurrentPage(targetDate, animated: false)
-        dismissOverlay()
-      }
+    let dateComponents = DateComponents(year: year, month: month, day: 1)
+    if let targetDate = Calendar.current.date(from: dateComponents) {
+      calendarView.setCurrentPage(targetDate, animated: false)
+      dismissOverlay()
     }
   }
 }
@@ -712,9 +716,7 @@ extension CalendarViewController: FSCalendarDelegate,
     viewModel.updateCurrentDate(currentPage)
     
     DispatchQueue.main.async { [weak self] in
-      self?.calendarHeaderView.text = DateFormatter.formattedString(
-        currentPage, format: "YYYY년 M월"
-      )
+      self?.calendarHeaderView.text = DateFormatter.localizedYearMonth(currentPage)
       self?.updateTodayButtonVisibility(for: currentPage)
     }
     
@@ -728,7 +730,7 @@ extension CalendarViewController: FSCalendarDelegate,
             year: year, month: month
           ) { }
         } catch {
-          handleError(self.coordinator!, "에러가 발생했어요")
+          handleError(self.coordinator!, L10n.Common.error)
         }
       }
     }

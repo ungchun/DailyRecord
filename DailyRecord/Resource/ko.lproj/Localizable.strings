@@ -1,0 +1,65 @@
+// Date Format
+"date.year_month" = "%@년 %@월";
+
+// Search
+"search.placeholder" = "일기 검색";
+"search.no_results" = "검색 결과가 없어요";
+
+// Profile
+"profile.icloud_sync" = "iCloud 동기화";
+"profile.dark_mode" = "다크 모드";
+"profile.language" = "언어";
+"profile.rate_app" = "앱 평가하기";
+
+// iCloud
+"icloud.description" = "다온일기는 iCloud에 자동으로 백업/저장 할 수 있어요";
+"icloud.sync_method" = "동기화 방법";
+"icloud.sync_instruction" = "설정 > Apple 계정 > iCloud > 다온일기 토글 on";
+"icloud.storage_warning" = "iCloud 용량이 가득 찬 경우 동기화가 되지 않으니 주의해주세요";
+
+// Dark Mode
+"darkmode.system_setting" = "시스템 설정";
+"darkmode.light_mode" = "라이트 모드";
+"darkmode.dark_mode" = "다크 모드";
+
+// Common Messages
+"common.empty" = "비어있어요";
+"common.error" = "에러가 발생했어요";
+"common.no_diary" = "작성된 일기가 없어요";
+"common.diary_saved" = "일기를 작성했어요!";
+"common.diary_deleted" = "일기를 삭제했어요!";
+
+// Record
+"record.how_was_your_day" = "오늘 하루는 어떠셨나요";
+
+// Widget
+"widget.today_widget" = "투데이 위젯";
+"widget.description" = "위젯으로 일기를 한눈에 파악할 수 있어요!";
+
+// Weekday
+"weekday.monday" = "월";
+"weekday.tuesday" = "화";
+"weekday.wednesday" = "수";
+"weekday.thursday" = "목";
+"weekday.friday" = "금";
+"weekday.saturday" = "토";
+"weekday.sunday" = "일";
+
+// Calendar
+"calendar.today" = "오늘";
+
+// Mood
+"mood.title" = "기분";
+
+// Daily
+"daily.title" = "일상";
+
+// Actions
+"action.edit" = "수정하기";
+"action.delete" = "삭제하기";
+"action.cancel" = "취소";
+"action.confirm_delete" = "삭제";
+
+// Alert
+"alert.delete_diary_title" = "일기 삭제";
+"alert.delete_diary_message" = "정말로 일기를 삭제할까요?";

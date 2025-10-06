@@ -21,7 +21,7 @@ final class SetDarkModeViewController: BaseViewController {
 	
 	private let systemModeLabel: UILabel = {
 		let label = UILabel()
-		label.text = "시스템 설정"
+    label.text = L10n.Darkmode.systemSetting
 		label.font = UIFont(name: "omyu_pretty", size: 16)
 		label.textColor = .azWhite
 		return label
@@ -48,7 +48,7 @@ final class SetDarkModeViewController: BaseViewController {
 	
 	private let lightModeLabel: UILabel = {
 		let label = UILabel()
-		label.text = "라이트 모드"
+    label.text = L10n.Darkmode.lightMode
 		label.font = UIFont(name: "omyu_pretty", size: 16)
 		label.textColor = .azWhite
 		return label
@@ -75,7 +75,7 @@ final class SetDarkModeViewController: BaseViewController {
 	
 	private let darkModeLabel: UILabel = {
 		let label = UILabel()
-		label.text = "다크 모드"
+    label.text = L10n.Darkmode.darkMode
 		label.font = UIFont(name: "omyu_pretty", size: 16)
 		label.textColor = .azWhite
 		return label

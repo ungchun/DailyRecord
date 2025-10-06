@@ -140,8 +140,8 @@ struct Provider: TimelineProvider {
 private extension Provider {
   private func formattedDateString(_ date: Date, format: String) -> String {
     let dateFormatter = DateFormatter()
-    dateFormatter.locale = Locale(identifier: "ko_kr")
-    dateFormatter.timeZone = TimeZone(identifier: "KST")
+    dateFormatter.locale = Locale.current
+    dateFormatter.timeZone = TimeZone.current
     dateFormatter.dateFormat = format
     return dateFormatter.string(from: date)
   }
@@ -291,7 +291,15 @@ private extension WidgetEntryView {
   
   @ViewBuilder
   func systemMediumView() -> some View {
-    let weekdays = ["일", "월", "화", "수", "목", "금", "토"]
+    let weekdays = [
+      L10n.Weekday.sunday,
+      L10n.Weekday.monday,
+      L10n.Weekday.tuesday,
+      L10n.Weekday.wednesday,
+      L10n.Weekday.thursday,
+      L10n.Weekday.friday,
+      L10n.Weekday.saturday
+    ]
     let weekDates = getWeekDates()
     let today = Calendar.current.startOfDay(for: Date())
     
@@ -309,7 +317,7 @@ private extension WidgetEntryView {
           VStack(spacing: 20) {
             Text(day)
               .font(.custom("omyu_pretty", size: 16))
-              .foregroundColor(day == "일" ? .azRed : day == "토" ? .azBlue : .azWhite)
+              .foregroundColor(day == L10n.Weekday.sunday ? .azRed : day == L10n.Weekday.saturday ? .azBlue : .azWhite)
               .lineLimit(1)
             
             ZStack {
@@ -345,10 +353,7 @@ private extension WidgetEntryView {
 
 private extension WidgetEntryView {
   func formatCurrentYearMonth() -> String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.locale = Locale(identifier: "ko_KR")
-    dateFormatter.dateFormat = "yyyy년 M월"
-    return dateFormatter.string(from: entry.date)
+    return DateFormatter.localizedYearMonth(entry.date)
   }
   
   func getWeekDates() -> [(day: String, date: Date)] {
@@ -410,8 +415,8 @@ struct DailyRecordWidget: Widget {
           .background()
       }
     }
-    .configurationDisplayName("투데이 위젯")
-    .description("위젯으로 일기를 한눈에 파악할 수 있어요!")
+    .configurationDisplayName(L10n.Widget.todayWidget)
+    .description(L10n.Widget.description)
     .supportedFamilies([.systemSmall, .systemMedium])
   }
 }

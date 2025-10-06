@@ -18,7 +18,7 @@ final class SetiCloudSyncViewController: BaseViewController {
   
   private let descriptionLabel: UILabel = {
     let label = UILabel()
-    label.text = "다온일기는 iCloud에 자동으로 백업/저장 할 수 있어요"
+    label.text = L10n.Icloud.description
     label.numberOfLines = 0
     label.font = UIFont(name: "omyu_pretty", size: 18)
     label.textColor = .azWhite
@@ -34,7 +34,7 @@ final class SetiCloudSyncViewController: BaseViewController {
   
   private let syncMethodTitleLabel: UILabel = {
     let label = UILabel()
-    label.text = "동기화 방법"
+    label.text = L10n.Icloud.syncMethod
     label.font = UIFont(name: "omyu_pretty", size: 16)
     label.textColor = .azWhite
     return label
@@ -42,7 +42,7 @@ final class SetiCloudSyncViewController: BaseViewController {
   
   private let syncMethodDescriptionLabel: UILabel = {
     let label = UILabel()
-    label.text = "설정 > Apple 계정 > iCloud > 다온일기 토글 on"
+    label.text = L10n.Icloud.syncInstruction
     label.font = UIFont(name: "omyu_pretty", size: 16)
     label.textColor = .azWhite
     label.numberOfLines = 0
@@ -51,7 +51,7 @@ final class SetiCloudSyncViewController: BaseViewController {
   
   private let cautionLabel: UILabel = {
     let label = UILabel()
-    label.text = "iCloud 용량이 가득 찬 경우 동기화가 되지 않으니 주의해주세요"
+    label.text = L10n.Icloud.storageWarning
     label.numberOfLines = 0
     label.font = UIFont(name: "omyu_pretty", size: 14)
     label.textColor = .azWhite

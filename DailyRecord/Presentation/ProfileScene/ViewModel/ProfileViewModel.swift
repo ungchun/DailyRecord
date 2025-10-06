@@ -7,17 +7,33 @@
 
 import Foundation
 
-enum ProfileCellItem: String, CaseIterable {
-  case iCloud = "iCloud 동기화"
-  case darkMode = "다크 모드"
-  case appRating = "앱 평가하기"
-  
+enum ProfileCellItem: CaseIterable {
+  case iCloud
+  case darkMode
+  case language
+  case appRating
+
+  var title: String {
+    switch self {
+    case .iCloud:
+      return L10n.Profile.icloudSync
+    case .darkMode:
+      return L10n.Profile.darkMode
+    case .language:
+      return L10n.Profile.language
+    case .appRating:
+      return L10n.Profile.rateApp
+    }
+  }
+
   var iconName: String {
     switch self {
     case .iCloud:
       return "icloud"
     case .darkMode:
       return "moon"
+    case .language:
+      return "globe"
     case .appRating:
       return "star"
     }
@@ -28,7 +44,7 @@ final class ProfileViewModel: BaseViewModel {
   
   // MARK: - Properties
   
-  let profileCellItems = ProfileCellItem.allCases.map { $0.rawValue }
+  let profileCellItems = ProfileCellItem.allCases
   
   private let profileUseCase: DefaultProfileUseCase
   
