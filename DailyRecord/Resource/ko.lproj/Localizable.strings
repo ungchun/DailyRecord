@@ -33,8 +33,10 @@
 "record.how_was_your_day" = "오늘 하루는 어떠셨나요";
 
 // Widget
-"widget.today_widget" = "투데이 위젯";
-"widget.description" = "위젯으로 일기를 한눈에 파악할 수 있어요!";
+"widget.today_widget" = "오늘";
+"widget.today_description" = "오늘의 감정을 확인하세요.";
+"widget.week_widget" = "일주일";
+"widget.week_description" = "이번 주 감정을 확인하세요.";
 
 // Weekday
 "weekday.monday" = "월";

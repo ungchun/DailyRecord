@@ -33,8 +33,10 @@
 "record.how_was_your_day" = "How was your day today?";
 
 // Widget
-"widget.today_widget" = "Today Widget";
-"widget.description" = "Check your diary at a glance with the widget!";
+"widget.today_widget" = "TODAY";
+"widget.today_description" = "Check today's emotions";
+"widget.week_widget" = "WEEK";
+"widget.week_description" = "Check this week's emotions";
 
 // Weekday
 "weekday.monday" = "Mon";

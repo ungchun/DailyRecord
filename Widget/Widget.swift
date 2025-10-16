@@ -401,8 +401,9 @@ private extension WidgetEntryView {
 
 // MARK: - Widget
 
-struct DailyRecordWidget: Widget {
-  let kind: String = "Widget"
+// 투데이 위젯 (작은 크기)
+struct TodayWidget: Widget {
+  let kind: String = "TodayWidget"
   
   var body: some WidgetConfiguration {
     StaticConfiguration(kind: kind, provider: Provider()) { entry in
@@ -416,7 +417,28 @@ struct DailyRecordWidget: Widget {
       }
     }
     .configurationDisplayName(L10n.Widget.todayWidget)
-    .description(L10n.Widget.description)
-    .supportedFamilies([.systemSmall, .systemMedium])
+    .description(L10n.Widget.todayDescription)
+    .supportedFamilies([.systemSmall])
+  }
+}
+
+// 1주일 위젯 (중간 크기)
+struct WeekWidget: Widget {
+  let kind: String = "WeekWidget"
+  
+  var body: some WidgetConfiguration {
+    StaticConfiguration(kind: kind, provider: Provider()) { entry in
+      if #available(iOS 17.0, *) {
+        WidgetEntryView(entry: entry)
+          .containerBackground(.fill.tertiary, for: .widget)
+      } else {
+        WidgetEntryView(entry: entry)
+          .padding()
+          .background()
+      }
+    }
+    .configurationDisplayName(L10n.Widget.weekWidget)
+    .description(L10n.Widget.weekDescription)
+    .supportedFamilies([.systemMedium])
   }
 }

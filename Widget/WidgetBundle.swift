@@ -11,10 +11,11 @@ import SwiftUI
 @main
 struct DailyRecordWidgetBundle: WidgetBundle {
   init() {
-    
+
   }
-  
+
   var body: some Widget {
-    DailyRecordWidget()
+    TodayWidget()
+    WeekWidget()
   }
 }

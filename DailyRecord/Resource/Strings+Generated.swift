@@ -10,6 +10,10 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
+  internal enum InfoPlist {
+    /// Daon
+    internal static let cfBundleDisplayName = L10n.tr("InfoPlist", "CFBundleDisplayName", fallback: "Daon")
+  }
   internal enum Action {
     /// Cancel
     internal static let cancel = L10n.tr("Localizable", "action.cancel", fallback: "Cancel")
@@ -111,10 +115,14 @@ internal enum L10n {
     internal static let wednesday = L10n.tr("Localizable", "weekday.wednesday", fallback: "Wed")
   }
   internal enum Widget {
-    /// Check your diary at a glance with the widget!
-    internal static let description = L10n.tr("Localizable", "widget.description", fallback: "Check your diary at a glance with the widget!")
-    /// Today Widget
-    internal static let todayWidget = L10n.tr("Localizable", "widget.today_widget", fallback: "Today Widget")
+    /// Check today's emotions
+    internal static let todayDescription = L10n.tr("Localizable", "widget.today_description", fallback: "Check today's emotions")
+    /// TODAY
+    internal static let todayWidget = L10n.tr("Localizable", "widget.today_widget", fallback: "TODAY")
+    /// Check this week's emotions
+    internal static let weekDescription = L10n.tr("Localizable", "widget.week_description", fallback: "Check this week's emotions")
+    /// WEEK
+    internal static let weekWidget = L10n.tr("Localizable", "widget.week_widget", fallback: "WEEK")
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
