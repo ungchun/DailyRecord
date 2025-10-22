@@ -24,7 +24,7 @@
 "darkmode.dark_mode" = "Dark Mode";
 
 // Screen Lock
-"screenLock.description" = "Password cannot be recovered if forgotten. Biometric authentication takes priority when both are enabled.";
+"screenLock.description" = "Password cannot be recovered if forgotten.";
 "screenLock.password" = "Password";
 "screenLock.changePassword" = "Change Password";
 "screenLock.biometric" = "Biometric Authentication";
