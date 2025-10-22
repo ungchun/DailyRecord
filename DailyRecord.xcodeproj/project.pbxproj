@@ -27,6 +27,8 @@
 		651206622E93E43B0048D52B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6512065F2E93E43B0048D52B /* Localizable.strings */; };
 		651206652E93E4440048D52B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 651206632E93E4440048D52B /* InfoPlist.strings */; };
 		651206662E93E4440048D52B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 651206632E93E4440048D52B /* InfoPlist.strings */; };
+		6512066A2EA4AE030048D52B /* SetScreenLockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651206692EA4AE030048D52B /* SetScreenLockViewController.swift */; };
+		6512066C2EA4B4A40048D52B /* PasswordInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6512066B2EA4B4A40048D52B /* PasswordInputViewController.swift */; };
 		651A9F252C9EC03C00B9B1FE /* omyu_pretty.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 659946992C4961840030598B /* omyu_pretty.ttf */; };
 		651A9F682C9EE96800B9B1FE /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 651A9F672C9EE96800B9B1FE /* FirebaseAuth */; };
 		651A9F6A2C9EE96800B9B1FE /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 651A9F692C9EE96800B9B1FE /* FirebaseFirestore */; };
@@ -177,6 +179,8 @@
 		651206642E93E4440048D52B /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		651206672E93E44D0048D52B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		651206682E93E4560048D52B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		651206692EA4AE030048D52B /* SetScreenLockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetScreenLockViewController.swift; sourceTree = "<group>"; };
+		6512066B2EA4B4A40048D52B /* PasswordInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordInputViewController.swift; sourceTree = "<group>"; };
 		651A9F2A2C9ECFBC00B9B1FE /* WidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetExtension.entitlements; sourceTree = "<group>"; };
 		655BE3362CAC07B40006BC34 /* ShortcutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutManager.swift; sourceTree = "<group>"; };
 		655BE3C92CC4BFE80006BC34 /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
@@ -410,7 +414,9 @@
 			isa = PBXGroup;
 			children = (
 				657DB90F2C5BB600008DD96E /* ProfileViewController.swift */,
+				651206692EA4AE030048D52B /* SetScreenLockViewController.swift */,
 				6508A2222C79D021005AB6DC /* SetDarkModeViewController.swift */,
+				6512066B2EA4B4A40048D52B /* PasswordInputViewController.swift */,
 				65600E742CA81A8E0093D20B /* SetiCloudSyncViewController.swift */,
 			);
 			path = ViewController;
@@ -986,9 +992,11 @@
 				65A41B072CFB4C81005EBFDD /* DateFormatter+.swift in Sources */,
 				65CF61C62C243EDD003E6D75 /* BaseView.swift in Sources */,
 				659946792C3A69400030598B /* ProfileRepository.swift in Sources */,
+				6512066A2EA4AE030048D52B /* SetScreenLockViewController.swift in Sources */,
 				655BE3D02CC4C5890006BC34 /* ChartDIContainer.swift in Sources */,
 				659946922C424C660030598B /* Date+.swift in Sources */,
 				65600E6A2CA5715F0093D20B /* CoreData.xcdatamodeld in Sources */,
+				6512066C2EA4B4A40048D52B /* PasswordInputViewController.swift in Sources */,
 				65CF61A02C158B77003E6D75 /* BaseViewModel.swift in Sources */,
 				65CF61892C0C6092003E6D75 /* CalendarViewModel.swift in Sources */,
 				659946802C3A8B1D0030598B /* DefaultRecordRepository.swift in Sources */,
