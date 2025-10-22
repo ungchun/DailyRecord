@@ -53,4 +53,8 @@ extension ProfileDIContainer {
   func makeSetDarkModeViewController() -> SetDarkModeViewController {
     return SetDarkModeViewController()
   }
+  
+  func makeSetScreenLockViewController() -> SetScreenLockViewController {
+    return SetScreenLockViewController()
+  }
 }

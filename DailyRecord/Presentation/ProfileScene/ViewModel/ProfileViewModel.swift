@@ -8,13 +8,16 @@
 import Foundation
 
 enum ProfileCellItem: CaseIterable {
+  case screenLock
   case iCloud
   case darkMode
   case language
   case appRating
-
+  
   var title: String {
     switch self {
+    case .screenLock:
+      return L10n.Profile.screenLock
     case .iCloud:
       return L10n.Profile.icloudSync
     case .darkMode:
@@ -25,9 +28,11 @@ enum ProfileCellItem: CaseIterable {
       return L10n.Profile.rateApp
     }
   }
-
+  
   var iconName: String {
     switch self {
+    case .screenLock:
+      return "lock"
     case .iCloud:
       return "icloud"
     case .darkMode:

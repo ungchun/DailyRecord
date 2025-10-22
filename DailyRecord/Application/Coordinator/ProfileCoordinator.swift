@@ -49,6 +49,15 @@ extension ProfileCoordinator {
     )
   }
   
+  func showSetScreenLock() {
+    let setScreenLockViewController = DIContainer.makeSetScreenLockViewController()
+    setScreenLockViewController.coordinator = self
+    self.navigationController.pushViewController(
+      setScreenLockViewController,
+      animated: true
+    )
+  }
+  
   func popToRoot() {
     self.navigationController.popToRootViewController(animated: true)
   }

@@ -39,6 +39,7 @@ final class ProfileViewController: BaseViewController {
     return view
   }()
   
+  private lazy var screenLockButton: UIButton = self.createButton(for: .screenLock)
   private lazy var iCloudButton: UIButton = self.createButton(for: .iCloud)
   private lazy var darkModeButton: UIButton = self.createButton(for: .darkMode)
   private lazy var languageButton: UIButton = self.createButton(for: .language)
@@ -70,7 +71,12 @@ final class ProfileViewController: BaseViewController {
   override func addView() {
     view.addSubview(stackView)
     
-    [iCloudButton, darkModeButton, languageButton, divider, appRatingButton].forEach {
+    [screenLockButton,
+     iCloudButton,
+     darkModeButton,
+     languageButton,
+     divider,
+     appRatingButton].forEach {
       stackView.addArrangedSubview($0)
     }
   }
@@ -122,7 +128,9 @@ final class ProfileViewController: BaseViewController {
   }
   
   @objc private func buttonTapped(_ sender: UIButton) {
-    if sender == iCloudButton {
+    if sender == screenLockButton {
+      screenLockTrigger()
+    } else if sender == iCloudButton {
       iCloudTrigger()
     } else if sender == darkModeButton {
       darkModeTrigger()
@@ -135,6 +143,10 @@ final class ProfileViewController: BaseViewController {
 }
 
 extension ProfileViewController {
+  private func screenLockTrigger() {
+    coordinator?.showSetScreenLock()
+  }
+  
   private func iCloudTrigger() {
     coordinator?.showSetiCloud()
   }
@@ -142,13 +154,13 @@ extension ProfileViewController {
   private func darkModeTrigger() {
     coordinator?.showSetDarkmode()
   }
-
+  
   private func languageTrigger() {
     if let url = URL(string: UIApplication.openSettingsURLString) {
       UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
   }
-
+  
   private func openAppStore() {
     let urlStr = "https://itunes.apple.com/app/id\(appStoreID)?action=write-review"
     if let url = URL(string: urlStr), UIApplication.shared.canOpenURL(url) {
