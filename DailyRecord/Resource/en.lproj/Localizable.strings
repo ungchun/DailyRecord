@@ -88,3 +88,8 @@
 // Alert
 "alert.delete_diary_title" = "Delete Diary";
 "alert.delete_diary_message" = "Are you sure you want to delete this diary?";
+
+// Update
+"update.title" = "Update Available";
+"update.message" = "Please update for a better experience!";
+"update.action" = "Update";

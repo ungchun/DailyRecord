@@ -13,6 +13,8 @@ internal enum L10n {
   internal enum InfoPlist {
     /// Daon
     internal static let cfBundleDisplayName = L10n.tr("InfoPlist", "CFBundleDisplayName", fallback: "Daon")
+    /// Biometric authentication is used for app security
+    internal static let nsFaceIDUsageDescription = L10n.tr("InfoPlist", "NSFaceIDUsageDescription", fallback: "Biometric authentication is used for app security")
   }
   internal enum Action {
     /// Cancel
@@ -141,6 +143,14 @@ internal enum L10n {
     internal static let noResults = L10n.tr("Localizable", "search.no_results", fallback: "No results found")
     /// Search diary
     internal static let placeholder = L10n.tr("Localizable", "search.placeholder", fallback: "Search diary")
+  }
+  internal enum Update {
+    /// Update
+    internal static let action = L10n.tr("Localizable", "update.action", fallback: "Update")
+    /// Please update for a better experience!
+    internal static let message = L10n.tr("Localizable", "update.message", fallback: "Please update for a better experience!")
+    /// Update Available
+    internal static let title = L10n.tr("Localizable", "update.title", fallback: "Update Available")
   }
   internal enum Weekday {
     /// Fri

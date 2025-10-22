@@ -88,3 +88,8 @@
 // Alert
 "alert.delete_diary_title" = "일기 삭제";
 "alert.delete_diary_message" = "정말로 일기를 삭제할까요?";
+
+// Update
+"update.title" = "업데이트 알림";
+"update.message" = "더 나은 서비스를 위해 업데이트 해주세요!";
+"update.action" = "업데이트";
