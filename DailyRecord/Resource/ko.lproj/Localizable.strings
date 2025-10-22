@@ -6,6 +6,7 @@
 "search.no_results" = "검색 결과가 없어요";
 
 // Profile
+"profile.screenLock" = "화면 잠금";
 "profile.icloud_sync" = "iCloud 동기화";
 "profile.dark_mode" = "다크 모드";
 "profile.language" = "언어";
@@ -22,12 +23,34 @@
 "darkmode.light_mode" = "라이트 모드";
 "darkmode.dark_mode" = "다크 모드";
 
+// Screen Lock
+"screenLock.description" = "비밀번호를 잊어버리면 찾을 수 없습니다.";
+"screenLock.password" = "비밀번호";
+"screenLock.changePassword" = "비밀번호 변경";
+"screenLock.biometric" = "생체인증";
+"screenLock.setPassword" = "비밀번호 설정";
+"screenLock.enterPassword" = "비밀번호를 입력해주세요";
+"screenLock.enterPasswordAgain" = "비밀번호를 한 번 더 입력해주세요";
+"screenLock.confirmPassword" = "비밀번호 확인";
+"screenLock.passwordEmpty" = "비밀번호를 입력해주세요";
+"screenLock.passwordMismatch" = "비밀번호가 일치하지 않습니다";
+"screenLock.passwordSaveFailed" = "비밀번호 저장에 실패했습니다";
+"screenLock.enterNewPassword" = "새 비밀번호를 입력해주세요";
+"screenLock.currentPassword" = "현재 비밀번호";
+"screenLock.newPassword" = "새 비밀번호";
+"screenLock.currentPasswordIncorrect" = "현재 비밀번호가 올바르지 않습니다";
+"screenLock.passwordChangeSuccess" = "비밀번호가 변경되었습니다";
+"screenLock.passwordChangeFailed" = "비밀번호 변경에 실패했습니다";
+"screenLock.passwordDeleteFailed" = "비밀번호 삭제에 실패했습니다";
+
 // Common Messages
 "common.empty" = "비어있어요";
 "common.error" = "에러가 발생했어요";
 "common.no_diary" = "작성된 일기가 없어요";
 "common.diary_saved" = "일기를 작성했어요!";
 "common.diary_deleted" = "일기를 삭제했어요!";
+"common.confirm" = "확인";
+"common.cancel" = "취소";
 
 // Record
 "record.how_was_your_day" = "오늘 하루는 어떠셨나요";

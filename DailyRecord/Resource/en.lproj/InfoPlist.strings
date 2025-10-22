@@ -1,1 +1,2 @@
 "CFBundleDisplayName" = "Daon";
+"NSFaceIDUsageDescription" = "Biometric authentication is used for app security";

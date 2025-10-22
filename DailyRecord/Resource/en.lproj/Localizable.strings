@@ -6,6 +6,7 @@
 "search.no_results" = "No results found";
 
 // Profile
+"profile.screenLock" = "Screen Lock";
 "profile.icloud_sync" = "iCloud Sync";
 "profile.dark_mode" = "Dark Mode";
 "profile.language" = "Language";
@@ -22,12 +23,34 @@
 "darkmode.light_mode" = "Light Mode";
 "darkmode.dark_mode" = "Dark Mode";
 
+// Screen Lock
+"screenLock.description" = "Password cannot be recovered if forgotten. Biometric authentication takes priority when both are enabled.";
+"screenLock.password" = "Password";
+"screenLock.changePassword" = "Change Password";
+"screenLock.biometric" = "Biometric Authentication";
+"screenLock.setPassword" = "Set Password";
+"screenLock.enterPassword" = "Enter password";
+"screenLock.enterPasswordAgain" = "Enter password again";
+"screenLock.confirmPassword" = "Confirm password";
+"screenLock.passwordEmpty" = "Please enter a password";
+"screenLock.passwordMismatch" = "Passwords do not match";
+"screenLock.passwordSaveFailed" = "Failed to save password";
+"screenLock.enterNewPassword" = "Enter new password";
+"screenLock.currentPassword" = "Current password";
+"screenLock.newPassword" = "New password";
+"screenLock.currentPasswordIncorrect" = "Current password is incorrect";
+"screenLock.passwordChangeSuccess" = "Password changed successfully";
+"screenLock.passwordChangeFailed" = "Failed to change password";
+"screenLock.passwordDeleteFailed" = "Failed to delete password";
+
 // Common Messages
 "common.empty" = "Empty";
 "common.error" = "An error occurred";
 "common.no_diary" = "No diary entries";
 "common.diary_saved" = "Diary saved!";
 "common.diary_deleted" = "Diary deleted!";
+"common.confirm" = "Confirm";
+"common.cancel" = "Cancel";
 
 // Record
 "record.how_was_your_day" = "How was your day today?";

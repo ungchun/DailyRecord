@@ -35,6 +35,10 @@ internal enum L10n {
     internal static let today = L10n.tr("Localizable", "calendar.today", fallback: "Today")
   }
   internal enum Common {
+    /// Cancel
+    internal static let cancel = L10n.tr("Localizable", "common.cancel", fallback: "Cancel")
+    /// Confirm
+    internal static let confirm = L10n.tr("Localizable", "common.confirm", fallback: "Confirm")
     /// Diary deleted!
     internal static let diaryDeleted = L10n.tr("Localizable", "common.diary_deleted", fallback: "Diary deleted!")
     /// Diary saved!
@@ -87,10 +91,50 @@ internal enum L10n {
     internal static let language = L10n.tr("Localizable", "profile.language", fallback: "Language")
     /// Rate App
     internal static let rateApp = L10n.tr("Localizable", "profile.rate_app", fallback: "Rate App")
+    /// Screen Lock
+    internal static let screenLock = L10n.tr("Localizable", "profile.screenLock", fallback: "Screen Lock")
   }
   internal enum Record {
     /// How was your day today?
     internal static let howWasYourDay = L10n.tr("Localizable", "record.how_was_your_day", fallback: "How was your day today?")
+  }
+  internal enum ScreenLock {
+    /// Biometric Authentication
+    internal static let biometric = L10n.tr("Localizable", "screenLock.biometric", fallback: "Biometric Authentication")
+    /// Change Password
+    internal static let changePassword = L10n.tr("Localizable", "screenLock.changePassword", fallback: "Change Password")
+    /// Confirm password
+    internal static let confirmPassword = L10n.tr("Localizable", "screenLock.confirmPassword", fallback: "Confirm password")
+    /// Current password
+    internal static let currentPassword = L10n.tr("Localizable", "screenLock.currentPassword", fallback: "Current password")
+    /// Current password is incorrect
+    internal static let currentPasswordIncorrect = L10n.tr("Localizable", "screenLock.currentPasswordIncorrect", fallback: "Current password is incorrect")
+    /// Password cannot be recovered if forgotten. Biometric authentication takes priority when both are enabled.
+    internal static let description = L10n.tr("Localizable", "screenLock.description", fallback: "Password cannot be recovered if forgotten. Biometric authentication takes priority when both are enabled.")
+    /// Enter new password
+    internal static let enterNewPassword = L10n.tr("Localizable", "screenLock.enterNewPassword", fallback: "Enter new password")
+    /// Enter password
+    internal static let enterPassword = L10n.tr("Localizable", "screenLock.enterPassword", fallback: "Enter password")
+    /// Enter password again
+    internal static let enterPasswordAgain = L10n.tr("Localizable", "screenLock.enterPasswordAgain", fallback: "Enter password again")
+    /// New password
+    internal static let newPassword = L10n.tr("Localizable", "screenLock.newPassword", fallback: "New password")
+    /// Password
+    internal static let password = L10n.tr("Localizable", "screenLock.password", fallback: "Password")
+    /// Failed to change password
+    internal static let passwordChangeFailed = L10n.tr("Localizable", "screenLock.passwordChangeFailed", fallback: "Failed to change password")
+    /// Password changed successfully
+    internal static let passwordChangeSuccess = L10n.tr("Localizable", "screenLock.passwordChangeSuccess", fallback: "Password changed successfully")
+    /// Failed to delete password
+    internal static let passwordDeleteFailed = L10n.tr("Localizable", "screenLock.passwordDeleteFailed", fallback: "Failed to delete password")
+    /// Please enter a password
+    internal static let passwordEmpty = L10n.tr("Localizable", "screenLock.passwordEmpty", fallback: "Please enter a password")
+    /// Passwords do not match
+    internal static let passwordMismatch = L10n.tr("Localizable", "screenLock.passwordMismatch", fallback: "Passwords do not match")
+    /// Failed to save password
+    internal static let passwordSaveFailed = L10n.tr("Localizable", "screenLock.passwordSaveFailed", fallback: "Failed to save password")
+    /// Set Password
+    internal static let setPassword = L10n.tr("Localizable", "screenLock.setPassword", fallback: "Set Password")
   }
   internal enum Search {
     /// No results found
