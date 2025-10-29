@@ -85,6 +85,8 @@ internal enum L10n {
     internal static let title = L10n.tr("Localizable", "mood.title", fallback: "Mood")
   }
   internal enum Profile {
+    /// Contact
+    internal static let contact = L10n.tr("Localizable", "profile.contact", fallback: "Contact")
     /// Dark Mode
     internal static let darkMode = L10n.tr("Localizable", "profile.dark_mode", fallback: "Dark Mode")
     /// iCloud Sync

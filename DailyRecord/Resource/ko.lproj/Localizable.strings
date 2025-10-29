@@ -11,6 +11,7 @@
 "profile.dark_mode" = "다크 모드";
 "profile.language" = "언어";
 "profile.rate_app" = "앱 평가하기";
+"profile.contact" = "문의하기";
 
 // iCloud
 "icloud.description" = "다온일기는 iCloud에 자동으로 백업/저장 할 수 있어요";

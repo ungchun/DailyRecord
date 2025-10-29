@@ -11,6 +11,7 @@
 "profile.dark_mode" = "Dark Mode";
 "profile.language" = "Language";
 "profile.rate_app" = "Rate App";
+"profile.contact" = "Contact";
 
 // iCloud
 "icloud.description" = "Daon can automatically backup/save to iCloud";
