@@ -13,6 +13,7 @@ enum ProfileCellItem: CaseIterable {
   case darkMode
   case language
   case appRating
+  case contact
   
   var title: String {
     switch self {
@@ -26,6 +27,8 @@ enum ProfileCellItem: CaseIterable {
       return L10n.Profile.language
     case .appRating:
       return L10n.Profile.rateApp
+    case .contact:
+      return L10n.Profile.contact
     }
   }
   
@@ -41,6 +44,8 @@ enum ProfileCellItem: CaseIterable {
       return "globe"
     case .appRating:
       return "star"
+    case .contact:
+      return "envelope"
     }
   }
 }

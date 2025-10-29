@@ -44,6 +44,7 @@ final class ProfileViewController: BaseViewController {
   private lazy var darkModeButton: UIButton = self.createButton(for: .darkMode)
   private lazy var languageButton: UIButton = self.createButton(for: .language)
   private lazy var appRatingButton: UIButton = self.createButton(for: .appRating)
+  private lazy var contactButton: UIButton = self.createButton(for: .contact)
   
   // MARK: - Init
   
@@ -76,7 +77,8 @@ final class ProfileViewController: BaseViewController {
      darkModeButton,
      languageButton,
      divider,
-     appRatingButton].forEach {
+     appRatingButton,
+     contactButton].forEach {
       stackView.addArrangedSubview($0)
     }
   }
@@ -138,6 +140,8 @@ final class ProfileViewController: BaseViewController {
       languageTrigger()
     } else if sender == appRatingButton {
       openAppStore()
+    } else if sender == contactButton {
+      openEmail()
     }
   }
 }
@@ -164,6 +168,13 @@ extension ProfileViewController {
   private func openAppStore() {
     let urlStr = "https://itunes.apple.com/app/id\(appStoreID)?action=write-review"
     if let url = URL(string: urlStr), UIApplication.shared.canOpenURL(url) {
+      UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+  }
+  
+  private func openEmail() {
+    let email = "leedool3003@gmail.com"
+    if let url = URL(string: "mailto:\(email)"), UIApplication.shared.canOpenURL(url) {
       UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
   }
