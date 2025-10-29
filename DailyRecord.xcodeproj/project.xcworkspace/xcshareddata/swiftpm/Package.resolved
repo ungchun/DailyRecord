@@ -1,4 +1,5 @@
 {
+  "originHash" : "f1615e48d23dc5bb3fa6501fe0ac4228ffbde51aabee817483a97b1c73362343",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -10,12 +11,84 @@
       }
     },
     {
+      "identity" : "amplitude-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/amplitude/Amplitude-iOS.git",
+      "state" : {
+        "revision" : "7ec0f8971b68c1cb859028655fbff1bcde8170dd",
+        "version" : "8.22.2"
+      }
+    },
+    {
+      "identity" : "amplitude-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/amplitude/Amplitude-Swift.git",
+      "state" : {
+        "revision" : "bdd85a6e623c2852f8b3af154f424d550838db53",
+        "version" : "1.15.2"
+      }
+    },
+    {
+      "identity" : "amplitudecore-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/amplitude/AmplitudeCore-Swift.git",
+      "state" : {
+        "revision" : "dda4458213f3c83520bd730d2eaacca7e532f572",
+        "version" : "1.2.3"
+      }
+    },
+    {
+      "identity" : "amplitudesessionreplay-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/amplitude/AmplitudeSessionReplay-iOS.git",
+      "state" : {
+        "revision" : "aed3ce5781a79e1d6e95120922db5043d9c795d1",
+        "version" : "0.8.2"
+      }
+    },
+    {
+      "identity" : "amplitudeunified-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/amplitude/AmplitudeUnified-Swift",
+      "state" : {
+        "branch" : "main",
+        "revision" : "4425f43e13e4f115ace775a3e04b1ebaded057ff"
+      }
+    },
+    {
+      "identity" : "analytics-connector-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/amplitude/analytics-connector-ios.git",
+      "state" : {
+        "revision" : "4adbfe85486e6dcdcdca5fa9362097ffe5ec712b",
+        "version" : "1.3.1"
+      }
+    },
+    {
+      "identity" : "analytics-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/segmentio/analytics-swift",
+      "state" : {
+        "revision" : "f604cef21bb7269f76136c68bd664c6c993f8e28",
+        "version" : "1.9.1"
+      }
+    },
+    {
       "identity" : "app-check",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/app-check.git",
       "state" : {
         "revision" : "076b241a625e25eac22f8849be256dfb960fcdfe",
         "version" : "10.19.1"
+      }
+    },
+    {
+      "identity" : "experiment-ios-client",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/amplitude/experiment-ios-client.git",
+      "state" : {
+        "revision" : "2b4a303d02d67755e511eef79a54439b1d483216",
+        "version" : "1.18.3"
       }
     },
     {
@@ -91,6 +164,15 @@
       }
     },
     {
+      "identity" : "jsonsafeencoding-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/segmentio/jsonsafeencoding-swift.git",
+      "state" : {
+        "revision" : "af6a8b360984085e36c6341b21ecb35c12f47ebd",
+        "version" : "2.0.0"
+      }
+    },
+    {
       "identity" : "leveldb",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/leveldb.git",
@@ -127,6 +209,15 @@
       }
     },
     {
+      "identity" : "sovran-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/segmentio/sovran-swift.git",
+      "state" : {
+        "revision" : "24867f3e4ac62027db9827112135e6531b6f4051",
+        "version" : "1.1.2"
+      }
+    },
+    {
       "identity" : "swift-protobuf",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-protobuf.git",
@@ -136,5 +227,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

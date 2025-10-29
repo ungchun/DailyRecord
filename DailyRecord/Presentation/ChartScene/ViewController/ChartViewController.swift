@@ -95,6 +95,8 @@ final class ChartViewController: BaseViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    Amp.track(event: "screen_view", properties: ["screen_name": "chart"])
   }
   
   // MARK: - Functions
@@ -157,7 +159,7 @@ private extension ChartViewController {
   
   func updateMonthLabel() {
     monthLabel.text = DateFormatter.localizedYearMonth(viewModel.currentDate)
-
+    
     updateButtonState()
     
     if let year = Int(
@@ -312,6 +314,8 @@ private extension ChartViewController {
 
 private extension ChartViewController {
   @objc func previousMonth() {
+    Amp.track(event: "button_click", properties: ["button_name": "chart_previous_month"])
+    
     viewModel.updateCurrentDate(
       Calendar.current.date(
         byAdding: .month, value: -1, to: viewModel.currentDate
@@ -331,6 +335,8 @@ private extension ChartViewController {
     ), nextDate <= Date() else {
       return
     }
+    
+    Amp.track(event: "button_click", properties: ["button_name": "chart_next_month"])
     
     viewModel.updateCurrentDate(nextDate)
     

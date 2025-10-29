@@ -90,6 +90,9 @@ final class RecordWriteViewController: BaseViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    let screenName = viewModel.selectData.createTime != 0 ? "record_edit" : "record_write"
+    Amp.track(event: "screen_view", properties: ["screen_name": screenName])
   }
   
   override func viewWillDisappear(_ animated: Bool) {
@@ -328,6 +331,8 @@ private extension RecordWriteViewController {
 
 private extension RecordWriteViewController {
   @objc func showBottomSheetTrigger() {
+    Amp.track(event: "button_click", properties: ["button_name": "emotion_select"])
+    
     let bottomSheetVC = EmotionalBottomSheetViewController()
     bottomSheetVC.delegate = self
     
@@ -340,6 +345,8 @@ private extension RecordWriteViewController {
   }
   
   @objc func galleryTrigger() {
+    Amp.track(event: "button_click", properties: ["button_name": "gallery"])
+    
     var configuration = PHPickerConfiguration(photoLibrary: .shared())
     configuration.filter = .images
     configuration.selectionLimit = 5
@@ -356,12 +363,23 @@ private extension RecordWriteViewController {
     view.endEditing(true)
     LoadingIndicator.showLoading()
     
+    let isUpdate = viewModel.selectData.createTime != 0
+    let imageCount = attachedImageCollectionView.images.count
+    let hasEmotion = viewModel.emotionType != .none
+    
     viewModel.updateImageList(attachedImageCollectionView.images)
     
     Task { [weak self] in
       guard let self else { return }
       do {
         try await self.viewModel.createRecordTirgger()
+        
+        Amp.track(event: "record_save", properties: [
+          "is_update": isUpdate,
+          "image_count": imageCount,
+          "has_emotion": hasEmotion,
+          "content_length": self.viewModel.content.count
+        ])
         
         let calendarDate = self.viewModel.selectData.calendarDate
         let date = Date(timeIntervalSince1970: TimeInterval(calendarDate) / 1000)
@@ -383,6 +401,10 @@ private extension RecordWriteViewController {
           handleError(self.coordinator!, L10n.Common.diarySaved)
         }
       } catch {
+        Amp.track(event: "record_save_fail", properties: [
+          "is_update": isUpdate,
+          "error": error.localizedDescription
+        ])
         handleError(self.coordinator!, L10n.Common.error)
       }
     }
@@ -409,6 +431,8 @@ extension RecordWriteViewController: AttachedImageCollectionViewDelegate {
 
 extension RecordWriteViewController: EmotionalBottomSheetViewViewDelegate {
   func emotionalImageTapTrigger(selectEmotionType: EmotionType) {
+    Amp.track(event: "emotion_selected", properties: ["emotion_type": selectEmotionType.rawValue])
+    
     if let image = UIImage(named: selectEmotionType.rawValue) {
       viewModel.updateEmotionType(selectEmotionType)
       
@@ -495,6 +519,8 @@ extension RecordWriteViewController: PHPickerViewControllerDelegate {
       }
       
       if results.count == selectedImages.count {
+        Amp.track(event: "images_attached", properties: ["image_count": selectedImages.count])
+        
         DispatchQueue.main.async { [weak self] in
           self?.attachedImageCollectionView.setImages(selectedImages)
           self?.attachedImageCollectionView.snp.updateConstraints { make in

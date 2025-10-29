@@ -91,6 +91,8 @@ final class SearchViewController: BaseViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    Amp.track(event: "screen_view", properties: ["screen_name": "search"])
   }
   
   override func viewDidAppear(_ animated: Bool) {
@@ -181,6 +183,10 @@ extension SearchViewController: UISearchBarDelegate {
     let workItem = DispatchWorkItem { [weak self] in
       guard let self = self else { return }
       self.viewModel.search(query: searchText)
+      Amp.track(event: "search_execute", properties: [
+        "query": searchText,
+        "result_count": self.viewModel.searchResults.count
+      ])
       DispatchQueue.main.async {
         self.updateSearchResults()
       }
@@ -206,6 +212,11 @@ extension SearchViewController: UISearchBarDelegate {
 
 extension SearchViewController: SearchRecordItemViewDelegate {
   func didTapRecord(_ record: RecordEntity) {
+    Amp.track(event: "search_result_click", properties: [
+      "has_emotion": !record.emotionType.isEmpty,
+      "has_images": !record.imageList.isEmpty
+    ])
+    
     coordinator?.showRecord(
       calendarViewModel: calendarViewModel,
       selectData: record

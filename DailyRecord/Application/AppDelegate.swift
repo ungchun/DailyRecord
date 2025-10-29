@@ -7,6 +7,7 @@
 
 import UIKit
 
+import AmplitudeSwift
 import Firebase
 import FirebaseAnalytics
 
@@ -17,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
 	) -> Bool {
 		FirebaseApp.configure()
+		Amp.configure(apiKey: "a94605679e0892a6387c7a7657c4a1c4")
 		return true
 	}
 	

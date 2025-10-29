@@ -170,6 +170,8 @@ final class CalendarViewController: BaseViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     navigationController?.isNavigationBarHidden = true
+    
+    Amp.track(event: "screen_view", properties: ["screen_name": "calendar"])
   }
   
   override func viewWillDisappear(_ animated: Bool) {
@@ -333,14 +335,18 @@ extension CalendarViewController {
   }
   
   @objc private func showSearchTrigger() {
+    Amp.track(event: "button_click", properties: ["button_name": "search"])
     coordinator?.showSearch(calendarViewModel: viewModel)
   }
   
   @objc private func showProfileTrigger() {
+    Amp.track(event: "button_click", properties: ["button_name": "profile"])
     coordinator?.showProfile(calendarViewModel: viewModel)
   }
   
   @objc private func todayWriteTrigger() {
+    Amp.track(event: "button_click", properties: ["button_name": "today_write"])
+    
     let nowDate = Calendar.current.startOfDay(for: Date())
     let day = Calendar.current.component(.weekday, from: nowDate) - 1
     if Calendar.current.shortWeekdaySymbols[day] == "일" {
@@ -365,10 +371,12 @@ extension CalendarViewController {
   }
   
   @objc private func showChartTrigger() {
+    Amp.track(event: "button_click", properties: ["button_name": "chart"])
     coordinator?.showChart(currentDate: viewModel.currentDate)
   }
   
   @objc private func showDrawerTrigger() {
+    Amp.track(event: "button_click", properties: ["button_name": "drawer"])
     coordinator?.showDrawer(
       calendarViewModel: viewModel,
       currentDate: viewModel.currentDate
@@ -376,6 +384,8 @@ extension CalendarViewController {
   }
   
   @objc private func todayButtonTapped() {
+    Amp.track(event: "button_click", properties: ["button_name": "today"])
+    
     let today = Date()
     calendarView.setCurrentPage(today, animated: false)
   }
@@ -395,6 +405,8 @@ extension CalendarViewController {
   }
   
   @objc private func headerTapped() {
+    Amp.track(event: "month_picker_open")
+    
     let overlayView = UIView()
     overlayView.backgroundColor = .black.withAlphaComponent(0.5)
     overlayView.alpha = 0
@@ -607,10 +619,15 @@ extension CalendarViewController {
           let yearText = yearLabel.text?.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(),
           let year = Int(yearText)
     else { return }
-
+    
     let month = sender.tag - 3000
     let dateComponents = DateComponents(year: year, month: month, day: 1)
     if let targetDate = Calendar.current.date(from: dateComponents) {
+      Amp.track(event: "month_picker_select", properties: [
+        "year": year,
+        "month": month
+      ])
+      
       calendarView.setCurrentPage(targetDate, animated: false)
       dismissOverlay()
     }
@@ -674,6 +691,11 @@ extension CalendarViewController: FSCalendarDelegate,
     }
     
     var selectData = RecordEntity(calendarDate: Int(date.millisecondsSince1970))
+    let hasRecord = viewModel.records.contains(where: { entity in
+      let seconds = TimeInterval(entity.calendarDate) / 1000
+      let responseDate = Date(timeIntervalSince1970: seconds)
+      return date == responseDate
+    })
     
     if let matchedEntity = viewModel.records.first(where: { entity in
       let seconds = TimeInterval(entity.calendarDate) / 1000
@@ -682,6 +704,11 @@ extension CalendarViewController: FSCalendarDelegate,
     }) {
       selectData = matchedEntity
     }
+    
+    Amp.track(event: "date_select", properties: [
+      "has_record": hasRecord,
+      "date": DateFormatter.formattedString(date, format: "yyyy-MM-dd")
+    ])
     
     coordinator?.showRecord(
       calendarViewModel: viewModel,
@@ -714,6 +741,10 @@ extension CalendarViewController: FSCalendarDelegate,
     let currentPage = calendar.currentPage
     
     viewModel.updateCurrentDate(currentPage)
+    
+    Amp.track(event: "month_change", properties: [
+      "year_month": DateFormatter.formattedString(currentPage, format: "yyyy-MM")
+    ])
     
     DispatchQueue.main.async { [weak self] in
       self?.calendarHeaderView.text = DateFormatter.localizedYearMonth(currentPage)

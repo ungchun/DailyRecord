@@ -65,6 +65,8 @@ final class ProfileViewController: BaseViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    Amp.track(event: "screen_view", properties: ["screen_name": "profile"])
   }
   
   // MARK: - Functions
@@ -148,24 +150,29 @@ final class ProfileViewController: BaseViewController {
 
 extension ProfileViewController {
   private func screenLockTrigger() {
+    Amp.track(event: "button_click", properties: ["button_name": "screen_lock"])
     coordinator?.showSetScreenLock()
   }
   
   private func iCloudTrigger() {
+    Amp.track(event: "button_click", properties: ["button_name": "icloud"])
     coordinator?.showSetiCloud()
   }
   
   private func darkModeTrigger() {
+    Amp.track(event: "button_click", properties: ["button_name": "dark_mode"])
     coordinator?.showSetDarkmode()
   }
   
   private func languageTrigger() {
+    Amp.track(event: "button_click", properties: ["button_name": "language"])
     if let url = URL(string: UIApplication.openSettingsURLString) {
       UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
   }
   
   private func openAppStore() {
+    Amp.track(event: "button_click", properties: ["button_name": "app_rating"])
     let urlStr = "https://itunes.apple.com/app/id\(appStoreID)?action=write-review"
     if let url = URL(string: urlStr), UIApplication.shared.canOpenURL(url) {
       UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -173,6 +180,7 @@ extension ProfileViewController {
   }
   
   private func openEmail() {
+    Amp.track(event: "button_click", properties: ["button_name": "contact"])
     let email = "leedool3003@gmail.com"
     if let url = URL(string: "mailto:\(email)"), UIApplication.shared.canOpenURL(url) {
       UIApplication.shared.open(url, options: [:], completionHandler: nil)

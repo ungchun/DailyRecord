@@ -80,6 +80,8 @@ final class RecordHistoryViewController: BaseViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    Amp.track(event: "screen_view", properties: ["screen_name": "record_view"])
   }
   
   // MARK: - Functions
@@ -211,22 +213,29 @@ extension RecordHistoryViewController {
     return [UIAction(title: L10n.Action.edit,
                      image: UIImage(systemName: "pencil"),
                      handler: { _ in
+      Amp.track(event: "button_click", properties: ["button_name": "record_edit"])
       self.coordinator?.showWriteViewController(self.viewModel)}),
             UIAction(title: L10n.Action.delete,
                      image: UIImage(systemName: "trash"),
                      attributes: .destructive,
                      handler: { _ in
+      Amp.track(event: "button_click", properties: ["button_name": "record_delete"])
+      
       let alert = UIAlertController (
         title: L10n.Alert.deleteDiaryTitle,
         message: L10n.Alert.deleteDiaryMessage,
         preferredStyle: .alert
       )
-      alert.addAction(UIAlertAction(title: L10n.Action.cancel, style: .default) { _ in })
+      alert.addAction(UIAlertAction(title: L10n.Action.cancel, style: .default) { _ in
+        Amp.track(event: "record_delete_cancel")
+      })
       alert.addAction(UIAlertAction(title: L10n.Action.confirmDelete, style: .destructive) { _ in
         Task { [weak self] in
           guard let self else { return }
           do {
             try await self.viewModel.removeRecordTirgger()
+            
+            Amp.track(event: "record_delete_success")
             
             let calendarDate = self.viewModel.selectData.calendarDate
             let date = Date(timeIntervalSince1970: TimeInterval(calendarDate) / 1000)
@@ -247,6 +256,10 @@ extension RecordHistoryViewController {
               handleError(self.coordinator!, L10n.Common.diaryDeleted)
             }
           } catch {
+            Amp.track(
+              event: "record_delete_fail",
+              properties: ["error": error.localizedDescription]
+            )
             handleError(self.coordinator!, L10n.Common.error)
           }
         }

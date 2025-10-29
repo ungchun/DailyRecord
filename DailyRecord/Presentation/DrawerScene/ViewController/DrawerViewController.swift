@@ -119,6 +119,8 @@ final class DrawerViewController: BaseViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    Amp.track(event: "screen_view", properties: ["screen_name": "drawer"])
   }
   
   // MARK: - Functions
@@ -193,7 +195,7 @@ private extension DrawerViewController {
   
   func updateMonthLabel() {
     monthLabel.text = DateFormatter.localizedYearMonth(viewModel.currentDate)
-
+    
     updateButtonState()
     
     if let year = Int(
@@ -237,6 +239,8 @@ private extension DrawerViewController {
 
 private extension DrawerViewController {
   @objc func previousMonth() {
+    Amp.track(event: "button_click", properties: ["button_name": "drawer_previous_month"])
+    
     viewModel.updateCurrentDate(
       Calendar.current.date(
         byAdding: .month, value: -1, to: viewModel.currentDate
@@ -257,6 +261,8 @@ private extension DrawerViewController {
       return
     }
     
+    Amp.track(event: "button_click", properties: ["button_name": "drawer_next_month"])
+    
     viewModel.updateCurrentDate(nextDate)
     
     DispatchQueue.main.async { [weak self] in
@@ -267,6 +273,11 @@ private extension DrawerViewController {
 
 extension DrawerViewController: DrawerRecordItemViewDelegate {
   func didTapRecord(_ record: RecordEntity) {
+    Amp.track(event: "drawer_record_click", properties: [
+      "has_emotion": !record.emotionType.isEmpty,
+      "has_images": !record.imageList.isEmpty
+    ])
+    
     coordinator?.showRecord(
       calendarViewModel: calendarViewModel,
       selectData: record
