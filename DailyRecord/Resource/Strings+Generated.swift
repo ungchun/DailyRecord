@@ -10,6 +10,10 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
+  internal enum AppShortcuts {
+    /// App Shortcut phrase with app name
+    internal static let writeTodaySDiaryWithApplicationName = L10n.tr("AppShortcuts", "Write Today's Diary with ${applicationName}", fallback: "Write Today's Diary with ${applicationName}")
+  }
   internal enum InfoPlist {
     /// Daon
     internal static let cfBundleDisplayName = L10n.tr("InfoPlist", "CFBundleDisplayName", fallback: "Daon")
@@ -153,8 +157,8 @@ internal enum L10n {
     internal static let currentPassword = L10n.tr("Localizable", "screenLock.currentPassword", fallback: "Current password")
     /// Current password is incorrect
     internal static let currentPasswordIncorrect = L10n.tr("Localizable", "screenLock.currentPasswordIncorrect", fallback: "Current password is incorrect")
-    /// Password cannot be recovered if forgotten.
-    internal static let description = L10n.tr("Localizable", "screenLock.description", fallback: "Password cannot be recovered if forgotten.")
+    /// Password cannot be recovered if forgotten
+    internal static let description = L10n.tr("Localizable", "screenLock.description", fallback: "Password cannot be recovered if forgotten")
     /// Enter new password
     internal static let enterNewPassword = L10n.tr("Localizable", "screenLock.enterNewPassword", fallback: "Enter new password")
     /// Enter password

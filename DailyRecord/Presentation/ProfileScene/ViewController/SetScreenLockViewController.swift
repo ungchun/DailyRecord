@@ -20,15 +20,22 @@ final class SetScreenLockViewController: BaseViewController {
   private let descriptionLabel: UILabel = {
     let label = UILabel()
     label.text = L10n.ScreenLock.description
-    label.font = UIFont(name: "omyu_pretty", size: 16)
+    label.font = UIFont(name: "omyu_pretty", size: 18)
     label.textColor = .azGray
     label.numberOfLines = 0
+    label.textAlignment = .center
     return label
+  }()
+  
+  private let divider: UIView = {
+    let view = UIView()
+    view.backgroundColor = .azDarkGray
+    return view
   }()
   
   private let passwordIcon: UIImageView = {
     let imageView = UIImageView()
-    let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .default)
+    let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .default)
     imageView.image = UIImage(systemName: "lock", withConfiguration: config)
     imageView.tintColor = .azWhite
     imageView.contentMode = .scaleAspectFit
@@ -38,7 +45,7 @@ final class SetScreenLockViewController: BaseViewController {
   private let passwordLabel: UILabel = {
     let label = UILabel()
     label.text = L10n.ScreenLock.password
-    label.font = UIFont(name: "omyu_pretty", size: 16)
+    label.font = UIFont(name: "omyu_pretty", size: 18)
     label.textColor = .azWhite
     return label
   }()
@@ -70,7 +77,7 @@ final class SetScreenLockViewController: BaseViewController {
   
   private let changePasswordIcon: UIImageView = {
     let imageView = UIImageView()
-    let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .default)
+    let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .default)
     imageView.image = UIImage(systemName: "arrow.clockwise", withConfiguration: config)
     imageView.tintColor = .azWhite
     imageView.contentMode = .scaleAspectFit
@@ -80,7 +87,7 @@ final class SetScreenLockViewController: BaseViewController {
   private let changePasswordLabel: UILabel = {
     let label = UILabel()
     label.text = L10n.ScreenLock.changePassword
-    label.font = UIFont(name: "omyu_pretty", size: 16)
+    label.font = UIFont(name: "omyu_pretty", size: 18)
     label.textColor = .azWhite
     return label
   }()
@@ -99,7 +106,7 @@ final class SetScreenLockViewController: BaseViewController {
   
   private let biometricIcon: UIImageView = {
     let imageView = UIImageView()
-    let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .default)
+    let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .default)
     imageView.image = UIImage(systemName: "faceid", withConfiguration: config)
     imageView.tintColor = .azWhite
     imageView.contentMode = .scaleAspectFit
@@ -109,7 +116,7 @@ final class SetScreenLockViewController: BaseViewController {
   private let biometricLabel: UILabel = {
     let label = UILabel()
     label.text = L10n.ScreenLock.biometric
-    label.font = UIFont(name: "omyu_pretty", size: 16)
+    label.font = UIFont(name: "omyu_pretty", size: 18)
     label.textColor = .azWhite
     return label
   }()
@@ -137,7 +144,6 @@ final class SetScreenLockViewController: BaseViewController {
   private lazy var containerStackView: UIStackView = {
     let stackView = UIStackView(
       arrangedSubviews: [
-        descriptionLabel,
         passwordStackView,
         changePasswordStackView,
         biometricStackView
@@ -158,14 +164,29 @@ final class SetScreenLockViewController: BaseViewController {
   // MARK: - Functions
   
   override func addView() {
+    view.addSubview(descriptionLabel)
+    view.addSubview(divider)
     view.addSubview(containerStackView)
   }
   
   override func setLayout() {
+    descriptionLabel.snp.makeConstraints { make in
+      make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+      make.leading.equalToSuperview().offset(16)
+      make.trailing.equalToSuperview().offset(-16)
+    }
+    
+    divider.snp.makeConstraints { make in
+      make.top.equalTo(descriptionLabel.snp.bottom).offset(20)
+      make.height.equalTo(1)
+      make.leading.equalToSuperview().offset(32)
+      make.trailing.equalToSuperview().offset(-32)
+    }
+    
     containerStackView.snp.makeConstraints { make in
+      make.top.equalTo(divider.snp.bottom).offset(20)
       make.leading.equalToSuperview().offset(20)
       make.trailing.equalToSuperview().offset(-20)
-      make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
     }
     
     changePasswordStackView.snp.makeConstraints { make in
@@ -175,8 +196,6 @@ final class SetScreenLockViewController: BaseViewController {
   
   override func setupView() {
     view.backgroundColor = .azBlack
-    
-    containerStackView.setCustomSpacing(20, after: descriptionLabel)
     
     passwordSwitch.addTarget(self, action: #selector(passwordSwitchChanged), for: .valueChanged)
     biometricSwitch.addTarget(self, action: #selector(biometricSwitchChanged), for: .valueChanged)

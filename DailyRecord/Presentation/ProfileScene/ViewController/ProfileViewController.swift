@@ -49,7 +49,7 @@ final class ProfileViewController: BaseViewController {
   
   private let dailyReminderIcon: UIImageView = {
     let imageView = UIImageView()
-    let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .default)
+    let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .default)
     imageView.image = UIImage(systemName: "bell", withConfiguration: config)
     imageView.tintColor = .azWhite
     imageView.contentMode = .scaleAspectFit
@@ -59,7 +59,7 @@ final class ProfileViewController: BaseViewController {
   private let dailyReminderLabel: UILabel = {
     let label = UILabel()
     label.text = L10n.Diary.Notification.title
-    label.font = UIFont(name: "omyu_pretty", size: 16)
+    label.font = UIFont(name: "omyu_pretty", size: 18)
     label.textColor = .azWhite
     return label
   }()
@@ -92,7 +92,7 @@ final class ProfileViewController: BaseViewController {
   
   private let reminderTimeIcon: UIImageView = {
     let imageView = UIImageView()
-    let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .default)
+    let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .default)
     imageView.image = UIImage(systemName: "clock", withConfiguration: config)
     imageView.tintColor = .azWhite
     imageView.contentMode = .scaleAspectFit
@@ -102,14 +102,14 @@ final class ProfileViewController: BaseViewController {
   private let reminderTimeTextLabel: UILabel = {
     let label = UILabel()
     label.text = L10n.Notification.Time.title
-    label.font = UIFont(name: "omyu_pretty", size: 16)
+    label.font = UIFont(name: "omyu_pretty", size: 18)
     label.textColor = .azWhite
     return label
   }()
   
   private let reminderTimeLabel: UILabel = {
     let label = UILabel()
-    label.font = UIFont(name: "omyu_pretty", size: 16)
+    label.font = UIFont(name: "omyu_pretty", size: 18)
     label.textColor = .azGray
     label.textAlignment = .right
     return label
@@ -197,13 +197,13 @@ final class ProfileViewController: BaseViewController {
     topDivider.snp.makeConstraints { make in
       make.height.equalTo(1)
     }
-
+    
     bottomDivider.snp.makeConstraints { make in
       make.height.equalTo(1)
     }
-
+    
     stackView.setCustomSpacing(14, after: dailyReminderStackView)
-
+    
     stackView.setCustomSpacing(20, after: darkModeButton)
     stackView.setCustomSpacing(20, after: topDivider)
     stackView.setCustomSpacing(20, after: languageButton)
@@ -228,13 +228,13 @@ final class ProfileViewController: BaseViewController {
     configuration.titleTextAttributesTransformer
     = UIConfigurationTextAttributesTransformer { incoming in
       var outgoing = incoming
-      outgoing.font = UIFont(name: "omyu_pretty", size: 16)
+      outgoing.font = UIFont(name: "omyu_pretty", size: 18)
       return outgoing
     }
     
     configuration.baseForegroundColor = .azWhite
     
-    let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .default)
+    let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .default)
     configuration.image = UIImage(
       systemName: item.iconName,
       withConfiguration: config
@@ -486,7 +486,7 @@ extension ProfileViewController {
     
     // 알림 등록
     center.add(request) { error in
-      if let error = error {
+      if error != nil {
         
       } else {
         Amp.track(event: "daily_reminder_scheduled", properties: ["time": timeString])
