@@ -21,16 +21,20 @@ final class ShortcutManager {
 
 final class ShortcutsProvider: AppShortcutsProvider {
   static var appShortcuts: [AppShortcut] {
-    AppShortcut(intent: OpenAppIntent(),
-                phrases: ["오늘 일기 쓰기 \(.applicationName)"],
-                shortTitle: "오늘 일기 쓰기",
-                systemImageName: "pencil.circle")
+    AppShortcut(
+      intent: OpenAppIntent(),
+      phrases: [
+        "Write Today's Diary with \(.applicationName)"
+      ],
+      shortTitle: "today.diary.write",
+      systemImageName: "pencil.circle"
+    )
   }
 }
 
 struct OpenAppIntent: AppIntent {
-  static var title: LocalizedStringResource = "오늘 일기 쓰기"
-  static var description = IntentDescription("오늘 날짜 일기 작성 화면으로 이동합니다")
+  static var title: LocalizedStringResource = "today.diary.write"
+  static var description = IntentDescription("today.diary.description")
   
   static var openAppWhenRun: Bool = true
   

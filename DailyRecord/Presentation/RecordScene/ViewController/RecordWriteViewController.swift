@@ -239,12 +239,12 @@ extension RecordWriteViewController: UIGestureRecognizerDelegate {
   
   private func showAlertToConfirmExit() {
     let alert = UIAlertController(
-      title: "글쓰기를 중단할까요?",
-      message: "변경된 내용이 저장되지 않아요",
+      title: L10n.Exit.Warning.title,
+      message: L10n.Exit.Warning.message,
       preferredStyle: .alert
     )
-    let stayAction = UIAlertAction(title: "계속 작성", style: .default, handler: nil)
-    let exitAction = UIAlertAction(title: "나가기", style: .cancel) {_ in
+    let stayAction = UIAlertAction(title: L10n.Continue.writing, style: .default, handler: nil)
+    let exitAction = UIAlertAction(title: L10n.exit, style: .cancel) {_ in
       self.navigationController?.popViewController(animated: true)
     }
     alert.addAction(stayAction)

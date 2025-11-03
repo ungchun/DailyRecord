@@ -1,0 +1,7 @@
+/*
+  AppShortcuts.strings
+  DailyRecord - 한국어
+*/
+
+/* App Shortcut phrase with app name */
+"Write Today's Diary with ${applicationName}" = "${applicationName}에서 오늘 일기 쓰기";

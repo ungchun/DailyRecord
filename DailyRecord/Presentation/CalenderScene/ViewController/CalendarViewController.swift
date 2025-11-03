@@ -349,9 +349,9 @@ extension CalendarViewController {
     
     let nowDate = Calendar.current.startOfDay(for: Date())
     let day = Calendar.current.component(.weekday, from: nowDate) - 1
-    if Calendar.current.shortWeekdaySymbols[day] == "일" {
+    if Calendar.current.shortWeekdaySymbols[day] == L10n.Weekday.sunday {
       calendarView.appearance.titleSelectionColor = .azRed
-    } else if Calendar.current.shortWeekdaySymbols[day] == "토" {
+    } else if Calendar.current.shortWeekdaySymbols[day] == L10n.Weekday.saturday {
       calendarView.appearance.titleSelectionColor = .azBlue
     } else {
       calendarView.appearance.titleSelectionColor = .azWhite
