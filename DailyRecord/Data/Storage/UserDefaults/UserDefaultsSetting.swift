@@ -20,6 +20,12 @@ enum UserDefaultsSetting {
   @UserDefaultsWrapper(key: "isBiometricEnabled", defaultValue: false)
   static var isBiometricEnabled
   
+  @UserDefaultsWrapper(key: "isDailyReminderEnabled", defaultValue: true)
+  static var isDailyReminderEnabled
+  
+  @UserDefaultsWrapper(key: "dailyReminderTime", defaultValue: "22:00")
+  static var dailyReminderTime
+  
   static var currentDisplayMode: DisplayMode {
     get {
       return DisplayMode(rawValue: displayMode) ?? .system

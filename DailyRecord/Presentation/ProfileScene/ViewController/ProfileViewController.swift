@@ -9,6 +9,7 @@ import AuthenticationServices
 import CryptoKit
 import StoreKit
 import UIKit
+import UserNotifications
 import WidgetKit
 
 final class ProfileViewController: BaseViewController {
@@ -32,11 +33,103 @@ final class ProfileViewController: BaseViewController {
     return stackView
   }()
   
-  private let divider: UIView = {
+  private let topDivider: UIView = {
     let view = UIView()
     view.backgroundColor = .azWhite.withAlphaComponent(0.3)
     view.translatesAutoresizingMaskIntoConstraints = false
     return view
+  }()
+  
+  private let bottomDivider: UIView = {
+    let view = UIView()
+    view.backgroundColor = .azWhite.withAlphaComponent(0.3)
+    view.translatesAutoresizingMaskIntoConstraints = false
+    return view
+  }()
+  
+  private let dailyReminderIcon: UIImageView = {
+    let imageView = UIImageView()
+    let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .default)
+    imageView.image = UIImage(systemName: "bell", withConfiguration: config)
+    imageView.tintColor = .azWhite
+    imageView.contentMode = .scaleAspectFit
+    return imageView
+  }()
+  
+  private let dailyReminderLabel: UILabel = {
+    let label = UILabel()
+    label.text = L10n.Diary.Notification.title
+    label.font = UIFont(name: "omyu_pretty", size: 16)
+    label.textColor = .azWhite
+    return label
+  }()
+  
+  private lazy var dailyReminderToggle: UISwitch = {
+    let toggle = UISwitch()
+    toggle.isOn = UserDefaultsSetting.isDailyReminderEnabled
+    toggle.onTintColor = .azWhite
+    toggle.thumbTintColor = .azBlack
+    toggle.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+    toggle.addTarget(self, action: #selector(dailyReminderToggleChanged), for: .valueChanged)
+    return toggle
+  }()
+  
+  private lazy var dailyReminderStackView: UIStackView = {
+    let spacer = UIView()
+    let stackView = UIStackView(
+      arrangedSubviews: [
+        dailyReminderIcon,
+        dailyReminderLabel,
+        spacer,
+        dailyReminderToggle
+      ]
+    )
+    stackView.axis = .horizontal
+    stackView.spacing = 10
+    stackView.alignment = .center
+    return stackView
+  }()
+  
+  private let reminderTimeIcon: UIImageView = {
+    let imageView = UIImageView()
+    let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .default)
+    imageView.image = UIImage(systemName: "clock", withConfiguration: config)
+    imageView.tintColor = .azWhite
+    imageView.contentMode = .scaleAspectFit
+    return imageView
+  }()
+  
+  private let reminderTimeTextLabel: UILabel = {
+    let label = UILabel()
+    label.text = L10n.Notification.Time.title
+    label.font = UIFont(name: "omyu_pretty", size: 16)
+    label.textColor = .azWhite
+    return label
+  }()
+  
+  private let reminderTimeLabel: UILabel = {
+    let label = UILabel()
+    label.font = UIFont(name: "omyu_pretty", size: 16)
+    label.textColor = .azGray
+    label.textAlignment = .right
+    return label
+  }()
+  
+  private lazy var reminderTimeStackView: UIStackView = {
+    let spacer = UIView()
+    let stackView = UIStackView(
+      arrangedSubviews: [
+        reminderTimeIcon,
+        reminderTimeTextLabel,
+        spacer,
+        reminderTimeLabel
+      ]
+    )
+    stackView.axis = .horizontal
+    stackView.spacing = 10
+    stackView.alignment = .center
+    stackView.isUserInteractionEnabled = true
+    return stackView
   }()
   
   private lazy var screenLockButton: UIButton = self.createButton(for: .screenLock)
@@ -69,16 +162,25 @@ final class ProfileViewController: BaseViewController {
     Amp.track(event: "screen_view", properties: ["screen_name": "profile"])
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    checkNotificationAuthorizationStatus()
+  }
+  
   // MARK: - Functions
   
   override func addView() {
     view.addSubview(stackView)
     
-    [screenLockButton,
-     iCloudButton,
+    [dailyReminderStackView,
+     reminderTimeStackView,
      darkModeButton,
+     topDivider,
+     screenLockButton,
+     iCloudButton,
      languageButton,
-     divider,
+     bottomDivider,
      appRatingButton,
      contactButton].forEach {
       stackView.addArrangedSubview($0)
@@ -92,13 +194,32 @@ final class ProfileViewController: BaseViewController {
       make.trailing.equalToSuperview().offset(-20)
     }
     
-    divider.snp.makeConstraints { make in
+    topDivider.snp.makeConstraints { make in
       make.height.equalTo(1)
     }
+
+    bottomDivider.snp.makeConstraints { make in
+      make.height.equalTo(1)
+    }
+
+    stackView.setCustomSpacing(14, after: dailyReminderStackView)
+
+    stackView.setCustomSpacing(20, after: darkModeButton)
+    stackView.setCustomSpacing(20, after: topDivider)
+    stackView.setCustomSpacing(20, after: languageButton)
+    stackView.setCustomSpacing(20, after: bottomDivider)
   }
   
   override func setupView() {
     view.backgroundColor = .azBlack
+    
+    let tapGesture = UITapGestureRecognizer(
+      target: self, action: #selector(reminderTimeButtonTapped)
+    )
+    reminderTimeStackView.addGestureRecognizer(tapGesture)
+    
+    updateReminderTimeDisplay()
+    updateReminderTimeButtonVisibility()
   }
   
   private func createButton(for item: ProfileCellItem) -> UIButton {
@@ -130,7 +251,9 @@ final class ProfileViewController: BaseViewController {
     
     return button
   }
-  
+}
+
+extension ProfileViewController {
   @objc private func buttonTapped(_ sender: UIButton) {
     if sender == screenLockButton {
       screenLockTrigger()
@@ -146,9 +269,119 @@ final class ProfileViewController: BaseViewController {
       openEmail()
     }
   }
-}
-
-extension ProfileViewController {
+  
+  @objc private func dailyReminderToggleChanged(_ sender: UISwitch) {
+    if sender.isOn {
+      // 알림 켜기 - 권한 확인 후 처리
+      let center = UNUserNotificationCenter.current()
+      center.getNotificationSettings { settings in
+        DispatchQueue.main.async {
+          if settings.authorizationStatus == .authorized {
+            // 권한 허용됨 - 알림 등록
+            UserDefaultsSetting.isDailyReminderEnabled = true
+            self.updateReminderTimeButtonVisibility()
+            self.scheduleDailyNotification()
+            Amp.track(event: "daily_reminder_toggle", properties: ["enabled": true])
+          } else if settings.authorizationStatus == .notDetermined {
+            // 최초 요청 - 권한 요청 alert 표시
+            self.requestNotificationPermission()
+          } else {
+            // 권한 거부됨 - 토글 OFF로 유지하고 설정으로 이동 안내
+            sender.isOn = false
+            UserDefaultsSetting.isDailyReminderEnabled = false
+            self.showNotificationSettingsAlert()
+          }
+        }
+      }
+    } else {
+      // 알림 끄기
+      UserDefaultsSetting.isDailyReminderEnabled = false
+      updateReminderTimeButtonVisibility()
+      cancelDailyNotification()
+      Amp.track(event: "daily_reminder_toggle", properties: ["enabled": false])
+    }
+  }
+  
+  @objc private func reminderTimeButtonTapped() {
+    Amp.track(event: "button_click", properties: ["button_name": "reminder_time"])
+    showTimePicker()
+  }
+  
+  private func updateReminderTimeDisplay() {
+    let timeString = UserDefaultsSetting.dailyReminderTime
+    let components = timeString.split(separator: ":")
+    if components.count == 2,
+       let hour = Int(components[0]),
+       let minute = Int(components[1]) {
+      var dateComponents = DateComponents()
+      dateComponents.hour = hour
+      dateComponents.minute = minute
+      
+      if let date = Calendar.current.date(from: dateComponents) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "a h:mm"
+        formatter.locale = Locale.current
+        reminderTimeLabel.text = formatter.string(from: date)
+      }
+    }
+  }
+  
+  private func updateReminderTimeButtonVisibility() {
+    reminderTimeStackView.isHidden = !UserDefaultsSetting.isDailyReminderEnabled
+  }
+  
+  private func showTimePicker() {
+    let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    
+    let datePicker = UIDatePicker()
+    datePicker.datePickerMode = .time
+    datePicker.preferredDatePickerStyle = .wheels
+    datePicker.locale = Locale.current
+    
+    let timeString = UserDefaultsSetting.dailyReminderTime
+    let components = timeString.split(separator: ":")
+    if components.count == 2,
+       let hour = Int(components[0]),
+       let minute = Int(components[1]) {
+      var dateComponents = DateComponents()
+      dateComponents.hour = hour
+      dateComponents.minute = minute
+      if let date = Calendar.current.date(from: dateComponents) {
+        datePicker.date = date
+      }
+    }
+    
+    let vc = UIViewController()
+    vc.view = datePicker
+    vc.preferredContentSize = CGSize(width: UIScreen.main.bounds.width, height: 250)
+    
+    alert.setValue(vc, forKey: "contentViewController")
+    
+    let confirmAction = UIAlertAction(
+      title: L10n.Common.confirm, style: .default
+    ) { [weak self] _ in
+      let calendar = Calendar.current
+      let components = calendar.dateComponents([.hour, .minute], from: datePicker.date)
+      if let hour = components.hour, let minute = components.minute {
+        let timeString = String(format: "%02d:%02d", hour, minute)
+        UserDefaultsSetting.dailyReminderTime = timeString
+        self?.updateReminderTimeDisplay()
+        Amp.track(event: "reminder_time_set", properties: ["time": timeString])
+        
+        if UserDefaultsSetting.isDailyReminderEnabled {
+          self?.scheduleDailyNotification()
+        }
+      }
+    }
+    
+    let cancelAction = UIAlertAction(title: L10n.Common.cancel, style: .cancel, handler: nil)
+    
+    alert.addAction(confirmAction)
+    alert.addAction(cancelAction)
+    
+    present(alert, animated: true, completion: nil)
+  }
+  
   private func screenLockTrigger() {
     Amp.track(event: "button_click", properties: ["button_name": "screen_lock"])
     coordinator?.showSetScreenLock()
@@ -185,5 +418,113 @@ extension ProfileViewController {
     if let url = URL(string: "mailto:\(email)"), UIApplication.shared.canOpenURL(url) {
       UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
+  }
+}
+
+extension ProfileViewController {
+  private func checkNotificationAuthorizationStatus() {
+    let center = UNUserNotificationCenter.current()
+    center.getNotificationSettings { settings in
+      DispatchQueue.main.async {
+        if settings.authorizationStatus == .denied {
+          if UserDefaultsSetting.isDailyReminderEnabled {
+            self.dailyReminderToggle.isOn = false
+            UserDefaultsSetting.isDailyReminderEnabled = false
+            self.updateReminderTimeButtonVisibility()
+          }
+        }
+      }
+    }
+  }
+  
+  private func requestNotificationPermission() {
+    let center = UNUserNotificationCenter.current()
+    center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+      DispatchQueue.main.async {
+        if granted {
+          UserDefaultsSetting.isDailyReminderEnabled = true
+          self.updateReminderTimeButtonVisibility()
+          self.scheduleDailyNotification()
+        } else {
+          self.dailyReminderToggle.isOn = false
+          UserDefaultsSetting.isDailyReminderEnabled = false
+          self.updateReminderTimeButtonVisibility()
+        }
+      }
+    }
+  }
+  
+  private func scheduleDailyNotification() {
+    let center = UNUserNotificationCenter.current()
+    
+    center.removePendingNotificationRequests(withIdentifiers: ["dailyReminder"])
+    
+    guard UserDefaultsSetting.isDailyReminderEnabled else { return }
+    
+    let content = UNMutableNotificationContent()
+    content.title = L10n.App.name
+    content.body = L10n.Diary.question
+    content.sound = .default
+    
+    let timeString = UserDefaultsSetting.dailyReminderTime
+    let components = timeString.split(separator: ":")
+    guard components.count == 2,
+          let hour = Int(components[0]),
+          let minute = Int(components[1]) else { return }
+    
+    var dateComponents = DateComponents()
+    dateComponents.hour = hour
+    dateComponents.minute = minute
+    
+    let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+    
+    let request = UNNotificationRequest(
+      identifier: "dailyReminder",
+      content: content,
+      trigger: trigger
+    )
+    
+    // 알림 등록
+    center.add(request) { error in
+      if let error = error {
+        
+      } else {
+        Amp.track(event: "daily_reminder_scheduled", properties: ["time": timeString])
+      }
+    }
+  }
+  
+  private func cancelDailyNotification() {
+    let center = UNUserNotificationCenter.current()
+    center.removePendingNotificationRequests(withIdentifiers: ["dailyReminder"])
+    Amp.track(event: "daily_reminder_cancelled")
+  }
+  
+  private func showNotificationSettingsAlert() {
+    let alert = UIAlertController(
+      title: L10n.Notification.Permission.title,
+      message: L10n.Notification.Permission.message,
+      preferredStyle: .alert
+    )
+    
+    let settingsAction = UIAlertAction(
+      title: L10n.Notification.Permission.action, style: .default
+    ) { _ in
+      if let url = URL(string: UIApplication.openSettingsURLString) {
+        UIApplication.shared.open(url)
+      }
+    }
+    
+    let cancelAction = UIAlertAction(
+      title: L10n.Common.cancel, style: .cancel
+    ) { [weak self] _ in
+      self?.dailyReminderToggle.isOn = false
+      UserDefaultsSetting.isDailyReminderEnabled = false
+    }
+    
+    alert.addAction(settingsAction)
+    alert.addAction(cancelAction)
+    
+    present(alert, animated: true)
   }
 }
