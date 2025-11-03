@@ -94,3 +94,23 @@
 "update.title" = "Update Available";
 "update.message" = "Please update for a better experience!";
 "update.action" = "Update";
+
+"diary.notification.title" = "Diary Reminder";
+
+"notification.time.title" = "Notification Time";
+
+"app.name" = "Daon Diary";
+"diary.question" = "How was your day?";
+
+"notification.permission.title" = "Notification Permission Required";
+"notification.permission.message" = "Please allow notifications in Settings to receive reminders";
+"notification.permission.action" = "Go to Settings";
+
+"exit.warning.message" = "Your changes won’t be saved";
+"exit.warning.title" = "Stop writing?";
+"continue.writing" = "Continue Writing";
+"exit" = "Exit";
+
+"today.diary.write.with.appname" = "Write Today’s Diary (%@)";
+"today.diary.write" = "Write Today’s Diary";
+"today.diary.description" = "Go to today’s diary writing screen";
