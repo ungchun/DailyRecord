@@ -19,16 +19,18 @@ final class EmotionalBottomSheetViewController: BaseViewController {
   
   weak var delegate: EmotionalBottomSheetViewViewDelegate?
   
-  private var currentTab: TabType = .mood {
-    didSet {
-      updateTabContent()
-    }
-  }
-  
-  private enum TabType {
-    case mood
-    case daily
-  }
+  /**
+   private var currentTab: TabType = .mood {
+   didSet {
+   updateTabContent()
+   }
+   }
+   
+   private enum TabType {
+   case mood
+   case daily
+   }
+   */
   
   // MARK: - Views
   
@@ -38,39 +40,43 @@ final class EmotionalBottomSheetViewController: BaseViewController {
     return view
   }()
   
-  private let tabBarView: UIView = {
-    let view = UIView()
-    view.backgroundColor = .azBlack
-    return view
-  }()
+  /**
+   private let tabBarView: UIView = {
+   let view = UIView()
+   view.backgroundColor = .azBlack
+   return view
+   }()
+   
+   private let tabStackView: UIStackView = {
+   let stackView = UIStackView()
+   stackView.axis = .horizontal
+   stackView.spacing = 24
+   stackView.distribution = .fillEqually
+   stackView.backgroundColor = .azBlack
+   return stackView
+   }()
+   
+   private let moodTabButton: UIButton = {
+   let button = UIButton()
+   button.setTitle(L10n.Mood.title, for: .normal)
+   button.titleLabel?.font = UIFont(name: "omyu_pretty", size: 20)
+   button.setTitleColor(.azLightGray, for: .selected)
+   button.setTitleColor(.azLightGray.withAlphaComponent(0.5), for: .normal)
+   button.isSelected = true
+   return button
+   }()
+   */
   
-  private let tabStackView: UIStackView = {
-    let stackView = UIStackView()
-    stackView.axis = .horizontal
-    stackView.spacing = 24
-    stackView.distribution = .fillEqually
-    stackView.backgroundColor = .azBlack
-    return stackView
-  }()
-  
-  private let moodTabButton: UIButton = {
-    let button = UIButton()
-    button.setTitle(L10n.Mood.title, for: .normal)
-    button.titleLabel?.font = UIFont(name: "omyu_pretty", size: 20)
-    button.setTitleColor(.azLightGray, for: .selected)
-    button.setTitleColor(.azLightGray.withAlphaComponent(0.5), for: .normal)
-    button.isSelected = true
-    return button
-  }()
-  
-  private let dailyTabButton: UIButton = {
-    let button = UIButton()
-    button.setTitle(L10n.Daily.title, for: .normal)
-    button.titleLabel?.font = UIFont(name: "omyu_pretty", size: 20)
-    button.setTitleColor(.azLightGray, for: .selected)
-    button.setTitleColor(.azLightGray.withAlphaComponent(0.5), for: .normal)
-    return button
-  }()
+  /**
+   private let dailyTabButton: UIButton = {
+   let button = UIButton()
+   button.setTitle(L10n.Daily.title, for: .normal)
+   button.titleLabel?.font = UIFont(name: "omyu_pretty", size: 20)
+   button.setTitleColor(.azLightGray, for: .selected)
+   button.setTitleColor(.azLightGray.withAlphaComponent(0.5), for: .normal)
+   return button
+   }()
+   */
   
   private let moodContentView: UIScrollView = {
     let scrollView = UIScrollView()
@@ -347,10 +353,10 @@ final class EmotionalBottomSheetViewController: BaseViewController {
   
   override func addView() {
     view.addSubview(topSpacerView)
-    view.addSubview(tabBarView)
-    tabBarView.addSubview(tabStackView)
-    tabStackView.addArrangedSubview(moodTabButton)
-    tabStackView.addArrangedSubview(dailyTabButton)
+    // view.addSubview(tabBarView)
+    // tabBarView.addSubview(tabStackView)
+    // tabStackView.addArrangedSubview(moodTabButton)
+    // tabStackView.addArrangedSubview(dailyTabButton)
     view.addSubview(moodContentView)
     view.addSubview(dailyContentView)
     
@@ -379,19 +385,21 @@ final class EmotionalBottomSheetViewController: BaseViewController {
       make.height.equalTo(20)
     }
     
-    tabBarView.snp.makeConstraints { make in
-      make.top.equalTo(topSpacerView.snp.bottom)
-      make.leading.trailing.equalToSuperview()
-      make.height.equalTo(44)
-    }
-    
-    tabStackView.snp.makeConstraints { make in
-      make.center.equalToSuperview()
-      make.height.equalToSuperview()
-    }
+    /**
+     tabBarView.snp.makeConstraints { make in
+     make.top.equalTo(topSpacerView.snp.bottom)
+     make.leading.trailing.equalToSuperview()
+     make.height.equalTo(44)
+     }
+     
+     tabStackView.snp.makeConstraints { make in
+     make.center.equalToSuperview()
+     make.height.equalToSuperview()
+     }
+     */
     
     moodContentView.snp.makeConstraints { make in
-      make.top.equalTo(tabBarView.snp.bottom)
+      make.top.equalTo(topSpacerView.snp.bottom)
       make.leading.trailing.bottom.equalToSuperview()
     }
     
@@ -400,15 +408,17 @@ final class EmotionalBottomSheetViewController: BaseViewController {
       make.width.equalToSuperview()
     }
     
-    dailyContentView.snp.makeConstraints { make in
-      make.top.equalTo(tabBarView.snp.bottom)
-      make.leading.trailing.bottom.equalToSuperview()
-    }
-    
-    dailyContentContainer.snp.makeConstraints { make in
-      make.edges.equalToSuperview()
-      make.width.equalToSuperview()
-    }
+    /**
+     dailyContentView.snp.makeConstraints { make in
+     make.top.equalTo(tabBarView.snp.bottom)
+     make.leading.trailing.bottom.equalToSuperview()
+     }
+     
+     dailyContentContainer.snp.makeConstraints { make in
+     make.edges.equalToSuperview()
+     make.width.equalToSuperview()
+     }
+     */
     
     // 1 ROW
     veryHappyEmotion.snp.makeConstraints { make in
@@ -597,37 +607,38 @@ final class EmotionalBottomSheetViewController: BaseViewController {
 }
 
 private extension EmotionalBottomSheetViewController {
-  @objc func moodTabTapped() {
-    currentTab = .mood
-    updateTabBarUI()
-  }
-  
-  @objc func dailyTabTapped() {
-    currentTab = .daily
-    updateTabBarUI()
-  }
-  
-  func updateTabBarUI() {
-    moodTabButton.isSelected = currentTab == .mood
-    dailyTabButton.isSelected = currentTab == .daily
-  }
-  
-  func updateTabContent() {
-    switch currentTab {
-    case .mood:
-      moodContentView.isHidden = false
-      dailyContentView.isHidden = true
-    case .daily:
-      moodContentView.isHidden = true
-      dailyContentView.isHidden = false
-    }
-  }
+  /**
+   @objc func moodTabTapped() {
+   currentTab = .mood
+   updateTabBarUI()
+   }
+   
+   @objc func dailyTabTapped() {
+   currentTab = .daily
+   updateTabBarUI()
+   }
+   
+   func updateTabBarUI() {
+   moodTabButton.isSelected = currentTab == .mood
+   dailyTabButton.isSelected = currentTab == .daily
+   }
+   
+   func updateTabContent() {
+   switch currentTab {
+   case .mood:
+   moodContentView.isHidden = false
+   dailyContentView.isHidden = true
+   case .daily:
+   moodContentView.isHidden = true
+   dailyContentView.isHidden = false
+   }
+   }
+   */
   
   func addTapGestures() {
-    moodTabButton.addTarget(self, action: #selector(moodTabTapped), for: .touchUpInside)
-    dailyTabButton.addTarget(self, action: #selector(dailyTabTapped), for: .touchUpInside)
+    // moodTabButton.addTarget(self, action: #selector(moodTabTapped), for: .touchUpInside)
+    // dailyTabButton.addTarget(self, action: #selector(dailyTabTapped), for: .touchUpInside)
     
-    // Mood tab gestures
     let veryHappyTapGesture = UITapGestureRecognizer(
       target: self,
       action: #selector(imageTapped(_:))
