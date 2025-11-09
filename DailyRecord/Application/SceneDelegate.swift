@@ -31,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       // 비밀번호가 활성화되어 있으면 빈 검은 화면 표시
       if UserDefaultsSetting.isPasswordEnabled {
         let placeholderVC = UIViewController()
-        placeholderVC.view.backgroundColor = .azBlack
+        placeholderVC.view.backgroundColor = .azGray50
         self.window?.rootViewController = placeholderVC
         self.window?.makeKeyAndVisible()
         

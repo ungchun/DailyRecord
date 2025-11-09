@@ -16,7 +16,7 @@ final class BaseNavigationController: UINavigationController {
 	}
 	
 	func setNavigationBarAppearance() {
-		view.backgroundColor = .azBlack
+		view.backgroundColor = .azGray50
 		
 		let backButtonAppearance = UIBarButtonItemAppearance(style: .plain)
 		backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.clear]
@@ -31,13 +31,13 @@ final class BaseNavigationController: UINavigationController {
 		
 		let appearance = UINavigationBarAppearance()
 		appearance.configureWithOpaqueBackground()
-		appearance.backgroundColor = .azBlack
+		appearance.backgroundColor = .azGray50
 		appearance.shadowColor = UIColor.clear
 		appearance.backButtonAppearance = backButtonAppearance
 		appearance.setBackIndicatorImage(backButtonImage, transitionMaskImage: backButtonImage)
 		
 		navigationBar.standardAppearance = appearance
 		navigationBar.scrollEdgeAppearance = appearance
-		navigationBar.tintColor = .azWhite
+		navigationBar.tintColor = .azGray900
 	}
 }

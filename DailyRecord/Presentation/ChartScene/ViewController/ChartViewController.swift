@@ -22,7 +22,7 @@ final class ChartViewController: BaseViewController {
   private let noEmotionLabel: UILabel = {
     let label = UILabel()
     label.font = UIFont(name: "omyu_pretty", size: 20)
-    label.textColor = .azLightGray
+    label.textColor = .azGray700
     label.text = L10n.Common.empty
     label.textAlignment = .center
     label.isHidden = true
@@ -32,7 +32,7 @@ final class ChartViewController: BaseViewController {
   private let monthLabel: UILabel = {
     let label = UILabel()
     label.font = UIFont(name: "omyu_pretty", size: 25)
-    label.textColor = .azWhite
+    label.textColor = .azGray900
     label.textAlignment = .center
     return label
   }()
@@ -49,7 +49,7 @@ final class ChartViewController: BaseViewController {
     )
     button.configuration = configuration
     
-    button.tintColor = .azLightGray
+    button.tintColor = .azGray700
     return button
   }()
   
@@ -65,7 +65,7 @@ final class ChartViewController: BaseViewController {
     )
     button.configuration = configuration
     
-    button.tintColor = .azLightGray
+    button.tintColor = .azGray700
     return button
   }()
   
@@ -144,7 +144,7 @@ final class ChartViewController: BaseViewController {
   }
   
   override func setupView() {
-    view.backgroundColor = .azBlack
+    view.backgroundColor = .azGray50
     
     setupMonthNavigation()
     updateMonthLabel()
@@ -262,7 +262,7 @@ private extension ChartViewController {
           }
           
           let progressContainer = UIView()
-          progressContainer.backgroundColor = .azBlack
+          progressContainer.backgroundColor = .azGray50
           progressContainer.layer.cornerRadius = 5
           stackView.addArrangedSubview(progressContainer)
           
@@ -273,7 +273,7 @@ private extension ChartViewController {
           
           let countLabel = UILabel()
           countLabel.text = "\(count)"
-          countLabel.textColor = .azWhite
+          countLabel.textColor = .azGray900
           countLabel.font = UIFont(name: "omyu_pretty", size: 20)
           stackView.addArrangedSubview(countLabel)
           

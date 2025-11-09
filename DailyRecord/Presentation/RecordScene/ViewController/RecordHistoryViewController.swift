@@ -34,7 +34,7 @@ final class RecordHistoryViewController: BaseViewController {
   
   private let todayEmotionImageView: UIImageView = {
     let imageView = UIImageView()
-    imageView.tintColor = .azLightGray
+    imageView.tintColor = .azGray700
     imageView.contentMode = .scaleAspectFit
     imageView.isUserInteractionEnabled = true
     return imageView
@@ -43,7 +43,7 @@ final class RecordHistoryViewController: BaseViewController {
   private let createDateView: UILabel = {
     let label = UILabel()
     label.font = UIFont(name: "omyu_pretty", size: 16)
-    label.textColor = .azLightGray
+    label.textColor = .azGray700
     label.textAlignment = .center
     label.numberOfLines = 0
     return label
@@ -54,7 +54,7 @@ final class RecordHistoryViewController: BaseViewController {
   private lazy var inputDiaryView: UITextView = {
     let textView = UITextView()
     textView.font = UIFont(name: "omyu_pretty", size: 16)
-    textView.textColor = .azWhite
+    textView.textColor = .azGray900
     textView.backgroundColor = .clear
     textView.isScrollEnabled = false
     textView.isEditable = false
@@ -137,7 +137,7 @@ final class RecordHistoryViewController: BaseViewController {
     setupNavigationBar()
     
     DispatchQueue.main.async { [weak self] in
-      self?.view.backgroundColor = .azBlack
+      self?.view.backgroundColor = .azGray50
     }
     
     let date = Date(

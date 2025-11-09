@@ -24,8 +24,8 @@ extension UIViewController {
 		let windowScene = scenes.first as? UIWindowScene
 		if let window = windowScene?.windows.first {
 			let toastLabel = UILabel()
-			toastLabel.backgroundColor = .azWhite
-			toastLabel.textColor = .azBlack
+			toastLabel.backgroundColor = .azGray900
+			toastLabel.textColor = .azGray50
 			toastLabel.font = font
 			toastLabel.textAlignment = .center
 			toastLabel.text = message

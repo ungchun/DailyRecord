@@ -23,7 +23,7 @@ final class SetDarkModeViewController: BaseViewController {
 		let label = UILabel()
     label.text = L10n.Darkmode.systemSetting
 		label.font = UIFont(name: "omyu_pretty", size: 18)
-		label.textColor = .azWhite
+		label.textColor = .azGray900
 		return label
 	}()
 	
@@ -34,7 +34,7 @@ final class SetDarkModeViewController: BaseViewController {
 		button.setImage(UIImage(systemName: "circle", withConfiguration: config), for: .normal)
 		button.setImage(UIImage(systemName: "checkmark.circle.fill", withConfiguration: config),
 										for: .selected)
-		button.tintColor = .azWhite
+		button.tintColor = .azGray900
 		return button
 	}()
 	
@@ -50,7 +50,7 @@ final class SetDarkModeViewController: BaseViewController {
 		let label = UILabel()
     label.text = L10n.Darkmode.lightMode
 		label.font = UIFont(name: "omyu_pretty", size: 18)
-		label.textColor = .azWhite
+		label.textColor = .azGray900
 		return label
 	}()
 	
@@ -61,7 +61,7 @@ final class SetDarkModeViewController: BaseViewController {
 		button.setImage(UIImage(systemName: "circle", withConfiguration: config), for: .normal)
 		button.setImage(UIImage(systemName: "checkmark.circle.fill", withConfiguration: config),
 										for: .selected)
-		button.tintColor = .azWhite
+		button.tintColor = .azGray900
 		return button
 	}()
 	
@@ -77,7 +77,7 @@ final class SetDarkModeViewController: BaseViewController {
 		let label = UILabel()
     label.text = L10n.Darkmode.darkMode
 		label.font = UIFont(name: "omyu_pretty", size: 18)
-		label.textColor = .azWhite
+		label.textColor = .azGray900
 		return label
 	}()
 	
@@ -88,7 +88,7 @@ final class SetDarkModeViewController: BaseViewController {
 		button.setImage(UIImage(systemName: "circle", withConfiguration: config), for: .normal)
 		button.setImage(UIImage(systemName: "checkmark.circle.fill", withConfiguration: config),
 										for: .selected)
-		button.tintColor = .azWhite
+		button.tintColor = .azGray900
 		return button
 	}()
 	
@@ -135,7 +135,7 @@ final class SetDarkModeViewController: BaseViewController {
 	}
 	
 	override func setupView() {
-		view.backgroundColor = .azBlack
+		view.backgroundColor = .azGray50
 		
 		setupInitialSelection()
 		

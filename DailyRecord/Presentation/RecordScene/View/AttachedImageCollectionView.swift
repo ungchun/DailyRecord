@@ -130,7 +130,7 @@ final class AttachedImageCollectionViewCell: UICollectionViewCell {
   let deleteButton: UIButton = {
     let button = UIButton()
     button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
-    button.tintColor = .azWhite
+    button.tintColor = .azGray900
     return button
   }()
   

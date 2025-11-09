@@ -21,14 +21,14 @@ final class SetiCloudSyncViewController: BaseViewController {
     label.text = L10n.Icloud.description
     label.numberOfLines = 0
     label.font = UIFont(name: "omyu_pretty", size: 20)
-    label.textColor = .azGray
+    label.textColor = .azGray500
     label.textAlignment = .center
     return label
   }()
   
   private let divider: UIView = {
     let view = UIView()
-    view.backgroundColor = .azDarkGray
+    view.backgroundColor = .azGray700
     return view
   }()
   
@@ -36,7 +36,7 @@ final class SetiCloudSyncViewController: BaseViewController {
     let label = UILabel()
     label.text = L10n.Icloud.syncMethod
     label.font = UIFont(name: "omyu_pretty", size: 18)
-    label.textColor = .azWhite
+    label.textColor = .azGray900
     return label
   }()
   
@@ -44,7 +44,7 @@ final class SetiCloudSyncViewController: BaseViewController {
     let label = UILabel()
     label.text = L10n.Icloud.syncInstruction
     label.font = UIFont(name: "omyu_pretty", size: 18)
-    label.textColor = .azWhite
+    label.textColor = .azGray900
     label.numberOfLines = 0
     return label
   }()
@@ -54,7 +54,7 @@ final class SetiCloudSyncViewController: BaseViewController {
     label.text = L10n.Icloud.storageWarning
     label.numberOfLines = 0
     label.font = UIFont(name: "omyu_pretty", size: 16)
-    label.textColor = .azWhite
+    label.textColor = .azGray900
     return label
   }()
     
@@ -107,6 +107,6 @@ final class SetiCloudSyncViewController: BaseViewController {
   }
   
   override func setupView() {
-    view.backgroundColor = .azBlack
+    view.backgroundColor = .azGray50
   }
 }

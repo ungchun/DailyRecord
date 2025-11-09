@@ -37,7 +37,7 @@ final class RecordWriteViewController: BaseViewController {
   private let todayEmotionImageView: UIImageView = {
     let imageView = UIImageView()
     imageView.image = UIImage(systemName: "plus.circle")
-    imageView.tintColor = .azLightGray
+    imageView.tintColor = .azGray700
     imageView.contentMode = .scaleAspectFit
     imageView.isUserInteractionEnabled = true
     return imageView
@@ -46,7 +46,7 @@ final class RecordWriteViewController: BaseViewController {
   private let todayDateView: UILabel = {
     let label = UILabel()
     label.font = UIFont(name: "omyu_pretty", size: 16)
-    label.textColor = .azLightGray
+    label.textColor = .azGray700
     label.textAlignment = .center
     label.numberOfLines = 0
     return label
@@ -56,7 +56,7 @@ final class RecordWriteViewController: BaseViewController {
     let textView = UITextView()
     textView.delegate = self
     textView.font = UIFont(name: "omyu_pretty", size: 16)
-    textView.textColor = .azLightGray.withAlphaComponent(0.5)
+    textView.textColor = .azGray400
     textView.text = L10n.Record.howWasYourDay
     textView.backgroundColor = .clear
     textView.isScrollEnabled = false
@@ -170,7 +170,7 @@ final class RecordWriteViewController: BaseViewController {
     fetchEditData()
     
     DispatchQueue.main.async { [weak self] in
-      self?.view.backgroundColor = .azBlack
+      self?.view.backgroundColor = .azGray50
     }
     
     let date = Date(
@@ -186,7 +186,7 @@ final class RecordWriteViewController: BaseViewController {
                                                      action: #selector(showBottomSheetTrigger))
     todayEmotionImageView.addGestureRecognizer(showPopupTapGesture)
     
-    footerView.backgroundColor = .azBlack
+    footerView.backgroundColor = .azGray50
     let galleryTapGesture = UITapGestureRecognizer(target: self,
                                                    action: #selector(galleryTrigger))
     footerView.galleryIcon.addGestureRecognizer(galleryTapGesture)
@@ -213,7 +213,7 @@ extension RecordWriteViewController: UIGestureRecognizerDelegate {
       target: self,
       action: #selector(customBackButtonTapped)
     )
-    backButton.tintColor = .azWhite
+    backButton.tintColor = .azGray900
     navigationItem.leftBarButtonItem = backButton
   }
   
@@ -269,7 +269,7 @@ private extension RecordWriteViewController {
       DispatchQueue.main.async { [weak self] in
         self?.inputDiaryView.text = self?.viewModel.content
       }
-      inputDiaryView.textColor = .azWhite
+      inputDiaryView.textColor = .azGray900
     }
     
     emotionalImageTapTrigger(selectEmotionType: viewModel.emotionType)
@@ -464,9 +464,9 @@ extension RecordWriteViewController: UITextViewDelegate {
   
   func textViewDidBeginEditing(_ textView: UITextView) {
     if textView.text == L10n.Record.howWasYourDay {
-      guard textView.textColor == .azLightGray.withAlphaComponent(0.5) else { return }
+      guard textView.textColor == .azGray400 else { return }
       textView.text = nil
-      textView.textColor = .azWhite
+      textView.textColor = .azGray900
     }
   }
 }

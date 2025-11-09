@@ -23,7 +23,7 @@ final class DrawerViewController: BaseViewController {
   private let emptyStateLabel: UILabel = {
     let label = UILabel()
     label.font = UIFont(name: "omyu_pretty", size: 20)
-    label.textColor = .azLightGray
+    label.textColor = .azGray700
     label.text = L10n.Common.noDiary
     label.textAlignment = .center
     label.isHidden = true
@@ -43,7 +43,7 @@ final class DrawerViewController: BaseViewController {
   private let monthLabel: UILabel = {
     let label = UILabel()
     label.font = UIFont(name: "omyu_pretty", size: 20)
-    label.textColor = .azWhite
+    label.textColor = .azGray900
     label.textAlignment = .center
     return label
   }()
@@ -60,7 +60,7 @@ final class DrawerViewController: BaseViewController {
     )
     button.configuration = configuration
     
-    button.tintColor = .azLightGray
+    button.tintColor = .azGray700
     return button
   }()
   
@@ -76,7 +76,7 @@ final class DrawerViewController: BaseViewController {
     )
     button.configuration = configuration
     
-    button.tintColor = .azLightGray
+    button.tintColor = .azGray700
     return button
   }()
   
@@ -156,7 +156,7 @@ final class DrawerViewController: BaseViewController {
   }
   
   override func setupView() {
-    view.backgroundColor = .azBlack
+    view.backgroundColor = .azGray50
     
     navigationItem.titleView = titleView
     

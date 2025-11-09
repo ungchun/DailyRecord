@@ -35,14 +35,14 @@ final class ProfileViewController: BaseViewController {
   
   private let topDivider: UIView = {
     let view = UIView()
-    view.backgroundColor = .azWhite.withAlphaComponent(0.3)
+    view.backgroundColor = .azGray400
     view.translatesAutoresizingMaskIntoConstraints = false
     return view
   }()
   
   private let bottomDivider: UIView = {
     let view = UIView()
-    view.backgroundColor = .azWhite.withAlphaComponent(0.3)
+    view.backgroundColor = .azGray400
     view.translatesAutoresizingMaskIntoConstraints = false
     return view
   }()
@@ -51,7 +51,7 @@ final class ProfileViewController: BaseViewController {
     let imageView = UIImageView()
     let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .default)
     imageView.image = UIImage(systemName: "bell", withConfiguration: config)
-    imageView.tintColor = .azWhite
+    imageView.tintColor = .azGray900
     imageView.contentMode = .scaleAspectFit
     return imageView
   }()
@@ -60,15 +60,15 @@ final class ProfileViewController: BaseViewController {
     let label = UILabel()
     label.text = L10n.Diary.Notification.title
     label.font = UIFont(name: "omyu_pretty", size: 18)
-    label.textColor = .azWhite
+    label.textColor = .azGray900
     return label
   }()
   
   private lazy var dailyReminderToggle: UISwitch = {
     let toggle = UISwitch()
     toggle.isOn = UserDefaultsSetting.isDailyReminderEnabled
-    toggle.onTintColor = .azWhite
-    toggle.thumbTintColor = .azBlack
+    toggle.onTintColor = .azGray900
+    toggle.thumbTintColor = .azGray50
     toggle.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
     toggle.addTarget(self, action: #selector(dailyReminderToggleChanged), for: .valueChanged)
     return toggle
@@ -94,7 +94,7 @@ final class ProfileViewController: BaseViewController {
     let imageView = UIImageView()
     let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .default)
     imageView.image = UIImage(systemName: "clock", withConfiguration: config)
-    imageView.tintColor = .azWhite
+    imageView.tintColor = .azGray900
     imageView.contentMode = .scaleAspectFit
     return imageView
   }()
@@ -103,14 +103,14 @@ final class ProfileViewController: BaseViewController {
     let label = UILabel()
     label.text = L10n.Notification.Time.title
     label.font = UIFont(name: "omyu_pretty", size: 18)
-    label.textColor = .azWhite
+    label.textColor = .azGray900
     return label
   }()
   
   private let reminderTimeLabel: UILabel = {
     let label = UILabel()
     label.font = UIFont(name: "omyu_pretty", size: 18)
-    label.textColor = .azGray
+    label.textColor = .azGray500
     label.textAlignment = .right
     return label
   }()
@@ -211,7 +211,7 @@ final class ProfileViewController: BaseViewController {
   }
   
   override func setupView() {
-    view.backgroundColor = .azBlack
+    view.backgroundColor = .azGray50
     
     let tapGesture = UITapGestureRecognizer(
       target: self, action: #selector(reminderTimeButtonTapped)
@@ -232,7 +232,7 @@ final class ProfileViewController: BaseViewController {
       return outgoing
     }
     
-    configuration.baseForegroundColor = .azWhite
+    configuration.baseForegroundColor = .azGray900
     
     let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .default)
     configuration.image = UIImage(

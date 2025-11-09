@@ -63,14 +63,14 @@ final class PasswordInputViewController: UIViewController {
     let button = UIButton()
     let config = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .default)
     button.setImage(UIImage(systemName: "xmark", withConfiguration: config), for: .normal)
-    button.tintColor = .azWhite
+    button.tintColor = .azGray900
     return button
   }()
   
   private let titleLabel: UILabel = {
     let label = UILabel()
     label.font = UIFont(name: "omyu_pretty", size: 18)
-    label.textColor = .azWhite
+    label.textColor = .azGray900
     label.textAlignment = .center
     return label
   }()
@@ -123,7 +123,7 @@ final class PasswordInputViewController: UIViewController {
   // MARK: - Functions
   
   private func setupView() {
-    view.backgroundColor = .azBlack
+    view.backgroundColor = .azGray50
     titleLabel.text = mode.titleText
     
     closeButton.isHidden = !showCloseButton
@@ -138,7 +138,7 @@ final class PasswordInputViewController: UIViewController {
     
     for _ in 0..<4 {
       let indicator = UIView()
-      indicator.backgroundColor = .azWhite.withAlphaComponent(0.3)
+      indicator.backgroundColor = .azGray400
       indicator.layer.cornerRadius = 8
       indicator.snp.makeConstraints { make in
         make.width.height.equalTo(16)
@@ -197,7 +197,7 @@ final class PasswordInputViewController: UIViewController {
           )
           let deleteImage = UIImage(systemName: "delete.left", withConfiguration: config)
           deleteButton.setImage(deleteImage, for: .normal)
-          deleteButton.tintColor = .azWhite
+          deleteButton.tintColor = .azGray900
           deleteButton.tag = -2
           rowStackView.addArrangedSubview(deleteButton)
         } else {
@@ -215,7 +215,7 @@ final class PasswordInputViewController: UIViewController {
     let button = UIButton()
     button.setTitle(text, for: .normal)
     button.titleLabel?.font = UIFont(name: "omyu_pretty", size: 28)
-    button.setTitleColor(.azWhite, for: .normal)
+    button.setTitleColor(.azGray900, for: .normal)
     button.addTarget(self, action: #selector(keyTapped(_:)), for: .touchUpInside)
     return button
   }
@@ -223,9 +223,9 @@ final class PasswordInputViewController: UIViewController {
   private func updateIndicators() {
     for (index, indicator) in indicators.enumerated() {
       if index < password.count {
-        indicator.backgroundColor = .azWhite
+        indicator.backgroundColor = .azGray900
       } else {
-        indicator.backgroundColor = .azWhite.withAlphaComponent(0.3)
+        indicator.backgroundColor = .azGray400
       }
     }
   }
@@ -253,7 +253,7 @@ final class PasswordInputViewController: UIViewController {
       password = ""
       mode = .confirm
       titleLabel.text = mode.titleText
-      titleLabel.textColor = .azWhite
+      titleLabel.textColor = .azGray900
     } else if mode == .confirm {
       // 두 번째 비밀번호 입력 완료 (확인)
       if let first = firstPassword, first == password {
@@ -271,7 +271,7 @@ final class PasswordInputViewController: UIViewController {
       password = ""
       mode = .confirm
       titleLabel.text = mode.titleText
-      titleLabel.textColor = .azWhite
+      titleLabel.textColor = .azGray900
     } else {
       // verify 모드는 바로 completion 호출
       completion?(password)
@@ -281,7 +281,7 @@ final class PasswordInputViewController: UIViewController {
   func updateTitle(_ newMode: PasswordInputMode) {
     mode = newMode
     titleLabel.text = newMode.titleText
-    titleLabel.textColor = .azWhite
+    titleLabel.textColor = .azGray900
     password = ""
   }
   

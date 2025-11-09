@@ -30,7 +30,7 @@ final class FullscreenImageViewController: BaseViewController {
 	
 	private var indexLabelContainer: UIView = {
 		let containerView = UIView()
-		containerView.backgroundColor = .azBlack
+		containerView.backgroundColor = .azGray50
 		containerView.layer.cornerRadius = 16
 		containerView.translatesAutoresizingMaskIntoConstraints = false
 		return containerView
@@ -39,7 +39,7 @@ final class FullscreenImageViewController: BaseViewController {
 	private var indexLabel: UILabel = {
 		let label = UILabel()
 		label.font = UIFont(name: "omyu_pretty", size: 16)
-		label.textColor = .azWhite
+		label.textColor = .azGray900
 		label.textAlignment = .center
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
@@ -97,7 +97,7 @@ final class FullscreenImageViewController: BaseViewController {
 	}
 	
 	override func setupView() {
-		view.backgroundColor = .azBlack
+		view.backgroundColor = .azGray50
 		
 		let initialOffset = CGPoint(x: view.bounds.width * CGFloat(initialIndex), y: 0)
 		scrollView.setContentOffset(initialOffset, animated: false)

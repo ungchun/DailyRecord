@@ -29,7 +29,7 @@ final class CalendarViewController: BaseViewController {
     let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .regular)
     let image = UIImage(systemName: "gearshape.fill", withConfiguration: config)
     button.setImage(image, for: .normal)
-    button.tintColor = .azWhite
+    button.tintColor = .azGray900
     return button
   }()
   
@@ -38,7 +38,7 @@ final class CalendarViewController: BaseViewController {
     let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .regular)
     let image = UIImage(systemName: "magnifyingglass", withConfiguration: config)
     button.setImage(image, for: .normal)
-    button.tintColor = .azWhite
+    button.tintColor = .azGray900
     return button
   }()
   
@@ -47,7 +47,7 @@ final class CalendarViewController: BaseViewController {
     let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .regular)
     let image = UIImage(systemName: "chart.bar.fill", withConfiguration: config)
     button.setImage(image, for: .normal)
-    button.tintColor = .azWhite
+    button.tintColor = .azGray900
     return button
   }()
   
@@ -56,7 +56,7 @@ final class CalendarViewController: BaseViewController {
     let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .regular)
     let image = UIImage(systemName: "rectangle.split.1x2.fill", withConfiguration: config)
     button.setImage(image, for: .normal)
-    button.tintColor = .azWhite
+    button.tintColor = .azGray900
     return button
   }()
   
@@ -66,8 +66,8 @@ final class CalendarViewController: BaseViewController {
       to: CGSize(width: 24,height: 24)
     )
     button.setImage(pencilImage, for: .normal)
-    button.backgroundColor = .azWhite
-    button.tintColor = .azBlack
+    button.backgroundColor = .azGray900
+    button.tintColor = .azGray50
     button.layer.cornerRadius = 30
     button.layer.masksToBounds = true
     return button
@@ -77,13 +77,13 @@ final class CalendarViewController: BaseViewController {
     let button = UIButton(type: .system)
     var config = UIButton.Configuration.filled()
     config.title = L10n.Calendar.today
-    config.baseForegroundColor = .azWhite
+    config.baseForegroundColor = .azGray100
     config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
       var outgoing = incoming
       outgoing.font = UIFont(name: "omyu_pretty", size: 16)
       return outgoing
     }
-    config.background.backgroundColor = .azLightGray.withAlphaComponent(0.05)
+    config.background.backgroundColor = .azGray900
     config.background.cornerRadius = 16
     config.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16)
     button.configuration = config
@@ -100,7 +100,7 @@ final class CalendarViewController: BaseViewController {
   private lazy var calendarHeaderView: UILabel = {
     let label = UILabel()
     label.font = UIFont(name: "omyu_pretty", size: 25)
-    label.textColor = .azWhite
+    label.textColor = .azGray900
     label.text = DateFormatter.localizedYearMonth(Date())
     return label
   }()
@@ -117,7 +117,7 @@ final class CalendarViewController: BaseViewController {
     let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold)
     let image = UIImage(systemName: "chevron.right", withConfiguration: config)
     imageView.image = image
-    imageView.tintColor = .azLightGray.withAlphaComponent(0.5)
+    imageView.tintColor = .azGray800
     imageView.contentMode = .scaleAspectFit
     return imageView
   }()
@@ -140,8 +140,8 @@ final class CalendarViewController: BaseViewController {
     calendar.appearance.headerMinimumDissolvedAlpha = 0.0
     calendar.appearance.headerTitleColor = .clear
     calendar.appearance.weekdayFont = UIFont(name: "omyu_pretty", size: 14)
-    calendar.appearance.weekdayTextColor = .azLightGray
-    calendar.appearance.todayColor = .azDarkGray
+    calendar.appearance.weekdayTextColor = .azGray700
+    calendar.appearance.todayColor = .azGray700
     calendar.appearance.selectionColor = .clear
     calendar.appearance.titleFont = UIFont(name: "omyu_pretty", size: 12)
     
@@ -304,7 +304,7 @@ final class CalendarViewController: BaseViewController {
     headerContainerView.addGestureRecognizer(tapGesture)
     
     DispatchQueue.main.async { [weak self] in
-      self?.view.backgroundColor = .azBlack
+      self?.view.backgroundColor = .azGray50
       self?.updateTodayButtonVisibility(for: Date())
     }
     
@@ -354,7 +354,7 @@ extension CalendarViewController {
     } else if Calendar.current.shortWeekdaySymbols[day] == L10n.Weekday.saturday {
       calendarView.appearance.titleSelectionColor = .azBlue
     } else {
-      calendarView.appearance.titleSelectionColor = .azWhite
+      calendarView.appearance.titleSelectionColor = .azGray900
     }
     
     // 캘린더를 오늘 날짜로 이동
@@ -408,12 +408,12 @@ extension CalendarViewController {
     Amp.track(event: "month_picker_open")
     
     let overlayView = UIView()
-    overlayView.backgroundColor = .black.withAlphaComponent(0.5)
+    overlayView.backgroundColor = .azOverlay
     overlayView.alpha = 0
     overlayView.tag = 1000
     
     let squareView = UIView()
-    squareView.backgroundColor = .azBlack
+    squareView.backgroundColor = .azGray50
     squareView.layer.cornerRadius = 16
     squareView.alpha = 0
     squareView.tag = 1001
@@ -466,7 +466,7 @@ extension CalendarViewController {
     let prevConfig = UIImage.SymbolConfiguration(pointSize: 12, weight: .semibold)
     let prevImage = UIImage(systemName: "chevron.left", withConfiguration: prevConfig)
     prevYearButton.setImage(prevImage, for: .normal)
-    prevYearButton.tintColor = .azWhite
+    prevYearButton.tintColor = .azGray900
     prevYearButton.tag = 2001
     prevYearButton.addTarget(self, action: #selector(prevYearTapped), for: .touchUpInside)
     
@@ -474,7 +474,7 @@ extension CalendarViewController {
     let isKorean = Locale.current.language.languageCode?.identifier == "ko"
     yearLabel.text = isKorean ? "\(currentYear)년" : "\(currentYear)"
     yearLabel.font = UIFont(name: "omyu_pretty", size: 20)
-    yearLabel.textColor = .azWhite
+    yearLabel.textColor = .azGray900
     yearLabel.textAlignment = .center
     yearLabel.tag = 2002
     
@@ -482,7 +482,7 @@ extension CalendarViewController {
     let nextConfig = UIImage.SymbolConfiguration(pointSize: 12, weight: .semibold)
     let nextImage = UIImage(systemName: "chevron.right", withConfiguration: nextConfig)
     nextYearButton.setImage(nextImage, for: .normal)
-    nextYearButton.tintColor = .azWhite
+    nextYearButton.tintColor = .azGray900
     nextYearButton.tag = 2003
     nextYearButton.addTarget(self, action: #selector(nextYearTapped), for: .touchUpInside)
     
@@ -538,8 +538,8 @@ extension CalendarViewController {
       button.setTitle("\(month)", for: .normal)
       button.titleLabel?.font = UIFont(name: "omyu_pretty", size: 16)
       button.backgroundColor = (year == currentYear && month == currentMonth)
-      ? .azLightGray.withAlphaComponent(0.05) : .clear
-      button.tintColor = .azWhite
+      ? .azGray200 : .clear
+      button.tintColor = .azGray900
       button.layer.cornerRadius = 16
       button.tag = 3000 + month
       button.addTarget(self, action: #selector(monthButtonTapped(_:)), for: .touchUpInside)
@@ -682,12 +682,12 @@ extension CalendarViewController: FSCalendarDelegate,
     }
     
     let day = Calendar.current.component(.weekday, from: date) - 1
-    if Calendar.current.shortWeekdaySymbols[day] == "일" {
+    if day == 0 { // 일요일
       calendar.appearance.titleSelectionColor = .azRed
-    } else if Calendar.current.shortWeekdaySymbols[day] == "토" {
+    } else if day == 6 { // 토요일
       calendar.appearance.titleSelectionColor = .azBlue
     } else {
-      calendar.appearance.titleSelectionColor = .azWhite
+      calendar.appearance.titleSelectionColor = .azGray900
     }
     
     var selectData = RecordEntity(calendarDate: Int(date.millisecondsSince1970))
@@ -725,15 +725,15 @@ extension CalendarViewController: FSCalendarDelegate,
     let day = Calendar.current.component(.weekday, from: date) - 1
     
     if date > Date() {
-      return .azLightGray.withAlphaComponent(0.5)
+      return .azGray500
     }
     
-    if Calendar.current.shortWeekdaySymbols[day] == "일" {
+    if day == 0 { // 일요일
       return .azRed
-    } else if Calendar.current.shortWeekdaySymbols[day] == "토" {
+    } else if day == 6 { // 토요일
       return .azBlue
     } else {
-      return .azWhite
+      return .azGray900
     }
   }
   
@@ -791,7 +791,7 @@ extension CalendarViewController: FSCalendarDelegate,
     if Calendar.current.isDateInToday(date) {
       DispatchQueue.main.async {
         let squareView = UIView()
-        squareView.backgroundColor = .azLightGray.withAlphaComponent(0.2)
+        squareView.backgroundColor = .azGray200
         squareView.tag = 1001
         
         cell.contentView.addSubview(squareView)

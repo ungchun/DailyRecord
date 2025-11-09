@@ -15,7 +15,7 @@ final class RecordFooterView: BaseView {
   
   private let divider: UIView = {
     let view = UIView()
-    view.backgroundColor = .azLightGray.withAlphaComponent(0.05)
+    view.backgroundColor = .azGray900
     return view
   }()
   
@@ -24,7 +24,7 @@ final class RecordFooterView: BaseView {
     view.image = UIImage(systemName: "photo")
     view.contentMode = .scaleAspectFit
     view.isUserInteractionEnabled = true
-    view.tintColor = .azWhite
+    view.tintColor = .azGray900
     return view
   }()
   
@@ -33,7 +33,7 @@ final class RecordFooterView: BaseView {
     view.image = UIImage(systemName: "checkmark")
     view.contentMode = .scaleAspectFit
     view.isUserInteractionEnabled = true
-    view.tintColor = .azWhite
+    view.tintColor = .azGray900
     return view
   }()
   

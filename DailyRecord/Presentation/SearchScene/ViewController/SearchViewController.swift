@@ -25,18 +25,18 @@ final class SearchViewController: BaseViewController {
     let searchBar = UISearchBar()
     searchBar.placeholder = L10n.Search.placeholder
     searchBar.searchBarStyle = .minimal
-    searchBar.tintColor = .azWhite
+    searchBar.tintColor = .azGray900
     
     if let textField = searchBar.value(forKey: "searchField") as? UITextField {
-      textField.textColor = .azWhite
+      textField.textColor = .azGray900
       if let placeholderLabel = textField.value(forKey: "placeholderLabel") as? UILabel {
-        placeholderLabel.textColor = .azLightGray
+        placeholderLabel.textColor = .azGray700
       }
       if let clearButton = textField.value(forKey: "clearButton") as? UIButton {
         clearButton.setImage(
           clearButton.imageView?.image?.withRenderingMode(.alwaysTemplate), for: .normal
         )
-        clearButton.tintColor = .azLightGray
+        clearButton.tintColor = .azGray700
       }
     }
     return searchBar
@@ -46,7 +46,7 @@ final class SearchViewController: BaseViewController {
     let label = UILabel()
     label.text = L10n.Search.noResults
     label.font = UIFont(name: "omyu_pretty", size: 18)
-    label.textColor = .azLightGray
+    label.textColor = .azGray700
     label.textAlignment = .center
     label.isHidden = true
     return label
@@ -141,7 +141,7 @@ final class SearchViewController: BaseViewController {
   }
   
   override func setupView() {
-    view.backgroundColor = .azBlack
+    view.backgroundColor = .azGray50
     
     navigationItem.titleView = searchBar
     

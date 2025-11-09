@@ -25,7 +25,7 @@ final class DrawerRecordItemView: BaseView {
   
   private let containerView: UIView = {
     let view = UIView()
-    view.backgroundColor = .azLightGray.withAlphaComponent(0.025)
+    view.backgroundColor = .azGray200
     view.layer.cornerRadius = 16
     view.clipsToBounds = true
     return view
@@ -50,7 +50,7 @@ final class DrawerRecordItemView: BaseView {
   private let dateLabel: UILabel = {
     let label = UILabel()
     label.font = UIFont(name: "omyu_pretty", size: 16)
-    label.textColor = .azLightGray
+    label.textColor = .azGray700
     label.textAlignment = .center
     label.numberOfLines = 0
     return label
@@ -67,7 +67,7 @@ final class DrawerRecordItemView: BaseView {
   private let contentLabel: UILabel = {
     let label = UILabel()
     label.font = UIFont(name: "omyu_pretty", size: 16)
-    label.textColor = .azWhite
+    label.textColor = .azGray900
     label.numberOfLines = 3
     return label
   }()

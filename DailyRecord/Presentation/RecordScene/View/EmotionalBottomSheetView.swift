@@ -36,14 +36,14 @@ final class EmotionalBottomSheetViewController: BaseViewController {
   
   private let topSpacerView: UIView = {
     let view = UIView()
-    view.backgroundColor = .azBlack
+    view.backgroundColor = .azGray50
     return view
   }()
   
   /**
    private let tabBarView: UIView = {
    let view = UIView()
-   view.backgroundColor = .azBlack
+   view.backgroundColor = .azGray50
    return view
    }()
    
@@ -52,7 +52,7 @@ final class EmotionalBottomSheetViewController: BaseViewController {
    stackView.axis = .horizontal
    stackView.spacing = 24
    stackView.distribution = .fillEqually
-   stackView.backgroundColor = .azBlack
+   stackView.backgroundColor = .azGray50
    return stackView
    }()
    
@@ -60,8 +60,8 @@ final class EmotionalBottomSheetViewController: BaseViewController {
    let button = UIButton()
    button.setTitle(L10n.Mood.title, for: .normal)
    button.titleLabel?.font = UIFont(name: "omyu_pretty", size: 20)
-   button.setTitleColor(.azLightGray, for: .selected)
-   button.setTitleColor(.azLightGray.withAlphaComponent(0.5), for: .normal)
+   button.setTitleColor(.azGray700, for: .selected)
+   button.setTitleColor(.azGray800, for: .normal)
    button.isSelected = true
    return button
    }()
@@ -72,8 +72,8 @@ final class EmotionalBottomSheetViewController: BaseViewController {
    let button = UIButton()
    button.setTitle(L10n.Daily.title, for: .normal)
    button.titleLabel?.font = UIFont(name: "omyu_pretty", size: 20)
-   button.setTitleColor(.azLightGray, for: .selected)
-   button.setTitleColor(.azLightGray.withAlphaComponent(0.5), for: .normal)
+   button.setTitleColor(.azGray700, for: .selected)
+   button.setTitleColor(.azGray800, for: .normal)
    return button
    }()
    */
@@ -595,7 +595,7 @@ final class EmotionalBottomSheetViewController: BaseViewController {
   }
   
   override func setupView() {
-    view.backgroundColor = .azBlack
+    view.backgroundColor = .azGray50
     
     if let sheet = sheetPresentationController {
       sheet.detents = [.medium()]

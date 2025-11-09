@@ -21,7 +21,7 @@ final class SetScreenLockViewController: BaseViewController {
     let label = UILabel()
     label.text = L10n.ScreenLock.description
     label.font = UIFont(name: "omyu_pretty", size: 18)
-    label.textColor = .azGray
+    label.textColor = .azGray500
     label.numberOfLines = 0
     label.textAlignment = .center
     return label
@@ -29,7 +29,7 @@ final class SetScreenLockViewController: BaseViewController {
   
   private let divider: UIView = {
     let view = UIView()
-    view.backgroundColor = .azDarkGray
+    view.backgroundColor = .azGray700
     return view
   }()
   
@@ -37,7 +37,7 @@ final class SetScreenLockViewController: BaseViewController {
     let imageView = UIImageView()
     let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .default)
     imageView.image = UIImage(systemName: "lock", withConfiguration: config)
-    imageView.tintColor = .azWhite
+    imageView.tintColor = .azGray900
     imageView.contentMode = .scaleAspectFit
     return imageView
   }()
@@ -46,15 +46,15 @@ final class SetScreenLockViewController: BaseViewController {
     let label = UILabel()
     label.text = L10n.ScreenLock.password
     label.font = UIFont(name: "omyu_pretty", size: 18)
-    label.textColor = .azWhite
+    label.textColor = .azGray900
     return label
   }()
   
   private let passwordSwitch: UISwitch = {
     let toggle = UISwitch()
     toggle.isOn = false
-    toggle.onTintColor = .azWhite
-    toggle.thumbTintColor = .azBlack
+    toggle.onTintColor = .azGray900
+    toggle.thumbTintColor = .azGray50
     toggle.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
     return toggle
   }()
@@ -79,7 +79,7 @@ final class SetScreenLockViewController: BaseViewController {
     let imageView = UIImageView()
     let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .default)
     imageView.image = UIImage(systemName: "arrow.clockwise", withConfiguration: config)
-    imageView.tintColor = .azWhite
+    imageView.tintColor = .azGray900
     imageView.contentMode = .scaleAspectFit
     return imageView
   }()
@@ -88,7 +88,7 @@ final class SetScreenLockViewController: BaseViewController {
     let label = UILabel()
     label.text = L10n.ScreenLock.changePassword
     label.font = UIFont(name: "omyu_pretty", size: 18)
-    label.textColor = .azWhite
+    label.textColor = .azGray900
     return label
   }()
   
@@ -108,7 +108,7 @@ final class SetScreenLockViewController: BaseViewController {
     let imageView = UIImageView()
     let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .default)
     imageView.image = UIImage(systemName: "faceid", withConfiguration: config)
-    imageView.tintColor = .azWhite
+    imageView.tintColor = .azGray900
     imageView.contentMode = .scaleAspectFit
     return imageView
   }()
@@ -117,15 +117,15 @@ final class SetScreenLockViewController: BaseViewController {
     let label = UILabel()
     label.text = L10n.ScreenLock.biometric
     label.font = UIFont(name: "omyu_pretty", size: 18)
-    label.textColor = .azWhite
+    label.textColor = .azGray900
     return label
   }()
   
   private let biometricSwitch: UISwitch = {
     let toggle = UISwitch()
     toggle.isOn = false
-    toggle.onTintColor = .azWhite
-    toggle.thumbTintColor = .azBlack
+    toggle.onTintColor = .azGray900
+    toggle.thumbTintColor = .azGray50
     toggle.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
     return toggle
   }()
@@ -195,7 +195,7 @@ final class SetScreenLockViewController: BaseViewController {
   }
   
   override func setupView() {
-    view.backgroundColor = .azBlack
+    view.backgroundColor = .azGray50
     
     passwordSwitch.addTarget(self, action: #selector(passwordSwitchChanged), for: .valueChanged)
     biometricSwitch.addTarget(self, action: #selector(biometricSwitchChanged), for: .valueChanged)
