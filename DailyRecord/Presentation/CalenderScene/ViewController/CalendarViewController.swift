@@ -882,6 +882,10 @@ final class CalendarCell: FSCalendarCell {
   
   override func layoutSubviews() {
     super.layoutSubviews()
+
+    let size = minSize()
+    backImageView.layer.cornerRadius = (size / 2)
+    backImageView.layer.masksToBounds = true
   }
   
   override func prepareForReuse() {
@@ -894,8 +898,8 @@ final class CalendarCell: FSCalendarCell {
   }
   
   func minSize() -> CGFloat {
-    let width = contentView.bounds.width - 5
-    let height = contentView.bounds.height - 5
+    let width = contentView.bounds.width
+    let height = contentView.bounds.height
     return (width > height) ? height : width
   }
 }
