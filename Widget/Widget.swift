@@ -293,15 +293,7 @@ private extension WidgetEntryView {
   
   @ViewBuilder
   func systemMediumView() -> some View {
-    let weekdays = [
-      L10n.Weekday.sunday,
-      L10n.Weekday.monday,
-      L10n.Weekday.tuesday,
-      L10n.Weekday.wednesday,
-      L10n.Weekday.thursday,
-      L10n.Weekday.friday,
-      L10n.Weekday.saturday
-    ]
+    let weekdays = getLocalizedWeekdays()
     let weekDates = getWeekDates()
     let today = Calendar.current.startOfDay(for: Date())
     
@@ -312,14 +304,16 @@ private extension WidgetEntryView {
         .lineLimit(1)
       
       HStack(spacing: 0) {
-        ForEach(Array(zip(weekdays, weekDates)), id: \.0) { day, dateInfo in
+        ForEach(Array(weekdays.indices), id: \.self) { index in
+          let day = weekdays[index]
+          let dateInfo = weekDates[index]
           let isToday = Calendar.current.isDate(dateInfo.date, inSameDayAs: today)
           let emotion = getEmotionForDate(date: dateInfo.date)
           
           VStack(spacing: 20) {
             Text(day)
               .font(.custom("omyu_pretty", size: 16))
-              .foregroundColor(day == L10n.Weekday.sunday ? .azRed : day == L10n.Weekday.saturday ? .azBlue : .azWhite)
+              .foregroundColor(index == 0 ? .azRed : index == 6 ? .azBlue : .azWhite)
               .lineLimit(1)
             
             ZStack {
@@ -339,9 +333,9 @@ private extension WidgetEntryView {
               
               if emotion.isEmpty && isToday {
                 Rectangle()
-                  .fill(.azLightGray.opacity(0.2))
+                  .fill(Color("azGray200"))
                   .frame(width: 30, height: 10)
-                  .offset(y: 8)
+                  .offset(y: 12)
               }
             }
             .frame(height: 30)
@@ -378,6 +372,16 @@ private extension WidgetEntryView {
     }
   }
   
+  func getLocalizedWeekdays() -> [String] {
+    let isKorean = Locale.current.language.languageCode?.identifier == "ko"
+    
+    if isKorean {
+      return ["일", "월", "화", "수", "목", "금", "토"]
+    } else {
+      return ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    }
+  }
+  
   func getEmotionForDate(date: Date) -> String {
     let calendar = Calendar.current
     guard let startOfDay = calendar.startOfDay(for: date) as Date?,
@@ -403,6 +407,24 @@ private extension WidgetEntryView {
 
 // MARK: - Widget
 
+// Helper for localized strings
+private func localizedString(_ key: String) -> String {
+  let isKorean = Locale.current.language.languageCode?.identifier == "ko"
+  
+  switch key {
+  case "todayWidget":
+    return "TODAY"
+  case "todayDescription":
+    return isKorean ? "오늘의 감정 확인" : "Check today's emotions"
+  case "weekWidget":
+    return "WEEK"
+  case "weekDescription":
+    return isKorean ? "이번 주 감정 확인" : "Check this week's emotions"
+  default:
+    return ""
+  }
+}
+
 // 투데이 위젯 (작은 크기)
 struct TodayWidget: Widget {
   let kind: String = "TodayWidget"
@@ -411,15 +433,15 @@ struct TodayWidget: Widget {
     StaticConfiguration(kind: kind, provider: Provider()) { entry in
       if #available(iOS 17.0, *) {
         WidgetEntryView(entry: entry)
-          .containerBackground(.fill.tertiary, for: .widget)
+          .containerBackground(Color("azGray50"), for: .widget)
       } else {
         WidgetEntryView(entry: entry)
           .padding()
           .background()
       }
     }
-    .configurationDisplayName(L10n.Widget.todayWidget)
-    .description(L10n.Widget.todayDescription)
+    .configurationDisplayName(localizedString("todayWidget"))
+    .description(localizedString("todayDescription"))
     .supportedFamilies([.systemSmall])
   }
 }
@@ -432,15 +454,15 @@ struct WeekWidget: Widget {
     StaticConfiguration(kind: kind, provider: Provider()) { entry in
       if #available(iOS 17.0, *) {
         WidgetEntryView(entry: entry)
-          .containerBackground(.fill.tertiary, for: .widget)
+          .containerBackground(Color("azGray50"), for: .widget)
       } else {
         WidgetEntryView(entry: entry)
           .padding()
           .background()
       }
     }
-    .configurationDisplayName(L10n.Widget.weekWidget)
-    .description(L10n.Widget.weekDescription)
+    .configurationDisplayName(localizedString("weekWidget"))
+    .description(localizedString("weekDescription"))
     .supportedFamilies([.systemMedium])
   }
 }
