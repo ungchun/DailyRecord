@@ -229,12 +229,14 @@ struct WidgetEntryView : View {
 private extension WidgetEntryView {
   @ViewBuilder
   func systemSmallView() -> some View {
+    let todayTimestamp = Int(entry.todayStartDate) ?? 0
     let todayRecord = entry.weekRecords.filter{
-      $0.calendarDate == Int(entry.todayStartDate)
+      $0.calendarDate == todayTimestamp
     }
     
+    let emotionType = todayRecord.first?.emotionType ?? ""
     // 비어있거나, 감정표현 X
-    if todayRecord.isEmpty || (todayRecord.first?.emotionType ?? "").isEmpty {
+    if todayRecord.isEmpty || emotionType.isEmpty || emotionType == "none" {
       ZStack(alignment: .topLeading) {
         HStack {
           Text("\(entry.currentWeekday)")
@@ -389,7 +391,7 @@ private extension WidgetEntryView {
     let endTimestamp = Int(endOfDay.timeIntervalSince1970 * 1000)
     
     for record in entry.weekRecords {
-      if !record.emotionType.isEmpty,
+      if !record.emotionType.isEmpty && record.emotionType != "none",
          record.calendarDate >= startTimestamp && record.calendarDate <= endTimestamp {
         return record.emotionType
       }
