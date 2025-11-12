@@ -134,7 +134,7 @@ final class CalendarViewController: BaseViewController {
     calendar.scrollDirection = .vertical
     calendar.today = nil
     calendar.scope = .month
-    calendar.locale = Locale(identifier: "ko_KR")
+    calendar.locale = Locale.current
     calendar.placeholderType = .none
     
     calendar.appearance.headerMinimumDissolvedAlpha = 0.0
@@ -882,7 +882,7 @@ final class CalendarCell: FSCalendarCell {
   
   override func layoutSubviews() {
     super.layoutSubviews()
-
+    
     let size = minSize()
     backImageView.layer.cornerRadius = (size / 2)
     backImageView.layer.masksToBounds = true
