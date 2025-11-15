@@ -11,6 +11,7 @@ enum ProfileCellItem: CaseIterable {
   case screenLock
   case iCloud
   case darkMode
+  case musicChange
   case language
   case appRating
   case contact
@@ -23,6 +24,8 @@ enum ProfileCellItem: CaseIterable {
       return L10n.Profile.icloudSync
     case .darkMode:
       return L10n.Profile.darkMode
+    case .musicChange:
+      return L10n.Profile.musicChange
     case .language:
       return L10n.Profile.language
     case .appRating:
@@ -40,6 +43,8 @@ enum ProfileCellItem: CaseIterable {
       return "icloud"
     case .darkMode:
       return "moon"
+    case .musicChange:
+      return "music.note"
     case .language:
       return "globe"
     case .appRating:

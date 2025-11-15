@@ -135,6 +135,7 @@ final class ProfileViewController: BaseViewController {
   private lazy var screenLockButton: UIButton = self.createButton(for: .screenLock)
   private lazy var iCloudButton: UIButton = self.createButton(for: .iCloud)
   private lazy var darkModeButton: UIButton = self.createButton(for: .darkMode)
+  private lazy var musicChangeButton: UIButton = self.createButton(for: .musicChange)
   private lazy var languageButton: UIButton = self.createButton(for: .language)
   private lazy var appRatingButton: UIButton = self.createButton(for: .appRating)
   private lazy var contactButton: UIButton = self.createButton(for: .contact)
@@ -176,6 +177,7 @@ final class ProfileViewController: BaseViewController {
     [dailyReminderStackView,
      reminderTimeStackView,
      darkModeButton,
+     musicChangeButton,
      topDivider,
      screenLockButton,
      iCloudButton,
@@ -205,6 +207,7 @@ final class ProfileViewController: BaseViewController {
     stackView.setCustomSpacing(14, after: dailyReminderStackView)
     
     stackView.setCustomSpacing(20, after: darkModeButton)
+    stackView.setCustomSpacing(20, after: musicChangeButton)
     stackView.setCustomSpacing(20, after: topDivider)
     stackView.setCustomSpacing(20, after: languageButton)
     stackView.setCustomSpacing(20, after: bottomDivider)
@@ -261,6 +264,8 @@ extension ProfileViewController {
       iCloudTrigger()
     } else if sender == darkModeButton {
       darkModeTrigger()
+    } else if sender == musicChangeButton {
+      musicChangeTrigger()
     } else if sender == languageButton {
       languageTrigger()
     } else if sender == appRatingButton {
@@ -395,6 +400,11 @@ extension ProfileViewController {
   private func darkModeTrigger() {
     Amp.track(event: "button_click", properties: ["button_name": "dark_mode"])
     coordinator?.showSetDarkmode()
+  }
+  
+  private func musicChangeTrigger() {
+    Amp.track(event: "button_click", properties: ["button_name": "music_change"])
+    coordinator?.showMusicChange()
   }
   
   private func languageTrigger() {

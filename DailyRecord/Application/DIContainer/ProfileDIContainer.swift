@@ -57,4 +57,8 @@ extension ProfileDIContainer {
   func makeSetScreenLockViewController() -> SetScreenLockViewController {
     return SetScreenLockViewController()
   }
+
+  func makeMusicChangeViewController() -> MusicChangeViewController {
+    return MusicChangeViewController()
+  }
 }

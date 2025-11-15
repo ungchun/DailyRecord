@@ -26,7 +26,7 @@ final class CalendarViewController: BaseViewController {
   
   private let settingButton: UIButton = {
     let button = UIButton(type: .system)
-    let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .regular)
+    let config = UIImage.SymbolConfiguration(pointSize: 14, weight: .regular)
     let image = UIImage(systemName: "gearshape.fill", withConfiguration: config)
     button.setImage(image, for: .normal)
     button.tintColor = .azGray900
@@ -35,7 +35,7 @@ final class CalendarViewController: BaseViewController {
   
   private let searchButton: UIButton = {
     let button = UIButton(type: .system)
-    let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .regular)
+    let config = UIImage.SymbolConfiguration(pointSize: 14, weight: .regular)
     let image = UIImage(systemName: "magnifyingglass", withConfiguration: config)
     button.setImage(image, for: .normal)
     button.tintColor = .azGray900
@@ -44,7 +44,7 @@ final class CalendarViewController: BaseViewController {
   
   private let chartButton: UIButton = {
     let button = UIButton(type: .system)
-    let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .regular)
+    let config = UIImage.SymbolConfiguration(pointSize: 14, weight: .regular)
     let image = UIImage(systemName: "chart.bar.fill", withConfiguration: config)
     button.setImage(image, for: .normal)
     button.tintColor = .azGray900
@@ -53,13 +53,26 @@ final class CalendarViewController: BaseViewController {
   
   private let drawerButton: UIButton = {
     let button = UIButton(type: .system)
-    let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .regular)
+    let config = UIImage.SymbolConfiguration(pointSize: 14, weight: .regular)
     let image = UIImage(systemName: "rectangle.split.1x2.fill", withConfiguration: config)
     button.setImage(image, for: .normal)
     button.tintColor = .azGray900
     return button
   }()
-  
+
+  private let soundButton: UIButton = {
+    let button = UIButton(type: .system)
+    let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .regular, scale: .medium)
+    let isSoundOn = UserDefaults.standard.bool(forKey: "isSoundEnabled")
+    let imageName = isSoundOn ? "speaker.wave.2.fill" : "speaker.slash.fill"
+    let image = UIImage(systemName: imageName, withConfiguration: config)
+    button.setImage(image, for: .normal)
+    button.tintColor = .azGray900
+    button.contentVerticalAlignment = .top
+    button.contentHorizontalAlignment = .center
+    return button
+  }()
+
   private let writeButton: UIButton = {
     let button = UIButton(type: .system)
     let pencilImage = UIImage(named: "pencil")?.resizeImage(
@@ -184,7 +197,7 @@ final class CalendarViewController: BaseViewController {
   override func addView() {
     [headerContainerView, calendarView,
      writeButton, todayButton, settingButton,
-     searchButton, chartButton, drawerButton].forEach {
+     searchButton, chartButton, drawerButton, soundButton].forEach {
       view.addSubview($0)
     }
     
@@ -242,20 +255,26 @@ final class CalendarViewController: BaseViewController {
       make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
       make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
     }
-    
+
     searchButton.snp.makeConstraints { make in
       make.trailing.equalTo(chartButton.snp.leading).offset(-16)
       make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
     }
-    
+
     chartButton.snp.makeConstraints { make in
       make.trailing.equalTo(drawerButton.snp.leading).offset(-16)
       make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
     }
-    
+
     drawerButton.snp.makeConstraints { make in
+      make.trailing.equalTo(soundButton.snp.leading).offset(-16)
+      make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+    }
+
+    soundButton.snp.makeConstraints { make in
       make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-20)
       make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+      make.width.height.equalTo(28)
     }
   }
   
@@ -299,7 +318,13 @@ final class CalendarViewController: BaseViewController {
       action: #selector(showDrawerTrigger),
       for: .touchUpInside
     )
-    
+
+    soundButton.addTarget(
+      self,
+      action: #selector(soundButtonTapped),
+      for: .touchUpInside
+    )
+
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(headerTapped))
     headerContainerView.addGestureRecognizer(tapGesture)
     
@@ -307,7 +332,13 @@ final class CalendarViewController: BaseViewController {
       self?.view.backgroundColor = .azGray50
       self?.updateTodayButtonVisibility(for: Date())
     }
-    
+
+    // 사운드 초기 상태 확인 및 재생
+    let isSoundEnabled = UserDefaults.standard.bool(forKey: "isSoundEnabled")
+    if isSoundEnabled {
+      SoundManager.shared.play()
+    }
+
     if let year = Int(DateFormatter.formattedString(Date(), format: "yyyy")),
        let month = Int(DateFormatter.formattedString(Date(), format: "M")) {
       Task { [weak self] in
@@ -385,11 +416,39 @@ extension CalendarViewController {
   
   @objc private func todayButtonTapped() {
     Amp.track(event: "button_click", properties: ["button_name": "today"])
-    
+
     let today = Date()
     calendarView.setCurrentPage(today, animated: false)
   }
-  
+
+  @objc private func soundButtonTapped() {
+    // 현재 사운드 상태 읽기
+    let currentState = UserDefaults.standard.bool(forKey: "isSoundEnabled")
+    let newState = !currentState
+
+    // 새로운 상태 저장
+    UserDefaults.standard.set(newState, forKey: "isSoundEnabled")
+
+    // 버튼 아이콘 업데이트
+    let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .regular, scale: .medium)
+    let imageName = newState ? "speaker.wave.2.fill" : "speaker.slash.fill"
+    let image = UIImage(systemName: imageName, withConfiguration: config)
+    soundButton.setImage(image, for: .normal)
+
+    // 음악 재생/정지
+    if newState {
+      SoundManager.shared.play()
+    } else {
+      SoundManager.shared.stop()
+    }
+
+    // 분석 이벤트 트래킹
+    Amp.track(event: "button_click", properties: [
+      "button_name": "sound",
+      "sound_enabled": newState
+    ])
+  }
+
   private func updateTodayButtonVisibility(for currentPage: Date) {
     let today = Date()
     let calendar = Calendar.current

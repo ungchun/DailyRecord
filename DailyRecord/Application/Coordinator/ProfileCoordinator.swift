@@ -57,7 +57,16 @@ extension ProfileCoordinator {
       animated: true
     )
   }
-  
+
+  func showMusicChange() {
+    let musicChangeViewController = DIContainer.makeMusicChangeViewController()
+    musicChangeViewController.coordinator = self
+    self.navigationController.pushViewController(
+      musicChangeViewController,
+      animated: true
+    )
+  }
+
   func popToRoot() {
     self.navigationController.popToRootViewController(animated: true)
   }
