@@ -9,9 +9,15 @@
 "profile.screenLock" = "화면 잠금";
 "profile.icloud_sync" = "iCloud 동기화";
 "profile.dark_mode" = "다크 모드";
+"profile.music_change" = "음악 변경";
 "profile.language" = "언어";
 "profile.rate_app" = "앱 평가하기";
 "profile.contact" = "문의하기";
+
+// Music
+"music.calm_riverside" = "잠잠한 강가에서";
+"music.fresh_dawn" = "첫새벽의 맑은 숨결";
+"music.quiet_forest" = "고요한 숲";
 
 // iCloud
 "icloud.description" = "다온일기는 iCloud에 자동으로 백업/저장 할 수 있어요";

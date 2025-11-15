@@ -114,6 +114,14 @@ internal enum L10n {
     /// Mood
     internal static let title = L10n.tr("Localizable", "mood.title", fallback: "Mood")
   }
+  internal enum Music {
+    /// By the Calm River
+    internal static let calmRiverside = L10n.tr("Localizable", "music.calm_riverside", fallback: "By the Calm River")
+    /// Fresh Breath of Early Dawn
+    internal static let freshDawn = L10n.tr("Localizable", "music.fresh_dawn", fallback: "Fresh Breath of Early Dawn")
+    /// Quiet Forest
+    internal static let quietForest = L10n.tr("Localizable", "music.quiet_forest", fallback: "Quiet Forest")
+  }
   internal enum Notification {
     internal enum Permission {
       /// Go to Settings
@@ -137,6 +145,8 @@ internal enum L10n {
     internal static let icloudSync = L10n.tr("Localizable", "profile.icloud_sync", fallback: "iCloud Sync")
     /// Language
     internal static let language = L10n.tr("Localizable", "profile.language", fallback: "Language")
+    /// Music
+    internal static let musicChange = L10n.tr("Localizable", "profile.music_change", fallback: "Music")
     /// Rate App
     internal static let rateApp = L10n.tr("Localizable", "profile.rate_app", fallback: "Rate App")
     /// Screen Lock

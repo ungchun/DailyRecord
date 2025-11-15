@@ -9,9 +9,15 @@
 "profile.screenLock" = "Screen Lock";
 "profile.icloud_sync" = "iCloud Sync";
 "profile.dark_mode" = "Dark Mode";
+"profile.music_change" = "Music";
 "profile.language" = "Language";
 "profile.rate_app" = "Rate App";
 "profile.contact" = "Contact";
+
+// Music
+"music.calm_riverside" = "By the Calm River";
+"music.fresh_dawn" = "Fresh Breath of Early Dawn";
+"music.quiet_forest" = "Quiet Forest";
 
 // iCloud
 "icloud.description" = "Daon can automatically backup/save to iCloud";
