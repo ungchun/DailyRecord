@@ -29,9 +29,19 @@ final class ChartViewController: BaseViewController {
     return label
   }()
   
+  private lazy var titleView: UIStackView = {
+    let stackView = UIStackView(
+      arrangedSubviews: [leftButton, monthLabel, rightButton]
+    )
+    stackView.axis = .horizontal
+    stackView.alignment = .center
+    stackView.spacing = 8
+    return stackView
+  }()
+  
   private let monthLabel: UILabel = {
     let label = UILabel()
-    label.font = UIFont(name: "omyu_pretty", size: 25)
+    label.font = UIFont(name: "omyu_pretty", size: 20)
     label.textColor = .azGray900
     label.textAlignment = .center
     return label
@@ -39,7 +49,7 @@ final class ChartViewController: BaseViewController {
   
   private let leftButton: UIButton = {
     let button = UIButton(type: .system)
-    let config = UIImage.SymbolConfiguration(pointSize: 12, weight: .bold)
+    let config = UIImage.SymbolConfiguration(pointSize: 10, weight: .bold)
     let image = UIImage(systemName: "chevron.left", withConfiguration: config)
     
     var configuration = UIButton.Configuration.plain()
@@ -55,7 +65,7 @@ final class ChartViewController: BaseViewController {
   
   private let rightButton: UIButton = {
     let button = UIButton(type: .system)
-    let config = UIImage.SymbolConfiguration(pointSize: 12, weight: .bold)
+    let config = UIImage.SymbolConfiguration(pointSize: 10, weight: .bold)
     let image = UIImage(systemName: "chevron.right", withConfiguration: config)
     
     var configuration = UIButton.Configuration.plain()
@@ -102,7 +112,7 @@ final class ChartViewController: BaseViewController {
   // MARK: - Functions
   
   override func addView() {
-    [leftButton, monthLabel, rightButton, scrollView, noEmotionLabel].forEach {
+    [scrollView, noEmotionLabel].forEach {
       view.addSubview($0)
     }
     
@@ -110,30 +120,13 @@ final class ChartViewController: BaseViewController {
   }
   
   override func setLayout() {
-    monthLabel.snp.makeConstraints { make in
-      make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
-      make.centerX.equalToSuperview()
-    }
-    
-    leftButton.snp.makeConstraints { make in
-      make.trailing.equalTo(monthLabel.snp.leading).offset(-16)
-      make.centerY.equalTo(monthLabel)
-      make.width.height.equalTo(44)
-    }
-    
-    rightButton.snp.makeConstraints { make in
-      make.leading.equalTo(monthLabel.snp.trailing).offset(16)
-      make.centerY.equalTo(monthLabel)
-      make.width.height.equalTo(44)
-    }
-    
     noEmotionLabel.snp.makeConstraints { make in
       make.centerX.equalToSuperview()
-      make.top.equalTo(monthLabel.snp.bottom).offset(50)
+      make.top.equalTo(view.safeAreaLayoutGuide).offset(50)
     }
     
     scrollView.snp.makeConstraints { make in
-      make.top.equalTo(monthLabel.snp.bottom).offset(20)
+      make.top.equalTo(view.safeAreaLayoutGuide)
       make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
     }
     
@@ -145,6 +138,8 @@ final class ChartViewController: BaseViewController {
   
   override func setupView() {
     view.backgroundColor = .azGray50
+    
+    navigationItem.titleView = titleView
     
     setupMonthNavigation()
     updateMonthLabel()
@@ -197,7 +192,8 @@ private extension ChartViewController {
       byAdding: .month, value: 1, to: viewModel.currentDate
     ) else { return }
     
-    rightButton.isHidden = nextDate > Date()
+    let shouldHideNextButton = nextDate > Date()
+    rightButton.alpha = shouldHideNextButton ? 0 : 1
   }
   
   func updateEmotionCounts() {
