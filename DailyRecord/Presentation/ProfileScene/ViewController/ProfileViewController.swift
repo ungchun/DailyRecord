@@ -204,6 +204,14 @@ final class ProfileViewController: BaseViewController {
       make.height.equalTo(1)
     }
     
+    dailyReminderIcon.snp.makeConstraints { make in
+      make.width.equalTo(28)
+    }
+    
+    reminderTimeIcon.snp.makeConstraints { make in
+      make.width.equalTo(28)
+    }
+    
     stackView.setCustomSpacing(14, after: dailyReminderStackView)
     
     stackView.setCustomSpacing(20, after: darkModeButton)
@@ -238,10 +246,15 @@ final class ProfileViewController: BaseViewController {
     configuration.baseForegroundColor = .azGray900
     
     let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .default)
-    configuration.image = UIImage(
-      systemName: item.iconName,
-      withConfiguration: config
-    )?.withRenderingMode(.alwaysTemplate)
+    if let symbolImage = UIImage(systemName: item.iconName, withConfiguration: config) {
+      let iconWidth: CGFloat = 28
+      let renderer = UIGraphicsImageRenderer(size: CGSize(width: iconWidth, height: symbolImage.size.height))
+      let fixedWidthImage = renderer.image { context in
+        let x = (iconWidth - symbolImage.size.width) / 2
+        symbolImage.draw(at: CGPoint(x: x, y: 0))
+      }
+      configuration.image = fixedWidthImage.withRenderingMode(.alwaysTemplate)
+    }
     configuration.imagePadding = 10
     configuration.imagePlacement = .leading
     configuration.contentInsets = NSDirectionalEdgeInsets(

@@ -192,6 +192,18 @@ final class SetScreenLockViewController: BaseViewController {
     changePasswordStackView.snp.makeConstraints { make in
       make.height.equalTo(0)
     }
+    
+    passwordIcon.snp.makeConstraints { make in
+      make.width.equalTo(28)
+    }
+    
+    changePasswordIcon.snp.makeConstraints { make in
+      make.width.equalTo(28)
+    }
+    
+    biometricIcon.snp.makeConstraints { make in
+      make.width.equalTo(28)
+    }
   }
   
   override func setupView() {
