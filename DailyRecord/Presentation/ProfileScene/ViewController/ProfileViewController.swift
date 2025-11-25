@@ -136,6 +136,7 @@ final class ProfileViewController: BaseViewController {
   private lazy var iCloudButton: UIButton = self.createButton(for: .iCloud)
   private lazy var darkModeButton: UIButton = self.createButton(for: .darkMode)
   private lazy var musicChangeButton: UIButton = self.createButton(for: .musicChange)
+  private lazy var pdfExportButton: UIButton = self.createButton(for: .pdfExport)
   private lazy var languageButton: UIButton = self.createButton(for: .language)
   private lazy var appRatingButton: UIButton = self.createButton(for: .appRating)
   private lazy var contactButton: UIButton = self.createButton(for: .contact)
@@ -181,6 +182,7 @@ final class ProfileViewController: BaseViewController {
      topDivider,
      screenLockButton,
      iCloudButton,
+     pdfExportButton,
      languageButton,
      bottomDivider,
      appRatingButton,
@@ -279,6 +281,8 @@ extension ProfileViewController {
       darkModeTrigger()
     } else if sender == musicChangeButton {
       musicChangeTrigger()
+    } else if sender == pdfExportButton {
+      pdfExportTrigger()
     } else if sender == languageButton {
       languageTrigger()
     } else if sender == appRatingButton {
@@ -419,7 +423,12 @@ extension ProfileViewController {
     Amp.track(event: "button_click", properties: ["button_name": "music_change"])
     coordinator?.showMusicChange()
   }
-  
+
+  private func pdfExportTrigger() {
+    Amp.track(event: "button_click", properties: ["button_name": "pdf_export"])
+    coordinator?.showPdfExport()
+  }
+
   private func languageTrigger() {
     Amp.track(event: "button_click", properties: ["button_name": "language"])
     if let url = URL(string: UIApplication.openSettingsURLString) {

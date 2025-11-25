@@ -39,6 +39,8 @@
 		652439652EC8A02600876FC4 /* background_music_3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 652439622EC8A02600876FC4 /* background_music_3.mp3 */; };
 		652439662EC8A02600876FC4 /* background_music_2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 652439632EC8A02600876FC4 /* background_music_2.mp3 */; };
 		652439672EC8A02600876FC4 /* background_music_1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 652439642EC8A02600876FC4 /* background_music_1.mp3 */; };
+		652439692ED4A24500876FC4 /* PdfExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652439682ED4A24500876FC4 /* PdfExportViewController.swift */; };
+		6524396B2ED4A65D00876FC4 /* PdfExportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6524396A2ED4A65D00876FC4 /* PdfExportViewModel.swift */; };
 		655BE3372CAC07B40006BC34 /* ShortcutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655BE3362CAC07B40006BC34 /* ShortcutManager.swift */; };
 		655BE3382CAC07B40006BC34 /* ShortcutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655BE3362CAC07B40006BC34 /* ShortcutManager.swift */; };
 		655BE3CA2CC4BFE80006BC34 /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655BE3C92CC4BFE80006BC34 /* ChartViewController.swift */; };
@@ -197,6 +199,8 @@
 		652439622EC8A02600876FC4 /* background_music_3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = background_music_3.mp3; sourceTree = "<group>"; };
 		652439632EC8A02600876FC4 /* background_music_2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = background_music_2.mp3; sourceTree = "<group>"; };
 		652439642EC8A02600876FC4 /* background_music_1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = background_music_1.mp3; sourceTree = "<group>"; };
+		652439682ED4A24500876FC4 /* PdfExportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PdfExportViewController.swift; sourceTree = "<group>"; };
+		6524396A2ED4A65D00876FC4 /* PdfExportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PdfExportViewModel.swift; sourceTree = "<group>"; };
 		655BE3362CAC07B40006BC34 /* ShortcutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutManager.swift; sourceTree = "<group>"; };
 		655BE3C92CC4BFE80006BC34 /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
 		655BE3CB2CC4C49A0006BC34 /* ChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewModel.swift; sourceTree = "<group>"; };
@@ -422,6 +426,7 @@
 		657DB90B2C5BB5B8008DD96E /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				6524396A2ED4A65D00876FC4 /* PdfExportViewModel.swift */,
 				657DB90D2C5BB5EB008DD96E /* ProfileViewModel.swift */,
 			);
 			path = ViewModel;
@@ -430,6 +435,7 @@
 		657DB90C2C5BB5BD008DD96E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				652439682ED4A24500876FC4 /* PdfExportViewController.swift */,
 				652439602EC8628300876FC4 /* MusicChangeViewController.swift */,
 				657DB90F2C5BB600008DD96E /* ProfileViewController.swift */,
 				651206692EA4AE030048D52B /* SetScreenLockViewController.swift */,
@@ -995,6 +1001,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6524396B2ED4A65D00876FC4 /* PdfExportViewModel.swift in Sources */,
 				659946B02C4BECC00030598B /* LoadingIndicator.swift in Sources */,
 				6599467C2C3A6A3D0030598B /* DefaultProfileRepository.swift in Sources */,
 				659946772C3A68E50030598B /* ProfileUseCase.swift in Sources */,
@@ -1058,6 +1065,7 @@
 				6504036A2D87ED320028D6C8 /* SearchDIContainer.swift in Sources */,
 				65A41B052CFAE500005EBFDD /* DrawerViewModel.swift in Sources */,
 				659946B42C4FD4AB0030598B /* RecordHistoryViewController.swift in Sources */,
+				652439692ED4A24500876FC4 /* PdfExportViewController.swift in Sources */,
 				659946822C3A8B410030598B /* RecordUseCase.swift in Sources */,
 				65CF617D2C0C5EEC003E6D75 /* DIContainer.swift in Sources */,
 				65CF61972C116E87003E6D75 /* RecordWriteViewController.swift in Sources */,
