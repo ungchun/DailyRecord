@@ -57,8 +57,23 @@ extension ProfileDIContainer {
   func makeSetScreenLockViewController() -> SetScreenLockViewController {
     return SetScreenLockViewController()
   }
-
+  
   func makeMusicChangeViewController() -> MusicChangeViewController {
     return MusicChangeViewController()
+  }
+  
+  func makePdfExportViewController() -> PdfExportViewController {
+    return PdfExportViewController(
+      viewModel: makePdfExportViewModel()
+    )
+  }
+  
+  private func makePdfExportViewModel() -> PdfExportViewModel {
+    return PdfExportViewModel(
+      calendarUseCase: CalendarUseCase(
+        calendarRepository: CalendarRepository()
+      ),
+      currentDate: Date()
+    )
   }
 }

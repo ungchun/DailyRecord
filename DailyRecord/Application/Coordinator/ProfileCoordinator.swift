@@ -57,7 +57,7 @@ extension ProfileCoordinator {
       animated: true
     )
   }
-
+  
   func showMusicChange() {
     let musicChangeViewController = DIContainer.makeMusicChangeViewController()
     musicChangeViewController.coordinator = self
@@ -66,7 +66,16 @@ extension ProfileCoordinator {
       animated: true
     )
   }
-
+  
+  func showPdfExport() {
+    let pdfExportViewController = DIContainer.makePdfExportViewController()
+    pdfExportViewController.coordinator = self
+    self.navigationController.pushViewController(
+      pdfExportViewController,
+      animated: true
+    )
+  }
+  
   func popToRoot() {
     self.navigationController.popToRootViewController(animated: true)
   }
