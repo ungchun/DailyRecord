@@ -10,6 +10,7 @@
 "profile.icloud_sync" = "iCloud 동기화";
 "profile.dark_mode" = "다크 모드";
 "profile.music_change" = "음악 변경";
+"profile.pdf_export" = "PDF 내보내기";
 "profile.language" = "언어";
 "profile.rate_app" = "앱 평가하기";
 "profile.contact" = "문의하기";
@@ -120,3 +121,9 @@
 "today.diary.write.with.appname" = "오늘 일기 쓰기 (%@)";
 "today.diary.write" = "오늘 일기 쓰기";
 "today.diary.description" = "오늘 날짜 일기 작성 화면으로 이동합니다";
+
+// PDF Export
+"pdf.selected_month_diary_count" = "선택한 달에 작성한 일기: %d개";
+"pdf.description" = "월별 일기를 PDF로 변환해 저장할 수 있어요. 백업이 필요하거나 추억을 간직하고 싶을 때 유용해요!";
+"pdf.no_diary_in_month" = "선택한 달에 작성된 일기가 없어요";
+"pdf.generation_failed" = "PDF 생성에 실패했어요";

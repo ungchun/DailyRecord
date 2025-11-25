@@ -10,6 +10,7 @@
 "profile.icloud_sync" = "iCloud Sync";
 "profile.dark_mode" = "Dark Mode";
 "profile.music_change" = "Music";
+"profile.pdf_export" = "Export PDF";
 "profile.language" = "Language";
 "profile.rate_app" = "Rate App";
 "profile.contact" = "Contact";
@@ -117,6 +118,12 @@
 "continue.writing" = "Continue Writing";
 "exit" = "Exit";
 
-"today.diary.write.with.appname" = "Write Today’s Diary (%@)";
-"today.diary.write" = "Write Today’s Diary";
-"today.diary.description" = "Go to today’s diary writing screen";
+"today.diary.write.with.appname" = "Write Today's Diary (%@)";
+"today.diary.write" = "Write Today's Diary";
+"today.diary.description" = "Go to today's diary writing screen";
+
+// PDF Export
+"pdf.selected_month_diary_count" = "Diaries: %d";
+"pdf.description" = "Convert your monthly diaries to PDF and save them. Useful for backup or preserving memories!";
+"pdf.no_diary_in_month" = "No diaries in selected month";
+"pdf.generation_failed" = "Failed to generate PDF";

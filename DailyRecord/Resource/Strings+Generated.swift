@@ -136,6 +136,18 @@ internal enum L10n {
       internal static let title = L10n.tr("Localizable", "notification.time.title", fallback: "Notification Time")
     }
   }
+  internal enum Pdf {
+    /// Convert your monthly diaries to PDF and save them. Useful for backup or preserving memories!
+    internal static let description = L10n.tr("Localizable", "pdf.description", fallback: "Convert your monthly diaries to PDF and save them. Useful for backup or preserving memories!")
+    /// Failed to generate PDF
+    internal static let generationFailed = L10n.tr("Localizable", "pdf.generation_failed", fallback: "Failed to generate PDF")
+    /// No diaries in selected month
+    internal static let noDiaryInMonth = L10n.tr("Localizable", "pdf.no_diary_in_month", fallback: "No diaries in selected month")
+    /// Diaries: %d
+    internal static func selectedMonthDiaryCount(_ p1: Int) -> String {
+      return L10n.tr("Localizable", "pdf.selected_month_diary_count", p1, fallback: "Diaries: %d")
+    }
+  }
   internal enum Profile {
     /// Contact
     internal static let contact = L10n.tr("Localizable", "profile.contact", fallback: "Contact")
@@ -147,6 +159,8 @@ internal enum L10n {
     internal static let language = L10n.tr("Localizable", "profile.language", fallback: "Language")
     /// Music
     internal static let musicChange = L10n.tr("Localizable", "profile.music_change", fallback: "Music")
+    /// Export PDF
+    internal static let pdfExport = L10n.tr("Localizable", "profile.pdf_export", fallback: "Export PDF")
     /// Rate App
     internal static let rateApp = L10n.tr("Localizable", "profile.rate_app", fallback: "Rate App")
     /// Screen Lock
@@ -202,15 +216,15 @@ internal enum L10n {
   }
   internal enum Today {
     internal enum Diary {
-      /// Go to today’s diary writing screen
-      internal static let description = L10n.tr("Localizable", "today.diary.description", fallback: "Go to today’s diary writing screen")
-      /// Write Today’s Diary
-      internal static let write = L10n.tr("Localizable", "today.diary.write", fallback: "Write Today’s Diary")
+      /// Go to today's diary writing screen
+      internal static let description = L10n.tr("Localizable", "today.diary.description", fallback: "Go to today's diary writing screen")
+      /// Write Today's Diary
+      internal static let write = L10n.tr("Localizable", "today.diary.write", fallback: "Write Today's Diary")
       internal enum Write {
         internal enum With {
-          /// Write Today’s Diary (%@)
+          /// Write Today's Diary (%@)
           internal static func appname(_ p1: Any) -> String {
-            return L10n.tr("Localizable", "today.diary.write.with.appname", String(describing: p1), fallback: "Write Today’s Diary (%@)")
+            return L10n.tr("Localizable", "today.diary.write.with.appname", String(describing: p1), fallback: "Write Today's Diary (%@)")
           }
         }
       }
