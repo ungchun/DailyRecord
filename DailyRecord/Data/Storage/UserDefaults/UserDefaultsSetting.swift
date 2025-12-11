@@ -25,7 +25,10 @@ enum UserDefaultsSetting {
   
   @UserDefaultsWrapper(key: "dailyReminderTime", defaultValue: "22:00")
   static var dailyReminderTime
-  
+
+  @UserDefaultsWrapper(key: "hasRequestedReview", defaultValue: false)
+  static var hasRequestedReview
+
   static var currentDisplayMode: DisplayMode {
     get {
       return DisplayMode(rawValue: displayMode) ?? .system

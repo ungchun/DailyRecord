@@ -8,6 +8,7 @@
 import UIKit
 import WidgetKit
 import PhotosUI
+import StoreKit
 
 import SnapKit
 
@@ -398,6 +399,9 @@ private extension RecordWriteViewController {
           
           WidgetCenter.shared.reloadAllTimelines()
           LoadingIndicator.hideLoading()
+          
+          self.requestReviewIfNeeded()
+          
           handleError(self.coordinator!, L10n.Common.diarySaved)
         }
       } catch {
@@ -406,6 +410,20 @@ private extension RecordWriteViewController {
           "error": error.localizedDescription
         ])
         handleError(self.coordinator!, L10n.Common.error)
+      }
+    }
+  }
+  
+  func requestReviewIfNeeded() {
+    guard !UserDefaultsSetting.hasRequestedReview else { return }
+    
+    if #available(iOS 14.0, *) {
+      if let scene = view.window?.windowScene {
+        SKStoreReviewController.requestReview(in: scene)
+        
+        UserDefaultsSetting.hasRequestedReview = true
+        
+        Amp.track(event: "review_requested", properties: ["trigger": "after_save"])
       }
     }
   }
