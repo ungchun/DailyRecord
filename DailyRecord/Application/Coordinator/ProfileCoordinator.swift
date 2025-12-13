@@ -66,7 +66,16 @@ extension ProfileCoordinator {
       animated: true
     )
   }
-  
+
+  func showFontChange() {
+    let fontChangeViewController = DIContainer.makeFontChangeViewController()
+    fontChangeViewController.coordinator = self
+    self.navigationController.pushViewController(
+      fontChangeViewController,
+      animated: true
+    )
+  }
+
   func showPdfExport() {
     let pdfExportViewController = DIContainer.makePdfExportViewController()
     pdfExportViewController.coordinator = self

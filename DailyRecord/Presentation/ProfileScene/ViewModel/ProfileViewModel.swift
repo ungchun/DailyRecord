@@ -12,11 +12,12 @@ enum ProfileCellItem: CaseIterable {
   case iCloud
   case darkMode
   case musicChange
+  case fontChange
   case pdfExport
   case language
   case appRating
   case contact
-
+  
   var title: String {
     switch self {
     case .screenLock:
@@ -27,6 +28,8 @@ enum ProfileCellItem: CaseIterable {
       return L10n.Profile.darkMode
     case .musicChange:
       return L10n.Profile.musicChange
+    case .fontChange:
+      return L10n.changeFont
     case .pdfExport:
       return L10n.Profile.pdfExport
     case .language:
@@ -37,7 +40,7 @@ enum ProfileCellItem: CaseIterable {
       return L10n.Profile.contact
     }
   }
-
+  
   var iconName: String {
     switch self {
     case .screenLock:
@@ -48,6 +51,8 @@ enum ProfileCellItem: CaseIterable {
       return "moon"
     case .musicChange:
       return "music.note"
+    case .fontChange:
+      return "f.cursive"
     case .pdfExport:
       return "doc.text"
     case .language:

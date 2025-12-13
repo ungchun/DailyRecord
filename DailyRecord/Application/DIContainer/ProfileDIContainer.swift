@@ -61,7 +61,11 @@ extension ProfileDIContainer {
   func makeMusicChangeViewController() -> MusicChangeViewController {
     return MusicChangeViewController()
   }
-  
+
+  func makeFontChangeViewController() -> FontChangeViewController {
+    return FontChangeViewController()
+  }
+
   func makePdfExportViewController() -> PdfExportViewController {
     return PdfExportViewController(
       viewModel: makePdfExportViewModel()

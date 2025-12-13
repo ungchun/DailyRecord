@@ -59,7 +59,7 @@ final class ProfileViewController: BaseViewController {
   private let dailyReminderLabel: UILabel = {
     let label = UILabel()
     label.text = L10n.Diary.Notification.title
-    label.font = UIFont(name: "omyu_pretty", size: 18)
+    label.font = UIFont.appFont(size: 18)
     label.textColor = .azGray900
     return label
   }()
@@ -102,14 +102,14 @@ final class ProfileViewController: BaseViewController {
   private let reminderTimeTextLabel: UILabel = {
     let label = UILabel()
     label.text = L10n.Notification.Time.title
-    label.font = UIFont(name: "omyu_pretty", size: 18)
+    label.font = UIFont.appFont(size: 18)
     label.textColor = .azGray900
     return label
   }()
   
   private let reminderTimeLabel: UILabel = {
     let label = UILabel()
-    label.font = UIFont(name: "omyu_pretty", size: 18)
+    label.font = UIFont.appFont(size: 18)
     label.textColor = .azGray500
     label.textAlignment = .right
     return label
@@ -136,6 +136,7 @@ final class ProfileViewController: BaseViewController {
   private lazy var iCloudButton: UIButton = self.createButton(for: .iCloud)
   private lazy var darkModeButton: UIButton = self.createButton(for: .darkMode)
   private lazy var musicChangeButton: UIButton = self.createButton(for: .musicChange)
+  private lazy var fontChangeButton: UIButton = self.createButton(for: .fontChange)
   private lazy var pdfExportButton: UIButton = self.createButton(for: .pdfExport)
   private lazy var languageButton: UIButton = self.createButton(for: .language)
   private lazy var appRatingButton: UIButton = self.createButton(for: .appRating)
@@ -179,6 +180,7 @@ final class ProfileViewController: BaseViewController {
      reminderTimeStackView,
      darkModeButton,
      musicChangeButton,
+     fontChangeButton,
      topDivider,
      screenLockButton,
      iCloudButton,
@@ -215,9 +217,9 @@ final class ProfileViewController: BaseViewController {
     }
     
     stackView.setCustomSpacing(14, after: dailyReminderStackView)
-    
+
     stackView.setCustomSpacing(20, after: darkModeButton)
-    stackView.setCustomSpacing(20, after: musicChangeButton)
+    stackView.setCustomSpacing(20, after: fontChangeButton)
     stackView.setCustomSpacing(20, after: topDivider)
     stackView.setCustomSpacing(20, after: languageButton)
     stackView.setCustomSpacing(20, after: bottomDivider)
@@ -241,7 +243,7 @@ final class ProfileViewController: BaseViewController {
     configuration.titleTextAttributesTransformer
     = UIConfigurationTextAttributesTransformer { incoming in
       var outgoing = incoming
-      outgoing.font = UIFont(name: "omyu_pretty", size: 18)
+      outgoing.font = UIFont.appFont(size: 18)
       return outgoing
     }
     
@@ -266,8 +268,14 @@ final class ProfileViewController: BaseViewController {
     let button = UIButton(configuration: configuration)
     button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
     button.contentHorizontalAlignment = .leading
-    
+
     return button
+  }
+
+  override func updateFontsAfterChange() {
+    dailyReminderLabel.font = UIFont.appFont(size: 18)
+    reminderTimeTextLabel.font = UIFont.appFont(size: 18)
+    reminderTimeLabel.font = UIFont.appFont(size: 18)
   }
 }
 
@@ -281,6 +289,8 @@ extension ProfileViewController {
       darkModeTrigger()
     } else if sender == musicChangeButton {
       musicChangeTrigger()
+    } else if sender == fontChangeButton {
+      fontChangeTrigger()
     } else if sender == pdfExportButton {
       pdfExportTrigger()
     } else if sender == languageButton {
@@ -422,6 +432,11 @@ extension ProfileViewController {
   private func musicChangeTrigger() {
     Amp.track(event: "button_click", properties: ["button_name": "music_change"])
     coordinator?.showMusicChange()
+  }
+
+  private func fontChangeTrigger() {
+    Amp.track(event: "button_click", properties: ["button_name": "font_change"])
+    coordinator?.showFontChange()
   }
 
   private func pdfExportTrigger() {
