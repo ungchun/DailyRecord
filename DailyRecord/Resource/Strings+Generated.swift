@@ -22,6 +22,8 @@ internal enum L10n {
   }
   /// Biometric authentication is applied first after setup
   internal static let biometricFirstNotice = L10n.tr("Localizable", "biometricFirstNotice", fallback: "Biometric authentication is applied first after setup")
+  /// Change Font
+  internal static let changeFont = L10n.tr("Localizable", "changeFont", fallback: "Change Font")
   /// You can change to music you like
   internal static let changeMusicTip = L10n.tr("Localizable", "changeMusicTip", fallback: "You can change to music you like")
   /// Exit
@@ -30,6 +32,20 @@ internal enum L10n {
   internal static let exportDiaryPDF = L10n.tr("Localizable", "exportDiaryPDF", fallback: "You can save monthly journals as PDF files")
   /// Useful for backups or keeping memories
   internal static let exportDiaryPDFDescription = L10n.tr("Localizable", "exportDiaryPDFDescription", fallback: "Useful for backups or keeping memories")
+  /// You can change the font size and style
+  internal static let fontCustomizationDescription = L10n.tr("Localizable", "fontCustomizationDescription", fallback: "You can change the font size and style")
+  /// Nanum Pen
+  internal static let fontNanumPen = L10n.tr("Localizable", "fontNanumPen", fallback: "Nanum Pen")
+  /// Omyu Dayeppum
+  internal static let fontOmyuDayaeppum = L10n.tr("Localizable", "fontOmyuDayaeppum", fallback: "Omyu Dayeppum")
+  /// Ongleap Konkon
+  internal static let fontOngleapKonkon = L10n.tr("Localizable", "fontOngleapKonkon", fallback: "Ongleap Konkon")
+  /// Ongleap Dahyun
+  internal static let fontOngleapParkDahyun = L10n.tr("Localizable", "fontOngleapParkDahyun", fallback: "Ongleap Dahyun")
+  /// Pretendard
+  internal static let fontPretendard = L10n.tr("Localizable", "fontPretendard", fallback: "Pretendard")
+  /// New fonts will be added regularly
+  internal static let newFontsComing = L10n.tr("Localizable", "newFontsComing", fallback: "New fonts will be added regularly")
   /// More music is coming soon! New tracks are added regularly
   internal static let upcomingMusicNotice = L10n.tr("Localizable", "upcomingMusicNotice", fallback: "More music is coming soon! New tracks are added regularly")
   internal enum Action {

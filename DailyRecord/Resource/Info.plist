@@ -36,6 +36,10 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>omyu_pretty.ttf</string>
+		<string>park_dahyeon.ttf</string>
+		<string>concon.ttf</string>
+		<string>nanum_pen.ttf</string>
+		<string>pretendard_variable.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

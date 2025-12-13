@@ -8,22 +8,42 @@
 import UIKit
 
 class BaseView: UIView {
-	
-	override init(frame: CGRect) {
-		super.init(frame: frame)
-		
-		addView()
-		setLayout()
-		setupView()
-	}
-	
-	required init?(coder: NSCoder) {
-		super.init(coder: coder)
-	}
-	
-	func addView() { }
-	
-	func setLayout() { }
-	
-	func setupView() { }
+  
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    
+    addView()
+    setLayout()
+    setupView()
+    
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(handleFontChange),
+      name: .fontDidChange,
+      object: nil
+    )
+  }
+  
+  required init?(coder: NSCoder) {
+    super.init(coder: coder)
+  }
+  
+  deinit {
+    NotificationCenter.default.removeObserver(self)
+  }
+  
+  @objc private func handleFontChange() {
+    subviews.forEach { $0.removeFromSuperview() }
+    addView()
+    setLayout()
+    setupView()
+    setNeedsLayout()
+    layoutIfNeeded()
+  }
+  
+  func addView() { }
+  
+  func setLayout() { }
+  
+  func setupView() { }
 }

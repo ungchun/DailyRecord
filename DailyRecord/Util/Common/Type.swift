@@ -51,3 +51,9 @@ enum DisplayMode: String {
   case light = "light"
   case dark = "dark"
 }
+
+// MARK: - Notification
+
+extension Notification.Name {
+  static let fontDidChange = Notification.Name("fontDidChange")
+}

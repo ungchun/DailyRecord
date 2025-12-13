@@ -128,7 +128,17 @@
 "pdf.generation_failed" = "PDF 생성에 실패했어요";
 
 "changeMusicTip" = "마음에 드는 음악으로 변경할 수 있어요.";
-"upcomingMusicNotice" = "다음에 나올 음악을 기대해주세요! 음악은 주기적으로 추가돼요.";
+"upcomingMusicNotice" = "다음에 추가될 음악을 기대해주세요! 음악은 주기적으로 추가돼요.";
 "biometricFirstNotice" = "모두 설정하면 생체인증이 먼저 적용돼요.";
 "exportDiaryPDF" = "월별 일기를 PDF로 변환해 저장할 수 있어요.";
 "exportDiaryPDFDescription" = "백업이 필요하거나 추억을 간직하고 싶을 때 유용해요!";
+
+"fontCustomizationDescription" = "폰트 사이즈와 종류를 변경할 수 있어요.";
+"newFontsComing" = "새로운 폰트가 계속 추가될 예정이에요.";
+"changeFont" = "폰트 변경";
+
+"fontOmyuDayaeppum" = "오뮤 다예쁨체";
+"fontOngleapParkDahyun" = "온글잎 박다현체";
+"fontOngleapKonkon" = "온글잎 콘콘체";
+"fontPretendard" = "프리텐다드";
+"fontNanumPen" = "나눔손글씨 펜";

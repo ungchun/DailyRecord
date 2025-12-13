@@ -132,3 +132,13 @@
 "biometricFirstNotice" = "Biometric authentication is applied first after setup";
 "exportDiaryPDF" = "You can save monthly journals as PDF files";
 "exportDiaryPDFDescription" = "Useful for backups or keeping memories";
+
+"fontCustomizationDescription" = "You can change the font size and style";
+"newFontsComing" = "New fonts will be added regularly";
+"changeFont" = "Change Font";
+
+"fontOmyuDayaeppum" = "Omyu Dayeppum";
+"fontOngleapParkDahyun" = "Ongleap Dahyun";
+"fontOngleapKonkon" = "Ongleap Konkon";
+"fontPretendard" = "Pretendard";
+"fontNanumPen" = "Nanum Pen";
