@@ -16,20 +16,38 @@ final class SetiCloudSyncViewController: BaseViewController {
   
   // MARK: - Views
   
-  private let descriptionLabel: UILabel = {
+  private let infoBoxView: UIView = {
+    let view = UIView()
+    view.backgroundColor = UIColor.azBoxGray
+    view.layer.cornerRadius = 12
+    return view
+  }()
+  
+  private let infoTitleLabel: UILabel = {
     let label = UILabel()
     label.text = L10n.Icloud.description
+    label.font = UIFont(name: "omyu_pretty", size: 16)
+    label.textColor = .azGray800
     label.numberOfLines = 0
-    label.font = UIFont(name: "omyu_pretty", size: 20)
-    label.textColor = .azGray500
-    label.textAlignment = .center
+    label.textAlignment = .left
     return label
   }()
   
-  private let divider: UIView = {
-    let view = UIView()
-    view.backgroundColor = .azGray700
-    return view
+  private let infoDescriptionLabel: UILabel = {
+    let label = UILabel()
+    label.text = L10n.Icloud.storageWarning
+    label.font = UIFont(name: "omyu_pretty", size: 15)
+    label.textColor = .azGray500
+    label.numberOfLines = 0
+    label.textAlignment = .left
+    return label
+  }()
+  
+  private lazy var infoLabelStackView: UIStackView = {
+    let stackView = UIStackView(arrangedSubviews: [infoTitleLabel, infoDescriptionLabel])
+    stackView.axis = .vertical
+    stackView.spacing = 12
+    return stackView
   }()
   
   private let syncMethodTitleLabel: UILabel = {
@@ -49,15 +67,6 @@ final class SetiCloudSyncViewController: BaseViewController {
     return label
   }()
   
-  private let cautionLabel: UILabel = {
-    let label = UILabel()
-    label.text = L10n.Icloud.storageWarning
-    label.numberOfLines = 0
-    label.font = UIFont(name: "omyu_pretty", size: 16)
-    label.textColor = .azGray900
-    return label
-  }()
-    
   // MARK: - Life Cycle
   
   override func viewDidLoad() {
@@ -67,42 +76,38 @@ final class SetiCloudSyncViewController: BaseViewController {
   // MARK: - Functions
   
   override func addView() {
-    [descriptionLabel, divider,
-     syncMethodTitleLabel, syncMethodDescriptionLabel, cautionLabel].forEach {
+    view.addSubview(infoBoxView)
+    infoBoxView.addSubview(infoLabelStackView)
+    
+    [syncMethodTitleLabel, syncMethodDescriptionLabel].forEach {
       view.addSubview($0)
     }
   }
   
   override func setLayout() {
-    descriptionLabel.snp.makeConstraints { make in
-      make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
-      make.leading.equalToSuperview().offset(16)
-      make.trailing.equalToSuperview().offset(-16)
+    infoBoxView.snp.makeConstraints { make in
+      make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
+      make.leading.equalToSuperview().offset(20)
+      make.trailing.equalToSuperview().offset(-20)
     }
     
-    divider.snp.makeConstraints { make in
-      make.top.equalTo(descriptionLabel.snp.bottom).offset(20)
-      make.height.equalTo(1)
-      make.leading.equalToSuperview().offset(32)
-      make.trailing.equalToSuperview().offset(-32)
+    infoLabelStackView.snp.makeConstraints { make in
+      make.leading.equalToSuperview().offset(16)
+      make.trailing.equalToSuperview().offset(-16)
+      make.top.equalToSuperview().offset(16)
+      make.bottom.equalToSuperview().offset(-16)
     }
     
     syncMethodTitleLabel.snp.makeConstraints { make in
-      make.top.equalTo(divider.snp.bottom).offset(20)
-      make.leading.equalToSuperview().offset(16)
-      make.trailing.equalToSuperview().offset(-16)
+      make.top.equalTo(infoBoxView.snp.bottom).offset(24)
+      make.leading.equalToSuperview().offset(20)
+      make.trailing.equalToSuperview().offset(-20)
     }
     
     syncMethodDescriptionLabel.snp.makeConstraints { make in
       make.top.equalTo(syncMethodTitleLabel.snp.bottom).offset(10)
-      make.leading.equalToSuperview().offset(16)
-      make.trailing.equalToSuperview().offset(-16)
-    }
-    
-    cautionLabel.snp.makeConstraints { make in
-      make.top.equalTo(syncMethodDescriptionLabel.snp.bottom).offset(20)
-      make.leading.equalToSuperview().offset(16)
-      make.trailing.equalToSuperview().offset(-16)
+      make.leading.equalToSuperview().offset(20)
+      make.trailing.equalToSuperview().offset(-20)
     }
   }
   

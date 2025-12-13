@@ -17,20 +17,38 @@ final class SetScreenLockViewController: BaseViewController {
   
   // MARK: - Views
   
-  private let descriptionLabel: UILabel = {
+  private let infoBoxView: UIView = {
+    let view = UIView()
+    view.backgroundColor = UIColor.azBoxGray
+    view.layer.cornerRadius = 12
+    return view
+  }()
+  
+  private let infoTitleLabel: UILabel = {
     let label = UILabel()
     label.text = L10n.ScreenLock.description
-    label.font = UIFont(name: "omyu_pretty", size: 18)
-    label.textColor = .azGray500
+    label.font = UIFont(name: "omyu_pretty", size: 16)
+    label.textColor = .azGray800
     label.numberOfLines = 0
-    label.textAlignment = .center
+    label.textAlignment = .left
     return label
   }()
   
-  private let divider: UIView = {
-    let view = UIView()
-    view.backgroundColor = .azGray700
-    return view
+  private let infoDescriptionLabel: UILabel = {
+    let label = UILabel()
+    label.text = L10n.biometricFirstNotice
+    label.font = UIFont(name: "omyu_pretty", size: 15)
+    label.textColor = .azGray500
+    label.numberOfLines = 0
+    label.textAlignment = .left
+    return label
+  }()
+  
+  private lazy var infoLabelStackView: UIStackView = {
+    let stackView = UIStackView(arrangedSubviews: [infoTitleLabel, infoDescriptionLabel])
+    stackView.axis = .vertical
+    stackView.spacing = 12
+    return stackView
   }()
   
   private let passwordIcon: UIImageView = {
@@ -164,27 +182,27 @@ final class SetScreenLockViewController: BaseViewController {
   // MARK: - Functions
   
   override func addView() {
-    view.addSubview(descriptionLabel)
-    view.addSubview(divider)
+    view.addSubview(infoBoxView)
+    infoBoxView.addSubview(infoLabelStackView)
     view.addSubview(containerStackView)
   }
   
   override func setLayout() {
-    descriptionLabel.snp.makeConstraints { make in
-      make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
-      make.leading.equalToSuperview().offset(16)
-      make.trailing.equalToSuperview().offset(-16)
+    infoBoxView.snp.makeConstraints { make in
+      make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
+      make.leading.equalToSuperview().offset(20)
+      make.trailing.equalToSuperview().offset(-20)
     }
     
-    divider.snp.makeConstraints { make in
-      make.top.equalTo(descriptionLabel.snp.bottom).offset(20)
-      make.height.equalTo(1)
-      make.leading.equalToSuperview().offset(32)
-      make.trailing.equalToSuperview().offset(-32)
+    infoLabelStackView.snp.makeConstraints { make in
+      make.leading.equalToSuperview().offset(16)
+      make.trailing.equalToSuperview().offset(-16)
+      make.top.equalToSuperview().offset(16)
+      make.bottom.equalToSuperview().offset(-16)
     }
     
     containerStackView.snp.makeConstraints { make in
-      make.top.equalTo(divider.snp.bottom).offset(20)
+      make.top.equalTo(infoBoxView.snp.bottom).offset(24)
       make.leading.equalToSuperview().offset(20)
       make.trailing.equalToSuperview().offset(-20)
     }

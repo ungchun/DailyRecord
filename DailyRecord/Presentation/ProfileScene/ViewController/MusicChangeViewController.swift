@@ -49,6 +49,40 @@ final class MusicChangeViewController: BaseViewController {
     return stackView
   }()
   
+  private let infoBoxView: UIView = {
+    let view = UIView()
+    view.backgroundColor = UIColor.azBoxGray
+    view.layer.cornerRadius = 12
+    return view
+  }()
+  
+  private let infoTitleLabel: UILabel = {
+    let label = UILabel()
+    label.text = L10n.changeMusicTip
+    label.font = UIFont(name: "omyu_pretty", size: 16)
+    label.textColor = .azGray800
+    label.numberOfLines = 0
+    label.textAlignment = .left
+    return label
+  }()
+  
+  private let infoDescriptionLabel: UILabel = {
+    let label = UILabel()
+    label.text = L10n.upcomingMusicNotice
+    label.font = UIFont(name: "omyu_pretty", size: 15)
+    label.textColor = .azGray500
+    label.numberOfLines = 0
+    label.textAlignment = .left
+    return label
+  }()
+  
+  private lazy var infoLabelStackView: UIStackView = {
+    let stackView = UIStackView(arrangedSubviews: [infoTitleLabel, infoDescriptionLabel])
+    stackView.axis = .vertical
+    stackView.spacing = 12
+    return stackView
+  }()
+  
   // MARK: - Init
   
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -76,6 +110,8 @@ final class MusicChangeViewController: BaseViewController {
     view.addSubview(scrollView)
     scrollView.addSubview(contentView)
     
+    contentView.addSubview(infoBoxView)
+    infoBoxView.addSubview(infoLabelStackView)
     contentView.addSubview(musicStackView)
   }
   
@@ -89,10 +125,23 @@ final class MusicChangeViewController: BaseViewController {
       make.width.equalToSuperview()
     }
     
-    musicStackView.snp.makeConstraints { make in
+    infoBoxView.snp.makeConstraints { make in
       make.top.equalToSuperview().offset(16)
+      make.leading.equalToSuperview().offset(20)
+      make.trailing.equalToSuperview().offset(-20)
+    }
+    
+    infoLabelStackView.snp.makeConstraints { make in
       make.leading.equalToSuperview().offset(16)
       make.trailing.equalToSuperview().offset(-16)
+      make.top.equalToSuperview().offset(16)
+      make.bottom.equalToSuperview().offset(-16)
+    }
+    
+    musicStackView.snp.makeConstraints { make in
+      make.top.equalTo(infoBoxView.snp.bottom).offset(24)
+      make.leading.equalToSuperview().offset(20)
+      make.trailing.equalToSuperview().offset(-20)
       make.bottom.equalToSuperview().offset(-16)
     }
   }

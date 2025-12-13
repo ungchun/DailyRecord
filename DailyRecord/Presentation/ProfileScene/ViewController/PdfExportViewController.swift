@@ -96,13 +96,38 @@ final class PdfExportViewController: BaseViewController {
     return stackView
   }()
   
-  private let descriptionLabel: UILabel = {
+  private let infoBoxView: UIView = {
+    let view = UIView()
+    view.backgroundColor = UIColor.azBoxGray
+    view.layer.cornerRadius = 12
+    return view
+  }()
+  
+  private let infoTitleLabel: UILabel = {
     let label = UILabel()
-    label.text = L10n.Pdf.description
+    label.text = L10n.exportDiaryPDF
     label.font = UIFont(name: "omyu_pretty", size: 16)
+    label.textColor = .azGray800
+    label.numberOfLines = 0
+    label.textAlignment = .left
+    return label
+  }()
+  
+  private let infoDescriptionLabel: UILabel = {
+    let label = UILabel()
+    label.text = L10n.exportDiaryPDFDescription
+    label.font = UIFont(name: "omyu_pretty", size: 15)
     label.textColor = .azGray500
     label.numberOfLines = 0
+    label.textAlignment = .left
     return label
+  }()
+  
+  private lazy var infoLabelStackView: UIStackView = {
+    let stackView = UIStackView(arrangedSubviews: [infoTitleLabel, infoDescriptionLabel])
+    stackView.axis = .vertical
+    stackView.spacing = 12
+    return stackView
   }()
   
   // MARK: - Init
@@ -128,17 +153,26 @@ final class PdfExportViewController: BaseViewController {
   
   override func addView() {
     view.addSubview(headerStackView)
-    view.addSubview(descriptionLabel)
+    view.addSubview(infoBoxView)
+    infoBoxView.addSubview(infoLabelStackView)
   }
   
   override func setLayout() {
-    headerStackView.snp.makeConstraints { make in
-      make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
-      make.leading.trailing.equalToSuperview().inset(20)
+    infoBoxView.snp.makeConstraints { make in
+      make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
+      make.leading.equalToSuperview().offset(20)
+      make.trailing.equalToSuperview().offset(-20)
     }
     
-    descriptionLabel.snp.makeConstraints { make in
-      make.top.equalTo(headerStackView.snp.bottom).offset(30)
+    infoLabelStackView.snp.makeConstraints { make in
+      make.leading.equalToSuperview().offset(16)
+      make.trailing.equalToSuperview().offset(-16)
+      make.top.equalToSuperview().offset(16)
+      make.bottom.equalToSuperview().offset(-16)
+    }
+    
+    headerStackView.snp.makeConstraints { make in
+      make.top.equalTo(infoBoxView.snp.bottom).offset(24)
       make.leading.trailing.equalToSuperview().inset(20)
     }
   }
