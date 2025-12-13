@@ -21,10 +21,10 @@
 "music.quiet_forest" = "고요한 숲";
 
 // iCloud
-"icloud.description" = "다온일기는 iCloud에 자동으로 백업/저장 할 수 있어요";
+"icloud.description" = "다온일기는 iCloud에 자동으로 백업/저장 할 수 있어요.";
 "icloud.sync_method" = "동기화 방법";
 "icloud.sync_instruction" = "설정 > Apple 계정 > iCloud > 다온일기 토글 on";
-"icloud.storage_warning" = "iCloud 용량이 가득 찬 경우 동기화가 되지 않으니 주의해주세요";
+"icloud.storage_warning" = "iCloud 용량이 가득 찬 경우 동기화가 되지 않으니 주의해주세요.";
 
 // Dark Mode
 "darkmode.system_setting" = "시스템 설정";
@@ -32,7 +32,7 @@
 "darkmode.dark_mode" = "다크 모드";
 
 // Screen Lock
-"screenLock.description" = "비밀번호를 잊어버리면 찾을 수 없어요";
+"screenLock.description" = "비밀번호를 잊어버리면 찾을 수 없어요.";
 "screenLock.password" = "비밀번호";
 "screenLock.changePassword" = "비밀번호 변경";
 "screenLock.biometric" = "생체인증";
@@ -124,6 +124,11 @@
 
 // PDF Export
 "pdf.selected_month_diary_count" = "선택한 달에 작성한 일기: %d개";
-"pdf.description" = "월별 일기를 PDF로 변환해 저장할 수 있어요. 백업이 필요하거나 추억을 간직하고 싶을 때 유용해요!";
 "pdf.no_diary_in_month" = "선택한 달에 작성된 일기가 없어요";
 "pdf.generation_failed" = "PDF 생성에 실패했어요";
+
+"changeMusicTip" = "마음에 드는 음악으로 변경할 수 있어요.";
+"upcomingMusicNotice" = "다음에 나올 음악을 기대해주세요! 음악은 주기적으로 추가돼요.";
+"biometricFirstNotice" = "모두 설정하면 생체인증이 먼저 적용돼요.";
+"exportDiaryPDF" = "월별 일기를 PDF로 변환해 저장할 수 있어요.";
+"exportDiaryPDFDescription" = "백업이 필요하거나 추억을 간직하고 싶을 때 유용해요!";

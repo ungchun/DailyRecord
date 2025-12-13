@@ -20,8 +20,18 @@ internal enum L10n {
     /// Biometric authentication is used for app security
     internal static let nsFaceIDUsageDescription = L10n.tr("InfoPlist", "NSFaceIDUsageDescription", fallback: "Biometric authentication is used for app security")
   }
+  /// Biometric authentication is applied first after setup
+  internal static let biometricFirstNotice = L10n.tr("Localizable", "biometricFirstNotice", fallback: "Biometric authentication is applied first after setup")
+  /// You can change to music you like
+  internal static let changeMusicTip = L10n.tr("Localizable", "changeMusicTip", fallback: "You can change to music you like")
   /// Exit
   internal static let exit = L10n.tr("Localizable", "exit", fallback: "Exit")
+  /// You can save monthly journals as PDF files
+  internal static let exportDiaryPDF = L10n.tr("Localizable", "exportDiaryPDF", fallback: "You can save monthly journals as PDF files")
+  /// Useful for backups or keeping memories
+  internal static let exportDiaryPDFDescription = L10n.tr("Localizable", "exportDiaryPDFDescription", fallback: "Useful for backups or keeping memories")
+  /// More music is coming soon! New tracks are added regularly
+  internal static let upcomingMusicNotice = L10n.tr("Localizable", "upcomingMusicNotice", fallback: "More music is coming soon! New tracks are added regularly")
   internal enum Action {
     /// Cancel
     internal static let cancel = L10n.tr("Localizable", "action.cancel", fallback: "Cancel")
@@ -137,8 +147,6 @@ internal enum L10n {
     }
   }
   internal enum Pdf {
-    /// Convert your monthly diaries to PDF and save them. Useful for backup or preserving memories!
-    internal static let description = L10n.tr("Localizable", "pdf.description", fallback: "Convert your monthly diaries to PDF and save them. Useful for backup or preserving memories!")
     /// Failed to generate PDF
     internal static let generationFailed = L10n.tr("Localizable", "pdf.generation_failed", fallback: "Failed to generate PDF")
     /// No diaries in selected month

@@ -124,6 +124,11 @@
 
 // PDF Export
 "pdf.selected_month_diary_count" = "Diaries: %d";
-"pdf.description" = "Convert your monthly diaries to PDF and save them. Useful for backup or preserving memories!";
 "pdf.no_diary_in_month" = "No diaries in selected month";
 "pdf.generation_failed" = "Failed to generate PDF";
+
+"changeMusicTip" = "You can change to music you like";
+"upcomingMusicNotice" = "More music is coming soon! New tracks are added regularly";
+"biometricFirstNotice" = "Biometric authentication is applied first after setup";
+"exportDiaryPDF" = "You can save monthly journals as PDF files";
+"exportDiaryPDFDescription" = "Useful for backups or keeping memories";
