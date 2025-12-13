@@ -27,7 +27,7 @@ final class SetScreenLockViewController: BaseViewController {
   private let infoTitleLabel: UILabel = {
     let label = UILabel()
     label.text = L10n.ScreenLock.description
-    label.font = UIFont(name: "omyu_pretty", size: 16)
+    label.font = UIFont.appFont(size: 16)
     label.textColor = .azGray800
     label.numberOfLines = 0
     label.textAlignment = .left
@@ -37,7 +37,7 @@ final class SetScreenLockViewController: BaseViewController {
   private let infoDescriptionLabel: UILabel = {
     let label = UILabel()
     label.text = L10n.biometricFirstNotice
-    label.font = UIFont(name: "omyu_pretty", size: 15)
+    label.font = UIFont.appFont(size: 15)
     label.textColor = .azGray500
     label.numberOfLines = 0
     label.textAlignment = .left
@@ -63,7 +63,7 @@ final class SetScreenLockViewController: BaseViewController {
   private let passwordLabel: UILabel = {
     let label = UILabel()
     label.text = L10n.ScreenLock.password
-    label.font = UIFont(name: "omyu_pretty", size: 18)
+    label.font = UIFont.appFont(size: 18)
     label.textColor = .azGray900
     return label
   }()
@@ -105,7 +105,7 @@ final class SetScreenLockViewController: BaseViewController {
   private let changePasswordLabel: UILabel = {
     let label = UILabel()
     label.text = L10n.ScreenLock.changePassword
-    label.font = UIFont(name: "omyu_pretty", size: 18)
+    label.font = UIFont.appFont(size: 18)
     label.textColor = .azGray900
     return label
   }()
@@ -134,7 +134,7 @@ final class SetScreenLockViewController: BaseViewController {
   private let biometricLabel: UILabel = {
     let label = UILabel()
     label.text = L10n.ScreenLock.biometric
-    label.font = UIFont(name: "omyu_pretty", size: 18)
+    label.font = UIFont.appFont(size: 18)
     label.textColor = .azGray900
     return label
   }()

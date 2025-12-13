@@ -59,7 +59,7 @@ final class MusicChangeViewController: BaseViewController {
   private let infoTitleLabel: UILabel = {
     let label = UILabel()
     label.text = L10n.changeMusicTip
-    label.font = UIFont(name: "omyu_pretty", size: 16)
+    label.font = UIFont.appFont(size: 16)
     label.textColor = .azGray800
     label.numberOfLines = 0
     label.textAlignment = .left
@@ -69,7 +69,7 @@ final class MusicChangeViewController: BaseViewController {
   private let infoDescriptionLabel: UILabel = {
     let label = UILabel()
     label.text = L10n.upcomingMusicNotice
-    label.font = UIFont(name: "omyu_pretty", size: 15)
+    label.font = UIFont.appFont(size: 15)
     label.textColor = .azGray500
     label.numberOfLines = 0
     label.textAlignment = .left
@@ -183,7 +183,7 @@ private extension MusicChangeViewController {
     
     let titleLabel = UILabel()
     titleLabel.text = item.title
-    titleLabel.font = UIFont(name: "omyu_pretty", size: 18)
+    titleLabel.font = UIFont.appFont(size: 18)
     titleLabel.textColor = .azGray900
     
     let checkImageView = UIImageView()

@@ -21,7 +21,7 @@ final class ChartViewController: BaseViewController {
   
   private let noEmotionLabel: UILabel = {
     let label = UILabel()
-    label.font = UIFont(name: "omyu_pretty", size: 20)
+    label.font = UIFont.appFont(size: 20)
     label.textColor = .azGray700
     label.text = L10n.Common.empty
     label.textAlignment = .center
@@ -41,7 +41,7 @@ final class ChartViewController: BaseViewController {
   
   private let monthLabel: UILabel = {
     let label = UILabel()
-    label.font = UIFont(name: "omyu_pretty", size: 20)
+    label.font = UIFont.appFont(size: 20)
     label.textColor = .azGray900
     label.textAlignment = .center
     return label
@@ -270,7 +270,7 @@ private extension ChartViewController {
           let countLabel = UILabel()
           countLabel.text = "\(count)"
           countLabel.textColor = .azGray900
-          countLabel.font = UIFont(name: "omyu_pretty", size: 20)
+          countLabel.font = UIFont.appFont(size: 20)
           stackView.addArrangedSubview(countLabel)
           
           containerView.snp.makeConstraints { make in

@@ -32,7 +32,7 @@ final class PdfExportViewController: BaseViewController {
   
   private let monthLabel: UILabel = {
     let label = UILabel()
-    label.font = UIFont(name: "omyu_pretty", size: 20)
+    label.font = UIFont.appFont(size: 20)
     label.textColor = .azGray900
     label.textAlignment = .center
     return label
@@ -72,7 +72,7 @@ final class PdfExportViewController: BaseViewController {
   
   private let recordCountLabel: UILabel = {
     let label = UILabel()
-    label.font = UIFont(name: "omyu_pretty", size: 18)
+    label.font = UIFont.appFont(size: 18)
     label.textColor = .azGray900
     return label
   }()
@@ -106,7 +106,7 @@ final class PdfExportViewController: BaseViewController {
   private let infoTitleLabel: UILabel = {
     let label = UILabel()
     label.text = L10n.exportDiaryPDF
-    label.font = UIFont(name: "omyu_pretty", size: 16)
+    label.font = UIFont.appFont(size: 16)
     label.textColor = .azGray800
     label.numberOfLines = 0
     label.textAlignment = .left
@@ -116,7 +116,7 @@ final class PdfExportViewController: BaseViewController {
   private let infoDescriptionLabel: UILabel = {
     let label = UILabel()
     label.text = L10n.exportDiaryPDFDescription
-    label.font = UIFont(name: "omyu_pretty", size: 15)
+    label.font = UIFont.appFont(size: 15)
     label.textColor = .azGray500
     label.numberOfLines = 0
     label.textAlignment = .left
@@ -343,7 +343,7 @@ private extension PdfExportViewController {
         dateFormatter.dateStyle = .long
         let dateText = dateFormatter.string(from: recordDate)
         
-        let dateFont = UIFont(name: "omyu_pretty", size: 20)
+        let dateFont = UIFont.appFont(size: 20)
         ?? UIFont.systemFont(ofSize: 20, weight: .bold)
         let dateAttributes: [NSAttributedString.Key: Any] = [
           .font: dateFont,
@@ -398,7 +398,7 @@ private extension PdfExportViewController {
           }
         }
         
-        let contentFont = UIFont(name: "omyu_pretty", size: 16) ?? UIFont.systemFont(ofSize: 16)
+        let contentFont = UIFont.appFont(size: 16) ?? UIFont.systemFont(ofSize: 16)
         let contentAttributes: [NSAttributedString.Key: Any] = [
           .font: contentFont,
           .foregroundColor: UIColor.darkGray

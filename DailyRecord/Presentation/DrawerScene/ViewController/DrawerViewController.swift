@@ -22,7 +22,7 @@ final class DrawerViewController: BaseViewController {
   
   private let emptyStateLabel: UILabel = {
     let label = UILabel()
-    label.font = UIFont(name: "omyu_pretty", size: 20)
+    label.font = UIFont.appFont(size: 20)
     label.textColor = .azGray700
     label.text = L10n.Common.noDiary
     label.textAlignment = .center
@@ -42,7 +42,7 @@ final class DrawerViewController: BaseViewController {
   
   private let monthLabel: UILabel = {
     let label = UILabel()
-    label.font = UIFont(name: "omyu_pretty", size: 20)
+    label.font = UIFont.appFont(size: 20)
     label.textColor = .azGray900
     label.textAlignment = .center
     return label

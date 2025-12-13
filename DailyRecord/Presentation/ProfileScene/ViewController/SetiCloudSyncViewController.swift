@@ -26,7 +26,7 @@ final class SetiCloudSyncViewController: BaseViewController {
   private let infoTitleLabel: UILabel = {
     let label = UILabel()
     label.text = L10n.Icloud.description
-    label.font = UIFont(name: "omyu_pretty", size: 16)
+    label.font = UIFont.appFont(size: 16)
     label.textColor = .azGray800
     label.numberOfLines = 0
     label.textAlignment = .left
@@ -36,7 +36,7 @@ final class SetiCloudSyncViewController: BaseViewController {
   private let infoDescriptionLabel: UILabel = {
     let label = UILabel()
     label.text = L10n.Icloud.storageWarning
-    label.font = UIFont(name: "omyu_pretty", size: 15)
+    label.font = UIFont.appFont(size: 15)
     label.textColor = .azGray500
     label.numberOfLines = 0
     label.textAlignment = .left
@@ -53,7 +53,7 @@ final class SetiCloudSyncViewController: BaseViewController {
   private let syncMethodTitleLabel: UILabel = {
     let label = UILabel()
     label.text = L10n.Icloud.syncMethod
-    label.font = UIFont(name: "omyu_pretty", size: 18)
+    label.font = UIFont.appFont(size: 18)
     label.textColor = .azGray900
     return label
   }()
@@ -61,7 +61,7 @@ final class SetiCloudSyncViewController: BaseViewController {
   private let syncMethodDescriptionLabel: UILabel = {
     let label = UILabel()
     label.text = L10n.Icloud.syncInstruction
-    label.font = UIFont(name: "omyu_pretty", size: 18)
+    label.font = UIFont.appFont(size: 18)
     label.textColor = .azGray900
     label.numberOfLines = 0
     return label

@@ -46,7 +46,7 @@ final class RecordWriteViewController: BaseViewController {
   
   private let todayDateView: UILabel = {
     let label = UILabel()
-    label.font = UIFont(name: "omyu_pretty", size: 16)
+    label.font = UIFont.appFont(size: 16)
     label.textColor = .azGray700
     label.textAlignment = .center
     label.numberOfLines = 0
@@ -56,7 +56,7 @@ final class RecordWriteViewController: BaseViewController {
   private lazy var inputDiaryView: UITextView = {
     let textView = UITextView()
     textView.delegate = self
-    textView.font = UIFont(name: "omyu_pretty", size: 16)
+    textView.font = UIFont.appFont(size: 16)
     textView.textColor = .azGray400
     textView.text = L10n.Record.howWasYourDay
     textView.backgroundColor = .clear

@@ -22,7 +22,7 @@ final class SetDarkModeViewController: BaseViewController {
   private let systemModeLabel: UILabel = {
     let label = UILabel()
     label.text = L10n.Darkmode.systemSetting
-    label.font = UIFont(name: "omyu_pretty", size: 18)
+    label.font = UIFont.appFont(size: 18)
     label.textColor = .azGray900
     return label
   }()
@@ -49,7 +49,7 @@ final class SetDarkModeViewController: BaseViewController {
   private let lightModeLabel: UILabel = {
     let label = UILabel()
     label.text = L10n.Darkmode.lightMode
-    label.font = UIFont(name: "omyu_pretty", size: 18)
+    label.font = UIFont.appFont(size: 18)
     label.textColor = .azGray900
     return label
   }()
@@ -76,7 +76,7 @@ final class SetDarkModeViewController: BaseViewController {
   private let darkModeLabel: UILabel = {
     let label = UILabel()
     label.text = L10n.Darkmode.darkMode
-    label.font = UIFont(name: "omyu_pretty", size: 18)
+    label.font = UIFont.appFont(size: 18)
     label.textColor = .azGray900
     return label
   }()

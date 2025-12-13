@@ -69,7 +69,7 @@ final class PasswordInputViewController: UIViewController {
   
   private let titleLabel: UILabel = {
     let label = UILabel()
-    label.font = UIFont(name: "omyu_pretty", size: 18)
+    label.font = UIFont.appFont(size: 18)
     label.textColor = .azGray900
     label.textAlignment = .center
     return label
@@ -214,7 +214,7 @@ final class PasswordInputViewController: UIViewController {
   private func createKeyButton(text: String) -> UIButton {
     let button = UIButton()
     button.setTitle(text, for: .normal)
-    button.titleLabel?.font = UIFont(name: "omyu_pretty", size: 28)
+    button.titleLabel?.font = UIFont.appFont(size: 28)
     button.setTitleColor(.azGray900, for: .normal)
     button.addTarget(self, action: #selector(keyTapped(_:)), for: .touchUpInside)
     return button

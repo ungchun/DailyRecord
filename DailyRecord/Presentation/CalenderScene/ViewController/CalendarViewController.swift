@@ -93,7 +93,7 @@ final class CalendarViewController: BaseViewController {
     config.baseForegroundColor = .azGray100
     config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
       var outgoing = incoming
-      outgoing.font = UIFont(name: "omyu_pretty", size: 16)
+      outgoing.font = UIFont.appFont(size: 16)
       return outgoing
     }
     config.background.backgroundColor = .azGray900
@@ -112,7 +112,7 @@ final class CalendarViewController: BaseViewController {
   
   private lazy var calendarHeaderView: UILabel = {
     let label = UILabel()
-    label.font = UIFont(name: "omyu_pretty", size: 25)
+    label.font = UIFont.appFont(size: 25)
     label.textColor = .azGray900
     label.text = DateFormatter.localizedYearMonth(Date())
     return label
@@ -152,11 +152,11 @@ final class CalendarViewController: BaseViewController {
     
     calendar.appearance.headerMinimumDissolvedAlpha = 0.0
     calendar.appearance.headerTitleColor = .clear
-    calendar.appearance.weekdayFont = UIFont(name: "omyu_pretty", size: 14)
+    calendar.appearance.weekdayFont = UIFont.appFont(size: 14)
     calendar.appearance.weekdayTextColor = .azGray700
     calendar.appearance.todayColor = .azGray700
     calendar.appearance.selectionColor = .clear
-    calendar.appearance.titleFont = UIFont(name: "omyu_pretty", size: 12)
+    calendar.appearance.titleFont = UIFont.appFont(size: 12)
     
     return calendar
   }()
@@ -353,6 +353,13 @@ final class CalendarViewController: BaseViewController {
       }
     }
   }
+
+  override func updateFontsAfterChange() {
+    calendarView.appearance.weekdayFont = UIFont.appFont(size: 14)
+    calendarView.appearance.titleFont = UIFont.appFont(size: 12)
+    calendarView.reloadData()
+    calendarHeaderView.font = UIFont.appFont(size: 25)
+  }
 }
 
 extension CalendarViewController {
@@ -532,7 +539,7 @@ extension CalendarViewController {
     let yearLabel = UILabel()
     let isKorean = Locale.current.language.languageCode?.identifier == "ko"
     yearLabel.text = isKorean ? "\(currentYear)년" : "\(currentYear)"
-    yearLabel.font = UIFont(name: "omyu_pretty", size: 20)
+    yearLabel.font = UIFont.appFont(size: 20)
     yearLabel.textColor = .azGray900
     yearLabel.textAlignment = .center
     yearLabel.tag = 2002
@@ -595,7 +602,7 @@ extension CalendarViewController {
     for (index, month) in months.enumerated() {
       let button = UIButton(type: .system)
       button.setTitle("\(month)", for: .normal)
-      button.titleLabel?.font = UIFont(name: "omyu_pretty", size: 16)
+      button.titleLabel?.font = UIFont.appFont(size: 16)
       button.backgroundColor = (year == currentYear && month == currentMonth)
       ? .azGray200 : .clear
       button.tintColor = .azGray900

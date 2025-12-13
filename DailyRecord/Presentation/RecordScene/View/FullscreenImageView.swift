@@ -38,7 +38,7 @@ final class FullscreenImageViewController: BaseViewController {
 	
 	private var indexLabel: UILabel = {
 		let label = UILabel()
-		label.font = UIFont(name: "omyu_pretty", size: 16)
+		label.font = UIFont.appFont(size: 16)
 		label.textColor = .azGray900
 		label.textAlignment = .center
 		label.translatesAutoresizingMaskIntoConstraints = false

@@ -49,7 +49,7 @@ final class DrawerRecordItemView: BaseView {
   
   private let dateLabel: UILabel = {
     let label = UILabel()
-    label.font = UIFont(name: "omyu_pretty", size: 16)
+    label.font = UIFont.appFont(size: 16)
     label.textColor = .azGray700
     label.textAlignment = .center
     label.numberOfLines = 0
@@ -66,7 +66,7 @@ final class DrawerRecordItemView: BaseView {
   
   private let contentLabel: UILabel = {
     let label = UILabel()
-    label.font = UIFont(name: "omyu_pretty", size: 16)
+    label.font = UIFont.appFont(size: 16)
     label.textColor = .azGray900
     label.numberOfLines = 3
     return label

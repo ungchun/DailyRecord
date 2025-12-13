@@ -45,7 +45,7 @@ final class SearchViewController: BaseViewController {
   private let emptyResultLabel: UILabel = {
     let label = UILabel()
     label.text = L10n.Search.noResults
-    label.font = UIFont(name: "omyu_pretty", size: 18)
+    label.font = UIFont.appFont(size: 18)
     label.textColor = .azGray700
     label.textAlignment = .center
     label.isHidden = true
