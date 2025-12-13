@@ -25,7 +25,7 @@ final class DrawerRecordItemView: BaseView {
   
   private let containerView: UIView = {
     let view = UIView()
-    view.backgroundColor = .azGray200
+    view.backgroundColor = .azBoxGray
     view.layer.cornerRadius = 16
     view.clipsToBounds = true
     return view
