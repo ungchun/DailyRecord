@@ -29,6 +29,9 @@ enum UserDefaultsSetting {
   @UserDefaultsWrapper(key: "hasRequestedReview", defaultValue: false)
   static var hasRequestedReview
 
+  @UserDefaultsWrapper(key: "recordSaveCount", defaultValue: 0)
+  static var recordSaveCount
+
   static var currentDisplayMode: DisplayMode {
     get {
       return DisplayMode(rawValue: displayMode) ?? .system

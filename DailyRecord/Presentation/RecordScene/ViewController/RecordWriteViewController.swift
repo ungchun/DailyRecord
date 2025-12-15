@@ -416,14 +416,21 @@ private extension RecordWriteViewController {
   
   func requestReviewIfNeeded() {
     guard !UserDefaultsSetting.hasRequestedReview else { return }
-    
+
+    UserDefaultsSetting.recordSaveCount += 1
+
+    guard UserDefaultsSetting.recordSaveCount >= 5 else { return }
+
     if #available(iOS 14.0, *) {
       if let scene = view.window?.windowScene {
         SKStoreReviewController.requestReview(in: scene)
-        
+
         UserDefaultsSetting.hasRequestedReview = true
-        
-        Amp.track(event: "review_requested", properties: ["trigger": "after_save"])
+
+        Amp.track(event: "review_requested", properties: [
+          "trigger": "after_save",
+          "save_count": UserDefaultsSetting.recordSaveCount
+        ])
       }
     }
   }
