@@ -204,7 +204,6 @@
 		6534D2B12EF7CF940019F4D1 /* park_dahyeon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = park_dahyeon.ttf; sourceTree = "<group>"; };
 		6534D2B22EF7CF940019F4D1 /* pretendard_variable.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = pretendard_variable.ttf; sourceTree = "<group>"; };
 		6534D2B42EF7CF940019F4D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AppShortcuts.strings; sourceTree = "<group>"; };
-		6534D2B52EF7CF940019F4D1 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/AppShortcuts.strings; sourceTree = "<group>"; };
 		6534D2B62EF7CF940019F4D1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/AppShortcuts.strings; sourceTree = "<group>"; };
 		6534D2B72EF7CF940019F4D1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/AppShortcuts.strings; sourceTree = "<group>"; };
 		6534D2B82EF7CF940019F4D1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AppShortcuts.strings; sourceTree = "<group>"; };
@@ -222,7 +221,6 @@
 		6534D2C52EF7CF940019F4D1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6534D2C62EF7CF940019F4D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6534D2C72EF7CF940019F4D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		6534D2C82EF7CF940019F4D1 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6534D2C92EF7CF940019F4D1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6534D2CA2EF7CF940019F4D1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6534D2CB2EF7CF940019F4D1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -235,7 +233,6 @@
 		6534D2D22EF7CF940019F4D1 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		6534D2D42EF7CF940019F4D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6534D2D62EF7CF940019F4D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		6534D2D72EF7CF940019F4D1 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6534D2D82EF7CF940019F4D1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6534D2D92EF7CF940019F4D1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6534D2DA2EF7CF940019F4D1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1176,7 +1173,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				6534D2B42EF7CF940019F4D1 /* en */,
-				6534D2B52EF7CF940019F4D1 /* ar */,
 				6534D2B62EF7CF940019F4D1 /* de */,
 				6534D2B72EF7CF940019F4D1 /* es */,
 				6534D2B82EF7CF940019F4D1 /* fr */,
@@ -1195,7 +1191,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				6534D2C72EF7CF940019F4D1 /* en */,
-				6534D2C82EF7CF940019F4D1 /* ar */,
 				6534D2C92EF7CF940019F4D1 /* de */,
 				6534D2CA2EF7CF940019F4D1 /* es */,
 				6534D2CB2EF7CF940019F4D1 /* fr */,
@@ -1222,7 +1217,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				6534D2D62EF7CF940019F4D1 /* en */,
-				6534D2D72EF7CF940019F4D1 /* ar */,
 				6534D2D82EF7CF940019F4D1 /* de */,
 				6534D2D92EF7CF940019F4D1 /* es */,
 				6534D2DA2EF7CF940019F4D1 /* fr */,
