@@ -35,7 +35,7 @@
 "screenLock.description" = "Das Passwort kann nicht wiederhergestellt werden, wenn es vergessen wird";
 "screenLock.password" = "Passwort";
 "screenLock.changePassword" = "Passwort ändern";
-"screenLock.biometric" = "Biometrische Authentifizierung";
+"screenLock.biometric" = "Biometrie";
 "screenLock.setPassword" = "Passwort festlegen";
 "screenLock.enterPassword" = "Passwort eingeben";
 "screenLock.enterPasswordAgain" = "Passwort erneut eingeben";

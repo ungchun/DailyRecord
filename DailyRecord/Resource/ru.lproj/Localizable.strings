@@ -35,7 +35,7 @@
 "screenLock.description" = "Пароль не может быть восстановлен, если забыт";
 "screenLock.password" = "Пароль";
 "screenLock.changePassword" = "Изменить пароль";
-"screenLock.biometric" = "Биометрическая аутентификация";
+"screenLock.biometric" = "Биометрия";
 "screenLock.setPassword" = "Установить пароль";
 "screenLock.enterPassword" = "Введите пароль";
 "screenLock.enterPasswordAgain" = "Введите пароль еще раз";

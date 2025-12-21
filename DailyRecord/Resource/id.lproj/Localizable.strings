@@ -35,7 +35,7 @@
 "screenLock.description" = "Kata sandi tidak dapat dipulihkan jika lupa";
 "screenLock.password" = "Kata Sandi";
 "screenLock.changePassword" = "Ubah Kata Sandi";
-"screenLock.biometric" = "Autentikasi Biometrik";
+"screenLock.biometric" = "Biometrik";
 "screenLock.setPassword" = "Atur Kata Sandi";
 "screenLock.enterPassword" = "Masukkan kata sandi";
 "screenLock.enterPasswordAgain" = "Masukkan kata sandi lagi";
