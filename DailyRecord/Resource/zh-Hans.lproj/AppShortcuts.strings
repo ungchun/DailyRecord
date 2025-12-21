@@ -1,0 +1,7 @@
+/*
+  AppShortcuts.strings
+  DailyRecord - 简体中文
+*/
+
+/* App Shortcut phrase with app name */
+"Write Today's Diary with ${applicationName}" = "在${applicationName}中写今天的日记";

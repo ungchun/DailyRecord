@@ -1,0 +1,144 @@
+// Date Format
+"date.year_month" = "%@ de %@";
+
+// Search
+"search.placeholder" = "Pesquisar diário";
+"search.no_results" = "Nenhum resultado encontrado";
+
+// Profile
+"profile.screenLock" = "Bloqueio de tela";
+"profile.icloud_sync" = "Sincronização iCloud";
+"profile.dark_mode" = "Modo escuro";
+"profile.music_change" = "Mudar música";
+"profile.pdf_export" = "Exportar PDF";
+"profile.language" = "Idioma";
+"profile.rate_app" = "Avaliar app";
+"profile.contact" = "Contato";
+
+// Music
+"music.calm_riverside" = "Junto ao rio calmo";
+"music.fresh_dawn" = "Ar fresco da madrugada";
+"music.quiet_forest" = "Floresta silenciosa";
+
+// iCloud
+"icloud.description" = "Daon pode fazer backup automático no iCloud";
+"icloud.sync_method" = "Método de sincronização";
+"icloud.sync_instruction" = "Ajustes > Conta Apple > iCloud > Ativar";
+"icloud.storage_warning" = "A sincronização não funcionará se o armazenamento do iCloud estiver cheio";
+
+// Dark Mode
+"darkmode.system_setting" = "Configuração do sistema";
+"darkmode.light_mode" = "Modo claro";
+"darkmode.dark_mode" = "Modo escuro";
+
+// Screen Lock
+"screenLock.description" = "A senha não pode ser recuperada se esquecida";
+"screenLock.password" = "Senha";
+"screenLock.changePassword" = "Alterar senha";
+"screenLock.biometric" = "Autenticação biométrica";
+"screenLock.setPassword" = "Definir senha";
+"screenLock.enterPassword" = "Digite a senha";
+"screenLock.enterPasswordAgain" = "Digite a senha novamente";
+"screenLock.confirmPassword" = "Confirmar senha";
+"screenLock.passwordEmpty" = "Por favor, digite uma senha";
+"screenLock.passwordMismatch" = "As senhas não coincidem";
+"screenLock.passwordSaveFailed" = "Falha ao salvar senha";
+"screenLock.enterNewPassword" = "Digite a nova senha";
+"screenLock.currentPassword" = "Senha atual";
+"screenLock.newPassword" = "Nova senha";
+"screenLock.currentPasswordIncorrect" = "A senha atual está incorreta";
+"screenLock.passwordChangeSuccess" = "Senha alterada";
+"screenLock.passwordChangeFailed" = "Falha ao alterar senha";
+"screenLock.passwordDeleteFailed" = "Falha ao excluir senha";
+
+// Common Messages
+"common.empty" = "Vazio";
+"common.error" = "Ocorreu um erro";
+"common.no_diary" = "Nenhuma entrada de diário";
+"common.diary_saved" = "Diário salvo!";
+"common.diary_deleted" = "Diário excluído!";
+"common.confirm" = "Confirmar";
+"common.cancel" = "Cancelar";
+
+// Record
+"record.how_was_your_day" = "Como foi seu dia hoje?";
+
+// Widget
+"widget.today_widget" = "HOJE";
+"widget.today_description" = "Confira as emoções de hoje";
+"widget.week_widget" = "SEMANA";
+"widget.week_description" = "Confira as emoções desta semana";
+
+// Weekday
+"weekday.monday" = "Seg";
+"weekday.tuesday" = "Ter";
+"weekday.wednesday" = "Qua";
+"weekday.thursday" = "Qui";
+"weekday.friday" = "Sex";
+"weekday.saturday" = "Sáb";
+"weekday.sunday" = "Dom";
+
+// Calendar
+"calendar.today" = "Hoje";
+
+// Mood
+"mood.title" = "Humor";
+
+// Daily
+"daily.title" = "Diário";
+
+// Actions
+"action.edit" = "Editar";
+"action.delete" = "Excluir";
+"action.cancel" = "Cancelar";
+"action.confirm_delete" = "Excluir";
+
+// Alert
+"alert.delete_diary_title" = "Excluir diário";
+"alert.delete_diary_message" = "Tem certeza de que deseja excluir este diário?";
+
+// Update
+"update.title" = "Atualização disponível";
+"update.message" = "Atualize para uma melhor experiência!";
+"update.action" = "Atualizar";
+
+"diary.notification.title" = "Lembrete de diário";
+
+"notification.time.title" = "Horário de notificação";
+
+"app.name" = "Diário Daon";
+"diary.question" = "Como foi seu dia?";
+
+"notification.permission.title" = "Permissão de notificação necessária";
+"notification.permission.message" = "Por favor, permita notificações nas Configurações para receber lembretes";
+"notification.permission.action" = "Ir para Configurações";
+
+"exit.warning.message" = "Suas alterações não serão salvas";
+"exit.warning.title" = "Parar de escrever?";
+"continue.writing" = "Continuar escrevendo";
+"exit" = "Sair";
+
+"today.diary.write.with.appname" = "Escrever o diário de hoje (%@)";
+"today.diary.write" = "Escrever o diário de hoje";
+"today.diary.description" = "Ir para a tela de escrita do diário de hoje";
+
+// PDF Export
+"pdf.selected_month_diary_count" = "Diários: %d";
+"pdf.no_diary_in_month" = "Nenhum diário no mês selecionado";
+"pdf.generation_failed" = "Falha ao gerar PDF";
+
+"changeMusicTip" = "Você pode mudar para a música que você gosta";
+"upcomingMusicNotice" = "Mais músicas em breve! Novas faixas são adicionadas regularmente";
+"biometricFirstNotice" = "A autenticação biométrica é aplicada primeiro após a configuração";
+"exportDiaryPDF" = "Você pode salvar diários mensais como arquivos PDF";
+"exportDiaryPDFDescription" = "Útil para backups ou guardar memórias";
+
+"fontCustomizationDescription" = "Você pode alterar o tamanho e estilo da fonte";
+"newFontsComing" = "Novas fontes serão adicionadas regularmente";
+"changeFont" = "Alterar fonte";
+
+"fontOmyuDayaeppum" = "Omyu Dayeppum";
+"fontOngleapParkDahyun" = "Ongleap Dahyun";
+"fontOngleapKonkon" = "Ongleap Konkon";
+"fontPretendard" = "Pretendard";
+"fontNanumPen" = "Nanum Pen";

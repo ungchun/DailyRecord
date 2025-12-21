@@ -1,0 +1,144 @@
+// Date Format
+"date.year_month" = "%@年 %@月";
+
+// Search
+"search.placeholder" = "搜尋日記";
+"search.no_results" = "沒有搜尋結果";
+
+// Profile
+"profile.screenLock" = "螢幕鎖定";
+"profile.icloud_sync" = "iCloud同步";
+"profile.dark_mode" = "深色模式";
+"profile.music_change" = "更換音樂";
+"profile.pdf_export" = "匯出PDF";
+"profile.language" = "語言";
+"profile.rate_app" = "評價應用程式";
+"profile.contact" = "聯絡我們";
+
+// Music
+"music.calm_riverside" = "寧靜的河邊";
+"music.fresh_dawn" = "清晨的清新氣息";
+"music.quiet_forest" = "靜謐森林";
+
+// iCloud
+"icloud.description" = "Daon日記可以自動備份/儲存到iCloud";
+"icloud.sync_method" = "同步方法";
+"icloud.sync_instruction" = "設定 > Apple帳號 > iCloud > 開啟Daon日記";
+"icloud.storage_warning" = "如果iCloud儲存空間已滿，將無法同步，請注意";
+
+// Dark Mode
+"darkmode.system_setting" = "系統設定";
+"darkmode.light_mode" = "淺色模式";
+"darkmode.dark_mode" = "深色模式";
+
+// Screen Lock
+"screenLock.description" = "忘記密碼後無法找回";
+"screenLock.password" = "密碼";
+"screenLock.changePassword" = "更改密碼";
+"screenLock.biometric" = "生物辨識";
+"screenLock.setPassword" = "設定密碼";
+"screenLock.enterPassword" = "請輸入密碼";
+"screenLock.enterPasswordAgain" = "請再次輸入密碼";
+"screenLock.confirmPassword" = "確認密碼";
+"screenLock.passwordEmpty" = "請輸入密碼";
+"screenLock.passwordMismatch" = "密碼不符";
+"screenLock.passwordSaveFailed" = "密碼儲存失敗";
+"screenLock.enterNewPassword" = "請輸入新密碼";
+"screenLock.currentPassword" = "目前密碼";
+"screenLock.newPassword" = "新密碼";
+"screenLock.currentPasswordIncorrect" = "目前密碼不正確";
+"screenLock.passwordChangeSuccess" = "密碼已更改";
+"screenLock.passwordChangeFailed" = "密碼更改失敗";
+"screenLock.passwordDeleteFailed" = "密碼刪除失敗";
+
+// Common Messages
+"common.empty" = "空";
+"common.error" = "發生錯誤";
+"common.no_diary" = "沒有已建立的日記";
+"common.diary_saved" = "日記已儲存！";
+"common.diary_deleted" = "日記已刪除！";
+"common.confirm" = "確認";
+"common.cancel" = "取消";
+
+// Record
+"record.how_was_your_day" = "今天過得怎麼樣？";
+
+// Widget
+"widget.today_widget" = "今天";
+"widget.today_description" = "查看今天的心情";
+"widget.week_widget" = "本週";
+"widget.week_description" = "查看本週的心情";
+
+// Weekday
+"weekday.monday" = "週一";
+"weekday.tuesday" = "週二";
+"weekday.wednesday" = "週三";
+"weekday.thursday" = "週四";
+"weekday.friday" = "週五";
+"weekday.saturday" = "週六";
+"weekday.sunday" = "週日";
+
+// Calendar
+"calendar.today" = "今天";
+
+// Mood
+"mood.title" = "心情";
+
+// Daily
+"daily.title" = "日常";
+
+// Actions
+"action.edit" = "編輯";
+"action.delete" = "刪除";
+"action.cancel" = "取消";
+"action.confirm_delete" = "刪除";
+
+// Alert
+"alert.delete_diary_title" = "刪除日記";
+"alert.delete_diary_message" = "確定要刪除這篇日記嗎？";
+
+// Update
+"update.title" = "更新通知";
+"update.message" = "請更新以獲得更好的服務！";
+"update.action" = "更新";
+
+"diary.notification.title" = "日記提醒";
+
+"notification.time.title" = "提醒時間";
+
+"app.name" = "Daon日記";
+"diary.question" = "今天過得怎麼樣？";
+
+"notification.permission.title" = "需要通知權限";
+"notification.permission.message" = "要接收提醒，請在設定中允許通知權限";
+"notification.permission.action" = "前往設定";
+
+"exit.warning.message" = "更改的內容不會儲存";
+"exit.warning.title" = "要停止寫作嗎？";
+"continue.writing" = "繼續寫作";
+"exit" = "離開";
+
+"today.diary.write.with.appname" = "寫今天的日記 (%@)";
+"today.diary.write" = "寫今天的日記";
+"today.diary.description" = "前往今天的日記寫作介面";
+
+// PDF Export
+"pdf.selected_month_diary_count" = "選定月份建立的日記：%d篇";
+"pdf.no_diary_in_month" = "選定月份沒有已建立的日記";
+"pdf.generation_failed" = "PDF產生失敗";
+
+"changeMusicTip" = "可以更換為您喜歡的音樂";
+"upcomingMusicNotice" = "敬請期待即將新增的音樂！音樂會定期新增";
+"biometricFirstNotice" = "全部設定後將優先套用生物辨識";
+"exportDiaryPDF" = "可以將月度日記轉換為PDF並儲存";
+"exportDiaryPDFDescription" = "需要備份或想保留回憶時很有用！";
+
+"fontCustomizationDescription" = "可以更改字型大小和類型";
+"newFontsComing" = "新字型將持續新增";
+"changeFont" = "更改字型";
+
+"fontOmyuDayaeppum" = "Omyu Dayeppum";
+"fontOngleapParkDahyun" = "Ongleap Dahyun";
+"fontOngleapKonkon" = "Ongleap Konkon";
+"fontPretendard" = "Pretendard";
+"fontNanumPen" = "Nanum Pen";

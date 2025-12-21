@@ -1,0 +1,144 @@
+// Date Format
+"date.year_month" = "%@ %@";
+
+// Search
+"search.placeholder" = "Cari buku harian";
+"search.no_results" = "Tidak ada hasil ditemukan";
+
+// Profile
+"profile.screenLock" = "Kunci Layar";
+"profile.icloud_sync" = "Sinkronisasi iCloud";
+"profile.dark_mode" = "Mode Gelap";
+"profile.music_change" = "Ganti Musik";
+"profile.pdf_export" = "Ekspor PDF";
+"profile.language" = "Bahasa";
+"profile.rate_app" = "Nilai Aplikasi";
+"profile.contact" = "Kontak";
+
+// Music
+"music.calm_riverside" = "Di Tepi Sungai yang Tenang";
+"music.fresh_dawn" = "Udara Segar Fajar";
+"music.quiet_forest" = "Hutan Sunyi";
+
+// iCloud
+"icloud.description" = "Daon dapat membuat cadangan otomatis ke iCloud";
+"icloud.sync_method" = "Metode Sinkronisasi";
+"icloud.sync_instruction" = "Pengaturan > Akun Apple > iCloud > Aktifkan";
+"icloud.storage_warning" = "Sinkronisasi tidak akan berfungsi jika penyimpanan iCloud penuh";
+
+// Dark Mode
+"darkmode.system_setting" = "Pengaturan Sistem";
+"darkmode.light_mode" = "Mode Terang";
+"darkmode.dark_mode" = "Mode Gelap";
+
+// Screen Lock
+"screenLock.description" = "Kata sandi tidak dapat dipulihkan jika lupa";
+"screenLock.password" = "Kata Sandi";
+"screenLock.changePassword" = "Ubah Kata Sandi";
+"screenLock.biometric" = "Autentikasi Biometrik";
+"screenLock.setPassword" = "Atur Kata Sandi";
+"screenLock.enterPassword" = "Masukkan kata sandi";
+"screenLock.enterPasswordAgain" = "Masukkan kata sandi lagi";
+"screenLock.confirmPassword" = "Konfirmasi kata sandi";
+"screenLock.passwordEmpty" = "Silakan masukkan kata sandi";
+"screenLock.passwordMismatch" = "Kata sandi tidak cocok";
+"screenLock.passwordSaveFailed" = "Gagal menyimpan kata sandi";
+"screenLock.enterNewPassword" = "Masukkan kata sandi baru";
+"screenLock.currentPassword" = "Kata sandi saat ini";
+"screenLock.newPassword" = "Kata sandi baru";
+"screenLock.currentPasswordIncorrect" = "Kata sandi saat ini salah";
+"screenLock.passwordChangeSuccess" = "Kata sandi diubah";
+"screenLock.passwordChangeFailed" = "Gagal mengubah kata sandi";
+"screenLock.passwordDeleteFailed" = "Gagal menghapus kata sandi";
+
+// Common Messages
+"common.empty" = "Kosong";
+"common.error" = "Terjadi kesalahan";
+"common.no_diary" = "Tidak ada entri buku harian";
+"common.diary_saved" = "Buku harian disimpan!";
+"common.diary_deleted" = "Buku harian dihapus!";
+"common.confirm" = "Konfirmasi";
+"common.cancel" = "Batal";
+
+// Record
+"record.how_was_your_day" = "Bagaimana harimu hari ini?";
+
+// Widget
+"widget.today_widget" = "HARI INI";
+"widget.today_description" = "Periksa emosi hari ini";
+"widget.week_widget" = "MINGGU";
+"widget.week_description" = "Periksa emosi minggu ini";
+
+// Weekday
+"weekday.monday" = "Sen";
+"weekday.tuesday" = "Sel";
+"weekday.wednesday" = "Rab";
+"weekday.thursday" = "Kam";
+"weekday.friday" = "Jum";
+"weekday.saturday" = "Sab";
+"weekday.sunday" = "Min";
+
+// Calendar
+"calendar.today" = "Hari Ini";
+
+// Mood
+"mood.title" = "Suasana Hati";
+
+// Daily
+"daily.title" = "Harian";
+
+// Actions
+"action.edit" = "Edit";
+"action.delete" = "Hapus";
+"action.cancel" = "Batal";
+"action.confirm_delete" = "Hapus";
+
+// Alert
+"alert.delete_diary_title" = "Hapus Buku Harian";
+"alert.delete_diary_message" = "Apakah Anda yakin ingin menghapus buku harian ini?";
+
+// Update
+"update.title" = "Pembaruan Tersedia";
+"update.message" = "Silakan perbarui untuk pengalaman yang lebih baik!";
+"update.action" = "Perbarui";
+
+"diary.notification.title" = "Pengingat Buku Harian";
+
+"notification.time.title" = "Waktu Notifikasi";
+
+"app.name" = "Buku Harian Daon";
+"diary.question" = "Bagaimana harimu?";
+
+"notification.permission.title" = "Izin Notifikasi Diperlukan";
+"notification.permission.message" = "Silakan izinkan notifikasi di Pengaturan untuk menerima pengingat";
+"notification.permission.action" = "Buka Pengaturan";
+
+"exit.warning.message" = "Perubahan Anda tidak akan disimpan";
+"exit.warning.title" = "Berhenti menulis?";
+"continue.writing" = "Lanjutkan Menulis";
+"exit" = "Keluar";
+
+"today.diary.write.with.appname" = "Tulis Buku Harian Hari Ini (%@)";
+"today.diary.write" = "Tulis Buku Harian Hari Ini";
+"today.diary.description" = "Buka layar menulis buku harian hari ini";
+
+// PDF Export
+"pdf.selected_month_diary_count" = "Buku Harian: %d";
+"pdf.no_diary_in_month" = "Tidak ada buku harian di bulan yang dipilih";
+"pdf.generation_failed" = "Gagal membuat PDF";
+
+"changeMusicTip" = "Anda dapat mengganti ke musik yang Anda suka";
+"upcomingMusicNotice" = "Musik lebih banyak segera hadir! Trek baru ditambahkan secara teratur";
+"biometricFirstNotice" = "Autentikasi biometrik diterapkan terlebih dahulu setelah pengaturan";
+"exportDiaryPDF" = "Anda dapat menyimpan buku harian bulanan sebagai file PDF";
+"exportDiaryPDFDescription" = "Berguna untuk cadangan atau menyimpan kenangan";
+
+"fontCustomizationDescription" = "Anda dapat mengubah ukuran dan gaya font";
+"newFontsComing" = "Font baru akan ditambahkan secara teratur";
+"changeFont" = "Ubah Font";
+
+"fontOmyuDayaeppum" = "Omyu Dayeppum";
+"fontOngleapParkDahyun" = "Ongleap Dahyun";
+"fontOngleapKonkon" = "Ongleap Konkon";
+"fontPretendard" = "Pretendard";
+"fontNanumPen" = "Nanum Pen";

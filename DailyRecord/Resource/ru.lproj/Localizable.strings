@@ -1,0 +1,144 @@
+// Date Format
+"date.year_month" = "%@ %@";
+
+// Search
+"search.placeholder" = "Поиск дневника";
+"search.no_results" = "Результатов не найдено";
+
+// Profile
+"profile.screenLock" = "Блокировка экрана";
+"profile.icloud_sync" = "Синхронизация iCloud";
+"profile.dark_mode" = "Темный режим";
+"profile.music_change" = "Изменить музыку";
+"profile.pdf_export" = "Экспорт PDF";
+"profile.language" = "Язык";
+"profile.rate_app" = "Оценить приложение";
+"profile.contact" = "Контакт";
+
+// Music
+"music.calm_riverside" = "У спокойной реки";
+"music.fresh_dawn" = "Свежее дыхание рассвета";
+"music.quiet_forest" = "Тихий лес";
+
+// iCloud
+"icloud.description" = "Daon может автоматически создавать резервные копии в iCloud";
+"icloud.sync_method" = "Метод синхронизации";
+"icloud.sync_instruction" = "Настройки > Учетная запись Apple > iCloud > Включить";
+"icloud.storage_warning" = "Синхронизация не будет работать, если хранилище iCloud заполнено";
+
+// Dark Mode
+"darkmode.system_setting" = "Системные настройки";
+"darkmode.light_mode" = "Светлый режим";
+"darkmode.dark_mode" = "Темный режим";
+
+// Screen Lock
+"screenLock.description" = "Пароль не может быть восстановлен, если забыт";
+"screenLock.password" = "Пароль";
+"screenLock.changePassword" = "Изменить пароль";
+"screenLock.biometric" = "Биометрическая аутентификация";
+"screenLock.setPassword" = "Установить пароль";
+"screenLock.enterPassword" = "Введите пароль";
+"screenLock.enterPasswordAgain" = "Введите пароль еще раз";
+"screenLock.confirmPassword" = "Подтвердите пароль";
+"screenLock.passwordEmpty" = "Пожалуйста, введите пароль";
+"screenLock.passwordMismatch" = "Пароли не совпадают";
+"screenLock.passwordSaveFailed" = "Не удалось сохранить пароль";
+"screenLock.enterNewPassword" = "Введите новый пароль";
+"screenLock.currentPassword" = "Текущий пароль";
+"screenLock.newPassword" = "Новый пароль";
+"screenLock.currentPasswordIncorrect" = "Текущий пароль неверен";
+"screenLock.passwordChangeSuccess" = "Пароль изменен";
+"screenLock.passwordChangeFailed" = "Не удалось изменить пароль";
+"screenLock.passwordDeleteFailed" = "Не удалось удалить пароль";
+
+// Common Messages
+"common.empty" = "Пусто";
+"common.error" = "Произошла ошибка";
+"common.no_diary" = "Нет записей в дневнике";
+"common.diary_saved" = "Дневник сохранен!";
+"common.diary_deleted" = "Дневник удален!";
+"common.confirm" = "Подтвердить";
+"common.cancel" = "Отмена";
+
+// Record
+"record.how_was_your_day" = "Как прошел твой день сегодня?";
+
+// Widget
+"widget.today_widget" = "СЕГОДНЯ";
+"widget.today_description" = "Проверьте сегодняшние эмоции";
+"widget.week_widget" = "НЕДЕЛЯ";
+"widget.week_description" = "Проверьте эмоции этой недели";
+
+// Weekday
+"weekday.monday" = "Пн";
+"weekday.tuesday" = "Вт";
+"weekday.wednesday" = "Ср";
+"weekday.thursday" = "Чт";
+"weekday.friday" = "Пт";
+"weekday.saturday" = "Сб";
+"weekday.sunday" = "Вс";
+
+// Calendar
+"calendar.today" = "Сегодня";
+
+// Mood
+"mood.title" = "Настроение";
+
+// Daily
+"daily.title" = "Ежедневно";
+
+// Actions
+"action.edit" = "Редактировать";
+"action.delete" = "Удалить";
+"action.cancel" = "Отмена";
+"action.confirm_delete" = "Удалить";
+
+// Alert
+"alert.delete_diary_title" = "Удалить дневник";
+"alert.delete_diary_message" = "Вы уверены, что хотите удалить этот дневник?";
+
+// Update
+"update.title" = "Доступно обновление";
+"update.message" = "Пожалуйста, обновите для лучшего опыта!";
+"update.action" = "Обновить";
+
+"diary.notification.title" = "Напоминание о дневнике";
+
+"notification.time.title" = "Время уведомления";
+
+"app.name" = "Дневник Daon";
+"diary.question" = "Как прошел твой день?";
+
+"notification.permission.title" = "Требуется разрешение на уведомления";
+"notification.permission.message" = "Пожалуйста, разрешите уведомления в Настройках для получения напоминаний";
+"notification.permission.action" = "Перейти в Настройки";
+
+"exit.warning.message" = "Ваши изменения не будут сохранены";
+"exit.warning.title" = "Прекратить писать?";
+"continue.writing" = "Продолжить писать";
+"exit" = "Выйти";
+
+"today.diary.write.with.appname" = "Написать сегодняшний дневник (%@)";
+"today.diary.write" = "Написать сегодняшний дневник";
+"today.diary.description" = "Перейти к экрану написания сегодняшнего дневника";
+
+// PDF Export
+"pdf.selected_month_diary_count" = "Дневники: %d";
+"pdf.no_diary_in_month" = "Нет дневников в выбранном месяце";
+"pdf.generation_failed" = "Не удалось создать PDF";
+
+"changeMusicTip" = "Вы можете изменить на музыку, которая вам нравится";
+"upcomingMusicNotice" = "Скоро будет больше музыки! Новые треки добавляются регулярно";
+"biometricFirstNotice" = "Биометрическая аутентификация применяется первой после настройки";
+"exportDiaryPDF" = "Вы можете сохранять ежемесячные дневники в виде PDF-файлов";
+"exportDiaryPDFDescription" = "Полезно для резервных копий или сохранения воспоминаний";
+
+"fontCustomizationDescription" = "Вы можете изменить размер и стиль шрифта";
+"newFontsComing" = "Новые шрифты будут добавляться регулярно";
+"changeFont" = "Изменить шрифт";
+
+"fontOmyuDayaeppum" = "Omyu Dayeppum";
+"fontOngleapParkDahyun" = "Ongleap Dahyun";
+"fontOngleapKonkon" = "Ongleap Konkon";
+"fontPretendard" = "Pretendard";
+"fontNanumPen" = "Nanum Pen";

@@ -1,0 +1,7 @@
+/*
+  AppShortcuts.strings
+  DailyRecord - Bahasa Indonesia
+*/
+
+/* App Shortcut phrase with app name */
+"Write Today's Diary with ${applicationName}" = "Tulis Buku Harian Hari Ini dengan ${applicationName}";

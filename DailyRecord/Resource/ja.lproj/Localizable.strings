@@ -1,0 +1,144 @@
+// Date Format
+"date.year_month" = "%@年 %@月";
+
+// Search
+"search.placeholder" = "日記を検索";
+"search.no_results" = "検索結果がありません";
+
+// Profile
+"profile.screenLock" = "画面ロック";
+"profile.icloud_sync" = "iCloud同期";
+"profile.dark_mode" = "ダークモード";
+"profile.music_change" = "音楽変更";
+"profile.pdf_export" = "PDF出力";
+"profile.language" = "言語";
+"profile.rate_app" = "アプリを評価";
+"profile.contact" = "お問い合わせ";
+
+// Music
+"music.calm_riverside" = "静かな川辺で";
+"music.fresh_dawn" = "夜明けの新鮮な息吹";
+"music.quiet_forest" = "静かな森";
+
+// iCloud
+"icloud.description" = "ダオン日記はiCloudに自動でバックアップ・保存できます";
+"icloud.sync_method" = "同期方法";
+"icloud.sync_instruction" = "設定 > Appleアカウント > iCloud > ダオン日記をオン";
+"icloud.storage_warning" = "iCloudの容量がいっぱいの場合、同期されませんのでご注意ください";
+
+// Dark Mode
+"darkmode.system_setting" = "システム設定";
+"darkmode.light_mode" = "ライトモード";
+"darkmode.dark_mode" = "ダークモード";
+
+// Screen Lock
+"screenLock.description" = "パスワードを忘れると復元できません";
+"screenLock.password" = "パスワード";
+"screenLock.changePassword" = "パスワード変更";
+"screenLock.biometric" = "生体認証";
+"screenLock.setPassword" = "パスワード設定";
+"screenLock.enterPassword" = "パスワードを入力してください";
+"screenLock.enterPasswordAgain" = "パスワードをもう一度入力してください";
+"screenLock.confirmPassword" = "パスワード確認";
+"screenLock.passwordEmpty" = "パスワードを入力してください";
+"screenLock.passwordMismatch" = "パスワードが一致しません";
+"screenLock.passwordSaveFailed" = "パスワードの保存に失敗しました";
+"screenLock.enterNewPassword" = "新しいパスワードを入力してください";
+"screenLock.currentPassword" = "現在のパスワード";
+"screenLock.newPassword" = "新しいパスワード";
+"screenLock.currentPasswordIncorrect" = "現在のパスワードが正しくありません";
+"screenLock.passwordChangeSuccess" = "パスワードが変更されました";
+"screenLock.passwordChangeFailed" = "パスワードの変更に失敗しました";
+"screenLock.passwordDeleteFailed" = "パスワードの削除に失敗しました";
+
+// Common Messages
+"common.empty" = "空です";
+"common.error" = "エラーが発生しました";
+"common.no_diary" = "作成された日記がありません";
+"common.diary_saved" = "日記を書きました！";
+"common.diary_deleted" = "日記を削除しました！";
+"common.confirm" = "確認";
+"common.cancel" = "キャンセル";
+
+// Record
+"record.how_was_your_day" = "今日はどんな一日でしたか？";
+
+// Widget
+"widget.today_widget" = "今日";
+"widget.today_description" = "今日の気分を確認してください";
+"widget.week_widget" = "一週間";
+"widget.week_description" = "今週の気分を確認してください";
+
+// Weekday
+"weekday.monday" = "月";
+"weekday.tuesday" = "火";
+"weekday.wednesday" = "水";
+"weekday.thursday" = "木";
+"weekday.friday" = "金";
+"weekday.saturday" = "土";
+"weekday.sunday" = "日";
+
+// Calendar
+"calendar.today" = "今日";
+
+// Mood
+"mood.title" = "気分";
+
+// Daily
+"daily.title" = "日常";
+
+// Actions
+"action.edit" = "編集";
+"action.delete" = "削除";
+"action.cancel" = "キャンセル";
+"action.confirm_delete" = "削除";
+
+// Alert
+"alert.delete_diary_title" = "日記削除";
+"alert.delete_diary_message" = "本当に日記を削除しますか？";
+
+// Update
+"update.title" = "アップデート通知";
+"update.message" = "より良いサービスのためにアップデートしてください！";
+"update.action" = "アップデート";
+
+"diary.notification.title" = "日記通知";
+
+"notification.time.title" = "通知時間";
+
+"app.name" = "ダオン日記";
+"diary.question" = "今日はどんな一日でしたか？";
+
+"notification.permission.title" = "通知許可が必要です";
+"notification.permission.message" = "通知を受け取るには、設定で通知許可を有効にしてください";
+"notification.permission.action" = "設定へ移動";
+
+"exit.warning.message" = "変更内容は保存されません";
+"exit.warning.title" = "書き込みを中断しますか？";
+"continue.writing" = "続けて作成";
+"exit" = "終了";
+
+"today.diary.write.with.appname" = "今日の日記を書く (%@)";
+"today.diary.write" = "今日の日記を書く";
+"today.diary.description" = "今日の日付の日記作成画面に移動します";
+
+// PDF Export
+"pdf.selected_month_diary_count" = "選択した月に作成した日記：%d件";
+"pdf.no_diary_in_month" = "選択した月に作成された日記がありません";
+"pdf.generation_failed" = "PDFの生成に失敗しました";
+
+"changeMusicTip" = "お好きな音楽に変更できます";
+"upcomingMusicNotice" = "次に追加される音楽をお楽しみに！音楽は定期的に追加されます";
+"biometricFirstNotice" = "すべて設定すると生体認証が優先的に適用されます";
+"exportDiaryPDF" = "月別の日記をPDFに変換して保存できます";
+"exportDiaryPDFDescription" = "バックアップが必要な時や思い出を残したい時に便利です！";
+
+"fontCustomizationDescription" = "フォントのサイズと種類を変更できます";
+"newFontsComing" = "新しいフォントが随時追加される予定です";
+"changeFont" = "フォント変更";
+
+"fontOmyuDayaeppum" = "オミュ ダイェップム";
+"fontOngleapParkDahyun" = "オングリプ パク・ダヒョン";
+"fontOngleapKonkon" = "オングリプ コンコン";
+"fontPretendard" = "プリテンダード";
+"fontNanumPen" = "ナヌム手書き";

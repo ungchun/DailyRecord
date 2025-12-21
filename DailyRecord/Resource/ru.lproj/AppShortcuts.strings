@@ -1,0 +1,7 @@
+/*
+  AppShortcuts.strings
+  DailyRecord - Русский
+*/
+
+/* App Shortcut phrase with app name */
+"Write Today's Diary with ${applicationName}" = "Написать сегодняшний дневник с ${applicationName}";

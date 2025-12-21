@@ -1,0 +1,144 @@
+// Date Format
+"date.year_month" = "%@年 %@月";
+
+// Search
+"search.placeholder" = "搜索日记";
+"search.no_results" = "没有搜索结果";
+
+// Profile
+"profile.screenLock" = "屏幕锁定";
+"profile.icloud_sync" = "iCloud同步";
+"profile.dark_mode" = "深色模式";
+"profile.music_change" = "更换音乐";
+"profile.pdf_export" = "导出PDF";
+"profile.language" = "语言";
+"profile.rate_app" = "评价应用";
+"profile.contact" = "联系我们";
+
+// Music
+"music.calm_riverside" = "宁静的河边";
+"music.fresh_dawn" = "清晨的清新气息";
+"music.quiet_forest" = "静谧森林";
+
+// iCloud
+"icloud.description" = "Daon日记可以自动备份/保存到iCloud";
+"icloud.sync_method" = "同步方法";
+"icloud.sync_instruction" = "设置 > Apple账户 > iCloud > 打开Daon日记";
+"icloud.storage_warning" = "如果iCloud存储空间已满，将无法同步，请注意";
+
+// Dark Mode
+"darkmode.system_setting" = "系统设置";
+"darkmode.light_mode" = "浅色模式";
+"darkmode.dark_mode" = "深色模式";
+
+// Screen Lock
+"screenLock.description" = "忘记密码后无法找回";
+"screenLock.password" = "密码";
+"screenLock.changePassword" = "更改密码";
+"screenLock.biometric" = "生物识别";
+"screenLock.setPassword" = "设置密码";
+"screenLock.enterPassword" = "请输入密码";
+"screenLock.enterPasswordAgain" = "请再次输入密码";
+"screenLock.confirmPassword" = "确认密码";
+"screenLock.passwordEmpty" = "请输入密码";
+"screenLock.passwordMismatch" = "密码不匹配";
+"screenLock.passwordSaveFailed" = "密码保存失败";
+"screenLock.enterNewPassword" = "请输入新密码";
+"screenLock.currentPassword" = "当前密码";
+"screenLock.newPassword" = "新密码";
+"screenLock.currentPasswordIncorrect" = "当前密码不正确";
+"screenLock.passwordChangeSuccess" = "密码已更改";
+"screenLock.passwordChangeFailed" = "密码更改失败";
+"screenLock.passwordDeleteFailed" = "密码删除失败";
+
+// Common Messages
+"common.empty" = "空";
+"common.error" = "发生错误";
+"common.no_diary" = "没有已创建的日记";
+"common.diary_saved" = "日记已保存！";
+"common.diary_deleted" = "日记已删除！";
+"common.confirm" = "确认";
+"common.cancel" = "取消";
+
+// Record
+"record.how_was_your_day" = "今天过得怎么样？";
+
+// Widget
+"widget.today_widget" = "今天";
+"widget.today_description" = "查看今天的心情";
+"widget.week_widget" = "本周";
+"widget.week_description" = "查看本周的心情";
+
+// Weekday
+"weekday.monday" = "周一";
+"weekday.tuesday" = "周二";
+"weekday.wednesday" = "周三";
+"weekday.thursday" = "周四";
+"weekday.friday" = "周五";
+"weekday.saturday" = "周六";
+"weekday.sunday" = "周日";
+
+// Calendar
+"calendar.today" = "今天";
+
+// Mood
+"mood.title" = "心情";
+
+// Daily
+"daily.title" = "日常";
+
+// Actions
+"action.edit" = "编辑";
+"action.delete" = "删除";
+"action.cancel" = "取消";
+"action.confirm_delete" = "删除";
+
+// Alert
+"alert.delete_diary_title" = "删除日记";
+"alert.delete_diary_message" = "确定要删除这篇日记吗？";
+
+// Update
+"update.title" = "更新通知";
+"update.message" = "请更新以获得更好的服务！";
+"update.action" = "更新";
+
+"diary.notification.title" = "日记提醒";
+
+"notification.time.title" = "提醒时间";
+
+"app.name" = "Daon日记";
+"diary.question" = "今天过得怎么样？";
+
+"notification.permission.title" = "需要通知权限";
+"notification.permission.message" = "要接收提醒，请在设置中允许通知权限";
+"notification.permission.action" = "前往设置";
+
+"exit.warning.message" = "更改的内容不会保存";
+"exit.warning.title" = "要停止写作吗？";
+"continue.writing" = "继续写作";
+"exit" = "退出";
+
+"today.diary.write.with.appname" = "写今天的日记 (%@)";
+"today.diary.write" = "写今天的日记";
+"today.diary.description" = "前往今天的日记写作界面";
+
+// PDF Export
+"pdf.selected_month_diary_count" = "选定月份创建的日记：%d篇";
+"pdf.no_diary_in_month" = "选定月份没有已创建的日记";
+"pdf.generation_failed" = "PDF生成失败";
+
+"changeMusicTip" = "可以更换为您喜欢的音乐";
+"upcomingMusicNotice" = "敬请期待即将添加的音乐！音乐会定期添加";
+"biometricFirstNotice" = "全部设置后将优先应用生物识别";
+"exportDiaryPDF" = "可以将月度日记转换为PDF并保存";
+"exportDiaryPDFDescription" = "需要备份或想保留回忆时很有用！";
+
+"fontCustomizationDescription" = "可以更改字体大小和类型";
+"newFontsComing" = "新字体将持续添加";
+"changeFont" = "更改字体";
+
+"fontOmyuDayaeppum" = "Omyu Dayeppum";
+"fontOngleapParkDahyun" = "Ongleap Dahyun";
+"fontOngleapKonkon" = "Ongleap Konkon";
+"fontPretendard" = "Pretendard";
+"fontNanumPen" = "Nanum Pen";
