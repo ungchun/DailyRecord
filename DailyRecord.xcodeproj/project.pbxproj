@@ -955,7 +955,6 @@
 				"zh-Hans",
 				"zh-Hant",
 				de,
-				ar,
 				es,
 				"pt-BR",
 				ru,
