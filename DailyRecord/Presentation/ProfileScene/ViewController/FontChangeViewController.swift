@@ -21,13 +21,7 @@ final class FontChangeViewController: BaseViewController {
   
   var coordinator: ProfileCoordinator?
   
-  private var fontItems: [FontItem] = [
-    FontItem(displayName: L10n.fontOmyuDayaeppum, fileName: "omyu_pretty"),
-    FontItem(displayName: L10n.fontOngleapParkDahyun, fileName: "Ownglyph_PDH-Rg"),
-    FontItem(displayName: L10n.fontOngleapKonkon, fileName: "Ownglyph_corncorn-Rg"),
-    FontItem(displayName: L10n.fontPretendard, fileName: "PretendardVariable-Regular"),
-    FontItem(displayName: L10n.fontNanumPen, fileName: "NanumPen")
-  ]
+  private var fontItems: [FontItem] = []
   
   private var selectedIndex: Int = 0
   
@@ -128,21 +122,38 @@ final class FontChangeViewController: BaseViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+
     Amp.track(event: "screen_view", properties: ["screen_name": "font_change"])
-    
+
     NotificationCenter.default.removeObserver(
       self,
       name: .fontDidChange,
       object: nil
     )
-    
+
+    setupFontItems()
     loadSelectedFont()
     setupFontList()
   }
   
   // MARK: - Functions
-  
+
+  private func setupFontItems() {
+    let isKorean = Locale.current.language.languageCode?.identifier == "ko"
+
+    fontItems = [
+      FontItem(displayName: L10n.fontOmyuDayaeppum, fileName: "omyu_pretty"),
+      FontItem(displayName: L10n.fontOngleapParkDahyun, fileName: "Ownglyph_PDH-Rg"),
+      FontItem(displayName: L10n.fontOngleapKonkon, fileName: "Ownglyph_corncorn-Rg"),
+      FontItem(displayName: L10n.fontPretendard, fileName: "PretendardVariable-Regular")
+    ]
+
+    // 한국어인 경우에만 나눔펜 추가
+    if isKorean {
+      fontItems.append(FontItem(displayName: L10n.fontNanumPen, fileName: "NanumPen"))
+    }
+  }
+
   override func addView() {
     view.addSubview(infoBoxView)
     infoBoxView.addSubview(infoLabelStackView)
