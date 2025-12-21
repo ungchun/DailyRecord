@@ -183,8 +183,15 @@ final class CalendarViewController: BaseViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     navigationController?.isNavigationBarHidden = true
-    
+
     Amp.track(event: "screen_view", properties: ["screen_name": "calendar"])
+
+    // 수정/삭제된 일기가 있으면 해당 월로 이동
+    // setCurrentPage 호출시 calendarCurrentPageDidChange에서 자동으로 데이터 fetch됨
+    if let lastModifiedDate = viewModel.lastModifiedRecordDate {
+      calendarView.setCurrentPage(lastModifiedDate, animated: false)
+      viewModel.lastModifiedRecordDate = nil
+    }
   }
   
   override func viewWillDisappear(_ animated: Bool) {

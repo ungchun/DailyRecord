@@ -16,7 +16,8 @@ final class CalendarViewModel: BaseViewModel {
   private let calendarUseCase: DefaultCalendarUseCase
   
   private(set) var currentDate: Date = Date()
-  
+  var lastModifiedRecordDate: Date?
+
   @Published var records: [RecordEntity] = []
   @Published var todayRecord: RecordEntity?
   

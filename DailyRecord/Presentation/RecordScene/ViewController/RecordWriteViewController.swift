@@ -386,7 +386,10 @@ private extension RecordWriteViewController {
         let date = Date(timeIntervalSince1970: TimeInterval(calendarDate) / 1000)
         let dayOfyear = DateFormatter.formattedString(date, format: "yyyy")
         let dayOfmonth = DateFormatter.formattedString(date, format: "M")
-        
+
+        // 수정된 일기의 날짜를 CalendarViewModel에 저장
+        self.calendarViewModel.lastModifiedRecordDate = date
+
         if let year = Int(dayOfyear),
            let month = Int(dayOfmonth) {
           do {
@@ -396,12 +399,12 @@ private extension RecordWriteViewController {
           } catch {
             handleError(self.coordinator!, L10n.Common.error)
           }
-          
+
           WidgetCenter.shared.reloadAllTimelines()
           LoadingIndicator.hideLoading()
-          
+
           self.requestReviewIfNeeded()
-          
+
           handleError(self.coordinator!, L10n.Common.diarySaved)
         }
       } catch {
