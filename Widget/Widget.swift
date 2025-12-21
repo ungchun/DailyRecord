@@ -373,12 +373,25 @@ private extension WidgetEntryView {
   }
   
   func getLocalizedWeekdays() -> [String] {
-    let isKorean = Locale.current.language.languageCode?.identifier == "ko"
-    
-    if isKorean {
-      return ["일", "월", "화", "수", "목", "금", "토"]
-    } else {
-      return ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    let dateFormatter = DateFormatter()
+    dateFormatter.locale = Locale.current
+
+    // 현재 주의 일요일부터 토요일까지 가져오기
+    let calendar = Calendar.current
+    let today = Date()
+    let weekday = calendar.component(.weekday, from: today)
+    let daysToSubtract = weekday - 1
+
+    guard let startOfWeek = calendar.date(byAdding: .day, value: -daysToSubtract, to: today) else {
+      return []
+    }
+
+    return (0...6).map { dayOffset in
+      guard let date = calendar.date(byAdding: .day, value: dayOffset, to: startOfWeek) else {
+        return ""
+      }
+      dateFormatter.dateFormat = "EEE"
+      return dateFormatter.string(from: date)
     }
   }
   

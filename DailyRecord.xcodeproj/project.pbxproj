@@ -49,6 +49,7 @@
 		6534D2F22EF7CF940019F4D1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6534D2E22EF7CF940019F4D1 /* Localizable.strings */; };
 		6534D2F32EF7CF940019F4D1 /* pretendard_variable.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6534D2B22EF7CF940019F4D1 /* pretendard_variable.ttf */; };
 		6534D2F42EF7CF940019F4D1 /* Strings+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6534D2E32EF7CF940019F4D1 /* Strings+Generated.swift */; };
+		6534D2F52EF7E1230019F4D1 /* omyu_pretty.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6534D2B02EF7CF940019F4D1 /* omyu_pretty.ttf */; };
 		655BE3372CAC07B40006BC34 /* ShortcutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655BE3362CAC07B40006BC34 /* ShortcutManager.swift */; };
 		655BE3382CAC07B40006BC34 /* ShortcutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655BE3362CAC07B40006BC34 /* ShortcutManager.swift */; };
 		655BE3CA2CC4BFE80006BC34 /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655BE3C92CC4BFE80006BC34 /* ChartViewController.swift */; };
@@ -1005,6 +1006,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				65FA64592C9EAACF001F5002 /* Assets.xcassets in Resources */,
+				6534D2F52EF7E1230019F4D1 /* omyu_pretty.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
