@@ -241,7 +241,9 @@ extension RecordHistoryViewController {
             let date = Date(timeIntervalSince1970: TimeInterval(calendarDate) / 1000)
             let dayOfyear = DateFormatter.formattedString(date, format: "yyyy")
             let dayOfmonth = DateFormatter.formattedString(date, format: "M")
-            
+
+            self.calendarViewModel.lastModifiedRecordDate = date
+
             if let year = Int(dayOfyear),
                let month = Int(dayOfmonth) {
               do {
