@@ -142,3 +142,7 @@
 "fontOngleapKonkon" = "オングリプ コンコン";
 "fontPretendard" = "プリテンダード";
 "fontNanumPen" = "ナヌム手書き";
+
+// CloudKit Sync
+"cloudkit.data_available" = "復元できるデータがあります";
+"cloudkit.load" = "復元";

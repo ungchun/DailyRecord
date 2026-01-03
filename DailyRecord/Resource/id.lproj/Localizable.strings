@@ -142,3 +142,7 @@
 "fontOngleapKonkon" = "Ongleap Konkon";
 "fontPretendard" = "Pretendard";
 "fontNanumPen" = "Nanum Pen";
+
+// CloudKit Sync
+"cloudkit.data_available" = "Ada data yang dapat dipulihkan";
+"cloudkit.load" = "Pulihkan";

@@ -21,6 +21,8 @@ final class CalendarViewController: BaseViewController {
   private let viewModel: CalendarViewModel
   
   private var cancellables = Set<AnyCancellable>()
+  private var isWaitingForCloudKitSync = false
+  private var cloudKitSyncTimeoutTask: Task<Void, Never>?
   
   // MARK: - Views
   
@@ -59,7 +61,7 @@ final class CalendarViewController: BaseViewController {
     button.tintColor = .azGray900
     return button
   }()
-
+  
   private let soundButton: UIButton = {
     let button = UIButton(type: .system)
     let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .regular, scale: .medium)
@@ -72,7 +74,7 @@ final class CalendarViewController: BaseViewController {
     button.contentHorizontalAlignment = .center
     return button
   }()
-
+  
   private let writeButton: UIButton = {
     let button = UIButton(type: .system)
     let pencilImage = UIImage(named: "pencil")?.resizeImage(
@@ -183,7 +185,7 @@ final class CalendarViewController: BaseViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     navigationController?.isNavigationBarHidden = true
-
+    
     Amp.track(event: "screen_view", properties: ["screen_name": "calendar"])
     
     if let lastModifiedDate = viewModel.lastModifiedRecordDate {
@@ -260,22 +262,22 @@ final class CalendarViewController: BaseViewController {
       make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
       make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
     }
-
+    
     searchButton.snp.makeConstraints { make in
       make.trailing.equalTo(chartButton.snp.leading).offset(-16)
       make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
     }
-
+    
     chartButton.snp.makeConstraints { make in
       make.trailing.equalTo(drawerButton.snp.leading).offset(-16)
       make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
     }
-
+    
     drawerButton.snp.makeConstraints { make in
       make.trailing.equalTo(soundButton.snp.leading).offset(-16)
       make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
     }
-
+    
     soundButton.snp.makeConstraints { make in
       make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-20)
       make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
@@ -323,13 +325,13 @@ final class CalendarViewController: BaseViewController {
       action: #selector(showDrawerTrigger),
       for: .touchUpInside
     )
-
+    
     soundButton.addTarget(
       self,
       action: #selector(soundButtonTapped),
       for: .touchUpInside
     )
-
+    
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(headerTapped))
     headerContainerView.addGestureRecognizer(tapGesture)
     
@@ -337,13 +339,14 @@ final class CalendarViewController: BaseViewController {
       self?.view.backgroundColor = .azGray50
       self?.updateTodayButtonVisibility(for: Date())
     }
-
-    // 사운드 초기 상태 확인 및 재생
+    
     let isSoundEnabled = UserDefaults.standard.bool(forKey: "isSoundEnabled")
     if isSoundEnabled {
       SoundManager.shared.play()
     }
-
+    
+    checkCloudKitSyncStatus()
+    
     if let year = Int(DateFormatter.formattedString(Date(), format: "yyyy")),
        let month = Int(DateFormatter.formattedString(Date(), format: "M")) {
       Task { [weak self] in
@@ -358,7 +361,7 @@ final class CalendarViewController: BaseViewController {
       }
     }
   }
-
+  
   override func updateFontsAfterChange() {
     calendarView.appearance.weekdayFont = UIFont.appFont(size: 14)
     calendarView.appearance.titleFont = UIFont.appFont(size: 12)
@@ -375,6 +378,108 @@ extension CalendarViewController {
         self?.calendarView.reloadData()
       }
       .store(in: &cancellables)
+  }
+  
+  private func checkCloudKitSyncStatus() {
+    let localCount = coreDataManager.getTotalRecordCount()
+    if localCount == 0 {
+      coreDataManager.checkCloudKitRecordExists { [weak self] hasCloudData, _ in
+        if hasCloudData {
+          self?.showCloudKitSyncAlert()
+        }
+      }
+    }
+  }
+  
+  private func showCloudKitSyncAlert() {
+    let alert = UIAlertController(
+      title: nil,
+      message: L10n.Cloudkit.dataAvailable,
+      preferredStyle: .alert
+    )
+    
+    let cancelAction = UIAlertAction(
+      title: L10n.Common.cancel,
+      style: .cancel
+    ) { [weak self] _ in
+      self?.isWaitingForCloudKitSync = false
+    }
+    
+    let syncAction = UIAlertAction(
+      title: L10n.Cloudkit.load,
+      style: .default
+    ) { [weak self] _ in
+      self?.startCloudKitSyncWaiting()
+    }
+    
+    alert.addAction(cancelAction)
+    alert.addAction(syncAction)
+    
+    present(alert, animated: true)
+  }
+  
+  private func startCloudKitSyncWaiting() {
+    let currentCount = coreDataManager.getTotalRecordCount()
+    if currentCount > 0 {
+      refreshCurrentMonthData()
+      return
+    }
+    
+    isWaitingForCloudKitSync = true
+    LoadingIndicator.showLoading()
+    
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(handleCloudKitSync(_:)),
+      name: CoreDataManager.cloudKitDidSyncNotification,
+      object: nil
+    )
+    
+    cloudKitSyncTimeoutTask = Task { [weak self] in
+      try? await Task.sleep(nanoseconds: 10_000_000_000)
+      guard let self = self, self.isWaitingForCloudKitSync else { return }
+      await MainActor.run {
+        self.hideCloudKitSyncLoading()
+      }
+    }
+  }
+  
+  private func refreshCurrentMonthData() {
+    if let year = Int(DateFormatter.formattedString(Date(), format: "yyyy")),
+       let month = Int(DateFormatter.formattedString(Date(), format: "M")) {
+      Task { [weak self] in
+        guard let self else { return }
+        do {
+          try await self.viewModel.fetchMonthRecordTrigger(
+            year: year, month: month
+          ) { }
+        } catch {
+          handleError(self.coordinator!, L10n.Common.error)
+        }
+      }
+    }
+  }
+  
+  @objc private func handleCloudKitSync(_ notification: Notification) {
+    guard isWaitingForCloudKitSync else { return }
+    
+    let count = notification.userInfo?["count"] as? Int ?? 0
+    if count > 0 {
+      hideCloudKitSyncLoading()
+      refreshCurrentMonthData()
+    }
+  }
+  
+  private func hideCloudKitSyncLoading() {
+    isWaitingForCloudKitSync = false
+    cloudKitSyncTimeoutTask?.cancel()
+    cloudKitSyncTimeoutTask = nil
+    LoadingIndicator.hideLoading()
+    NotificationCenter.default.removeObserver(
+      self,
+      name: CoreDataManager.cloudKitDidSyncNotification,
+      object: nil
+    )
   }
   
   @objc private func showSearchTrigger() {
@@ -400,7 +505,6 @@ extension CalendarViewController {
       calendarView.appearance.titleSelectionColor = .azGray900
     }
     
-    // 캘린더를 오늘 날짜로 이동
     let today = Date()
     calendarView.setCurrentPage(today, animated: false)
     
@@ -428,39 +532,34 @@ extension CalendarViewController {
   
   @objc private func todayButtonTapped() {
     Amp.track(event: "button_click", properties: ["button_name": "today"])
-
+    
     let today = Date()
     calendarView.setCurrentPage(today, animated: false)
   }
-
+  
   @objc private func soundButtonTapped() {
-    // 현재 사운드 상태 읽기
     let currentState = UserDefaults.standard.bool(forKey: "isSoundEnabled")
     let newState = !currentState
-
-    // 새로운 상태 저장
+    
     UserDefaults.standard.set(newState, forKey: "isSoundEnabled")
-
-    // 버튼 아이콘 업데이트
+    
     let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .regular, scale: .medium)
     let imageName = newState ? "speaker.wave.2.fill" : "speaker.slash.fill"
     let image = UIImage(systemName: imageName, withConfiguration: config)
     soundButton.setImage(image, for: .normal)
-
-    // 음악 재생/정지
+    
     if newState {
       SoundManager.shared.play()
     } else {
       SoundManager.shared.stop()
     }
-
-    // 분석 이벤트 트래킹
+    
     Amp.track(event: "button_click", properties: [
       "button_name": "sound",
       "sound_enabled": newState
     ])
   }
-
+  
   private func updateTodayButtonVisibility(for currentPage: Date) {
     let today = Date()
     let calendar = Calendar.current

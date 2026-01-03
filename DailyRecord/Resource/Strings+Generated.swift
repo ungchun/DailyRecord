@@ -72,6 +72,12 @@ internal enum L10n {
     /// Today
     internal static let today = L10n.tr("Localizable", "calendar.today", fallback: "Today")
   }
+  internal enum Cloudkit {
+    /// Data available to restore
+    internal static let dataAvailable = L10n.tr("Localizable", "cloudkit.data_available", fallback: "Data available to restore")
+    /// Restore
+    internal static let load = L10n.tr("Localizable", "cloudkit.load", fallback: "Restore")
+  }
   internal enum Common {
     /// Cancel
     internal static let cancel = L10n.tr("Localizable", "common.cancel", fallback: "Cancel")

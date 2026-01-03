@@ -142,3 +142,7 @@
 "fontOngleapKonkon" = "Ongleap Konkon";
 "fontPretendard" = "Pretendard";
 "fontNanumPen" = "Nanum Pen";
+
+// CloudKit Sync
+"cloudkit.data_available" = "有可恢復的資料";
+"cloudkit.load" = "恢復";
